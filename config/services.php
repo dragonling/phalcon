@@ -32,7 +32,7 @@ $di['router'] = function () {
  */
 $di['url'] = function () {
     $url = new UrlResolver();
-    $url->setBaseUri('/wscn/');
+    $url->setBaseUri('/');
 
     return $url;
 };

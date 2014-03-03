@@ -5,3 +5,4 @@ config/_config.cache.php
 vendor/*
 log/*
 .idea*
+*.swp
