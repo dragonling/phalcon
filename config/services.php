@@ -18,13 +18,7 @@ $di = new FactoryDefault();
  * Registering a router
  */
 $di['router'] = function () {
-
-    $router = new Router();
-
-    $router->setDefaultModule("frontend");
-    $router->setDefaultNamespace("Eva\Frontend\Controllers");
-
-    return $router;
+	return include __DIR__ . "/routes.php";
 };
 
 /**
@@ -32,7 +26,7 @@ $di['router'] = function () {
  */
 $di['url'] = function () {
     $url = new UrlResolver();
-    $url->setBaseUri('/eva/');
+    $url->setBaseUri('/');
 
     return $url;
 };

@@ -1,0 +1,8 @@
+nohup.out
+composer.lock
+config/config.local.php
+config/_config.cache.php
+vendor/*
+log/*
+.idea*
+*.swp
