@@ -15,14 +15,15 @@
   +------------------------------------------------------------------------+
 */
 
-$router = new Phalcon\Mvc\Router();
+$router = new Phalcon\Mvc\Router(false);
 
-$router->setDefaultModule("frontend");
+//$router->setDefaultModule("frontend");
 #$router->setDefaultNamespace("Eva\Frontend\Controllers");
 
 $router->add('/user', array(
     'module' => 'user',
-    'controller' => '\Eva\EvaUser\Controllers\User',
+    //'controller' => '\Eva\EvaUser\Controllers\User',
+    'controller' => 'user',
     'action' => 'index'
 ));
 

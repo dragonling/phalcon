@@ -20,7 +20,7 @@ class Module implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces(array(
-            'Eva\EvaUser' => __DIR__ . '/src/',
+            'Eva\EvaUser' => __DIR__ . '/src/EvaUser',
         ));
 
         $loader->register();
@@ -38,6 +38,12 @@ class Module implements ModuleDefinitionInterface
          * Read configuration
          */
         $config = include __DIR__ . "/config/config.php";
+
+		$di['dispatcher'] = function() {
+			$dispatcher = new \Phalcon\Mvc\Dispatcher();
+            $dispatcher->setDefaultNamespace('Eva\EvaUser\Controllers');
+			return $dispatcher;
+		};
 
         /**
          * Setting up the view component

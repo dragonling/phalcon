@@ -4,6 +4,11 @@ use Phalcon\Mvc\Application;
 
 error_reporting(E_ALL);
 
+function p($r)
+{
+    var_dump($r);
+}
+
 try {
 
     /**
