@@ -1,6 +1,6 @@
 <?php
 
-namespace Eva\Frontend;
+namespace Eva\EvaPost;
 
 use Phalcon\Loader;
 use Phalcon\Mvc\View;
@@ -20,8 +20,7 @@ class Module implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces(array(
-            'Eva\Frontend\Controllers' => __DIR__ . '/controllers/',
-            'Eva\Frontend\Models' => __DIR__ . '/models/',
+            'Eva\EvaPost' => __DIR__ . '/src/EvaPost',
         ));
 
         $loader->register();
@@ -42,7 +41,7 @@ class Module implements ModuleDefinitionInterface
 
 		$di['dispatcher'] = function() {
 			$dispatcher = new \Phalcon\Mvc\Dispatcher();
-            $dispatcher->setDefaultNamespace('Eva\Frontend\Controllers');
+            $dispatcher->setDefaultNamespace('Eva\EvaPost\Controllers');
 			return $dispatcher;
 		};
 

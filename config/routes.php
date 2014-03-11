@@ -20,11 +20,22 @@ $router = new Phalcon\Mvc\Router(false);
 //$router->setDefaultModule("frontend");
 #$router->setDefaultNamespace("Eva\Frontend\Controllers");
 
+
 $router->add('/user', array(
-    'module' => 'user',
-    //'controller' => '\Eva\EvaUser\Controllers\User',
+    'module' => 'evauser',
     'controller' => 'user',
     'action' => 'index'
 ));
 
+$router->add('/', array(
+    'module' => 'frontend',
+    'controller' => 'index',
+    'action' => 'index'
+));
+
+$router->add('/post', array(
+    'module' => 'evapost',
+    'controller' => 'user',
+    'action' => 'index'
+));
 return $router;
