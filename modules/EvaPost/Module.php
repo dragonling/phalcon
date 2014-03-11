@@ -58,6 +58,7 @@ class Module implements ModuleDefinitionInterface
         /**
          * Database connection is created based in the parameters defined in the configuration file
          */
+         /*
         $di['db'] = function () use ($config) {
             return new DbAdapter(array(
                 "host" => $config->database->host,
@@ -66,6 +67,8 @@ class Module implements ModuleDefinitionInterface
                 "dbname" => $config->database->name
             ));
         };
+        */
+        //p($di->get('dbSlave'));
 
     }
 

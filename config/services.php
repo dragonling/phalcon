@@ -8,12 +8,16 @@ use Phalcon\Mvc\Router;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
 $di = new FactoryDefault();
 
+$di['config'] = function () {
+    return include __DIR__ . "/config.default.php";
+};
 /**
  * Registering a router
  */
@@ -40,3 +44,38 @@ $di['session'] = function () {
 
     return $session;
 };
+
+
+$di['db'] = function () use ($di) {
+    $config = $di->get('config');
+    return new DbAdapter(array(
+        'host' => $config->dbAdapter->master->host,
+        'username' => $config->dbAdapter->master->username,
+        'password' => $config->dbAdapter->master->password,
+        'dbname' => $config->dbAdapter->master->database,
+    ));
+};
+
+$di->set('dbMaster', function () use ($di) {
+    $config = $di->get('config');
+    return new DbAdapter(array(
+        'host' => $config->dbAdapter->master->host,
+        'username' => $config->dbAdapter->master->username,
+        'password' => $config->dbAdapter->master->password,
+        'dbname' => $config->dbAdapter->master->database,
+    ));
+});
+
+
+$di->set('dbSlave', function () use ($di) {
+    $config = $di->get('config');
+    $slaves = $config->dbAdapter->slave;
+    $slaveKey = array_rand($slaves->toArray());
+    return new DbAdapter(array(
+        'host' => $config->dbAdapter->slave->$slaveKey->host,
+        'username' => $config->dbAdapter->slave->$slaveKey->username,
+        'password' => $config->dbAdapter->slave->$slaveKey->password,
+        'dbname' => $config->dbAdapter->slave->$slaveKey->database,
+    ));
+});
+

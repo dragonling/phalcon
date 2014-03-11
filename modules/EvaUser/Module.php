@@ -51,22 +51,8 @@ class Module implements ModuleDefinitionInterface
         $di['view'] = function () {
             $view = new View();
             $view->setViewsDir(__DIR__ . '/views/');
-
             return $view;
         };
-
-        /**
-         * Database connection is created based in the parameters defined in the configuration file
-         */
-        $di['db'] = function () use ($config) {
-            return new DbAdapter(array(
-                "host" => $config->database->host,
-                "username" => $config->database->username,
-                "password" => $config->database->password,
-                "dbname" => $config->database->name
-            ));
-        };
-
     }
 
 }
