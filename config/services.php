@@ -9,6 +9,7 @@ use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use Phalcon\Config;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -16,7 +17,11 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 $di = new FactoryDefault();
 
 $di['config'] = function () {
-    return include __DIR__ . "/config.default.php";
+    $config = new Config(include __DIR__ . "/config.default.php");
+    if(false === file_exists(__DIR__ . "/config.local.php")) {
+        return $config;
+    }
+    return $config->merge(new Config(include __DIR__ . "/config.local.php"));
 };
 /**
  * Registering a router
