@@ -1,6 +1,6 @@
 <?php
 
-namespace Wscn\Frontend\Controllers;
+namespace Eva\Frontend\Controllers;
 
 use Phalcon\Mvc\Controller;
 

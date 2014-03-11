@@ -22,7 +22,7 @@ $di['router'] = function () {
     $router = new Router();
 
     $router->setDefaultModule("frontend");
-    $router->setDefaultNamespace("Wscn\Frontend\Controllers");
+    $router->setDefaultNamespace("Eva\Frontend\Controllers");
 
     return $router;
 };
@@ -32,7 +32,7 @@ $di['router'] = function () {
  */
 $di['url'] = function () {
     $url = new UrlResolver();
-    $url->setBaseUri('/');
+    $url->setBaseUri('/eva/');
 
     return $url;
 };

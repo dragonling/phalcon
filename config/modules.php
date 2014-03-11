@@ -5,7 +5,7 @@
  */
 $application->registerModules(array(
     'frontend' => array(
-        'className' => 'Wscn\Frontend\Module',
+        'className' => 'Eva\Frontend\Module',
         'path' => __DIR__ . '/../apps/frontend/Module.php'
     )
 ));

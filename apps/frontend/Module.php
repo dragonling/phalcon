@@ -1,6 +1,6 @@
 <?php
 
-namespace Wscn\Frontend;
+namespace Eva\Frontend;
 
 use Phalcon\Loader;
 use Phalcon\Mvc\View;
@@ -20,8 +20,8 @@ class Module implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces(array(
-            'Wscn\Frontend\Controllers' => __DIR__ . '/controllers/',
-            'Wscn\Frontend\Models' => __DIR__ . '/models/',
+            'Eva\Frontend\Controllers' => __DIR__ . '/controllers/',
+            'Eva\Frontend\Models' => __DIR__ . '/models/',
         ));
 
         $loader->register();
@@ -58,7 +58,7 @@ class Module implements ModuleDefinitionInterface
                 "host" => $config->database->host,
                 "username" => $config->database->username,
                 "password" => $config->database->password,
-                "dbname" => $config->database->dbname
+                "dbname" => $config->database->name
             ));
         };
 
