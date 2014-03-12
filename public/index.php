@@ -4,9 +4,20 @@ use Phalcon\Mvc\Application;
 
 error_reporting(E_ALL);
 
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    $loader = include __DIR__ . '/../vendor/autoload.php';
+} else {
+    throw new RuntimeException('Unable to find loader. Run `php composer.phar install` first.');
+}
+
 function p($r)
 {
-    var_dump($r);
+    if(class_exists('\Phalcon\Debug\Dump')) {
+        xdebug_var_dump($r);
+        //(new \Phalcon\Debug\Dump())->dump($r, true);
+    } else {
+        var_dump($r);
+    }
 }
 
 try {

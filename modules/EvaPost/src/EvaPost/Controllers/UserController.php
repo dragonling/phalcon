@@ -14,6 +14,9 @@ class UserController extends ControllerBase
      */
     public function indexAction()
     {
+        $module = new \Eva\EvaPost\Module();
+        p($module);
+        $user = new \Eva\EvaUser\Entities\Users();
         p('post');
     }
 

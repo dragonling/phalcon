@@ -1,6 +1,6 @@
 <?php
 
-namespace Eva\User\Entities;
+namespace Eva\EvaUser\Entities;
 
 
 use Phalcon\Mvc\Model\Validator\Email as Email;

@@ -1,19 +1,19 @@
 <?php
 
-namespace Eva\EvaPost;
+namespace Eva\EvaCore;
 
 use Phalcon\Loader;
 use Phalcon\Mvc\View;
-use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 
 
 class Module implements ModuleDefinitionInterface
 {
+
     public static function registerGlobalAutoloaders()
     {
         return array(
-            'Eva\EvaPost' => __DIR__ . '/src/EvaPost',
+            'Eva\EvaCore' => __DIR__ . '/src/EvaCore',
         );
     }
 
@@ -25,7 +25,7 @@ class Module implements ModuleDefinitionInterface
         /*
         $loader = new Loader();
         $loader->registerNamespaces(array(
-            'Eva\EvaPost' => __DIR__ . '/src/EvaPost',
+            'Eva\EvaCore' => __DIR__ . '/src/EvaCore',
         ));
         $loader->register();
         */
@@ -46,18 +46,18 @@ class Module implements ModuleDefinitionInterface
 
 		$di['dispatcher'] = function() {
 			$dispatcher = new \Phalcon\Mvc\Dispatcher();
-            $dispatcher->setDefaultNamespace('Eva\EvaPost\Controllers');
+            $dispatcher->setDefaultNamespace('Eva\EvaCore\Controllers');
 			return $dispatcher;
 		};
 
         /**
          * Setting up the view component
          */
-        $di['view'] = function () use ($di) {
+        $di['view'] = function () {
             $view = new View();
             $view->setViewsDir(__DIR__ . '/views/');
+            $view->setLayoutsDir(__DIR__ . '/layouts/');
             return $view;
         };
     }
-
 }
