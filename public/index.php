@@ -20,6 +20,71 @@ function p($r)
     }
 }
 
+class EvaEngine
+{
+
+    protected $appRoot;
+
+    protected $moduleRoot;
+
+    protected $di;
+
+    protected $application;
+
+    public function initErrorHandler()
+    {
+    
+    }
+
+    public function initDi()
+    {
+    
+    }
+
+    //Modult could return module root path
+    public function initModule()
+    {
+    }
+
+    public function initService()
+    {
+    
+    }
+
+    public function initConfig()
+    {
+    
+    }
+
+    public function initRouter()
+    {
+    
+    }
+
+
+    public function initCache()
+    {
+    }
+
+
+    public function bootstrap()
+    {
+        $this->initService();
+        $this->initDi();
+
+        //Error Handler must run before router start
+        $this->initErrorHandler();
+        $this->initRouter();
+
+    }
+
+    public function __construct($appRoot, $moduleRoot = null)
+    {
+        
+    }
+
+}
+
 try {
 
     /**
@@ -45,7 +110,9 @@ try {
     echo $application->handle()->getContent();
 
 } catch (Phalcon\Exception $e) {
-    echo $e->getMessage();
+    echo "<pre>$e</pre>";
+    //echo $e->getMessage();
 } catch (PDOException $e) {
-    echo $e->getMessage();
+    var_dump($e);
+    //echo $e->getMessage();
 }

@@ -6,6 +6,12 @@ $router = new Phalcon\Mvc\Router(false);
 #$router->setDefaultNamespace("Eva\Frontend\Controllers");
 
 
+$router->add('/admin/user', array(
+    'module' => 'evauser',
+    'controller' => 'Admin\User',
+    'action' => 'index'
+));
+
 $router->add('/user', array(
     'module' => 'evauser',
     'controller' => 'user',

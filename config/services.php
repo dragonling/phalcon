@@ -10,6 +10,8 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Config;
+use Phalcon\Mvc\View;
+
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -40,14 +42,18 @@ $di['url'] = function () {
     return $url;
 };
 
-/**
- * Start the session the first time some component request the session service
- */
 $di['session'] = function () {
     $session = new SessionAdapter();
     $session->start();
 
     return $session;
+};
+
+//default view
+$di['view'] = function () {
+    $view = new View();
+    $view->setViewsDir(__DIR__ . '/views/');
+    return $view;
 };
 
 

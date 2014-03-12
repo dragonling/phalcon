@@ -10,6 +10,8 @@ use Phalcon\Mvc\ModuleDefinitionInterface;
 class Module implements ModuleDefinitionInterface
 {
 
+    public static $moduleName = 'EvaCore';
+
     public static function registerGlobalAutoloaders()
     {
         return array(
