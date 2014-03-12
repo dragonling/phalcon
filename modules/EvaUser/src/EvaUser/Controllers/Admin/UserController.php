@@ -23,7 +23,7 @@ class UserController extends ControllerBase
         $this->view->setVars(array(
             'title' => 'abc'
         ));
-        $this->view->render('user', 'index');
+        $this->view->pick('user/index');
     }
 
 }
