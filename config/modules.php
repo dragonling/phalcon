@@ -4,19 +4,23 @@
  * Register application modules
  */
 $application->registerModules(array(
-    'frontend' => array(
+    'Frontend' => array(
         'className' => 'Eva\Frontend\Module',
         'path' => __DIR__ . '/../apps/frontend/Module.php'
     ),
-    'evacore' => array(
+    'EvaCore' => array(
         'className' => 'Eva\EvaCore\Module',
         'path' => __DIR__ . '/../modules/EvaCore/Module.php'
     ),
-    'evauser' => array(
+    'EvaUser' => array(
         'className' => 'Eva\EvaUser\Module',
         'path' => __DIR__ . '/../modules/EvaUser/Module.php'
     ),
-    'evapost' => array(
+    'EvaOAuthClient' => array(
+        'className' => 'Eva\EvaOAuthClient\Module',
+        'path' => __DIR__ . '/../modules/EvaOAuthClient/Module.php'
+    ),
+    'EvaPost' => array(
         'className' => 'Eva\EvaPost\Module',
         'path' => __DIR__ . '/../modules/EvaPost/Module.php'
     ),

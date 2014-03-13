@@ -23,7 +23,8 @@ $di['config'] = function () {
     if(false === file_exists(__DIR__ . "/config.local.php")) {
         return $config;
     }
-    return $config->merge(new Config(include __DIR__ . "/config.local.php"));
+    $config->merge(new Config(include __DIR__ . "/config.local.php"));
+    return $config;
 };
 /**
  * Registering a router
@@ -35,10 +36,10 @@ $di['router'] = function () {
 /**
  * The URL component is used to generate all kind of urls in the application
  */
-$di['url'] = function () {
+$di['url'] = function () use ($di) {
+    $config = $di->get('config');
     $url = new UrlResolver();
-    $url->setBaseUri('/');
-
+    $url->setBaseUri($config->baseUri);
     return $url;
 };
 
