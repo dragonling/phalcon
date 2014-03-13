@@ -1,10 +1,15 @@
 <?php
 
-$router = new Phalcon\Mvc\Router(false);
+$router = new Phalcon\Mvc\Router();
 
 //$router->setDefaultModule("frontend");
 #$router->setDefaultNamespace("Eva\Frontend\Controllers");
 
+$router->add('/admin(/)*', array(
+    'module' => 'evacore',
+    'controller' => 'Admin\Index',
+    'action' => 'index'
+));
 
 $router->add('/admin/user', array(
     'module' => 'evauser',
