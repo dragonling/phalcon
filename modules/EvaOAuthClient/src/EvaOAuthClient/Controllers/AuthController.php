@@ -53,11 +53,15 @@ class AuthController extends ControllerBase
         ));
         $oauth->initAdapter(ucfirst($service), $oauthStr);
         $requestToken = $oauth->getStorage()->getRequestToken();
+        if(!$requestToken) {
+            return $this->response->redirect($url->get("/auth/request/$service/$oauthStr"), true);
+        }
+        unset($_GET['_url']);
         $accessToken = $oauth->getAdapter()->getAccessToken($_GET, $requestToken);
         $accessTokenArray = $oauth->getAdapter()->accessTokenToArray($accessToken);
-        $oauth->getStorage()->saveAccessToken($accessTokenArray);
-        $oauth->getStorage()->clearRequestToken();
         p($accessTokenArray);
+        //$oauth->getStorage()->saveAccessToken($accessTokenArray);
+        //$oauth->getStorage()->clearRequestToken();
     }
 
 }
