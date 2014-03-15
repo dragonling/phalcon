@@ -27,6 +27,8 @@ class AuthController extends ControllerBase
             'consumerSecret' => $config->oauth->$oauthStr->$service->consumer_secret,
         ));
         $oauth->initAdapter(ucfirst($service), $oauthStr);
+        $oauth->getStorage()->clearRequestToken();
+
 
         $requestToken = $oauth->getAdapter()->getRequestToken();
         $oauth->getStorage()->saveRequestToken($requestToken);
@@ -56,12 +58,11 @@ class AuthController extends ControllerBase
         if(!$requestToken) {
             return $this->response->redirect($url->get("/auth/request/$service/$oauthStr"), true);
         }
-        unset($_GET['_url']);
         $accessToken = $oauth->getAdapter()->getAccessToken($_GET, $requestToken);
         $accessTokenArray = $oauth->getAdapter()->accessTokenToArray($accessToken);
         p($accessTokenArray);
-        //$oauth->getStorage()->saveAccessToken($accessTokenArray);
-        //$oauth->getStorage()->clearRequestToken();
+        $oauth->getStorage()->saveAccessToken($accessTokenArray);
+        $oauth->getStorage()->clearRequestToken();
     }
 
 }

@@ -2,7 +2,7 @@
 
 $router = new Phalcon\Mvc\Router();
 
-//$router->setDefaultModule("frontend");
+//$router->setDefaultModule("Frontend");
 #$router->setDefaultNamespace("Eva\Frontend\Controllers");
 
 $router->add('/admin(/)*', array(
@@ -47,5 +47,18 @@ $router->add('/auth/:action/(\w+)/(oauth1|oauth2)*', array(
     'action' => 1,
     'service' => 2,
     'auth' => 3,
+));
+
+
+$router->add('/oauth/authorize', array(
+    'module' => 'EvaOAuthServer',
+    'controller' => 'auth',
+    'action' => 'authorize',
+));
+
+$router->add('/oauth/token', array(
+    'module' => 'EvaOAuthServer',
+    'controller' => 'auth',
+    'action' => 'token',
 ));
 return $router;

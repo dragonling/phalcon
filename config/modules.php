@@ -20,6 +20,10 @@ $application->registerModules(array(
         'className' => 'Eva\EvaOAuthClient\Module',
         'path' => __DIR__ . '/../modules/EvaOAuthClient/Module.php'
     ),
+    'EvaOAuthServer' => array(
+        'className' => 'Eva\EvaOAuthServer\Module',
+        'path' => __DIR__ . '/../modules/EvaOAuthServer/Module.php'
+    ),
     'EvaPost' => array(
         'className' => 'Eva\EvaPost\Module',
         'path' => __DIR__ . '/../modules/EvaPost/Module.php'

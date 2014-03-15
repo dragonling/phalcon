@@ -12,11 +12,15 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
 
 function p($r)
 {
-    if(class_exists('\Phalcon\Debug\Dump')) {
+    if(function_exists('xdebug_var_dump')) {
+        echo '<pre>';
         xdebug_var_dump($r);
+        echo '</pre>';
         //(new \Phalcon\Debug\Dump())->dump($r, true);
     } else {
+        echo '<pre>';
         var_dump($r);
+        echo '</pre>';
     }
 }
 
@@ -109,10 +113,12 @@ try {
 
     echo $application->handle()->getContent();
 
-} catch (Phalcon\Exception $e) {
+} catch (Exception $e) {
     echo "<pre>$e</pre>";
     //echo $e->getMessage();
 } catch (PDOException $e) {
+    echo '<pre>';
     var_dump($e);
+    echo '</pre>';
     //echo $e->getMessage();
 }
