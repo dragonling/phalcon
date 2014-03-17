@@ -35,6 +35,15 @@ $router->add('/post', array(
     'action' => 'index'
 ));
 
+
+$router->add('/user/verify/(\d+)/(\w+)', array(
+    'module' => 'EvaUser',
+    'controller' => 'user',
+    'action' => 'verify',
+    'userId' => 1,
+    'code' => 2,
+));
+
 $router->add('/user/:action', array(
     'module' => 'EvaUser',
     'controller' => 'user',

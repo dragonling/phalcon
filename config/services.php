@@ -57,6 +57,19 @@ $di['view'] = function () {
     return $view;
 };
 
+$di['mailer'] = function () use ($di) {
+    $config = $di->get('config');
+    $transport = \Swift_SmtpTransport::newInstance()
+    ->setHost($config->mailer->host)
+    ->setPort($config->mailer->port)
+    ->setEncryption($config->mailer->encryption)
+    ->setUsername($config->mailer->username)
+    ->setPassword($config->mailer->password)
+    ;
+
+    $mailer = \Swift_Mailer::newInstance($transport);
+    return $mailer;
+};
 
 $di['db'] = function () use ($di) {
     $config = $di->get('config');

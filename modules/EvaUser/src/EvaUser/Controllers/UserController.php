@@ -18,7 +18,6 @@ class UserController extends ControllerBase
         if ($this->request->isPost()) {
 
             if ($form->isValid($this->request->getPost()) != false) {
-
                 $user = new Models\Users();
                 $user->assign(array(
                     'username' => $this->request->getPost('username'),
@@ -26,32 +25,35 @@ class UserController extends ControllerBase
                     'password' => $this->request->getPost('password'),
                 ));
                 if ($user->register()) {
-                    return $this->dispatcher->forward(array(
-                        'controller' => 'index',
-                        'action' => 'index'
-                    ));
+                    $this->flash->success('Register Success');
+                    return $this->response->redirect('/user/login');
                 } else {
-                    p($user->getMessages());
+                    $this->flash->error($user->getMessages());
+                    return $this->response->redirect('/user/login');
                 }
-
-                //$this->flash->error($user->getMessages());
-
-                /*
-                if ($user->save()) {
-                    return $this->dispatcher->forward(array(
-                        'controller' => 'index',
-                        'action' => 'index'
-                    ));
-                }
-
-                $this->flash->error($user->getMessages());
-                */
             }
         }
 
         p($form->getMessages());
         $this->view->form = $form;
+    }
 
+    public function loginAction()
+    {
+    
+    }
+
+    public function verifyAction()
+    {
+        $code = $this->dispatcher->getParam('code');
+        $userId = $this->dispatcher->getParam('userId');
+        $user = new Models\Users();
+        if($user->verifyNewUser($userId, $code)) {
+            $this->flash->success('Verify Success');
+        } else {
+            $this->flash->error('Verify Failed');
+        }
+        return $this->response->redirect('/user/login');
     }
 
     /**

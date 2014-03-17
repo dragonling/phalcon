@@ -11,6 +11,8 @@ class Users extends Entities\Users
     const FEEDBACK_USERNAME_ALREADY_TAKEN   = 'FEEDBACK_USERNAME_ALREADY_TAKEN';
     const FEEDBACK_USER_EMAIL_ALREADY_TAKEN = 'FEEDBACK_USER_EMAIL_ALREADY_TAKEN';
     const FEEDBACK_ACCOUNT_CREATION_FAILED  = 'FEEDBACK_ACCOUNT_CREATION_FAILED';
+    const FEEDBACK_VERIFICATION_MAIL_SENDING_FAILED = 'FEEDBACK_VERIFICATION_MAIL_SENDING_FAILED';
+    const FEEDBACK_ACCOUNT_ACTIVATION_FAILED = 'FEEDBACK_ACCOUNT_ACTIVATION_FAILED';
 
     public function register()
     {
@@ -43,31 +45,62 @@ class Users extends Entities\Users
         }
 
         $userinfo = self::findFirst("username = '$this->username'");
+        if(!$userinfo) {
+            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_CREATION_FAILED));
+            return false;
+        }
+
+        $this->sendVerificationEmail($userinfo->id);
 
         return true;
-        exit;
+    }
 
-        // get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-        $query = $this->db->prepare("SELECT user_id FROM users WHERE user_name = :user_name");
-        $query->execute(array(':user_name' => $user_name));
-        if ($query->rowCount() != 1) {
-            $_SESSION["feedback_negative"][] = FEEDBACK_UNKNOWN_ERROR;
-            return false;
-        }
-        $result_user_row = $query->fetch();
-        $user_id = $result_user_row->user_id;
 
-        // send verification email, if verification email sending failed: instantly delete the user
-        if ($this->sendVerificationEmail($user_id, $user_email, $user_activation_hash)) {
-            $_SESSION["feedback_positive"][] = FEEDBACK_ACCOUNT_SUCCESSFULLY_CREATED;
-            return true;
-        } else {
-            $query = $this->db->prepare("DELETE FROM users WHERE user_id = :last_inserted_id");
-            $query->execute(array(':last_inserted_id' => $user_id));
-            $_SESSION["feedback_negative"][] = FEEDBACK_VERIFICATION_MAIL_SENDING_FAILED;
+    public function sendVerificationEmail($userId)
+    {
+        $userinfo = self::findFirst("id = $userId");
+        if(!$userinfo) {
+            $this->appendMessage(new Message(self::FEEDBACK_VERIFICATION_MAIL_SENDING_FAILED));
             return false;
         }
 
+        $mailer = $this->getDi()->get('mailer');
+        $message = \Swift_Message::newInstance()
+        ->setSubject('Active Your Account')
+        ->setFrom(array('noreply@wallstreetcn.com' => 'WallsteetCN'))
+        ->setTo(array($userinfo->email => $userinfo->username))
+        ->setBody('http://www.goldtoutiao.com/user/verify/' . $userinfo->id . '/' . $userinfo->activationHash)
+        ;
+
+        return $mailer->send($message);
+    }
+
+
+    /**
+    * checks the email/verification code combination and set the user's activation status to active in the database
+    * @param int $user_id user id
+    * @param string $user_activation_verification_code verification token
+    * @return bool success status
+    */
+    public function verifyNewUser($userId, $activationCode)
+    {
+        $userinfo = self::findFirst("id = $userId");
+        if(!$userinfo) {
+            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_ACTIVATION_FAILED));
+            return false;
+        }
+
+        if($userinfo->activationHash != $activationCode) {
+            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_ACTIVATION_FAILED));
+            return false;
+        }
+
+        $userinfo->status = 'active';
+        if ($userinfo->save() == false) {
+            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_CREATION_FAILED));
+            return false;
+        }
+        return true;
     }
 
 }

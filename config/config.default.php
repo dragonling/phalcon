@@ -22,11 +22,18 @@ return array(
     ),
 
 
+    'mailer' => array(
+        'transport' => 'smtp', //or default
+        'host' => 'smtp.gmail.com',
+        'port' => 465,
+        'encryption' => 'ssl',
+        'username' => 'username',
+        'password' => 'password',
+        'defaultFrom' => 'noreply@wallstreetcn.com',
+        'defaultTo' => 'WallstreetCN',
+    ),
 
     'oauth' => array(
-        'request_url_path' => '/oauth/',
-        'access_url_path' => '/oauth/access/',
-        'login_url_path' => '/',
         'oauth1' => array(
             'twitter' => array(
                 'enable' => 0,
