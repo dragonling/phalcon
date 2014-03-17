@@ -11,12 +11,12 @@
     ],
     "require": {
         "php": ">=5.3.2",
+	"ircmaxell/password-compat": "dev-master",
         "phalcon/incubator" : "dev-master",
 	"allovince/evaoauth": "dev-master",
 	"league/oauth2-server" : "dev-master",
 	"swiftmailer/swiftmailer" : "dev-master",
-	"erusev/parsedown" : "dev-master",
-	"opauth/sinaweibo": "dev-master"
+	"erusev/parsedown" : "dev-master"
     },
     "require-dev" : {
     }

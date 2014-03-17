@@ -2,7 +2,6 @@
 
 namespace Eva\EvaUser\Entities;
 
-
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
 class Users extends \Phalcon\Mvc\Model
@@ -42,19 +41,13 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $flag;
+    public $accountType;
      
     /**
      *
      * @var string
      */
     public $screenName;
-     
-    /**
-     *
-     * @var string
-     */
-    public $salt;
      
     /**
      *
@@ -84,12 +77,6 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $lastUpdateTime;
-     
-    /**
-     *
-     * @var string
-     */
     public $gender;
      
     /**
@@ -114,7 +101,19 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $registerTime;
+    public $language;
+     
+    /**
+     *
+     * @var string
+     */
+    public $remembermeToken;
+     
+    /**
+     *
+     * @var string
+     */
+    public $creationTime;
      
     /**
      *
@@ -126,49 +125,37 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $language;
-     
-    /**
-     *
-     * @var integer
-     */
-    public $setting;
-     
-    /**
-     *
-     * @var integer
-     */
-    public $inviteUserId;
+    public $failedLogins;
      
     /**
      *
      * @var string
      */
-    public $onlineStatus;
+    public $lastFailedLogin;
      
     /**
      *
      * @var string
      */
-    public $lastFreshTime;
-     
-    /**
-     *
-     * @var integer
-     */
-    public $viewCount;
+    public $activationHash;
      
     /**
      *
      * @var string
      */
-    public $registerIp;
+    public $passwordResetHash;
      
     /**
      *
      * @var string
      */
-    public $lastLoginIp;
+    public $passwordResetTime;
+
+    /**
+     *
+     * @var string
+     */
+    public $providerType;
      
     /**
      * Validations and business logic
@@ -189,45 +176,8 @@ class Users extends \Phalcon\Mvc\Model
         }
     }
 
-    public function getSource()
-    {
+    public function getSource() {
         return 'eva_user_users';
-    }
-
-    /**
-     * Independent Column Mapping.
-     */
-    public function columnMap()
-    {
-        return array(
-            'id' => 'id', 
-            'username' => 'username', 
-            'email' => 'email', 
-            'mobile' => 'mobile', 
-            'status' => 'status', 
-            'flag' => 'flag', 
-            'screenName' => 'screenName', 
-            'salt' => 'salt', 
-            'firstName' => 'firstName', 
-            'lastName' => 'lastName', 
-            'password' => 'password', 
-            'oldPassword' => 'oldPassword', 
-            'lastUpdateTime' => 'lastUpdateTime', 
-            'gender' => 'gender', 
-            'avatar_id' => 'avatar_id', 
-            'avatar' => 'avatar', 
-            'timezone' => 'timezone', 
-            'registerTime' => 'registerTime', 
-            'lastLoginTime' => 'lastLoginTime', 
-            'language' => 'language', 
-            'setting' => 'setting', 
-            'inviteUserId' => 'inviteUserId', 
-            'onlineStatus' => 'onlineStatus', 
-            'lastFreshTime' => 'lastFreshTime', 
-            'viewCount' => 'viewCount', 
-            'registerIp' => 'registerIp', 
-            'lastLoginIp' => 'lastLoginIp'
-        );
     }
 
 }

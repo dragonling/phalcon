@@ -105,8 +105,14 @@
                                                 </a>
 
                                                 <a class="btn btn-success" href="/auth/request/douban/oauth2">
-													<i class="icon-douban"></i>
+                                                    豆瓣
                                                 </a>
+
+                                               <a class="btn btn-primary" href="/auth/request/renren/oauth2">
+													<i class="icon-renren"></i>
+												</a>
+                                            </div>
+											<div class="social-login center">
 
                                                 <a class="btn btn-info" href="/auth/request/twitter/oauth1">
 													<i class="icon-twitter"></i>
@@ -120,6 +126,9 @@
 													<i class="icon-facebook"></i>
 												</a>
 
+                                                <a class="btn btn-primary" href="/auth/request/msn/oauth2">
+													<i class="icon-windows"></i>
+												</a>
 
 											</div>
 										</div><!-- /widget-main -->
@@ -194,38 +203,38 @@
 											<div class="space-6"></div>
 											<p> Enter your details to begin: </p>
 
-											<form>
+                                            <form action="/user/register" method="POST">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="email" name="email" class="form-control" placeholder="Email" />
 															<i class="icon-envelope"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input type="text" name="username" class="form-control" placeholder="Username" />
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input type="password" name="password" class="form-control" placeholder="Password" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Repeat password" />
+                                                            <input type="password" name="passwordConfirm" class="form-control" placeholder="Repeat password" />
 															<i class="icon-retweet"></i>
 														</span>
 													</label>
 
 													<label class="block">
-														<input type="checkbox" class="ace" />
+                                                        <input type="checkbox" class="ace" name="agree" checked="checked" value="yes" />
 														<span class="lbl">
 															I accept the
 															<a href="#">User Agreement</a>
@@ -240,7 +249,7 @@
 															Reset
 														</button>
 
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+														<button type="submit" class="width-65 pull-right btn btn-sm btn-success">
 															Register
 															<i class="icon-arrow-right icon-on-right"></i>
 														</button>

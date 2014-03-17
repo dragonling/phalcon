@@ -35,11 +35,12 @@ $router->add('/post', array(
     'action' => 'index'
 ));
 
-$router->add('/post', array(
-    'module' => 'EvaPost',
+$router->add('/user/:action', array(
+    'module' => 'EvaUser',
     'controller' => 'user',
-    'action' => 'index'
+    'action' => 1,
 ));
+
 
 $router->add('/auth/:action/(\w+)/(oauth1|oauth2)*', array(
     'module' => 'EvaOAuthClient',

@@ -28,7 +28,7 @@ class AuthController extends ControllerBase
         );
 
         // Enable the authorization code grant type
-        $this->authserver->addGrantType(new League\OAuth2\Server\Grant\AuthCode());
+        $this->authserver->addGrantType(new OAuthServer\Grant\AuthCode());
 
     }
 
