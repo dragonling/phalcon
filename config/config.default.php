@@ -2,6 +2,14 @@
 
 return array(
     'baseUri' => '/',
+
+    'user' => array(
+        'loginUri' => '/',
+        'loginRedirectUri' => '/',
+        'cookieTokenExpired' => 500000,
+    
+    ),
+
     'dbAdapter' => array(
         'master' => array(
             'driver' => 'Pdo_Mysql',

@@ -18,7 +18,7 @@ class UserController extends ControllerBase
         if ($this->request->isPost()) {
 
             if ($form->isValid($this->request->getPost()) != false) {
-                $user = new Models\Users();
+                $user = new Models\Login();
                 $user->assign(array(
                     'username' => $this->request->getPost('username'),
                     'email' => $this->request->getPost('email'),
@@ -41,7 +41,7 @@ class UserController extends ControllerBase
     public function loginAction()
     {
         if ($this->request->isPost()) {
-            $user = new Models\Users();
+            $user = new Models\Login();
             $user->assign(array(
                 'username' => $this->request->getPost('username'),
                 'password' => $this->request->getPost('password'),
@@ -51,21 +51,28 @@ class UserController extends ControllerBase
                     $token = $user->getRememberMeToken();
                     if($token) {
                         $this->cookies->set('realm', $token, time() + $user->getTokenExpired());
+                    } else {
+                        p($user->getMessages());
                     }
                 }
+                return $this->response->redirect('/user/test');
             } else {
                 p($user->getMessages());
                 $this->flash->error($user->getMessages());
             }
         }
+    }
 
+    public function logoutAction()
+    {
+    
     }
 
     public function verifyAction()
     {
         $code = $this->dispatcher->getParam('code');
         $userId = $this->dispatcher->getParam('userId');
-        $user = new Models\Users();
+        $user = new Models\Login();
         if($user->verifyNewUser($userId, $code)) {
             $this->flash->success('Verify Success');
         } else {
@@ -80,6 +87,20 @@ class UserController extends ControllerBase
     public function indexAction()
     {
         p('user');
+    }
+
+    public function testAction()
+    {
+        $user = new Models\Login();
+        $authIdentity = $user->getAuthIdentity();
+        p($authIdentity);
+        if(!$authIdentity && ($tokenString = $this->cookies->get('realm')->getValue())) {
+            if($user->loginWithCookie($tokenString)) {
+            } else {
+                p($user->getMessages());
+                //$this->cookies->delete('realm');
+            }
+        }
     }
 
 }

@@ -31,15 +31,15 @@ class Tokens extends \Phalcon\Mvc\Model
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $refreshTime;
+    public $refreshTimestamp;
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $expiredTime;
+    public $expiredTimestamp;
      
     /**
      * Independent Column Mapping.
@@ -51,8 +51,8 @@ class Tokens extends \Phalcon\Mvc\Model
             'token' => 'token', 
             'userHash' => 'userHash', 
             'user_id' => 'user_id', 
-            'refreshTime' => 'refreshTime', 
-            'expiredTime' => 'expiredTime'
+            'refreshTimestamp' => 'refreshTimestamp', 
+            'expiredTimestamp' => 'expiredTimestamp'
         );
     }
 
