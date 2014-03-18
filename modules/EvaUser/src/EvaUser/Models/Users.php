@@ -14,6 +14,18 @@ class Users extends Entities\Users
     const FEEDBACK_VERIFICATION_MAIL_SENDING_FAILED = 'FEEDBACK_VERIFICATION_MAIL_SENDING_FAILED';
     const FEEDBACK_ACCOUNT_ACTIVATION_FAILED = 'FEEDBACK_ACCOUNT_ACTIVATION_FAILED';
 
+    const FEEDBACK_LOGIN_FAILED = 'FEEDBACK_LOGIN_FAILED';
+    const FEEDBACK_ACCOUNT_NOT_FOUND = 'FEEDBACK_ACCOUNT_NOT_FOUND';
+    const FEEDBACK_PASSWORD_WRONG = 'FEEDBACK_PASSWORD_WRONG';
+    const FEEDBACK_PASSWORD_WRONG_MAX_TIMES = 'FEEDBACK_PASSWORD_WRONG_MAX_TIMES';
+    const FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET = 'FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET';
+
+    protected $maxLoginRetry = 3;
+
+    private $tokenSalt = 'EvaUser_Login_TokenSalt';
+
+    protected $tokenExpired = 5184000; //60 days
+
     public function register()
     {
         $userinfo = self::findFirst("username = '$this->username'");
@@ -37,7 +49,8 @@ class Users extends Entities\Users
         // generate random hash for email verification (40 char string)
         $this->activationHash = sha1(uniqid(mt_rand(), true));
         // generate integer-timestamp for saving of account-creating date
-        $this->creationTime = gmdate('Y-m-d H:i:s');
+        //$this->creationTimestamp = gmdate('Y-m-d H:i:s');
+        $this->creationTimestamp = time();
         $this->providerType = 'DEFAULT';
         if ($this->save() == false) {
             $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_CREATION_FAILED));
@@ -100,6 +113,73 @@ class Users extends Entities\Users
             $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_CREATION_FAILED));
             return false;
         }
+        return true;
+    }
+
+    public function getTokenExpired()
+    {
+        return $this->tokenExpired;
+    }
+
+    public function getRememberMeToken()
+    {
+        if(!$this->username) {
+            return false;
+        }
+        $sessionId = $this->getDi()->get('session')->getId();
+        if(!$sessionId) {
+            return false;
+        }
+        $userinfo = self::findFirst("username = '$this->username'");
+        if(!$userinfo) {
+            return false;
+        }
+        $token = new Entities\Tokens();
+        $token->sessionId = $sessionId;
+        $token->token = md5(uniqid(rand(), true));
+        $token->hash = md5($this->tokenSalt . $this->password);
+        $token->user_id = $this->id;
+        $token->refreshTimestamp = time();
+        $token->expiredTimestamp = time() + $this->tokenExpired;
+        $token->save();
+        $tokenString = $sessionId . '|' . $token->token . '|' . $token->hash;
+        //$cookies = $this->getDi()->get('cookies');
+        //$cookies->set('realm', $tokenString, $token->expiredTimestamp);
+        return $tokenString;
+    }
+
+
+
+    public function login()
+    {
+        $userinfo = self::findFirst("username = '$this->username'");
+        if(!$userinfo) {
+            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_NOT_FOUND));
+            return false;
+        }
+
+        if($userinfo->failedLogins >= $this->maxLoginRetry && $userinfo->lastLoginTimestamp > (time() - 30)) {
+            $this->appendMessage(new Message(self::FEEDBACK_PASSWORD_WRONG_MAX_TIMES));
+            return false;
+        }
+
+        // check if hash of provided password matches the hash in the database
+        if(!password_verify($this->password, $userinfo->password)) {
+            $this->appendMessage(new Message(self::FEEDBACK_PASSWORD_WRONG));
+            $userinfo->failedLogins++;
+            $userinfo->lastFailedLoginTimestamp = time();
+            $userinfo->save();
+            return false;
+        }
+
+        if($userinfo->status != 'active') {
+            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET));
+            return false;
+        }
+
+        $userinfo->failedLogins = 0;
+        $userinfo->lastLoginTimestamp = time();
+        $userinfo->save();
         return true;
     }
 

@@ -111,15 +111,15 @@ class Users extends \Phalcon\Mvc\Model
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $creationTime;
+    public $creationTimestamp;
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $lastLoginTime;
+    public $lastLoginTimestamp;
      
     /**
      *
@@ -129,9 +129,9 @@ class Users extends \Phalcon\Mvc\Model
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $lastFailedLogin;
+    public $lastFailedLoginTimestamp;
      
     /**
      *
@@ -147,19 +147,16 @@ class Users extends \Phalcon\Mvc\Model
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $passwordResetTime;
-
+    public $passwordResetTimestamp;
+     
     /**
      *
      * @var string
      */
     public $providerType;
-     
-    /**
-     * Validations and business logic
-     */
+
     public function validation()
     {
 
@@ -176,6 +173,41 @@ class Users extends \Phalcon\Mvc\Model
         }
     }
 
+    /**
+     * Independent Column Mapping.
+     */
+    public function columnMap()
+    {
+        return array(
+            'id' => 'id', 
+            'username' => 'username', 
+            'email' => 'email', 
+            'mobile' => 'mobile', 
+            'status' => 'status', 
+            'accountType' => 'accountType', 
+            'screenName' => 'screenName', 
+            'firstName' => 'firstName', 
+            'lastName' => 'lastName', 
+            'password' => 'password', 
+            'oldPassword' => 'oldPassword', 
+            'gender' => 'gender', 
+            'avatar_id' => 'avatar_id', 
+            'avatar' => 'avatar', 
+            'timezone' => 'timezone', 
+            'language' => 'language', 
+            'remembermeToken' => 'remembermeToken', 
+            'creationTimestamp' => 'creationTimestamp', 
+            'lastLoginTimestamp' => 'lastLoginTimestamp', 
+            'failedLogins' => 'failedLogins', 
+            'lastFailedLoginTimestamp' => 'lastFailedLoginTimestamp', 
+            'activationHash' => 'activationHash', 
+            'passwordResetHash' => 'passwordResetHash', 
+            'passwordResetTimestamp' => 'passwordResetTimestamp', 
+            'providerType' => 'providerType'
+        );
+    }
+
+     
     public function getSource() {
         return 'eva_user_users';
     }

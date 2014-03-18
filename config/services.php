@@ -46,9 +46,15 @@ $di['url'] = function () use ($di) {
 $di['session'] = function () {
     $session = new SessionAdapter();
     $session->start();
-
     return $session;
 };
+
+$di->set('cookies', function() {
+    $cookies = new \Phalcon\Http\Response\Cookies();
+    $cookies->useEncryption(false);
+    return $cookies;
+});
+
 
 //default view
 $di['view'] = function () {

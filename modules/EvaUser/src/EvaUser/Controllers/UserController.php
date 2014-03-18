@@ -40,7 +40,25 @@ class UserController extends ControllerBase
 
     public function loginAction()
     {
-    
+        if ($this->request->isPost()) {
+            $user = new Models\Users();
+            $user->assign(array(
+                'username' => $this->request->getPost('username'),
+                'password' => $this->request->getPost('password'),
+            ));
+            if($user->login()) {
+                if($this->request->getPost('remember')) {
+                    $token = $user->getRememberMeToken();
+                    if($token) {
+                        $this->cookies->set('realm', $token, time() + $user->getTokenExpired());
+                    }
+                }
+            } else {
+                p($user->getMessages());
+                $this->flash->error($user->getMessages());
+            }
+        }
+
     }
 
     public function verifyAction()
@@ -57,8 +75,8 @@ class UserController extends ControllerBase
     }
 
     /**
-     * Index action
-     */
+    * Index action
+    */
     public function indexAction()
     {
         p('user');
