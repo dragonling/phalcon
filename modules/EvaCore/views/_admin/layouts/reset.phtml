@@ -52,42 +52,35 @@
 										<div class="widget-main">
 											<h4 class="header blue lighter bigger">
 												<i class="icon-coffee green"></i>
-												Please Enter Your Information
+                                                Reset Yor Password
 											</h4>
 
 											<div class="space-6"></div>
 
-                                            <form action="/user/login" method="POST">
+                                            <form action="/user/reset" method="POST">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" name="username" class="form-control" placeholder="Username Or Email" />
-															<i class="icon-user"></i>
-														</span>
-													</label>
-
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-                                                            <input type="password" name="password" class="form-control" placeholder="Password" />
+															<input type="password" name="password" class="form-control" placeholder="Password" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
 
-													<div class="space"></div>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+                                                            <input type="password" name="passwordConfirm" class="form-control" placeholder="Repeat password" />
+															<i class="icon-retweet"></i>
+														</span>
+													</label>
+
+													<div class="space-24"></div>
 
 													<div class="clearfix">
-														<label class="inline">
-                                                            <input type="checkbox" class="ace" name="remember" value="1" />
-															<span class="lbl"> Remember Me</span>
-														</label>
-
-														<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
-															<i class="icon-key"></i>
-															Login
+														<button type="submit" class="width-65 pull-right btn btn-sm btn-success">
+                                                        Reset    
+															<i class="icon-arrow-right icon-on-right"></i>
 														</button>
 													</div>
-
-													<div class="space-4"></div>
 												</fieldset>
 											</form>
 

@@ -10,6 +10,14 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class UserController extends ControllerBase
 {
+    public function initialize()
+    {
+        $view = $this->view;
+        $view->setViewsDir($this->view->getViewsDir() . '_admin/');
+        $view->setLayoutsDir('layouts/');
+        $view->setLayout('login');
+    }
+
 
     public function registerAction()
     {
@@ -81,6 +89,22 @@ class UserController extends ControllerBase
         return $this->response->redirect('/user/login');
     }
 
+    public function forgotAction()
+    {
+        if ($this->request->isPost()) {
+            $user = new Models\ResetPassword();
+            $user->assign(array(
+                'email' => $this->request->getPost('email'),
+            ));
+            if($user->resetPassword()) {
+                return $this->response->redirect('/user/test');
+            } else {
+                p($user->getMessages());
+                $this->flash->error($user->getMessages());
+            }
+        }
+    }
+
     /**
     * Index action
     */
@@ -89,16 +113,22 @@ class UserController extends ControllerBase
         p('user');
     }
 
+    public function resetAction()
+    {
+        $code = $this->dispatcher->getParam('code');
+        $username = $this->dispatcher->getParam('username');
+
+    
+    }
+
     public function testAction()
     {
         $user = new Models\Login();
         $authIdentity = $user->getAuthIdentity();
-        p($authIdentity);
         if(!$authIdentity && ($tokenString = $this->cookies->get('realm')->getValue())) {
             if($user->loginWithCookie($tokenString)) {
             } else {
-                p($user->getMessages());
-                //$this->cookies->delete('realm');
+                $this->cookies->delete('realm');
             }
         }
     }
