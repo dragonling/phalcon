@@ -18,6 +18,13 @@ class UserController extends ControllerBase
         $view->setLayout('login');
     }
 
+    public function messageHandler($messages, $messageType = 'error')
+    {
+        foreach($messages as $message) {
+            $this->flashSession->$messageType($message->getMessage());
+        }
+        return $this;
+    }
 
     public function registerAction()
     {
@@ -33,12 +40,15 @@ class UserController extends ControllerBase
                     'password' => $this->request->getPost('password'),
                 ));
                 if ($user->register()) {
-                    $this->flash->success('Register Success');
+                    $this->flashSession->success('Register Success');
                     return $this->response->redirect('/admin/dashboard');
                 } else {
-                    $this->flash->error($user->getMessages());
+                    $this->messageHandler($user->getMessages());
                     return $this->response->redirect('/admin');
                 }
+            } else {
+                $this->messageHandler($form->getMessages());
+                return $this->response->redirect('/admin');
             }
         }
 
@@ -59,15 +69,13 @@ class UserController extends ControllerBase
                     if($token) {
                         $this->cookies->set('realm', $token, time() + $user->getTokenExpired());
                     } else {
-                        //$this->flashSession->success('success');
                         $this->flashSession->error($user->getMessages());
                     }
                 }
-                $this->flashSession->success('success');
+                $this->flashSession->success('Register Success');
                 return $this->response->redirect('/admin/dashboard');
             } else {
-                //$this->flash->error($user->getMessages());
-                $this->flashSession->error('abc');
+                $this->messageHandler($user->getMessages());
                 return $this->response->redirect('/admin');
             }
         }
@@ -75,7 +83,10 @@ class UserController extends ControllerBase
 
     public function logoutAction()
     {
-    
+        $this->cookies->delete('realm');
+        $this->getDi()->get('session')->remove('auth-identity');
+        $this->view->disable();
+        return $this->response->redirect('/admin');
     }
 
     public function verifyAction()
@@ -84,11 +95,11 @@ class UserController extends ControllerBase
         $userId = $this->dispatcher->getParam('userId');
         $user = new Models\Login();
         if($user->verifyNewUser($userId, $code)) {
-            $this->flash->success('Verify Success');
+            $this->flashSession->success('Verify Success');
         } else {
-            $this->flash->error('Verify Failed');
+            $this->flashSession->error('Verify Failed');
         }
-        return $this->response->redirect('/user/login');
+        return $this->response->redirect('/admin');
     }
 
     public function forgotAction()
@@ -99,9 +110,10 @@ class UserController extends ControllerBase
                 'email' => $this->request->getPost('email'),
             ));
             if($user->resetPassword()) {
+                $this->flashSession->success('Password Reset Success');
                 return $this->response->redirect('/admin');
             } else {
-                $this->flash->error($user->getMessages());
+                $this->flashSession->error($user->getMessages());
                 return $this->response->redirect('/admin');
             }
         }
