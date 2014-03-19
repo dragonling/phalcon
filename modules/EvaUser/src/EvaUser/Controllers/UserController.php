@@ -13,7 +13,7 @@ class UserController extends ControllerBase
     public function initialize()
     {
         $view = $this->view;
-        $view->setViewsDir($this->view->getViewsDir() . '_admin/');
+        $view->setViewsDir($this->getDI()->get('modules')->getModulePath('EvaCore') . '/views/_admin/');
         $view->setLayoutsDir('layouts/');
         $view->setLayout('login');
     }
@@ -34,16 +34,15 @@ class UserController extends ControllerBase
                 ));
                 if ($user->register()) {
                     $this->flash->success('Register Success');
-                    return $this->response->redirect('/user/login');
+                    return $this->response->redirect('/admin/dashboard');
                 } else {
                     $this->flash->error($user->getMessages());
-                    return $this->response->redirect('/user/login');
+                    return $this->response->redirect('/admin');
                 }
             }
         }
 
-        p($form->getMessages());
-        $this->view->form = $form;
+        //$this->view->form = $form;
     }
 
     public function loginAction()
@@ -60,13 +59,16 @@ class UserController extends ControllerBase
                     if($token) {
                         $this->cookies->set('realm', $token, time() + $user->getTokenExpired());
                     } else {
-                        p($user->getMessages());
+                        //$this->flashSession->success('success');
+                        $this->flashSession->error($user->getMessages());
                     }
                 }
-                return $this->response->redirect('/user/test');
+                $this->flashSession->success('success');
+                return $this->response->redirect('/admin/dashboard');
             } else {
-                p($user->getMessages());
-                $this->flash->error($user->getMessages());
+                //$this->flash->error($user->getMessages());
+                $this->flashSession->error('abc');
+                return $this->response->redirect('/admin');
             }
         }
     }
@@ -97,10 +99,10 @@ class UserController extends ControllerBase
                 'email' => $this->request->getPost('email'),
             ));
             if($user->resetPassword()) {
-                return $this->response->redirect('/user/test');
+                return $this->response->redirect('/admin');
             } else {
-                p($user->getMessages());
                 $this->flash->error($user->getMessages());
+                return $this->response->redirect('/admin');
             }
         }
     }
@@ -118,6 +120,11 @@ class UserController extends ControllerBase
         $code = $this->dispatcher->getParam('code');
         $username = $this->dispatcher->getParam('username');
 
+    
+    }
+
+    public function dashboardAction()
+    {
     
     }
 

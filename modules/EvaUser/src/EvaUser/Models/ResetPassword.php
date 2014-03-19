@@ -28,7 +28,7 @@ class ResetPassword extends Entities\Users
         // generate random hash for email password reset verification (40 char string)
         $userinfo->passwordResetHash = sha1(uniqid(mt_rand(), true));
         $userinfo->passwordResetTimestamp = time();
-        p($userinfo->save());
+        $userinfo->save();
 
         $this->sendPasswordResetMail($userinfo->id);
         return true;

@@ -18,13 +18,18 @@ class IndexController extends Controller
         $view->setViewsDir($this->view->getViewsDir() . '_admin/');
         $view->setLayoutsDir('layouts/');
         $view->setLayout('login');
-        /*
-        $view->setTemplateAfter('admin');
-        $view->setVars(array(
-            'title' => 'abc'
-        ));
+        $view->setTemplateAfter('login');
         $view->pick('index/index');
-        */
     }
 
+
+    public function dashboardAction()
+    {
+        $view = $this->view;
+        $view->setViewsDir($this->view->getViewsDir() . '_admin/');
+        $view->setLayoutsDir('layouts/');
+        $view->setLayout('admin');
+        $view->setTemplateAfter('admin');
+        $view->pick('index/dashboard');
+    }
 }

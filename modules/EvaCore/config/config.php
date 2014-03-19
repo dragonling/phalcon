@@ -1,4 +1,16 @@
 <?php
 
-return new \Phalcon\Config(array(
-));
+return array(
+    'routes' => array(
+        '/admin' => array(
+            'module' => 'EvaCore',
+            'controller' => 'Admin\Index',
+            'action' => 'index'
+        ),
+        '/admin/dashboard' => array(
+            'module' => 'EvaCore',
+            'controller' => 'Admin\Index',
+            'action' => 'dashboard'
+        ),
+    ),
+);

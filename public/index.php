@@ -7,6 +7,7 @@ $debug = new \Phalcon\Debug();
 $debug->listen();
 
 $engine = new Engine(__DIR__ . '/..');
+
 $engine->loadModules(array(
     'EvaCore',
     'EvaUser',
@@ -18,6 +19,15 @@ $engine->loadModules(array(
         'path' => __DIR__ . '/../apps/frontend/Module.php'
     ),
 ));
+
+$engine->getDI()->set('flash', function(){
+    $flash = new \Phalcon\Flash\Session(array(
+        'error' => 'alert alert-error',
+        'success' => 'alert alert-success',
+        'notice' => 'alert alert-info',
+    ));
+    return $flash;
+});
 $engine->bootstrap()->run();
 
 
