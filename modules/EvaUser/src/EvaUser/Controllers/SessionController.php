@@ -21,6 +21,7 @@ class SessionController extends ControllerBase
             $this->errorHandler($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->user->activeFailedRedirectUri);
         }
+        $this->flashSession->success('SUCCESS_USER_ACTIVED');
         return $this->response->redirect($this->getDI()->get('config')->user->activeSuccessRedirectUri);
     }
 

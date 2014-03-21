@@ -9,6 +9,8 @@ return array(
         'loginFailedRedirectUri' => '/admin',
         'activeSuccessRedirectUri' => '/admin',
         'activeFailedRedirectUri' => '/admin',
+        'resetSuccessRedirectUri' => '/admin',
+        'resetFailedRedirectUri' => '/admin',
         'cookieTokenExpired' => 500000,
     ),   
 
@@ -42,7 +44,7 @@ return array(
             'code' => 2,
         ),
 
-        '/session/:action([\w/]*)' => array(
+        '/session/:action' => array(
             'module' => 'EvaUser',
             'controller' => 'session',
             'action' => 1, 

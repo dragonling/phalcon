@@ -79,17 +79,16 @@ class Login extends Entities\Users
         if(!$userinfo) {
             throw new Exception\RuntimeException('ERR_USER_CREATE_FAILED');
         }
-        $this->sendVerificationEmail($userinfo->id);
+        $this->sendVerificationEmail($userinfo->username);
         return $userinfo;
     }
 
 
-    public function sendVerificationEmail($userId)
+    public function sendVerificationEmail($username)
     {
-        $userinfo = self::findFirst("id = $userId");
+        $userinfo = self::findFirst("username = '$username'");
         if(!$userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_VERIFICATION_MAIL_SENDING_FAILED));
-            return false;
+            throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
         $mailer = $this->getDi()->get('mailer');
@@ -110,11 +109,15 @@ class Login extends Entities\Users
     * @param string $user_activation_verification_code verification token
     * @return bool success status
     */
-    public function verifyNewUser($userId, $activationCode)
+    public function verifyNewUser($username, $activationCode)
     {
-        $userinfo = self::findFirst("id = $userId");
+        $userinfo = self::findFirst("username = '$username'");
         if(!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
+        }
+
+        if($userinfo->status == 'active') {
+            throw new Exception\OperationNotPermitedException('ERR_USER_ALREADY_ACTIVED');
         }
 
         //status tranfer only allow inactive => active

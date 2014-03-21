@@ -105,9 +105,9 @@ class Users extends \Phalcon\Mvc\Model
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $remembermeToken;
+    public $activeTimestamp;
      
     /**
      *
@@ -156,7 +156,10 @@ class Users extends \Phalcon\Mvc\Model
      * @var string
      */
     public $providerType;
-
+     
+    /**
+     * Validations and business logic
+     */
     public function validation()
     {
 
@@ -195,7 +198,7 @@ class Users extends \Phalcon\Mvc\Model
             'avatar' => 'avatar', 
             'timezone' => 'timezone', 
             'language' => 'language', 
-            'remembermeToken' => 'remembermeToken', 
+            'activeTimestamp' => 'activeTimestamp', 
             'creationTimestamp' => 'creationTimestamp', 
             'lastLoginTimestamp' => 'lastLoginTimestamp', 
             'failedLogins' => 'failedLogins', 
@@ -207,7 +210,6 @@ class Users extends \Phalcon\Mvc\Model
         );
     }
 
-     
     public function getSource() {
         return 'eva_user_users';
     }

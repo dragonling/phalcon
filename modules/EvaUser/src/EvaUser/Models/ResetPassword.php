@@ -30,13 +30,13 @@ class ResetPassword extends Entities\Users
         $userinfo->passwordResetTimestamp = time();
         $userinfo->save();
 
-        $this->sendPasswordResetMail($userinfo->id);
+        $this->sendPasswordResetMail($userinfo->username);
         return true;
     }
 
-    public function sendPasswordResetMail($userId)
+    public function sendPasswordResetMail($username)
     {
-        $userinfo = self::findFirst("id = $userId");
+        $userinfo = self::findFirst("username = $username");
         if(!$userinfo) {
             $this->appendMessage(new Message(self::FEEDBACK_RESET_PASSWORD_MAIL_SENDING_FAILED));
             return false;

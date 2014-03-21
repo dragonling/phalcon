@@ -50,7 +50,25 @@ class LoginController extends ControllerBase
             $this->errorHandler($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->user->loginFailedRedirectUri);
         }
+    }
 
+    public function reactiveAction()
+    {
+        $username = $this->request->get('username');
+        if(!$username) {
+            $this->flashSession->success('ERR_USER_ACTIVE_MAIL_SENT');
+            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+        }
+
+        $user = new Models\Login();
+        try {
+            $user->sendVerificationEmail($username);
+            $this->flashSession->success('SUCCESS_USER_ACTIVE_MAIL_SENT');
+            return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);
+        } catch(\Exception $e) {
+            $this->errorHandler($e, $user->getMessages());
+            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+        }
     }
 
 }
