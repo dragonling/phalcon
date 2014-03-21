@@ -23,6 +23,7 @@ $engine->loadModules(array(
 $engine->getDI()->set('flash', function(){
     $flash = new \Phalcon\Flash\Session(array(
         'error' => 'alert alert-danger',
+        'warning' => 'alert alert-warning',
         'success' => 'alert alert-success',
         'notice' => 'alert alert-info',
     ));

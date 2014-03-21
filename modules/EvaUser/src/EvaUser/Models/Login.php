@@ -5,6 +5,7 @@ namespace Eva\EvaUser\Models;
 
 use Eva\EvaUser\Entities;
 use \Phalcon\Mvc\Model\Message as Message;
+use Eva\EvaEngine\Exception;
 
 class Login extends Entities\Users
 {
@@ -51,14 +52,12 @@ class Login extends Entities\Users
     {
         $userinfo = self::findFirst("username = '$this->username'");
         if($userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_USERNAME_ALREADY_TAKEN));
-            return false;
+            throw new Exception\ResourceConflictException('ERR_USER_USERNAME_ALREADY_TAKEN');
         }
 
         $userinfo = self::findFirst("email = '$this->email'");
         if($userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_USER_EMAIL_ALREADY_TAKEN));
-            return false;
+            throw new Exception\ResourceConflictException('ERR_USER_EMAIL_ALREADY_TAKEN');
         }
 
         $this->status = 'inactive';
@@ -70,23 +69,18 @@ class Login extends Entities\Users
         // generate random hash for email verification (40 char string)
         $this->activationHash = sha1(uniqid(mt_rand(), true));
         // generate integer-timestamp for saving of account-creating date
-        //$this->creationTimestamp = gmdate('Y-m-d H:i:s');
         $this->creationTimestamp = time();
         $this->providerType = 'DEFAULT';
         if ($this->save() == false) {
-            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_CREATION_FAILED));
-            return false;
+            throw new Exception\RuntimeException('ERR_USER_CREATE_FAILED');
         }
 
         $userinfo = self::findFirst("username = '$this->username'");
         if(!$userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_CREATION_FAILED));
-            return false;
+            throw new Exception\RuntimeException('ERR_USER_CREATE_FAILED');
         }
-
         $this->sendVerificationEmail($userinfo->id);
-
-        return true;
+        return $userinfo;
     }
 
 
@@ -103,7 +97,7 @@ class Login extends Entities\Users
         ->setSubject('Active Your Account')
         ->setFrom(array('noreply@wallstreetcn.com' => 'WallsteetCN'))
         ->setTo(array($userinfo->email => $userinfo->username))
-        ->setBody('http://www.goldtoutiao.com/user/verify/' . $userinfo->id . '/' . $userinfo->activationHash)
+        ->setBody('http://www.goldtoutiao.com/session/verify/' . urlencode($userinfo->username) . '/' . $userinfo->activationHash)
         ;
 
         return $mailer->send($message);
@@ -120,19 +114,21 @@ class Login extends Entities\Users
     {
         $userinfo = self::findFirst("id = $userId");
         if(!$userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_ACTIVATION_FAILED));
-            return false;
+            throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
+        }
+
+        //status tranfer only allow inactive => active
+        if($userinfo->status != 'inactive') {
+            throw new Exception\OperationNotPermitedException('ERR_USER_BE_BANNED');
         }
 
         if($userinfo->activationHash != $activationCode) {
-            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_ACTIVATION_FAILED));
-            return false;
+            throw new Exception\VerifyFailedException('ERR_USER_ACTIVATE_CODE_NOT_MATCH');
         }
 
         $userinfo->status = 'active';
-        if ($userinfo->save() == false) {
-            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_CREATION_FAILED));
-            return false;
+        if (!$userinfo->save()) {
+            throw new Exception\RuntimeException('ERR_USER_ACTIVE_FAILED');
         }
         return true;
     }
@@ -197,27 +193,23 @@ class Login extends Entities\Users
         }
 
         if(!$userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_NOT_FOUND));
-            return false;
+            throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
         if($userinfo->failedLogins >= $this->maxLoginRetry && $userinfo->lastLoginTimestamp > (time() - 30)) {
-            $this->appendMessage(new Message(self::FEEDBACK_PASSWORD_WRONG_MAX_TIMES));
-            return false;
+            throw new Exception\RuntimeException('ERR_USER_PASSWORD_WRONG_MAX_TIMES');
         }
 
         // check if hash of provided password matches the hash in the database
         if(!password_verify($this->password, $userinfo->password)) {
-            $this->appendMessage(new Message(self::FEEDBACK_PASSWORD_WRONG));
             $userinfo->failedLogins++;
             $userinfo->lastFailedLoginTimestamp = time();
             $userinfo->save();
-            return false;
+            throw new Exception\VerifyFailedException('ERR_USER_PASSWORD_WRONG');
         }
 
         if($userinfo->status != 'active') {
-            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET));
-            return false;
+            throw new Exception\UnauthorizedException('ERR_USER_NOT_ACTIVATED');
         }
 
         $userinfo->failedLogins = 0;

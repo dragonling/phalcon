@@ -1,25 +1,54 @@
 <?php
 return array(
     'user' => array(
-        'loginUri' => '/',
-        'loginSuccessRedirectUri' => '/',
-        'loginFailedRedirectUri' => '/',
+        'registerUri' => '/admin',
+        'registerSuccessRedirectUri' => '/admin',
+        'registerFailedRedirectUri' => '/admin',
+        'loginUri' => '/admin',
+        'loginSuccessRedirectUri' => '/admin/dashboard',
+        'loginFailedRedirectUri' => '/admin',
+        'activeSuccessRedirectUri' => '/admin',
+        'activeFailedRedirectUri' => '/admin',
         'cookieTokenExpired' => 500000,
     ),   
 
     'routes' => array(
-        '/admin/user' => array(
+        '/register' => array(
             'module' => 'EvaUser',
-            'controller' => 'Admin\User',
-            'action' => 'index'
+            'controller' => 'register',
         ),
 
-        '/user' => array(
+        '/login' => array(
             'module' => 'EvaUser',
-            'controller' => 'user',
-            'action' => 'index'
+            'controller' => 'login',
         ),
 
+        '/login/:action([\w/]*)' => array(
+            'module' => 'EvaUser',
+            'controller' => 'login',
+            'action' => 1, 
+        ),
+
+        '/logout' => array(
+            'module' => 'EvaUser',
+            'controller' => 'logout',
+        ),
+
+        '/session/verify/(\w+)/(\w+)' => array(
+            'module' => 'EvaUser',
+            'controller' => 'session',
+            'action' => 'verify',
+            'username' => 1,
+            'code' => 2,
+        ),
+
+        '/session/:action([\w/]*)' => array(
+            'module' => 'EvaUser',
+            'controller' => 'session',
+            'action' => 1, 
+        ),
+
+        /*
         '/user/verify/(\d+)/(\w+)' => array(
             'module' => 'EvaUser',
             'controller' => 'user',
@@ -41,6 +70,7 @@ return array(
             'controller' => 'user',
             'action' => 1,
         )
+        */
     ),
 
 );

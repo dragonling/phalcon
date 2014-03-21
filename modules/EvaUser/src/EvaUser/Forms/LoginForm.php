@@ -18,33 +18,15 @@ class LoginForm extends Form
 
     public function initialize($entity = null, $options = null)
     {
-        $name = new Text('username');
-
-        $name->setLabel('Name');
+        $name = new Text('identify');
 
         $name->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The name is required'
+                'message' => 'The field is required'
             ))
         ));
 
         $this->add($name);
-
-        // Email
-        $email = new Text('email');
-
-        $email->setLabel('E-Mail');
-
-        $email->addValidators(array(
-            new PresenceOf(array(
-                'message' => 'The e-mail is required'
-            )),
-            new Email(array(
-                'message' => 'The e-mail is not valid'
-            ))
-        ));
-
-        $this->add($email);
 
         // Password
         $password = new Password('password');
@@ -59,57 +41,9 @@ class LoginForm extends Form
                 'min' => 8,
                 'messageMinimum' => 'Password is too short. Minimum 8 characters'
             )),
-            new Confirmation(array(
-                'message' => 'Password doesn\'t match confirmation',
-                'with' => 'passwordConfirm'
-            ))
         ));
 
         $this->add($password);
-
-        // Confirm Password
-        $confirmPassword = new Password('passwordConfirm');
-
-        $confirmPassword->setLabel('Confirm Password');
-
-        $confirmPassword->addValidators(array(
-            new PresenceOf(array(
-                'message' => 'The confirmation password is required'
-            ))
-        ));
-
-        $this->add($confirmPassword);
-
-        // Remember
-        $terms = new Check('agree', array(
-            'value' => 'yes'
-        ));
-
-        $terms->setLabel('Accept terms and conditions');
-
-        $terms->addValidator(new Identical(array(
-            'value' => 'yes',
-            'message' => 'Terms and conditions must be accepted'
-        )));
-
-        $this->add($terms);
-
-        /*
-        // CSRF
-        $csrf = new Hidden('csrf');
-
-        $csrf->addValidator(new Identical(array(
-            'value' => $this->security->getSessionToken(),
-            'message' => 'CSRF validation failed'
-        )));
-
-        $this->add($csrf);
-
-        // Sign Up
-        $this->add(new Submit('Sign Up', array(
-            'class' => 'btn btn-success'
-        )));
-        */
     }
 
     /**

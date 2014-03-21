@@ -14,7 +14,7 @@ class StandardException extends \Phalcon\Exception implements ExceptionInterface
         return $this->statusCode;
     }
 
-    public __construct ($message, $code = 10000, $previous = null, $statusCode = null)
+    public function __construct($message, $code = 10000, $previous = null, $statusCode = null)
     {
         if($statusCode) {
             $this->statusCode = $statusCode;
