@@ -44,6 +44,14 @@ return array(
             'code' => 2,
         ),
 
+        '/session/reset/(\w+)/(\w+)' => array(
+            'module' => 'EvaUser',
+            'controller' => 'session',
+            'action' => 'reset',
+            'username' => 1,
+            'code' => 2,
+        ),
+
         '/session/:action' => array(
             'module' => 'EvaUser',
             'controller' => 'session',

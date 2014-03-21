@@ -1,0 +1,41 @@
+<div id="reset-box" class="reset-box widget-box no-border">
+    <div class="widget-body">
+        <div class="widget-main">
+            <h4 class="header green lighter bigger">
+                <i class="icon-group blue"></i>
+                New User Registration
+            </h4>
+
+            <div class="space-6"></div>
+            <p> Enter your details to begin: </p>
+
+            <form action="/session/reset" method="POST">
+                <fieldset>
+                    <label class="block clearfix">
+                        <span class="block input-icon input-icon-right">
+                            <input type="password" name="password" class="form-control" placeholder="Password" />
+                            <i class="icon-lock"></i>
+                        </span>
+                    </label>
+
+                    <label class="block clearfix">
+                        <span class="block input-icon input-icon-right">
+                            <input type="password" name="passwordConfirm" class="form-control" placeholder="Repeat password" />
+                            <i class="icon-retweet"></i>
+                        </span>
+                    </label>
+
+                    <div class="space-24"></div>
+
+                    <div class="clearfix">
+                        <button type="submit" class="width-65 pull-right btn btn-sm btn-success">
+                            Reset Password 
+                            <i class="icon-arrow-right icon-on-right"></i>
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+    </div><!-- /widget-body -->
+</div><!-- /signup-box -->

@@ -27,20 +27,27 @@ class SessionController extends ControllerBase
 
     public function forgotAction()
     {
-        if ($this->request->isPost()) {
+        if (!$this->request->isPost()) {
             return;
         }
+
+        $email = $this->request->getPost('email');
+        if(!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+        }
+
         $user = new Models\ResetPassword();
         $user->assign(array(
-            'email' => $this->request->getPost('email'),
+            'email' => $email,
         ));
-        if($user->resetPassword()) {
-            $this->flashSession->success('Password reset mail sent success');
-            return $this->response->redirect('/admin');
-        } else {
-            $this->flashSession->error($user->getMessages());
-            return $this->response->redirect('/admin');
+        try {
+            $user->resetPassword();
+            $this->flashSession->success('SUCCESS_USER_RESET_MAIL_SENT');
+        } catch(\Exception $e) {
+            $this->errorHandler($e, $user->getMessages());
+            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
+        return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);
     }
 
     public function resetAction()

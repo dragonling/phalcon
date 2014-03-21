@@ -21,8 +21,12 @@ class ResetPassword extends Entities\Users
         }
 
         if(!$userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_USER_NOT_EXIST));
-            return false;
+            throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
+        }
+
+        //status tranfer only allow inactive => active
+        if($userinfo->status != 'active') {
+            throw new Exception\OperationNotPermitedException('ERR_USER_NOT_ACTIVED');
         }
 
         // generate random hash for email password reset verification (40 char string)
@@ -30,16 +34,15 @@ class ResetPassword extends Entities\Users
         $userinfo->passwordResetTimestamp = time();
         $userinfo->save();
 
-        $this->sendPasswordResetMail($userinfo->username);
+        $this->sendPasswordResetMail($userinfo->email);
         return true;
     }
 
-    public function sendPasswordResetMail($username)
+    public function sendPasswordResetMail($email)
     {
-        $userinfo = self::findFirst("username = $username");
+        $userinfo = self::findFirst("email= '$email'");
         if(!$userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_RESET_PASSWORD_MAIL_SENDING_FAILED));
-            return false;
+            throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
         $mailer = $this->getDi()->get('mailer');
@@ -47,7 +50,7 @@ class ResetPassword extends Entities\Users
         ->setSubject('Reset Password')
         ->setFrom(array('noreply@wallstreetcn.com' => 'WallsteetCN'))
         ->setTo(array($userinfo->email => $userinfo->username))
-        ->setBody('http://www.goldtoutiao.com/user/reset/' . urlencode($userinfo->username) . '/' . $userinfo->passwordResetHash)
+        ->setBody('http://www.goldtoutiao.com/session/reset/' . urlencode($userinfo->username) . '/' . $userinfo->passwordResetHash)
         ;
 
         return $mailer->send($message);

@@ -56,7 +56,6 @@ class LoginController extends ControllerBase
     {
         $username = $this->request->get('username');
         if(!$username) {
-            $this->flashSession->success('ERR_USER_ACTIVE_MAIL_SENT');
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
 
