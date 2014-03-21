@@ -7,5 +7,5 @@ namespace Eva\EvaEngine\Exception;
 
 class BadMethodCallException extends LogicException
 {
-    protected $statusCode = 400;
+    protected $statusCode = 405;
 }
