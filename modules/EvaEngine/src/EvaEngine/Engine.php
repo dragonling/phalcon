@@ -162,9 +162,24 @@ class Engine
             $logger = new FileLogger($config->logger->path . date('Y-m-d') . '.log');
             $eventsManager->attach('db', function($event, $dbAdapter) use ($logger) {
                 if ($event->getType() == 'beforeQuery') {
-                    $logger->log($dbAdapter->getSQLStatement(), \Phalcon\Logger::INFO);
+                    $sqlVariables = $dbAdapter->getSQLVariables();
+                    if (count($sqlVariables)) {
+                        $query = str_replace(array('%', '?'), array('%%', "'%s'"), $dbAdapter->getSQLStatement());
+                        $query = vsprintf($query, $sqlVariables);
+                        //
+                        $logger->log($query, \Phalcon\Logger::INFO);
+                    } else {
+                        $logger->log($dbAdapter->getSQLStatement(), \Phalcon\Logger::INFO);
+                    }
                 }
+
+                /*
+                if ($event->getType() == 'afterQuery') {
+                    $logger->log($dbAdapter->getRealSQLStatement() . $dbAdapter->getSQLVariables(), \Phalcon\Logger::CRITICAL);
+                }
+                */
             });
+
             $dbAdapter->setEventsManager($eventsManager);
 
             return $dbAdapter;

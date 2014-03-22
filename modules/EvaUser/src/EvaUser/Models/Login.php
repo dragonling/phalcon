@@ -200,14 +200,16 @@ class Login extends Entities\Users
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if($userinfo->failedLogins >= $this->maxLoginRetry && $userinfo->lastLoginTimestamp > (time() - 30)) {
+        if($userinfo->failedLogins >= $this->maxLoginRetry && $userinfo->lastFailedLoginTimestamp > (time() - 30)) {
             throw new Exception\RuntimeException('ERR_USER_PASSWORD_WRONG_MAX_TIMES');
         }
 
         // check if hash of provided password matches the hash in the database
         if(!password_verify($this->password, $userinfo->password)) {
-            $userinfo->failedLogins = 10;
+            //MUST be string type here
+            $userinfo->failedLogins = (string) ($userinfo->failedLogins + 1);
             $userinfo->lastFailedLoginTimestamp = time();
+            $userinfo->save();
             throw new Exception\VerifyFailedException('ERR_USER_PASSWORD_WRONG');
         }
 
