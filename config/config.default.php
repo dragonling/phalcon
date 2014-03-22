@@ -1,7 +1,14 @@
 ﻿<?php
 
 return array(
+    'debug' => 0,
     'baseUri' => '/',
+
+    'logger' => array(
+        'adapter' => 'File',
+        'path' => __DIR__ . '/../logs/',
+//        'defaultName' => 'system',
+    ), 
 
     'routes' => array(
         '/' =>  array(

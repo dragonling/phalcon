@@ -4,7 +4,7 @@ namespace Eva\EvaUser\Entities;
 
 use Phalcon\Mvc\Model\Validator\Email as Email;
 
-class Users extends \Phalcon\Mvc\Model
+class Users extends \Eva\EvaEngine\Model
 {
 
     /**
@@ -210,8 +210,5 @@ class Users extends \Phalcon\Mvc\Model
         );
     }
 
-    public function getSource() {
-        return 'eva_user_users';
-    }
-
+    protected $tableName = 'user_users';
 }

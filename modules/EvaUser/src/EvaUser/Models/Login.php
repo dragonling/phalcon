@@ -9,6 +9,7 @@ use Eva\EvaEngine\Exception;
 
 class Login extends Entities\Users
 {
+    protected $useMasterSlave = false;
     /**
     *  Register Feedbacks
     */
@@ -205,9 +206,8 @@ class Login extends Entities\Users
 
         // check if hash of provided password matches the hash in the database
         if(!password_verify($this->password, $userinfo->password)) {
-            $userinfo->failedLogins++;
+            $userinfo->failedLogins = 10;
             $userinfo->lastFailedLoginTimestamp = time();
-            $userinfo->save();
             throw new Exception\VerifyFailedException('ERR_USER_PASSWORD_WRONG');
         }
 
@@ -280,5 +280,14 @@ class Login extends Entities\Users
             return $authIdentity;
         }
         return false;
+    }
+
+    /**
+     * Returns the current state of the user's login
+     * @return bool user's login status
+     */
+    public function isUserLoggedIn()
+    {
+        return $this->getAuthIdentity();
     }
 }

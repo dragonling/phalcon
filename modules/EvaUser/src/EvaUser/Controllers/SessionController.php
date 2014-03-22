@@ -41,7 +41,7 @@ class SessionController extends ControllerBase
             'email' => $email,
         ));
         try {
-            $user->resetPassword();
+            $user->requestResetPassword();
             $this->flashSession->success('SUCCESS_USER_RESET_MAIL_SENT');
         } catch(\Exception $e) {
             $this->errorHandler($e, $user->getMessages());
@@ -54,13 +54,36 @@ class SessionController extends ControllerBase
     {
         $code = $this->dispatcher->getParam('code');
         $username = $this->dispatcher->getParam('username');
+        $user = new Models\ResetPassword();
+        try {
+            $user->verifyPasswordReset($username, $code);
+        } catch(\Exception $e) {
+            $this->errorHandler($e, $user->getMessages());
+            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+        }
 
+        if (!$this->request->isPost()) {
+            return;
+        }
 
-    }
+        $form = new Forms\ResetPasswordForm();
+        if ($form->isValid($this->request->getPost()) === false) {
+            $this->validHandler($form);
+            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+        }
 
-    public function dashboardAction()
-    {
-
+        $user->assign(array(
+            'username' => $username,
+            'password' => $this->request->getPost('password'),
+        ));
+        try {
+            $user->resetPassword();
+            $this->flashSession->success('SUCCESS_USER_RESET_PASSWORD');
+        } catch(\Exception $e) {
+            $this->errorHandler($e, $user->getMessages());
+            return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
+        }
+        return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);
     }
 
     public function testAction()

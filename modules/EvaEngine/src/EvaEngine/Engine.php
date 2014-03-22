@@ -11,6 +11,8 @@ use Phalcon\Config;
 use Phalcon\Mvc\View;
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
+use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Logger\Adapter\File as FileLogger;
 
 use Eva\EvaEngine\ModuleManager;
 
@@ -150,22 +152,49 @@ class Engine
 
         $di['db'] = function () use ($di) {
             $config = $di->get('config');
-            return new DbAdapter(array(
+            $dbAdapter = new DbAdapter(array(
                 'host' => $config->dbAdapter->master->host,
                 'username' => $config->dbAdapter->master->username,
                 'password' => $config->dbAdapter->master->password,
                 'dbname' => $config->dbAdapter->master->database,
             ));
+            $eventsManager = new EventsManager();
+            $logger = new FileLogger($config->logger->path . date('Y-m-d') . '.log');
+            $eventsManager->attach('db', function($event, $dbAdapter) use ($logger) {
+                if ($event->getType() == 'beforeQuery') {
+                    $logger->log($dbAdapter->getSQLStatement(), \Phalcon\Logger::INFO);
+                }
+            });
+            $dbAdapter->setEventsManager($eventsManager);
+
+            return $dbAdapter;
         };
+
+
+
 
         $di->set('dbMaster', function () use ($di) {
             $config = $di->get('config');
-            return new DbAdapter(array(
+
+            $dbAdapter = new DbAdapter(array(
                 'host' => $config->dbAdapter->master->host,
                 'username' => $config->dbAdapter->master->username,
                 'password' => $config->dbAdapter->master->password,
                 'dbname' => $config->dbAdapter->master->database,
             ));
+
+            if ($config->debug) {
+                $eventsManager = new EventsManager();
+                $logger = new FileLogger($config->logger->path . date('Y-m-d') . '.log');
+                $eventsManager->attach('dbMaster', function($event, $dbAdapter) use ($logger) {
+                    if ($event->getType() == 'beforeQuery') {
+                        $logger->log($dbAdapter->getSQLStatement(), \Phalcon\Logger::INFO);
+                    }
+                });
+                $dbAdapter->setEventsManager($eventsManager);
+            }
+
+            return $dbAdapter;
         });
 
 
@@ -173,12 +202,24 @@ class Engine
             $config = $di->get('config');
             $slaves = $config->dbAdapter->slave;
             $slaveKey = array_rand($slaves->toArray());
-            return new DbAdapter(array(
+            $dbAdapter = new DbAdapter(array(
                 'host' => $config->dbAdapter->slave->$slaveKey->host,
                 'username' => $config->dbAdapter->slave->$slaveKey->username,
                 'password' => $config->dbAdapter->slave->$slaveKey->password,
                 'dbname' => $config->dbAdapter->slave->$slaveKey->database,
             ));
+
+            if ($config->debug) {
+                $eventsManager = new EventsManager();
+                $logger = new FileLogger($config->logger->path . date('Y-m-d') . '.log');
+                $eventsManager->attach('dbSlave', function($event, $dbAdapter) use ($logger) {
+                    if ($event->getType() == 'beforeQuery') {
+                        $logger->log($dbAdapter->getSQLStatement(), \Phalcon\Logger::INFO);
+                    }
+                });
+                $dbAdapter->setEventsManager($eventsManager);
+            }
+            return $dbAdapter;
         });
 
         return $this->di = $di;

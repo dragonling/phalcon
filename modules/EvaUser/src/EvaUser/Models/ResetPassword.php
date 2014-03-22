@@ -5,13 +5,13 @@ namespace Eva\EvaUser\Models;
 
 use Eva\EvaUser\Entities;
 use \Phalcon\Mvc\Model\Message as Message;
+use Eva\EvaEngine\Exception;
 
 class ResetPassword extends Entities\Users
 {
-    const FEEDBACK_USER_NOT_EXIST = 'FEEDBACK_USER_NOT_EXIST';
-    const FEEDBACK_RESET_PASSWORD_MAIL_SENDING_FAILED = 'FEEDBACK_RESET_PASSWORD_MAIL_SENDING_FAILED';
+    protected $resetPasswordHashExpired = 3600;
 
-    public function resetPassword()
+    public function requestResetPassword()
     {
         $userinfo = array();
         if($this->username) {
@@ -62,42 +62,40 @@ class ResetPassword extends Entities\Users
     * @param string $verificationCode Hash token
     * @return bool Success status
     */
-    public function verifyPasswordReset($userName, $verificationCode)
+    public function verifyPasswordReset($username, $verificationCode)
     {
-        $userinfo = self::findFirst("user= $userId");
+        $userinfo = self::findFirst("username = '$username'");
         if(!$userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_USER_NOT_EXIST));
-            return false;
+            throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        // check if user-provided username + verification code combination exists
-        $query = $this->db->prepare("SELECT user_id, user_password_reset_timestamp
-        FROM users
-        WHERE user_name = :user_name
-        AND user_password_reset_hash = :user_password_reset_hash
-        AND user_provider_type = :user_provider_type");
-        $query->execute(array(':user_password_reset_hash' => $verification_code,
-        ':user_name' => $user_name,
-        ':user_provider_type' => 'DEFAULT'));
-
-        // if this user with exactly this verification hash code exists
-        if ($query->rowCount() != 1) {
-            $_SESSION["feedback_negative"][] = FEEDBACK_PASSWORD_RESET_COMBINATION_DOES_NOT_EXIST;
-            return false;
+        if($userinfo->status != 'active') {
+            throw new Exception\OperationNotPermitedException('ERR_USER_NOT_ACTIVED');
         }
 
-        // get result row (as an object)
-        $result_user_row = $query->fetch();
-        // 3600 seconds are 1 hour
-        $timestamp_one_hour_ago = time() - 3600;
-        // if password reset request was sent within the last hour (this timeout is for security reasons)
-        if ($result_user_row->user_password_reset_timestamp > $timestamp_one_hour_ago) {
-            // verification was successful
-            $_SESSION["feedback_positive"][] = FEEDBACK_PASSWORD_RESET_LINK_VALID;
-            return true;
-        } else {
-            $_SESSION["feedback_negative"][] = FEEDBACK_PASSWORD_RESET_LINK_EXPIRED;
-            return false;
+        if($userinfo->passwordResetHash != $verificationCode) {
+            throw new Exception\VerifyFailedException('ERR_USER_RESET_CODE_NOT_MATCH');
         }
+
+        if($userinfo->passwordResetTimestamp < time() - $this->resetPasswordHashExpired) {
+            throw new Exception\ResourceExpiredException('ERR_USER_RESET_CODE_EXPIRED');
+        }
+        return true;
+    }
+
+    public function resetPassword()
+    {
+        if(!$this->password) {
+            throw new Exception\InvalidArgumentException('ERR_USER_NO_NEW_PASSWORD_INPUT');
+        }
+
+        $userinfo = self::findFirst("username = '$this->username'");
+        if(!$userinfo) {
+            throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
+        }
+
+        $userinfo->password = password_hash($this->password, PASSWORD_DEFAULT, array('cost' => 10));
+        $userinfo->save();
+        return true;
     }
 }

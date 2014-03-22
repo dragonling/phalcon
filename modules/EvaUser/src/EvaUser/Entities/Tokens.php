@@ -2,7 +2,7 @@
 
 namespace Eva\EvaUser\Entities;
 
-class Tokens extends \Phalcon\Mvc\Model
+class Tokens extends \Eva\EvaEngine\Model
 {
 
     /**
@@ -56,8 +56,5 @@ class Tokens extends \Phalcon\Mvc\Model
         );
     }
 
-    public function getSource() {
-        return 'eva_user_tokens';
-    }
-
+    protected $tableName = 'user_tokens';
 }
