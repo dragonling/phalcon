@@ -45,15 +45,18 @@ class ResetPassword extends Entities\Users
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        $mailer = $this->getDi()->get('mailer');
-        $message = \Swift_Message::newInstance()
-        ->setSubject('Reset Password')
-        ->setFrom(array('noreply@wallstreetcn.com' => 'WallsteetCN'))
-        ->setTo(array($userinfo->email => $userinfo->username))
-        ->setBody('http://www.goldtoutiao.com/session/reset/' . urlencode($userinfo->username) . '/' . $userinfo->passwordResetHash)
-        ;
+        $mailer = $this->getDI()->get('mailer');
+        $message = $this->getDI()->get('mailMessage');
+        $message->setTo(array(
+            $userinfo->email => $userinfo->username
+        ));
+        $message->setTemplate($this->getDI()->get('config')->user->resetMailTemplate);
+        $message->assign(array(
+            'user' => $userinfo->toArray(),
+            'url' => $message->toSystemUrl('/session/reset/' . urlencode($userinfo->username) . '/' . $userinfo->passwordResetHash)
+        ));
 
-        return $mailer->send($message);
+        return $mailer->send($message->getMessage());
     }
 
     /**

@@ -16,8 +16,8 @@ class AuthController extends ControllerBase
         $service = $this->dispatcher->getParam('service');
         $oauthStr = $this->dispatcher->getParam('auth');
         $oauthStr = $oauthStr === 'oauth1' ? 'oauth1' : 'oauth2';
-        $config = $this->getDi()->get('config');
-        $url = $this->getDi()->get('url');
+        $config = $this->getDI()->get('config');
+        $url = $this->getDI()->get('url');
         $callback = $url->get("/auth/access/$service/$oauthStr");
 
         $oauth = new OAuthService();
@@ -43,8 +43,8 @@ class AuthController extends ControllerBase
         $service = $this->dispatcher->getParam('service');
         $oauthStr = $this->dispatcher->getParam('auth');
         $oauthStr = $oauthStr === 'oauth1' ? 'oauth1' : 'oauth2';
-        $config = $this->getDi()->get('config');
-        $url = $this->getDi()->get('url');
+        $config = $this->getDI()->get('config');
+        $url = $this->getDI()->get('url');
         $callback = $url->get("/auth/access/$service/$oauthStr");
 
         $oauth = new OAuthService();

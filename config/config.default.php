@@ -4,6 +4,11 @@ return array(
     'debug' => 0,
     'baseUri' => '/',
 
+    'app' => array(
+        'title' => 'EvaEngine',
+        'subtitle' => '',
+    ),
+
     'logger' => array(
         'adapter' => 'File',
         'path' => __DIR__ . '/../logs/',
@@ -45,8 +50,9 @@ return array(
         'encryption' => 'ssl',
         'username' => 'username',
         'password' => 'password',
-        'defaultFrom' => 'noreply@wallstreetcn.com',
-        'defaultTo' => 'WallstreetCN',
+        'defaultFrom' => array('noreply@wallstreetcn.com' => 'WallsteetCN'),
+        'systemPath' => 'http://evaengine.com/',
+        'staticPath' => 'http://evaengine.com/',
     ),
 
 );

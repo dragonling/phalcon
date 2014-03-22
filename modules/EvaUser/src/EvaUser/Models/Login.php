@@ -92,7 +92,7 @@ class Login extends Entities\Users
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        $mailer = $this->getDi()->get('mailer');
+        $mailer = $this->getDI()->get('mailer');
         $message = \Swift_Message::newInstance()
         ->setSubject('Active Your Account')
         ->setFrom(array('noreply@wallstreetcn.com' => 'WallsteetCN'))
@@ -148,7 +148,7 @@ class Login extends Entities\Users
             $this->appendMessage(new Message(self::FEEDBACK_TOKEN_NO_USER_INPUT));
             return false;
         }
-        $sessionId = $this->getDi()->get('session')->getId();
+        $sessionId = $this->getDI()->get('session')->getId();
         if(!$sessionId) {
             $this->appendMessage(new Message(self::FEEDBACK_TOKEN_NO_SESSION));
             return false;
@@ -223,7 +223,7 @@ class Login extends Entities\Users
 
         $authIdentity = $this->userToAuthIdentity($userinfo);
 
-        $this->getDi()->get('session')->set('auth-identity', $authIdentity);
+        $this->getDI()->get('session')->set('auth-identity', $authIdentity);
         return $authIdentity;
     }
 
@@ -270,14 +270,14 @@ class Login extends Entities\Users
 
         $authIdentity = $this->userToAuthIdentity($userinfo);
 
-        $this->getDi()->get('session')->set('auth-identity', $authIdentity);
+        $this->getDI()->get('session')->set('auth-identity', $authIdentity);
 
         return true;
     }
 
     public function getAuthIdentity()
     {
-        $authIdentity = $this->getDi()->get('session')->get('auth-identity');
+        $authIdentity = $this->getDI()->get('session')->get('auth-identity');
         if($authIdentity) {
             return $authIdentity;
         }

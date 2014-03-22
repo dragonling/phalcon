@@ -7,10 +7,12 @@ return array(
         'loginUri' => '/admin',
         'loginSuccessRedirectUri' => '/admin/dashboard',
         'loginFailedRedirectUri' => '/admin',
+        'activeMailTemplate' => __DIR__ . '/../views/mails/active.phtml',
         'activeSuccessRedirectUri' => '/admin',
         'activeFailedRedirectUri' => '/admin',
         'resetSuccessRedirectUri' => '/admin',
         'resetFailedRedirectUri' => '/admin',
+        'resetMailTemplate' => __DIR__ . '/../views/mails/reset.phtml',
         'cookieTokenExpired' => 500000,
     ),   
 

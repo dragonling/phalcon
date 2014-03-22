@@ -18,7 +18,6 @@ use Eva\EvaEngine\ModuleManager;
 
 class Engine
 {
-
     protected $appRoot;
 
     protected $modulesPath;
@@ -66,7 +65,7 @@ class Engine
         $di = new FactoryDefault();
         $self = $this;
 
-        $di['config'] = function () use ($di, $self) {
+        $di->set('config', function () use ($di, $self) {
             $config = new Config(include $self->getConfigPath() . "/config.default.php");
 
 
@@ -90,12 +89,9 @@ class Engine
 
             $config->merge(new Config(include $self->getConfigPath() . "/config.local.php"));
             return $config;
-        };
+        });
 
-        /**
-        * Registering a router
-        */
-        $di['router'] = function () use ($di) {
+        $di->set('router', function () use ($di) {
             $config = $di->get('config');
             $router = new Router();
             if(isset($config->routes)) {
@@ -104,23 +100,20 @@ class Engine
                 }
             }
             return $router;
-        };
+        });
 
-        /**
-        * The URL component is used to generate all kind of urls in the application
-        */
-        $di['url'] = function () use ($di) {
+        $di->set('url', function () use ($di) {
             $config = $di->get('config');
             $url = new UrlResolver();
             $url->setBaseUri($config->baseUri);
             return $url;
-        };
+        });
 
-        $di['session'] = function () {
+        $di->set('session', function () {
             $session = new SessionAdapter();
             $session->start();
             return $session;
-        };
+        });
 
         $di->set('cookies', function() {
             $cookies = new \Phalcon\Http\Response\Cookies();
@@ -128,15 +121,13 @@ class Engine
             return $cookies;
         });
 
-
-        //default view
-        $di['view'] = function () {
+        $di->set('view', function () {
             $view = new View();
             $view->setViewsDir(__DIR__ . '/views/');
             return $view;
-        };
+        });
 
-        $di['mailer'] = function () use ($di) {
+        $di->set('mailer', function () use ($di) {
             $config = $di->get('config');
             $transport = \Swift_SmtpTransport::newInstance()
                 ->setHost($config->mailer->host)
@@ -148,9 +139,11 @@ class Engine
 
             $mailer = \Swift_Mailer::newInstance($transport);
             return $mailer;
-        };
+        });
 
-        $di['db'] = function () use ($di) {
+        $di->set('mailMessage', 'Eva\EvaEngine\MailMessage');
+
+        $di->set('db', function () use ($di) {
             $config = $di->get('config');
             $dbAdapter = new DbAdapter(array(
                 'host' => $config->dbAdapter->master->host,
@@ -172,21 +165,11 @@ class Engine
                         $logger->log($dbAdapter->getSQLStatement(), \Phalcon\Logger::INFO);
                     }
                 }
-
-                /*
-                if ($event->getType() == 'afterQuery') {
-                    $logger->log($dbAdapter->getRealSQLStatement() . $dbAdapter->getSQLVariables(), \Phalcon\Logger::CRITICAL);
-                }
-                */
             });
 
             $dbAdapter->setEventsManager($eventsManager);
-
             return $dbAdapter;
-        };
-
-
-
+        });
 
         $di->set('dbMaster', function () use ($di) {
             $config = $di->get('config');
@@ -238,32 +221,6 @@ class Engine
         });
 
         return $this->di = $di;
-    }
-
-    //Modult could return module root path
-    public function initModule()
-    {
-    }
-
-    public function initService()
-    {
-
-    }
-
-
-
-    public function initConfig()
-    {
-    }
-
-    public function initRouter()
-    {
-
-    }
-
-
-    public function initCache()
-    {
     }
 
     public function setModulesPath($modulesPath)
@@ -337,12 +294,8 @@ class Engine
         $application = $this->getApplication();
         $application->setDI($this->getDI());
 
-        //echo         $application->getDI()->get('modules')->getModulePath('EvaUser');
-        //p($application->getDI()->get('config'));
-
         //Error Handler must run before router start
         $this->initErrorHandler();
-        $this->initRouter();
         return $this;
     }
 
