@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="text" name="identify" class="form-control" placeholder="Username Or Email" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json", "data": { "username": "value" } }' required />
+                                <input type="text" name="identify" class="form-control" placeholder="Username Or Email" required />
                                 <i class="icon-user"></i>
                             </span>
                         </label>
@@ -106,7 +106,7 @@
     </div><!-- /widget-body -->
 </div><!-- /login-box -->
 
-<div id="forgot-box" class="forgot-box widget-box no-border" novalidate="novalidate">
+<div id="forgot-box" class="forgot-box widget-box no-border">
     <div class="widget-body">
         <div class="widget-main">
             <h4 class="header red lighter bigger">
@@ -119,15 +119,15 @@
             Enter your email and to receive instructions
             </p>
 
-            <form action="/session/forgot" method="POST">
+            <form action="/session/forgot" method="POST" novalidate="novalidate">
                 <fieldset>
                     <div class="form-group">
-                    <label class="block clearfix">
-                        <span class="block input-icon input-icon-right">
-                            <input type="email" name="email" class="form-control" placeholder="Email" required />
-                            <i class="icon-envelope"></i>
-                        </span>
-                    </label>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="email" name="email" class="form-control" placeholder="Email" required />
+                                <i class="icon-envelope"></i>
+                            </span>
+                        </label>
                     </div>
 
                     <div class="clearfix">
@@ -149,7 +149,7 @@
     </div><!-- /widget-body -->
 </div><!-- /forgot-box -->
 
-<div id="signup-box" class="signup-box widget-box no-border" novalidate="novalidate">
+<div id="signup-box" class="signup-box widget-box no-border">
     <div class="widget-body">
         <div class="widget-main">
             <h4 class="header green lighter bigger">
@@ -160,42 +160,42 @@
             <div class="space-6"></div>
             <p> Enter your details to begin: </p>
 
-            <form action="/register" method="POST" data-parsley-validate>
+            <form action="/register" method="POST" novalidate="novalidate">
                 <fieldset>
                     <div class="form-group">
-                    <label class="block clearfix">
-                        <span class="block input-icon input-icon-right">
-                            <input type="email" name="email" class="form-control" placeholder="Email" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json", "data": { "email": "value" } }' required />
-                            <i class="icon-envelope"></i>
-                        </span>
-                    </label>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="email" name="email" class="form-control" placeholder="Email" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="This Email has been taken" required />
+                                <i class="icon-envelope"></i>
+                            </span>
+                        </label>
                     </div>
 
                     <div class="form-group">
-                    <label class="block clearfix">
-                        <span class="block input-icon input-icon-right">
-                            <input type="text" name="username" class="form-control" placeholder="Username" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json", "data": { "username": "value" } }' required />
-                            <i class="icon-user"></i>
-                        </span>
-                    </label>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="text" name="username" class="form-control" placeholder="Username" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}'  data-parsley-remote-message="This username has been taken" required />
+                                <i class="icon-user"></i>
+                            </span>
+                        </label>
                     </div>
 
                     <div class="form-group">
-                    <label class="block clearfix">
-                        <span class="block input-icon input-icon-right">
-                            <input type="password" name="password" class="form-control" placeholder="Password" required />
-                            <i class="icon-lock"></i>
-                        </span>
-                    </label>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="password" name="password" class="form-control" placeholder="Password" required />
+                                <i class="icon-lock"></i>
+                            </span>
+                        </label>
                     </div>
 
                     <div class="form-group">
-                    <label class="block clearfix">
-                        <span class="block input-icon input-icon-right">
-                            <input type="password" name="passwordConfirm" class="form-control" placeholder="Repeat password" required />
-                            <i class="icon-retweet"></i>
-                        </span>
-                    </label>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="password" name="passwordConfirm" class="form-control" placeholder="Repeat password" required />
+                                <i class="icon-retweet"></i>
+                            </span>
+                        </label>
                     </div>
 
                     <label class="block">
