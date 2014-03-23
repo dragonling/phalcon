@@ -92,15 +92,22 @@ class Login extends Entities\Users
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        $mailer = $this->getDI()->get('mailer');
-        $message = \Swift_Message::newInstance()
-        ->setSubject('Active Your Account')
-        ->setFrom(array('noreply@wallstreetcn.com' => 'WallsteetCN'))
-        ->setTo(array($userinfo->email => $userinfo->username))
-        ->setBody('http://www.goldtoutiao.com/session/verify/' . urlencode($userinfo->username) . '/' . $userinfo->activationHash)
-        ;
+        if($userinfo->status == 'active') {
+            throw new Exception\OperationNotPermitedException('ERR_USER_ALREADY_ACTIVED');
+        }
 
-        return $mailer->send($message);
+        $mailer = $this->getDI()->get('mailer');
+        $message = $this->getDI()->get('mailMessage');
+        $message->setTo(array(
+            $userinfo->email => $userinfo->username
+        ));
+        $message->setTemplate($this->getDI()->get('config')->user->activeMailTemplate);
+        $message->assign(array(
+            'user' => $userinfo->toArray(),
+            'url' => $message->toSystemUrl('/session/verify/' . urlencode($userinfo->username) . '/' . $userinfo->activationHash)
+        ));
+
+        return $mailer->send($message->getMessage());
     }
 
 
