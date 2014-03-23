@@ -3,7 +3,6 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
 	<head>
 		<meta charset="utf-8" />
         <title>EvaEngine Admin</title>
@@ -76,15 +75,30 @@
 			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
 
-		<script src="/assets/js/parsley.remote.js"></script>
-		<script src="/assets/js/parsley.js"></script>
+        <script src="/assets/js/parsley/parsley.remote.js"></script>
+        <script src="/assets/js/parsley/parsley.js"></script>
+        <script src="/assets/js/parsley/i18n/zh_cn.js"></script>
 		<!-- inline scripts related to this page -->
 
 		<script type="text/javascript">
 			function show_box(id) {
 			 jQuery('.widget-box.visible').removeClass('visible');
 			 jQuery('#'+id).addClass('visible');
-			}
+     }
+
+     $(document).ready(function () {
+             $('form').parsley({
+                     successClass: "has-success",
+                     errorClass: "has-error",
+                     classHandler: function(el) {
+                             return el.$element.closest(".form-group");
+                     },
+
+                     errorsWrapper: "<span class='help-block'></span>",
+                     errorTemplate: "<span></span>"
+            });
+
+ });
 		</script>
 	</body>
 </html>
