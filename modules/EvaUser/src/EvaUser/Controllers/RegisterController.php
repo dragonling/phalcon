@@ -34,4 +34,28 @@ class RegisterController extends ControllerBase
         return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
     }
 
+    public function checkAction()
+    {
+        $username = $this->request->get('username');
+        $email = $this->request->get('email');
+        
+        if($username) {
+            $userinfo = Models\Login::findFirst(array("username = '$username'"));
+        } elseif ($email) {
+            $userinfo = Models\Login::findFirst(array("email = '$email'"));
+        } else {
+            $userinfo = array();
+        }
+        $this->view->disable();
+        if($userinfo) {
+            $this->response->setStatusCode('401', 'User Already Exists');
+        }
+        echo json_encode(array(
+            'exist' => $userinfo ? true : false,
+            'id' => $userinfo ? $userinfo->id : 0,
+            'status' => $userinfo ? $userinfo->status : null,
+        ));
+    
+    }
+
 }

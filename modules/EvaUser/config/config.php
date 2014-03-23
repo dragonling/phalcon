@@ -22,6 +22,12 @@ return array(
             'controller' => 'register',
         ),
 
+        '/register/:action' => array(
+            'module' => 'EvaUser',
+            'controller' => 'register',
+            'action' => 1, 
+        ),
+
         '/login' => array(
             'module' => 'EvaUser',
             'controller' => 'login',
