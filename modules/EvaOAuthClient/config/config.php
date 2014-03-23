@@ -10,14 +10,12 @@ return array(
             'auth' => 3,
         ),
 
-        '/oauth/token' =>  array(
-            'module' => 'EvaOAuthServer',
+        '/auth/:action' =>  array(
+            'module' => 'EvaOAuthClient',
             'controller' => 'auth',
-            'action' => 'token',
+            'action' => 1,
         ),
     ),
-
-
 
     'oauth' => array(
         'oauth1' => array(

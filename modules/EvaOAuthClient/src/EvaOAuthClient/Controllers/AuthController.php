@@ -27,13 +27,14 @@ class AuthController extends ControllerBase
             'consumerSecret' => $config->oauth->$oauthStr->$service->consumer_secret,
         ));
         $oauth->initAdapter(ucfirst($service), $oauthStr);
-        $oauth->getStorage()->clearRequestToken();
 
+        $session = $this->getDI()->get('session');
+        $session->remove('request-token');
 
         $requestToken = $oauth->getAdapter()->getRequestToken();
-        $oauth->getStorage()->saveRequestToken($requestToken);
+
+        $session->set('request-token', $requestToken);
         $requestTokenUrl = $oauth->getAdapter()->getRequestTokenUrl();
-        
         $this->view->disable();
         $this->response->redirect($requestTokenUrl, true);
     }
@@ -54,15 +55,24 @@ class AuthController extends ControllerBase
             'consumerSecret' => $config->oauth->$oauthStr->$service->consumer_secret,
         ));
         $oauth->initAdapter(ucfirst($service), $oauthStr);
-        $requestToken = $oauth->getStorage()->getRequestToken();
+        $session = $this->getDI()->get('session');
+        $requestToken = $session->get('request-token');
+
         if(!$requestToken) {
             return $this->response->redirect($url->get("/auth/request/$service/$oauthStr"), true);
         }
         $accessToken = $oauth->getAdapter()->getAccessToken($_GET, $requestToken);
         $accessTokenArray = $oauth->getAdapter()->accessTokenToArray($accessToken);
-        p($accessTokenArray);
-        $oauth->getStorage()->saveAccessToken($accessTokenArray);
-        $oauth->getStorage()->clearRequestToken();
+        $session->set('access-token', $accessTokenArray);
+        $session->remove('request-token');
+
+        $this->response->redirect('/auth/login');
+    }
+
+    public function loginAction()
+    {
+        $session = $this->getDI()->get('session');
+        $accessToken = $session->get('access-token');
     }
 
 }

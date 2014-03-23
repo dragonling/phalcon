@@ -111,7 +111,9 @@ class Engine
 
         $di->set('session', function () {
             $session = new SessionAdapter();
-            $session->start();
+            if(!$session->isStarted()) {
+                $session->start();
+            }
             return $session;
         });
 

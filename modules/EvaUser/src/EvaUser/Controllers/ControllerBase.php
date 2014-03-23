@@ -2,9 +2,7 @@
 
 namespace Eva\EvaUser\Controllers;
 
-use Phalcon\Mvc\Controller;
-
-class ControllerBase extends Controller
+class ControllerBase extends \Eva\EvaEngine\Controller\ControllerBase
 {
     public function initialize()
     {
@@ -12,35 +10,6 @@ class ControllerBase extends Controller
         $view->setViewsDir($this->getDI()->get('modules')->getModulePath('EvaCore') . '/views/_admin/');
         $view->setLayoutsDir('layouts/');
         $view->setLayout('login');
-    }
-
-    public function errorHandler($exception, $messages = null, $messageType = 'error')
-    {
-        if($messages) {
-            foreach($messages as $message) {
-                $this->flashSession->$messageType($message->getMessage());
-            }
-        }
-
-        //Not eva exception, keep throw
-        if(!($exception instanceof \Eva\EvaEngine\Exception\ExceptionInterface)){
-            throw $exception;
-        }
-        $this->response->setStatusCode($exception->getStatusCode(), $exception->getMessage());
-        $this->flashSession->$messageType($exception->getMessage());
-        //write log here
-        return $this;
-    }
-
-    public function validHandler(\Phalcon\Forms\Form $form, $messageType = 'warning')
-    {
-        $messages = $form->getMessages();
-        if($messages) {
-            foreach($messages as $message) {
-                $this->flashSession->$messageType($message->getMessage());
-            }
-        }
-        return $this;
     }
 
 }
