@@ -8,7 +8,7 @@
 
             <div class="space-6"></div>
 
-            <form action="/auth/login" method="POST">
+            <form action="/auth/register" method="POST">
                 <fieldset>
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
@@ -24,13 +24,18 @@
                         </span>
                     </label>
 
+
+            <div class="social-or-login center">
+                <span class="bigger-110">Your account will be connected to <?=$token['adapterKey']?></span>
+            </div>
+
                     <div class="space"></div>
 
                     <div class="clearfix">
 
                         <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
-                            <i class="icon-key"></i>
-                            Login
+                            <i class="icon-exchange"></i>
+                            Connect
                         </button>
                     </div>
 

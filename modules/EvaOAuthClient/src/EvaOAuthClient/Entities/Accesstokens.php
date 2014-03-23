@@ -16,12 +16,7 @@ class AccessTokens extends \Eva\EvaEngine\Model
      * @var string
      */
     public $token;
-     
-    /**
-     *
-     * @var string
-     */
-    public $tokenSecret;
+
      
     /**
      *

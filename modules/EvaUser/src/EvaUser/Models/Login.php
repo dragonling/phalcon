@@ -9,7 +9,6 @@ use Eva\EvaEngine\Exception;
 
 class Login extends Entities\Users
 {
-    protected $useMasterSlave = false;
     /**
     *  Register Feedbacks
     */
