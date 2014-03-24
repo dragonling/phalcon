@@ -182,11 +182,19 @@ class Login extends Entities\Users
         return md5($this->tokenSalt . $userinfo->status .  $userinfo->password); 
     }
 
+    public function saveUserToSession(Entities\Users $userinfo)
+    {
+        $authIdentity = $this->userToAuthIdentity($userinfo);
+        $this->getDI()->get('session')->set('auth-identity', $authIdentity);
+        return $authIdentity;
+    }
+
     public function userToAuthIdentity(Entities\Users $userinfo)
     {
         return array(
             'id' => $userinfo->id,
             'username' => $userinfo->username,
+            'email' => $userinfo->email,
         );
     }
 
@@ -227,11 +235,31 @@ class Login extends Entities\Users
         $userinfo->lastLoginTimestamp = time();
         $userinfo->save();
 
-        $authIdentity = $this->userToAuthIdentity($userinfo);
-
-        $this->getDI()->get('session')->set('auth-identity', $authIdentity);
+        $authIdentity = $this->saveUserToSession($userinfo);
         return $authIdentity;
     }
+
+    public function loginWithId()
+    {
+        $userinfo = array();
+        if($this->id) {
+            $userinfo = self::findFirst("id = '$this->id'");
+        }
+        if(!$userinfo) {
+            throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
+        }
+
+        if($userinfo->status != 'active') {
+            throw new Exception\UnauthorizedException('ERR_USER_NOT_ACTIVATED');
+        }
+
+        $userinfo->failedLogins = 0;
+        $userinfo->lastLoginTimestamp = time();
+        $userinfo->save();
+        $authIdentity = $this->saveUserToSession($userinfo);
+        return $authIdentity;
+    }
+
 
     public function loginWithCookie($tokenString)
     {
@@ -274,10 +302,7 @@ class Login extends Entities\Users
         $userinfo->lastLoginTimestamp = time();
         $userinfo->save();
 
-        $authIdentity = $this->userToAuthIdentity($userinfo);
-
-        $this->getDI()->get('session')->set('auth-identity', $authIdentity);
-
+        $this->saveUserToSession($userinfo);
         return true;
     }
 

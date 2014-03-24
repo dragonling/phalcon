@@ -2,7 +2,7 @@
 
 namespace Eva\EvaOAuthClient\Models;
 
-
+use Eva\EvaUser\Models\Login as UserLogin;
 use Eva\EvaUser\Entities\Users as UserEntity;
 use Eva\EvaOAuthClient\Entities\AccessTokens;
 use \Phalcon\Mvc\Model\Message as Message;
@@ -10,7 +10,33 @@ use Eva\EvaEngine\Exception;
 
 class Login extends UserEntity
 {
-    protected $useMasterSlave;
+    public function loginWithAccessToken(array $accessToken)
+    {
+        $accessTokenEntity = new AccessTokens();
+        $accessTokenEntity->assign($accessToken);
+        $token = $accessTokenEntity->findFirst(array(
+            "adapterKey = :adapterKey: AND token = :token: AND version = :version:",
+            'bind' => array(
+                'adapterKey' => $accessToken['adapterKey'],
+                'token' => $accessToken['token'],
+                'version' => $accessToken['version'],
+            )
+        ));
+        if(!$token || !$token->user_id) {
+            return false;
+        }
+        
+        $userModel = new UserLogin();
+        $userModel->assign(array(
+            'id' => $token->user_id
+        ));
+        return $userModel->loginWithId();
+    }
+
+    public function connect()
+    {
+    
+    }
 
     public function register()
     {
@@ -61,19 +87,22 @@ class Login extends UserEntity
         if(!$accessTokenEntity->save()) {
             throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_CREATE_FAILED');
         }
-        return $userinfo;
+
+        $userModel = new UserLogin(); 
+        $authIdentity = $userModel->saveUserToSession($userinfo);
+        return $authIdentity;
     }
 
 
-    public function sendVerificationEmail($username)
+    public function sendConfirmEmail($username)
     {
         $userinfo = self::findFirst("username = '$username'");
         if(!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if($userinfo->status == 'active') {
-            throw new Exception\OperationNotPermitedException('ERR_USER_ALREADY_ACTIVED');
+        if($userinfo->status == 'deleted') {
+            throw new Exception\OperationNotPermitedException('ERR_USER_BE_BANNED');
         }
 
         $mailer = $this->getDI()->get('mailer');
@@ -81,10 +110,10 @@ class Login extends UserEntity
         $message->setTo(array(
             $userinfo->email => $userinfo->username
         ));
-        $message->setTemplate($this->getDI()->get('config')->user->activeMailTemplate);
+        $message->setTemplate($this->getDI()->get('config')->user->confirmMailTemplate);
         $message->assign(array(
             'user' => $userinfo->toArray(),
-            'url' => $message->toSystemUrl('/session/verify/' . urlencode($userinfo->username) . '/' . $userinfo->activationHash)
+            'url' => $message->toSystemUrl('/auth/verify/' . urlencode($userinfo->username) . '/' . $userinfo->activationHash)
         ));
 
         return $mailer->send($message->getMessage());

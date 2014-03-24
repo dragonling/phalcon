@@ -67,7 +67,19 @@ class AuthController extends ControllerBase
         $session->set('access-token', $accessTokenArray);
         $session->remove('request-token');
 
-        $this->response->redirect('/auth/register');
+
+        $user = new Models\Login();
+        try {
+            if($user->loginWithAccessToken($accessTokenArray)) {
+                return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
+            } else {
+                return $this->response->redirect('/auth/register');
+            }
+        } catch(\Exception $e) {
+            $this->errorHandler($e, $user->getMessages());
+            return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
+        }
+
     }
 
     public function registerAction()
@@ -75,7 +87,7 @@ class AuthController extends ControllerBase
         $session = $this->getDI()->get('session');
         $accessToken = $session->get('access-token');
         if(!$accessToken) {
-            return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
         $this->view->token = $accessToken;
 
@@ -90,9 +102,11 @@ class AuthController extends ControllerBase
         ));
         try {
             $user->register();
+            $this->flashSession->success('Login Success');
+            return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch(\Exception $e) {
             $this->errorHandler($e, $user->getMessages());
-            return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
     }
 

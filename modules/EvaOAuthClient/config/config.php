@@ -18,6 +18,14 @@ return array(
     ),
 
     'oauth' => array(
+        'registerSuccessRedirectUri' => '/admin',
+        'registerFailedRedirectUri' => '/auth/register',
+        'loginSuccessRedirectUri' => '/admin/dashboard',
+        'loginFailedRedirectUri' => '/admin',
+        'confirmMailTemplate' => __DIR__ . '/../views/mails/confirm.phtml',
+        'confirmSuccessRedirectUri' => '/admin',
+        'confirmFailedRedirectUri' => '/admin',
+
         'oauth1' => array(
             'twitter' => array(
                 'enable' => 0,
