@@ -1,48 +1,134 @@
-<div id="login-box" class="login-box visible widget-box no-border">
+<div id="auth-login-box" class="login-box visible widget-box no-border">
+
+    <div class="widget-header">
+        <div class="widget-toolbar no-border pull-left">
+            <ul class="nav nav-tabs" id="auth-tab">
+                <li class="active">
+                <a data-toggle="tab" href="#auth-tab-register">New User</a>
+                </li>
+                <li>
+                <a data-toggle="tab" href="#auth-tab-bind">Already Have an Account</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
     <div class="widget-body">
         <div class="widget-main">
-            <h4 class="header blue lighter bigger">
-                <i class="icon-coffee green"></i>
-                Please Confrim Information
-            </h4>
+            <div class="tab-content">
+                <div id="auth-tab-register" class="tab-pane in active">
 
-            <div class="space-6"></div>
+                    <h4 class="header blue lighter bigger">
+                        <i class="icon-coffee green"></i>
+                        Register and Connect
+                    </h4>
 
-            <form action="/auth/register" method="POST">
-                <fieldset>
-                    <label class="block clearfix">
-                        <span class="block input-icon input-icon-right">
-                            <input type="email" name="email" class="form-control" placeholder="Email" />
-                            <i class="icon-envelope"></i>
-                        </span>
-                    </label>
-
-                    <label class="block clearfix">
-                        <span class="block input-icon input-icon-right">
-                            <input type="text" name="username" class="form-control" placeholder="Username" />
-                            <i class="icon-user"></i>
-                        </span>
-                    </label>
+                    <div class="space-6"></div>
 
 
-            <div class="social-or-login center">
-                <span class="bigger-110">Your account will be connected to <?=$token['adapterKey']?></span>
-            </div>
+                    <form action="/auth/register" method="POST">
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" data-parsley-trigger="blur change" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="This email has been taken" required />
+                                        <i class="icon-envelope"></i>
+                                    </span>
+                                </label>
+                            </div>
 
-                    <div class="space"></div>
+                            <div class="form-group">
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" name="username" class="form-control" placeholder="Username"
+                                        data-parsley-trigger="blur change"
+                                        data-parsley-type="alphanum"
+                                        data-parsley-minlength="4"
+                                        data-parsley-maxlength="24"
+                                        data-parsley-pattern="^(?![0-9]+$)"
+                                        data-parsley-pattern-message="Username not allow pure digits"
+                                        data-parsley-remote="/register/check"
+                                        data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                                        data-parsley-remote-message="This username has been taken"
+                                        required />
+                                        <i class="icon-user"></i>
+                                    </span>
+                                </label>
+                            </div>
 
-                    <div class="clearfix">
+                            <div class="social-or-login center">
+                                <span class="bigger-110">Your account will be connected to <?=$token['adapterKey']?></span>
+                            </div>
 
-                        <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
-                            <i class="icon-exchange"></i>
-                            Connect
-                        </button>
-                    </div>
+                            <div class="space"></div>
 
-                    <div class="space-4"></div>
-                </fieldset>
-            </form>
+                            <div class="clearfix">
 
+                                <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                    <i class="icon-exchange"></i>
+                                    Connect
+                                </button>
+                            </div>
+
+                            <div class="space-4"></div>
+                        </fieldset>
+                    </form>
+
+                </div><!-- /#auth-tab-register -->
+
+
+                <div id="auth-tab-bind" class="tab-pane">
+                    <h4 class="header blue lighter bigger">
+                        <i class="icon-coffee green"></i>
+                        Login and Connect
+                    </h4>
+
+                    <div class="space-6"></div>
+
+
+                    <form action="/auth/login" method="POST">
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" name="identify" class="form-control" placeholder="Username Or Email" data-parsley-minlength="4" required />
+                                        <i class="icon-user"></i>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" name="password" class="form-control" placeholder="Password" data-parsley-minlength="6"  data-parsley-maxlength="26" required />
+                                        <i class="icon-lock"></i>
+                                    </span>
+                                </label>
+                            </div>
+
+
+                            <div class="social-or-login center">
+                                <span class="bigger-110">Your <?=$token['adapterKey']?> account will be connected after login</span>
+                            </div>
+
+                            <div class="space"></div>
+
+                            <div class="clearfix">
+
+                                <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                    <i class="icon-exchange"></i>
+                                    Bind
+
+                                </button>
+                            </div>
+
+                            <div class="space-4"></div>
+                        </fieldset>
+                    </form>
+
+                </div><!-- /#auth-tab-login -->
+            </div><!-- /tab-content -->
         </div><!-- /widget-main -->
 
 
