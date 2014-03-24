@@ -48,7 +48,7 @@ class RegisterController extends ControllerBase
         }
         $this->view->disable();
         if($userinfo) {
-            $this->response->setStatusCode('401', 'User Already Exists');
+            $this->response->setStatusCode('409', 'User Already Exists');
         }
         echo json_encode(array(
             'exist' => $userinfo ? true : false,

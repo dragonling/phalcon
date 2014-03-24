@@ -12,6 +12,7 @@ use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\StringLength;
 use Phalcon\Validation\Validator\Confirmation;
+use Phalcon\Validation\Validator\Regex;
 
 class RegisterForm extends Form
 {
@@ -19,22 +20,27 @@ class RegisterForm extends Form
     public function initialize($entity = null, $options = null)
     {
         $name = new Text('username');
-
         $name->setLabel('Name');
-
         $name->addValidators(array(
             new PresenceOf(array(
-                'message' => 'The name is required'
-            ))
+                'message' => 'Username is required'
+            )),
+            new Regex(array(
+                'pattern' => '/[0-9a-zA-Z]+/',
+                'message' => 'Username is alphanumerics only'
+            )),
+            new StringLength(array(
+                'min' => 4,
+                'max' => 24,
+                'messageMinimum' => 'Username is too short. Minimum 4 characters',
+                'messageMaximum' => 'Username is too long. Maximum 24 characters'
+            )),
         ));
-
         $this->add($name);
 
         // Email
         $email = new Text('email');
-
-        $email->setLabel('E-Mail');
-
+        $email->setLabel('Email');
         $email->addValidators(array(
             new PresenceOf(array(
                 'message' => 'The e-mail is required'
@@ -43,55 +49,47 @@ class RegisterForm extends Form
                 'message' => 'The e-mail is not valid'
             ))
         ));
-
         $this->add($email);
 
         // Password
         $password = new Password('password');
-
         $password->setLabel('Password');
-
         $password->addValidators(array(
             new PresenceOf(array(
                 'message' => 'The password is required'
             )),
             new StringLength(array(
-                'min' => 8,
-                'messageMinimum' => 'Password is too short. Minimum 8 characters'
+                'min' => 6,
+                'max' => 26,
+                'messageMinimum' => 'Password is too short. Minimum 6 characters',
+                'messageMaximum' => 'Password is too long. Maximum 26 characters'
             )),
-            new Confirmation(array(
-                'message' => 'Password doesn\'t match confirmation',
-                'with' => 'passwordConfirm'
-            ))
         ));
-
         $this->add($password);
 
         // Confirm Password
         $confirmPassword = new Password('passwordConfirm');
-
         $confirmPassword->setLabel('Confirm Password');
-
         $confirmPassword->addValidators(array(
             new PresenceOf(array(
                 'message' => 'The confirmation password is required'
+            )),
+            new Confirmation(array(
+                'message' => 'Password doesn\'t match',
+                'with' => 'password'
             ))
         ));
-
         $this->add($confirmPassword);
 
         // Remember
         $terms = new Check('agree', array(
             'value' => 'yes'
         ));
-
         $terms->setLabel('Accept terms and conditions');
-
         $terms->addValidator(new Identical(array(
             'value' => 'yes',
             'message' => 'Terms and conditions must be accepted'
         )));
-
         $this->add($terms);
 
         /*

@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="text" name="identify" class="form-control" placeholder="Username Or Email" required />
+                                <input type="text" name="identify" class="form-control" placeholder="Username Or Email" data-parsley-minlength="4" required />
                                 <i class="icon-user"></i>
                             </span>
                         </label>
@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="password" name="password" class="form-control" placeholder="Password" required />
+                                <input type="password" name="password" class="form-control" placeholder="Password" data-parsley-minlength="6"  data-parsley-maxlength="26" required />
                                 <i class="icon-lock"></i>
                             </span>
                         </label>
@@ -165,7 +165,7 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="email" name="email" class="form-control" placeholder="Email" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="This Email has been taken" required />
+                                <input type="email" name="email" class="form-control" placeholder="Email" data-parsley-trigger="blur change" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="This email has been taken" required />
                                 <i class="icon-envelope"></i>
                             </span>
                         </label>
@@ -174,7 +174,17 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="text" name="username" class="form-control" placeholder="Username" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}'  data-parsley-remote-message="This username has been taken" required />
+                                <input type="text" name="username" class="form-control" placeholder="Username"
+                                data-parsley-trigger="blur change"
+                                data-parsley-type="alphanum"
+                                data-parsley-minlength="4"
+                                data-parsley-maxlength="24"
+                                data-parsley-pattern="^(?![0-9]+$)"
+                                data-parsley-pattern-message="Username not allow pure digits"
+                                data-parsley-remote="/register/check"
+                                data-parsley-remote-options='{ method: "GET", dataType: "json"}'
+                                data-parsley-remote-message="This username has been taken"
+                                required />
                                 <i class="icon-user"></i>
                             </span>
                         </label>
@@ -183,7 +193,7 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="password" name="password" class="form-control" placeholder="Password" required />
+                                <input type="password" name="password" class="form-control" size="24" placeholder="Password" data-parsley-trigger="blur change" data-parsley-minlength="6"  data-parsley-maxlength="26" required />
                                 <i class="icon-lock"></i>
                             </span>
                         </label>
@@ -192,7 +202,7 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="password" name="passwordConfirm" class="form-control" placeholder="Repeat password" required />
+                                <input type="password" name="passwordConfirm" class="form-control" placeholder="Repeat password" data-parsley-trigger="blur change" data-parsley-equalto="#signup-box input[name=password]" data-parsley-equalto-message="Password not match" required />
                                 <i class="icon-retweet"></i>
                             </span>
                         </label>

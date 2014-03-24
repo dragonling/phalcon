@@ -28,8 +28,8 @@ class ResetPasswordForm extends Form
                 'message' => 'The password is required'
             )),
             new StringLength(array(
-                'min' => 8,
-                'messageMinimum' => 'Password is too short. Minimum 8 characters'
+                'min' => 6,
+                'messageMinimum' => 'Password is too short. Minimum 6 characters'
             )),
             new Confirmation(array(
                 'message' => 'Password doesn\'t match confirmation',
