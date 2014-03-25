@@ -3,6 +3,7 @@
 namespace Eva\EvaEngine\Controller;
 
 use Phalcon\Mvc\Controller;
+use Eva\EvaEngine\Tag;
 
 class ControllerBase extends Controller
 {
@@ -32,10 +33,11 @@ class ControllerBase extends Controller
 
     public function errorHandler($exception, $messages = null, $messageType = 'error')
     {
+        $tag = $this->getDI()->get('tag');
         $messageArray = array();
         if($messages) {
             foreach($messages as $message) {
-                $this->flashSession->$messageType($message->getMessage());
+                $this->flashSession->$messageType($tag::_($message->getMessage()));
                 $messageArray[] = $message->getMessage();
             }
         }
@@ -55,7 +57,8 @@ class ControllerBase extends Controller
         }
 
         $this->response->setStatusCode($exception->getStatusCode(), $exception->getMessage());
-        $this->flashSession->$messageType($exception->getMessage());
+        $this->flashSession->$messageType($tag::_($exception->getMessage()));
+
         return $this;
     }
 
