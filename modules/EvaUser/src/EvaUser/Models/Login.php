@@ -202,12 +202,12 @@ class Login extends Entities\Users
     public function login()
     {
         $userinfo = array();
-        if($this->id) {
-            $userinfo = self::findFirst("id = '$this->id'");
-        } elseif($this->username) {
+        if($this->username) {
             $userinfo = self::findFirst("username = '$this->username'");
         } elseif($this->email) {
             $userinfo = self::findFirst("email = '$this->email'");
+        } else {
+            throw new Exception\InvalidArgumentException('ERR_USER_NO_USERNAME_OR_EMAIL_INPUT');
         }
 
         if(!$userinfo) {

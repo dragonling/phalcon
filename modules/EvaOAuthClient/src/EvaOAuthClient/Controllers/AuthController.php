@@ -27,7 +27,10 @@ class AuthController extends ControllerBase
             'consumerKey' => $config->oauth->$oauthStr->$service->consumer_key,
             'consumerSecret' => $config->oauth->$oauthStr->$service->consumer_secret,
         ));
-        $oauth->initAdapter(ucfirst($service), $oauthStr);
+        $oauth->initAdapter($service, $oauthStr);
+        OAuthService::setHttpClientOptions(array(
+            'timeout' => 1
+        ));
 
         $session = $this->getDI()->get('session');
         $session->remove('request-token');
@@ -55,18 +58,26 @@ class AuthController extends ControllerBase
             'consumerKey' => $config->oauth->$oauthStr->$service->consumer_key,
             'consumerSecret' => $config->oauth->$oauthStr->$service->consumer_secret,
         ));
-        $oauth->initAdapter(ucfirst($service), $oauthStr);
+        $oauth->initAdapter($service, $oauthStr);
+        OAuthService::setHttpClientOptions(array(
+            'timeout' => 1
+        ));
         $session = $this->getDI()->get('session');
         $requestToken = $session->get('request-token');
 
         if(!$requestToken) {
-            return $this->response->redirect($url->get("/auth/request/$service/$oauthStr"), true);
+            return $this->response->redirect($this->getDI()->get('config')->oauth->authFailedRedirectUri);
         }
-        $accessToken = $oauth->getAdapter()->getAccessToken($_GET, $requestToken);
-        $accessTokenArray = $oauth->getAdapter()->accessTokenToArray($accessToken);
-        $session->set('access-token', $accessTokenArray);
-        $session->remove('request-token');
 
+        try {
+            $accessToken = $oauth->getAdapter()->getAccessToken($_GET, $requestToken);
+            $accessTokenArray = $oauth->getAdapter()->accessTokenToArray($accessToken);
+            $session->set('access-token', $accessTokenArray);
+            $session->remove('request-token');
+        } catch(\Exception $e) {
+            $this->flashSession->error('ERR_OAUTH_AUTHORIZATION_FAILED');
+            return $this->response->redirect($this->getDI()->get('config')->oauth->authFailedRedirectUri);
+        }
 
         $user = new Models\Login();
         try {
@@ -100,13 +111,57 @@ class AuthController extends ControllerBase
             'username' => $this->request->getPost('username'),
             'email' => $this->request->getPost('email'),
         ));
+        $session = $this->getDI()->get('session');
         try {
             $user->register();
             $this->flashSession->success('Login Success');
+            $session->remove('access-token');
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch(\Exception $e) {
             $this->errorHandler($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
+        }
+    }
+
+
+    public function loginAction()
+    {
+        $this->view->setTemplateAfter('login');
+        $this->view->pick('auth/register');
+
+        $session = $this->getDI()->get('session');
+        $accessToken = $session->get('access-token');
+        if(!$accessToken) {
+            return $this->response->redirect($this->getDI()->get('config')->oauth->authFailedRedirectUri);
+        }
+        $this->view->token = $accessToken;
+
+        if (!$this->request->isPost()) {
+            return;
+        }
+
+        $user = new Models\Login();
+        $identify = $this->request->getPost('identify');
+        if(false === strpos($identify, '@')) {
+            $user->assign(array(
+                'username' => $identify,
+                'password' => $this->request->getPost('password'),
+            ));
+        } else {
+            $user->assign(array(
+                'email' => $identify,
+                'password' => $this->request->getPost('password'),
+            ));
+        }
+        $session = $this->getDI()->get('session');
+        try {
+            $user->connect($accessToken);
+            $this->flashSession->success('Connect Success');
+            //$session->remove('access-token');
+            //return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
+        } catch(\Exception $e) {
+            $this->errorHandler($e, $user->getMessages());
+            //return $this->response->redirect($this->getDI()->get('config')->oauth->loginFailedRedirectUri);
         }
     }
 

@@ -33,9 +33,24 @@ class Login extends UserEntity
         return $userModel->loginWithId();
     }
 
-    public function connect()
+    public function connect(array $accessToken)
     {
-    
+        $userModel = new UserLogin();
+        $userModel->assign(array(
+            'username' => $this->username,
+            'email' => $this->email,
+            'password' => $this->password,
+        ));
+        $authIdentity = $userModel->login();
+
+        $accessTokenEntity = new AccessTokens();
+        $accessTokenEntity->assign($accessToken);
+        $accessTokenEntity->tokenStatus = 'active';
+        $accessTokenEntity->user_id = $authIdentity->id;
+        if(!$accessTokenEntity->save()) {
+            throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_CREATE_FAILED');
+        }
+        return $authIdentity;
     }
 
     public function register()

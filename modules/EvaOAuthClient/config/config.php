@@ -19,9 +19,10 @@ return array(
 
     'oauth' => array(
         'registerSuccessRedirectUri' => '/admin',
-        'registerFailedRedirectUri' => '/auth/register',
+        'registerFailedRedirectUri' => '/admin',
         'loginSuccessRedirectUri' => '/admin/dashboard',
         'loginFailedRedirectUri' => '/admin',
+        'authFailedRedirectUri' => '/admin',
         'confirmMailTemplate' => __DIR__ . '/../views/mails/confirm.phtml',
         'confirmSuccessRedirectUri' => '/admin',
         'confirmFailedRedirectUri' => '/admin',
