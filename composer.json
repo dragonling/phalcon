@@ -14,7 +14,6 @@
 	"ircmaxell/password-compat": "dev-master",
         "phalcon/incubator" : "dev-master",
 	"allovince/evaoauth": "dev-master",
-	"league/oauth2-server" : "dev-master",
 	"swiftmailer/swiftmailer" : "dev-master",
 	"lusitanian/oauth": "dev-master",
 	"erusev/parsedown" : "dev-master"
