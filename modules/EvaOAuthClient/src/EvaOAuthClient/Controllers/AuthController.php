@@ -76,6 +76,7 @@ class AuthController extends ControllerBase
             $session->remove('request-token');
         } catch(\Exception $e) {
             $this->flashSession->error('ERR_OAUTH_AUTHORIZATION_FAILED');
+            $this->ignoreHandler($e);
             return $this->response->redirect($this->getDI()->get('config')->oauth->authFailedRedirectUri);
         }
 

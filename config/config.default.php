@@ -15,6 +15,13 @@ return array(
 //        'defaultName' => 'system',
     ), 
 
+    'translate' => array(
+        'enable' => true,
+        'path' => __DIR__ . '/../languages/',
+        'adapter' => 'csv',
+        'forceLang' => 'zh_CN', 
+    ),
+
     'routes' => array(
 
     ),

@@ -145,6 +145,28 @@ class Engine
 
         $di->set('mailMessage', 'Eva\EvaEngine\MailMessage');
 
+        $di->set('translate', function () use ($di) {
+            $config = $di->get('config');
+            $file = $config->translate->path . $config->translate->forceLang . '.csv';
+            if(false === file_exists($file)) {
+                $file = $config->translate->path . 'empty.csv';
+            }
+            $translate = new \Phalcon\Translate\Adapter\Csv(array(
+                'file' => $file,
+            ));
+            return $translate;
+        });
+
+        $di->set('tag', function () use ($di) {
+            \Eva\EvaEngine\Tag::setDi($di);
+            return new \Eva\EvaEngine\Tag();
+        });
+
+        $di->set('logException', function () use ($di) {
+            $config = $di->get('config');
+            return $logger = new FileLogger($config->logger->path . 'error_' . date('Y-m-d') . '.log');
+        });
+
         $di->set('db', function () use ($di) {
             $config = $di->get('config');
             $dbAdapter = new DbAdapter(array(
