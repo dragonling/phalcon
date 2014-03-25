@@ -18,6 +18,12 @@
 	"lusitanian/oauth": "dev-master",
 	"erusev/parsedown" : "dev-master"
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/AlloVince/EvaOAuth.git"
+        }
+    ],
     "require-dev" : {
     }
 }
