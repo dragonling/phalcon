@@ -157,11 +157,11 @@ class AuthController extends ControllerBase
         try {
             $user->connect($accessToken);
             $this->flashSession->success('Connect Success');
-            //$session->remove('access-token');
-            //return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
+            $session->remove('access-token');
+            return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch(\Exception $e) {
             $this->errorHandler($e, $user->getMessages());
-            //return $this->response->redirect($this->getDI()->get('config')->oauth->loginFailedRedirectUri);
+            return $this->response->redirect($this->getDI()->get('config')->oauth->loginFailedRedirectUri);
         }
     }
 

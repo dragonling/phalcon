@@ -15,11 +15,11 @@ class Login extends UserEntity
         $accessTokenEntity = new AccessTokens();
         $accessTokenEntity->assign($accessToken);
         $token = $accessTokenEntity->findFirst(array(
-            "adapterKey = :adapterKey: AND token = :token: AND version = :version:",
+            "adapterKey = :adapterKey: AND remoteUserId = :remoteUserId: AND version = :version:",
             'bind' => array(
                 'adapterKey' => $accessToken['adapterKey'],
-                'token' => $accessToken['token'],
                 'version' => $accessToken['version'],
+                'remoteUserId' => $accessToken['remoteUserId'],
             )
         ));
         if(!$token || !$token->user_id) {
@@ -46,7 +46,7 @@ class Login extends UserEntity
         $accessTokenEntity = new AccessTokens();
         $accessTokenEntity->assign($accessToken);
         $accessTokenEntity->tokenStatus = 'active';
-        $accessTokenEntity->user_id = $authIdentity->id;
+        $accessTokenEntity->user_id = $authIdentity['id'];
         if(!$accessTokenEntity->save()) {
             throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_CREATE_FAILED');
         }
