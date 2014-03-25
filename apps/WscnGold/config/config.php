@@ -3,9 +3,10 @@
 return array(
     'routes' => array(
         '/' =>  array(
-            'module' => 'Frontend',
+            'module' => 'WscnGold',
             'controller' => 'index',
             'action' => 'index'
         ),    
     ),
 );
+

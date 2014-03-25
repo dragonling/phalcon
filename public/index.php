@@ -16,7 +16,11 @@ $engine->loadModules(array(
     'EvaPost',
     'Frontend' => array(
         'className' => 'Eva\Frontend\Module',
-        'path' => __DIR__ . '/../apps/frontend/Module.php'
+        'path' => __DIR__ . '/../apps/Frontend/Module.php'
+    ),
+    'WscnGold' => array(
+        'className' => 'WscnGold\Module',
+        'path' => __DIR__ . '/../apps/WscnGold/Module.php'
     ),
 ));
 
