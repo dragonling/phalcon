@@ -29,7 +29,7 @@ class AuthController extends ControllerBase
         ));
         $oauth->initAdapter($service, $oauthStr);
         OAuthService::setHttpClientOptions(array(
-            'timeout' => 1
+            'timeout' => 2
         ));
 
         $session = $this->getDI()->get('session');
@@ -60,7 +60,7 @@ class AuthController extends ControllerBase
         ));
         $oauth->initAdapter($service, $oauthStr);
         OAuthService::setHttpClientOptions(array(
-            'timeout' => 1
+            'timeout' => 2
         ));
         $session = $this->getDI()->get('session');
         $requestToken = $session->get('request-token');

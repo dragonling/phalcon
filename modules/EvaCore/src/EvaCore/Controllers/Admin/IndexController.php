@@ -26,6 +26,10 @@ class IndexController extends Controller
     public function dashboardAction()
     {
         $view = $this->view;
+        $user = new \Eva\EvaUser\Models\Login();
+        if($user->isUserLoggedIn()) {
+            $view->authIdentity = $user->getAuthIdentity();
+        }
         $view->setViewsDir($this->view->getViewsDir() . '_admin/');
         $view->setLayoutsDir('layouts/');
         $view->setLayout('admin');

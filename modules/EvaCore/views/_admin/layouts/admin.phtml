@@ -68,15 +68,17 @@
 					<ul class="nav ace-nav">
 
 						<li class="light-blue">
+                        <?if($authIdentity):?>
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+                                <img class="nav-user-photo" src="<?=$this->tag->gravatar($authIdentity['email'])?>" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
-									Jason
+                                    <?=$authIdentity['username']?>
 								</span>
 
 								<i class="icon-caret-down"></i>
 							</a>
+                        <?endif?>
 
 							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 								<li>
