@@ -145,6 +145,15 @@ class Engine
 
         $di->set('mailMessage', 'Eva\EvaEngine\MailMessage');
 
+        $di->set('queue', function() use ($di) {
+            $config = $di->get('config');
+            $client = new \GearmanClient();
+            foreach($config->queue->servers as $key => $server) {
+                $client->addServer($server->host, $server->post);
+            }
+            return $client;
+        });
+
         $di->set('translate', function () use ($di) {
             $config = $di->get('config');
             $file = $config->translate->path . $config->translate->forceLang . '.csv';

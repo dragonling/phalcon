@@ -4,12 +4,11 @@ namespace Eva\EvaUser\Entities;
 
 class Tokens extends \Eva\EvaEngine\Model
 {
-
     /**
      *
      * @var string
      */
-    public $sessionId;
+    public $adapterKey;
      
     /**
      *
@@ -21,7 +20,73 @@ class Tokens extends \Eva\EvaEngine\Model
      *
      * @var string
      */
-    public $userHash;
+    public $version;
+     
+    /**
+     *
+     * @var string
+     */
+    public $tokenStatus;
+     
+    /**
+     *
+     * @var string
+     */
+    public $scope;
+     
+    /**
+     *
+     * @var string
+     */
+    public $refreshToken;
+     
+    /**
+     *
+     * @var string
+     */
+    public $refreshTime;
+     
+    /**
+     *
+     * @var string
+     */
+    public $expireTime;
+     
+    /**
+     *
+     * @var string
+     */
+    public $remoteUserId;
+     
+    /**
+     *
+     * @var string
+     */
+    public $remoteUserName;
+     
+    /**
+     *
+     * @var string
+     */
+    public $remoteNickName;
+     
+    /**
+     *
+     * @var string
+     */
+    public $remoteEmail;
+     
+    /**
+     *
+     * @var string
+     */
+    public $remoteImageUrl;
+     
+    /**
+     *
+     * @var string
+     */
+    public $remoteExtra;
      
     /**
      *
@@ -30,31 +95,29 @@ class Tokens extends \Eva\EvaEngine\Model
     public $user_id;
      
     /**
-     *
-     * @var integer
-     */
-    public $refreshTimestamp;
-     
-    /**
-     *
-     * @var integer
-     */
-    public $expiredTimestamp;
-     
-    /**
      * Independent Column Mapping.
      */
     public function columnMap()
     {
         return array(
-            'sessionId' => 'sessionId', 
+            'adapterKey' => 'adapterKey', 
             'token' => 'token', 
-            'userHash' => 'userHash', 
-            'user_id' => 'user_id', 
-            'refreshTimestamp' => 'refreshTimestamp', 
-            'expiredTimestamp' => 'expiredTimestamp'
+            'version' => 'version', 
+            'tokenStatus' => 'tokenStatus', 
+            'scope' => 'scope', 
+            'refreshToken' => 'refreshToken', 
+            'refreshTime' => 'refreshTime', 
+            'expireTime' => 'expireTime', 
+            'remoteUserId' => 'remoteUserId', 
+            'remoteUserName' => 'remoteUserName', 
+            'remoteNickName' => 'remoteNickName', 
+            'remoteEmail' => 'remoteEmail', 
+            'remoteImageUrl' => 'remoteImageUrl', 
+            'remoteExtra' => 'remoteExtra', 
+            'user_id' => 'user_id'
         );
     }
+
 
     protected $tableName = 'user_tokens';
 }

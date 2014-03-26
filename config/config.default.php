@@ -45,8 +45,17 @@ return array(
         )
     ),
 
+    'queue' => array(
+        'servers' => array(
+            'server1' => array(
+                'host' => '127.0.0.1',
+                'port' => 4730,
+            ),
+        ),
+    ),
 
     'mailer' => array(
+        'async' => false,
         'transport' => 'smtp', //or default
         'host' => 'smtp.gmail.com',
         'port' => 465,

@@ -10,24 +10,6 @@ use Eva\EvaEngine\Exception;
 class Login extends Entities\Users
 {
     /**
-    *  Register Feedbacks
-    */
-    const FEEDBACK_USERNAME_ALREADY_TAKEN   = 'FEEDBACK_USERNAME_ALREADY_TAKEN';
-    const FEEDBACK_USER_EMAIL_ALREADY_TAKEN = 'FEEDBACK_USER_EMAIL_ALREADY_TAKEN';
-    const FEEDBACK_ACCOUNT_CREATION_FAILED  = 'FEEDBACK_ACCOUNT_CREATION_FAILED';
-    const FEEDBACK_VERIFICATION_MAIL_SENDING_FAILED = 'FEEDBACK_VERIFICATION_MAIL_SENDING_FAILED';
-    const FEEDBACK_ACCOUNT_ACTIVATION_FAILED = 'FEEDBACK_ACCOUNT_ACTIVATION_FAILED';
-
-    /**
-    *  Login Feedbacks
-    */
-    const FEEDBACK_LOGIN_FAILED = 'FEEDBACK_LOGIN_FAILED';
-    const FEEDBACK_ACCOUNT_NOT_FOUND = 'FEEDBACK_ACCOUNT_NOT_FOUND';
-    const FEEDBACK_PASSWORD_WRONG = 'FEEDBACK_PASSWORD_WRONG';
-    const FEEDBACK_PASSWORD_WRONG_MAX_TIMES = 'FEEDBACK_PASSWORD_WRONG_MAX_TIMES';
-    const FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET = 'FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET';
-
-    /**
     *  Token Create Feedbacks
     */
     const FEEDBACK_TOKEN_NO_USER_INPUT = 'FEEDBACK_TOKEN_NO_USER_INPUT';
@@ -84,8 +66,18 @@ class Login extends Entities\Users
     }
 
 
-    public function sendVerificationEmail($username)
+    public function sendVerificationEmail($username, $forceSend = false)
     {
+        if(false === $forceSend && $this->getDI()->get('config')->mailer->async) {
+            $queue = $this->getDI()->get('queue');
+            $client->do('sendmail', json_encode(array(
+                'class' => __CLASS__,
+                'method' => __METHOD__,
+                'parameters' => array($username, true)
+            )));
+            return true;
+        }
+
         $userinfo = self::findFirst("username = '$username'");
         if(!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
@@ -106,7 +98,8 @@ class Login extends Entities\Users
             'url' => $message->toSystemUrl('/session/verify/' . urlencode($userinfo->username) . '/' . $userinfo->activationHash)
         ));
 
-        return $mailer->send($message->getMessage());
+        $mailer->send($message->getMessage());
+        return true;
     }
 
 

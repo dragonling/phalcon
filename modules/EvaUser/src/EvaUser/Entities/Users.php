@@ -7,6 +7,7 @@ use Phalcon\Mvc\Model\Validator\Email as Email;
 class Users extends \Eva\EvaEngine\Model
 {
 
+
     /**
      *
      * @var integer
@@ -105,9 +106,15 @@ class Users extends \Eva\EvaEngine\Model
      
     /**
      *
+     * @var string
+     */
+    public $emailStatus;
+     
+    /**
+     *
      * @var integer
      */
-    public $activeTimestamp;
+    public $emailConfirmTimestamp;
      
     /**
      *
@@ -138,6 +145,12 @@ class Users extends \Eva\EvaEngine\Model
      * @var string
      */
     public $activationHash;
+     
+    /**
+     *
+     * @var integer
+     */
+    public $activationTimestamp;
      
     /**
      *
@@ -198,12 +211,14 @@ class Users extends \Eva\EvaEngine\Model
             'avatar' => 'avatar', 
             'timezone' => 'timezone', 
             'language' => 'language', 
-            'activeTimestamp' => 'activeTimestamp', 
+            'emailStatus' => 'emailStatus', 
+            'emailConfirmTimestamp' => 'emailConfirmTimestamp', 
             'creationTimestamp' => 'creationTimestamp', 
             'lastLoginTimestamp' => 'lastLoginTimestamp', 
             'failedLogins' => 'failedLogins', 
             'lastFailedLoginTimestamp' => 'lastFailedLoginTimestamp', 
             'activationHash' => 'activationHash', 
+            'activationTimestamp' => 'activationTimestamp', 
             'passwordResetHash' => 'passwordResetHash', 
             'passwordResetTimestamp' => 'passwordResetTimestamp', 
             'providerType' => 'providerType'
