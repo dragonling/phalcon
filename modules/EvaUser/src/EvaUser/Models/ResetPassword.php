@@ -47,6 +47,7 @@ class ResetPassword extends Entities\Users
                 'method' => __FUNCTION__,
                 'parameters' => array($email, true)
             )));
+            return true;
         }
 
         $userinfo = self::findFirst("email= '$email'");

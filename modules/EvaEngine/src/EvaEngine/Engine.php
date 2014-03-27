@@ -166,6 +166,7 @@ class Engine
             }
             $translate = new \Phalcon\Translate\Adapter\Csv(array(
                 'file' => $file,
+                'delimiter' => ',',
             ));
             return $translate;
         });

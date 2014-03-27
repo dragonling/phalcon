@@ -4,7 +4,6 @@ namespace Eva\EvaOAuthClient\Entities;
 
 class AccessTokens extends \Eva\EvaEngine\Model
 {
-
     /**
      *
      * @var string
@@ -16,7 +15,6 @@ class AccessTokens extends \Eva\EvaEngine\Model
      * @var string
      */
     public $token;
-
      
     /**
      *
@@ -70,6 +68,24 @@ class AccessTokens extends \Eva\EvaEngine\Model
      *
      * @var string
      */
+    public $remoteNickName;
+     
+    /**
+     *
+     * @var string
+     */
+    public $remoteEmail;
+     
+    /**
+     *
+     * @var string
+     */
+    public $remoteImageUrl;
+     
+    /**
+     *
+     * @var string
+     */
     public $remoteExtra;
      
     /**
@@ -86,7 +102,6 @@ class AccessTokens extends \Eva\EvaEngine\Model
         return array(
             'adapterKey' => 'adapterKey', 
             'token' => 'token', 
-            'tokenSecret' => 'tokenSecret', 
             'version' => 'version', 
             'tokenStatus' => 'tokenStatus', 
             'scope' => 'scope', 
@@ -95,6 +110,9 @@ class AccessTokens extends \Eva\EvaEngine\Model
             'expireTime' => 'expireTime', 
             'remoteUserId' => 'remoteUserId', 
             'remoteUserName' => 'remoteUserName', 
+            'remoteNickName' => 'remoteNickName', 
+            'remoteEmail' => 'remoteEmail', 
+            'remoteImageUrl' => 'remoteImageUrl', 
             'remoteExtra' => 'remoteExtra', 
             'user_id' => 'user_id'
         );

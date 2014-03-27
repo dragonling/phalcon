@@ -1,7 +1,4 @@
---
--- 表的结构 `eva_oauth_accesstokens`
---
-
+DROP TABLE IF EXISTS `eva_oauth_accesstokens`;
 CREATE TABLE IF NOT EXISTS `eva_oauth_accesstokens` (
   `adapterKey` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
@@ -11,20 +8,18 @@ CREATE TABLE IF NOT EXISTS `eva_oauth_accesstokens` (
   `refreshToken` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `refreshTime` datetime DEFAULT NULL,
   `expireTime` datetime DEFAULT NULL,
-  `remoteUserId` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remoteUserId` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `remoteUserName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remoteNickName` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remoteEmail` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remoteImageUrl` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `remoteExtra` mediumtext COLLATE utf8_unicode_ci,
   `user_id` int(10) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`adapterKey`,`token`,`version`),
+  PRIMARY KEY (`adapterKey`,`version`,`remoteUserId`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- 表的结构 `eva_user_profiles`
---
-
+DROP TABLE IF EXISTS `eva_user_profiles`;
 CREATE TABLE IF NOT EXISTS `eva_user_profiles` (
   `user_id` int(10) NOT NULL,
   `site` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -60,12 +55,7 @@ CREATE TABLE IF NOT EXISTS `eva_user_profiles` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- 表的结构 `eva_user_tokens`
---
-
+DROP TABLE IF EXISTS `eva_user_tokens`;
 CREATE TABLE IF NOT EXISTS `eva_user_tokens` (
   `sessionId` varchar(40) COLLATE utf8_bin NOT NULL,
   `token` varchar(32) COLLATE utf8_bin NOT NULL,
@@ -76,12 +66,7 @@ CREATE TABLE IF NOT EXISTS `eva_user_tokens` (
   PRIMARY KEY (`sessionId`,`token`,`userHash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- --------------------------------------------------------
-
---
--- 表的结构 `eva_user_users`
---
-
+DROP TABLE IF EXISTS `eva_user_users`;
 CREATE TABLE IF NOT EXISTS `eva_user_users` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
@@ -99,17 +84,18 @@ CREATE TABLE IF NOT EXISTS `eva_user_users` (
   `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `timezone` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `language` varchar(10) COLLATE utf8_unicode_ci DEFAULT 'en',
-  `activeTimestamp` int(10) DEFAULT NULL,
+  `emailStatus` enum('active','inactive') COLLATE utf8_unicode_ci DEFAULT 'inactive',
+  `emailConfirmTimestamp` int(10) DEFAULT NULL,
   `creationTimestamp` int(10) DEFAULT NULL,
   `lastLoginTimestamp` int(10) DEFAULT NULL,
   `failedLogins` tinyint(1) DEFAULT '0',
   `lastFailedLoginTimestamp` int(10) DEFAULT NULL,
   `activationHash` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `activationTimestamp` int(10) DEFAULT NULL,
   `passwordResetHash` char(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `passwordResetTimestamp` int(10) DEFAULT NULL,
   `providerType` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'DEFAULT',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username_2` (`username`),
   KEY `userName` (`username`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;

@@ -75,6 +75,7 @@ class Login extends Entities\Users
                 'method' => __FUNCTION__,
                 'parameters' => array($username, true)
             )));
+            return true;
         }
 
         $userinfo = self::findFirst("username = '$username'");
