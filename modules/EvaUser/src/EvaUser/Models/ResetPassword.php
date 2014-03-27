@@ -38,8 +38,17 @@ class ResetPassword extends Entities\Users
         return true;
     }
 
-    public function sendPasswordResetMail($email)
+    public function sendPasswordResetMail($email, $forceSend = false)
     {
+        if(false === $forceSend && $this->getDI()->get('config')->mailer->async) {
+            $queue = $this->getDI()->get('queue');
+            $result = $queue->doBackground('sendmailAsync', json_encode(array(
+                'class' => __CLASS__,
+                'method' => __FUNCTION__,
+                'parameters' => array($email, true)
+            )));
+        }
+
         $userinfo = self::findFirst("email= '$email'");
         if(!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');

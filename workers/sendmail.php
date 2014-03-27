@@ -32,16 +32,20 @@ function sendmailAsync($job)
     global $logger;
     $jobString = $job->workload();
     $logger->info(sprintf("Start sending mail by %s", $jobString));
+    echo sprintf("Start sending mail by %s \n", $jobString);
     try {
         $work = json_decode($jobString, true);
         if($work) {
             $class = new $work['class'];
             call_user_func_array(array($class, $work['method']), $work['parameters']);
             $logger->info(sprintf("Mail sent to %s", $jobString));
+            echo sprintf("Mail sent by %s \n", $jobString);
         } else {
-            $logger->error(sprintf("Mail sent parameters error by %s", $jobString));
+            $logger->error(sprintf("Mail sent parameters error by %s \n", $jobString));
+            echo sprintf("Mail sent error %s \n", $jobString);
         }
     } catch(\Exception $e) {
+        echo sprintf("Exception catched %s, see log for details \n", $jobString);
         $logger->debug($e);
     }
 }
