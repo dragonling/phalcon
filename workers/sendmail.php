@@ -6,7 +6,7 @@ $worker = new GearmanWorker();
 $worker->addServer();
 $worker->addFunction('sendmailAsync', 'sendmailAsync');
 
-$engine = new Engine(__DIR__ . '/..');
+$engine = new \Eva\EvaEngine\Engine(__DIR__ . '/..');
 
 $engine->loadModules(array(
     'EvaCore',
@@ -24,12 +24,26 @@ $engine->loadModules(array(
     ),
 ));
 $engine->bootstrap();
+$logger = new Phalcon\Logger\Adapter\File($engine->getDI()->get('config')->logger->path . 'worker_sendmail_' .  date('Y-m-d') . '.log');
 
 function sendmailAsync($job)
 {
     global $engine;
+    global $logger;
     $jobString = $job->workload();
-    $work = json_decode($jobString);
+    $logger->info(sprintf("Start sending mail by %s", $jobString));
+    try {
+        $work = json_decode($jobString, true);
+        if($work) {
+            $class = new $work['class'];
+            call_user_func_array(array($class, $work['method']), $work['parameters']);
+            $logger->info(sprintf("Mail sent to %s", $jobString));
+        } else {
+            $logger->error(sprintf("Mail sent parameters error by %s", $jobString));
+        }
+    } catch(\Exception $e) {
+        $logger->debug($e);
+    }
 }
 
 while ($worker->work());

@@ -68,6 +68,7 @@ class RegisterForm extends Form
         $this->add($password);
 
         // Confirm Password
+        /*
         $confirmPassword = new Password('passwordConfirm');
         $confirmPassword->setLabel('Confirm Password');
         $confirmPassword->addValidators(array(
@@ -80,6 +81,7 @@ class RegisterForm extends Form
             ))
         ));
         $this->add($confirmPassword);
+        */
 
         // Remember
         $terms = new Check('agree', array(

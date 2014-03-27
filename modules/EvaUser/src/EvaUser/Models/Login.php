@@ -70,12 +70,11 @@ class Login extends Entities\Users
     {
         if(false === $forceSend && $this->getDI()->get('config')->mailer->async) {
             $queue = $this->getDI()->get('queue');
-            $client->do('sendmail', json_encode(array(
+            $result = $queue->doBackground('sendmailAsync', json_encode(array(
                 'class' => __CLASS__,
-                'method' => __METHOD__,
+                'method' => __FUNCTION__,
                 'parameters' => array($username, true)
             )));
-            return true;
         }
 
         $userinfo = self::findFirst("username = '$username'");

@@ -148,9 +148,13 @@ class Engine
         $di->set('queue', function() use ($di) {
             $config = $di->get('config');
             $client = new \GearmanClient();
+            $client->setTimeout(1000);
+            $client->addServer();
+            /*
             foreach($config->queue->servers as $key => $server) {
-                $client->addServer($server->host, $server->post);
+                $client->addServer($server->host, $server->port);
             }
+            */
             return $client;
         });
 
