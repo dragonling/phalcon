@@ -115,8 +115,8 @@ class AuthController extends ControllerBase
         $session = $this->getDI()->get('session');
         try {
             $user->register();
-            $this->flashSession->success('Login Success');
             $session->remove('access-token');
+            $this->flashSession->success('SUCCESS_OAUTH_USER_REGISTERED');
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch(\Exception $e) {
             $this->errorHandler($e, $user->getMessages());
@@ -157,7 +157,7 @@ class AuthController extends ControllerBase
         $session = $this->getDI()->get('session');
         try {
             $user->connect($accessToken);
-            $this->flashSession->success('Connect Success');
+            $this->flashSession->success('SUCCESS_OAUTH_USER_CONNECTED');
             $session->remove('access-token');
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch(\Exception $e) {

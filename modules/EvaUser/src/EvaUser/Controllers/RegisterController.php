@@ -30,7 +30,7 @@ class RegisterController extends ControllerBase
             $this->errorHandler($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
-        $this->flashSession->success('Register Success');
+        $this->flashSession->success('SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT');
         return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
     }
 

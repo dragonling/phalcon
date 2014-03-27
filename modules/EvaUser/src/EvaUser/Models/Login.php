@@ -9,21 +9,6 @@ use Eva\EvaEngine\Exception;
 
 class Login extends Entities\Users
 {
-    /**
-    *  Token Create Feedbacks
-    */
-    const FEEDBACK_TOKEN_NO_USER_INPUT = 'FEEDBACK_TOKEN_NO_USER_INPUT';
-    const FEEDBACK_TOKEN_NO_USER_FOUND = 'FEEDBACK_TOKEN_NO_USER_FOUND';
-    const FEEDBACK_TOKEN_NO_SESSION = 'FEEDBACK_TOKEN_NO_SESSION';
-    const FEEDBACK_TOKEN_SAVE_FAILED = 'FEEDBACK_TOKEN_SAVE_FAILED';
-
-    /**
-    *  Token Login FeedBacks
-    */
-    const FEEDBACK_TOKEN_FORMAT_INCORRECT = 'FEEDBACK_TOKEN_FORMAT_INCORRECT';
-    const FEEDBACK_TOKEN_NOT_FOUND = 'FEEDBACK_TOKEN_NOT_FOUND';
-    const FEEDBACK_TOKEN_EXPIRED = 'FEEDBACK_TOKEN_EXPIRED';
-
     protected $maxLoginRetry = 3;
 
     private $tokenSalt = 'EvaUser_Login_TokenSalt';
@@ -144,17 +129,17 @@ class Login extends Entities\Users
     public function getRememberMeToken()
     {
         if(!$this->username) {
-            $this->appendMessage(new Message(self::FEEDBACK_TOKEN_NO_USER_INPUT));
+            $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_NO_USER_INPUT'));
             return false;
         }
         $sessionId = $this->getDI()->get('session')->getId();
         if(!$sessionId) {
-            $this->appendMessage(new Message(self::FEEDBACK_TOKEN_NO_SESSION));
+            $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_NO_SESSION'));
             return false;
         }
         $userinfo = self::findFirst("username = '$this->username'");
         if(!$userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_TOKEN_NO_USER_FOUND));
+            $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_USER_NOT_FOUND'));
             return false;
         }
         $token = new Entities\Tokens();
@@ -258,7 +243,7 @@ class Login extends Entities\Users
     {
         $tokenArray = explode('|', $tokenString);
         if(!$tokenArray || count($tokenArray) < 3) {
-            $this->appendMessage(new Message(self::FEEDBACK_TOKEN_FORMAT_INCORRECT));
+            $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_FORMAT_INCORRECT'));
             return false;
         }
         $token = new Entities\Tokens();
@@ -269,12 +254,12 @@ class Login extends Entities\Users
         ));
         $tokenInfo = $token::findFirst();
         if(!$tokenInfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_TOKEN_NOT_FOUND));
+            $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_NOT_FOUND'));
             return false;
         }
 
         if($tokenInfo->expiredTimestamp < time()) {
-            $this->appendMessage(new Message(self::FEEDBACK_TOKEN_EXPIRED));
+            $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_EXPIRED'));
             return false;
         }
 
@@ -282,12 +267,12 @@ class Login extends Entities\Users
         $userinfo = self::findFirst("id = '$this->id'");
 
         if(!$userinfo) {
-            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_NOT_FOUND));
+            $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_USER_NOT_FOUND'));
             return false;
         }
 
         if($userinfo->status != 'active') {
-            $this->appendMessage(new Message(self::FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET));
+            $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_USER_NOT_ACTIVATED'));
             return false;
         }
 

@@ -158,6 +158,15 @@ class Engine
             return $client;
         });
 
+        $di->set('flash', function(){
+            $flash = new \Phalcon\Flash\Session();
+            return $flash;
+        });
+
+        $di->set('escaper', function(){
+            return new \Phalcon\Escaper();
+        });
+
         $di->set('translate', function () use ($di) {
             $config = $di->get('config');
             $file = $config->translate->path . $config->translate->forceLang . '.csv';
