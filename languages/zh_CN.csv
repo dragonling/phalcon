@@ -36,6 +36,7 @@ I forgot my password,忘记密码
 I want to register,注册
 Retrieve Password,重置密码
 Enter your email and to receive instructions,输入注册邮箱
+Login,登录
 Back to login,返回登录
 Send Me,发送邮件
 New User Registration,新用户注册
@@ -52,5 +53,5 @@ New User,从未注册过
 Already Have an Account,已经有帐号
 Login and Connect,登录并关联
 Login With Password,使用密码登录
-Your %adapterKey% account will be connected after login,你的帐号将在登录后自动关联到%adapterKey%
+Your %adapterKey% account will be connected after login,你的%adapterKey%帐号将在登录后自动关联
 I accept the %a_% User Agreement %_a%,我已阅读并同意%a_%用户协议%_a%
