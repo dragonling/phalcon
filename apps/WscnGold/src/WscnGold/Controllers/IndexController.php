@@ -16,4 +16,8 @@ class IndexController extends ControllerBase
     public function testAction()
     {
     }
+
+    public function abcAction()
+    {
+    }
 }

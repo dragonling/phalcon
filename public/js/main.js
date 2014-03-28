@@ -1,6 +1,8 @@
 $(function(){
 
-    console.log('i am in');
+    $('.nano').nanoScroller({
+        preventPageScrolling: true
+    });
 
     $(document).on('click.tab', '.tabbar .link', function(e){
         var $this = $(this);
@@ -11,6 +13,7 @@ $(function(){
         var panels = content.children();
         var activeLink = tabbar.find('.active.link');
         var activePanel = content.children('.active');
+        console.log(activePanel);
         var index = tabs.index(thisBar);
         console.log(index);
         var panel = $(panels[index]);
@@ -19,6 +22,10 @@ $(function(){
         $this.addClass('active');
         panel.addClass('active');
         e.preventDefault();
+    });
+
+    $(document).on('click.spread', '[data-toggle=shrink]', function(e){
+        $(this).parent().toggleClass('shrink');
     });
     /*
     $(document).on('click', '.tabbar>.tab', function(){
@@ -29,7 +36,26 @@ $(function(){
         var panels = content.children('.panel');
     });
     */
-    $('button[data-toggle=stare-modal]').click(function(){
+    var $modal = $('#modal');
+    var $stare = $('#stare-modal');
 
+    function hideModal() {
+        //todo
+        $modal.children('.panel.active').removeClass('active');
+        $modal.hide();
+    }
+
+    $modal.on('click', function(e){
+        if (e.target == this) {
+            hideModal();
+        }
+    });
+    $('button[data-toggle=stare-modal]').click(function(){
+        $modal.show(0, function(){
+            $stare.addClass('active');
+        });
+    });
+    $('#stare-modal>.close').click(function(){
+        hideModal();
     });
 });
