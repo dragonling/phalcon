@@ -2,12 +2,7 @@
 <?php
 require __DIR__ . '/../init_autoloader.php';
 
-$worker = new GearmanWorker();
-$worker->addServer();
-$worker->addFunction('sendmailAsync', 'sendmailAsync');
-
 $engine = new \Eva\EvaEngine\Engine(__DIR__ . '/..');
-
 $engine->loadModules(array(
     'EvaCore',
     'EvaUser',
@@ -24,6 +19,10 @@ $engine->loadModules(array(
     ),
 ));
 $engine->bootstrap();
+
+$worker = $engine->getDI()->get('worker');
+$worker->addFunction('sendmailAsync', 'sendmailAsync');
+
 $logger = new Phalcon\Logger\Adapter\File($engine->getDI()->get('config')->logger->path . 'worker_sendmail_' .  date('Y-m-d') . '.log');
 
 function sendmailAsync($job)
