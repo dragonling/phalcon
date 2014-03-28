@@ -13,6 +13,7 @@ $(function(){
         var panels = content.children();
         var activeLink = tabbar.find('.active.link');
         var activePanel = content.children('.active');
+        console.log(activePanel);
         var index = tabs.index(thisBar);
         console.log(index);
         var panel = $(panels[index]);
@@ -39,7 +40,8 @@ $(function(){
     var $stare = $('#stare-modal');
 
     function hideModal() {
-        $modal.find('.panel.active').removeClass('active');
+        //todo
+        $modal.children('.panel.active').removeClass('active');
         $modal.hide();
     }
 
