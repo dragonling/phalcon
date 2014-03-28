@@ -4,6 +4,7 @@ namespace Eva\EvaOAuthClient\Controllers;
 
 
 use Eva\EvaOAuthClient\Models;
+use Eva\EvaUser\Models as UserModels;
 use EvaOAuth\Service as OAuthService;
 
 class AuthController extends ControllerBase
@@ -102,6 +103,25 @@ class AuthController extends ControllerBase
             return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
         $this->view->token = $accessToken;
+        $this->view->suggestUsername = $this->getSuggestUsername($accessToken);
+        $email = isset($accessToken['remoteEmail']) ? $accessToken['remoteEmail'] : '';
+        $this->view->suggestEmail = $email;
+
+        if($email) {
+            $userManager = new UserModels\User();
+            $userManager->assign(array(
+                'email' => $email,
+            ));
+            if($userManager->isExist()){
+                $user = new Models\Login();
+                $user->assign(array(
+                    'email' => $email,
+                ));
+                $user->connectWithExistEmail($accessToken);
+                $this->flashSession->success('SUCCESS_OAUTH_AUTO_CONNECT_EXIST_EMAIL');
+                return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
+            }
+        }
 
         if (!$this->request->isPost()) {
             return;
@@ -112,16 +132,32 @@ class AuthController extends ControllerBase
             'username' => $this->request->getPost('username'),
             'email' => $this->request->getPost('email'),
         ));
-        $session = $this->getDI()->get('session');
+
+        $this->view->suggestEmail = isset($accessToken['remoteEmail']) ? $accessToken['remoteEmail'] : '';
         try {
             $user->register();
-            $this->flashSession->success('Login Success');
             $session->remove('access-token');
+            $this->flashSession->success('SUCCESS_OAUTH_USER_REGISTERED');
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch(\Exception $e) {
             $this->errorHandler($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
+    }
+
+    public function getSuggestUsername($accessToken)
+    {
+        $suggestUsername = '';
+        if(isset($accessToken['remoteUserName']) && $accessToken['remoteUserName']) {
+            $suggestUsername = $accessToken['remoteUserName'];
+        } elseif (isset($accessToken['remoteNickName']) && $accessToken['remoteNickName']) {
+            $suggestUsername = $accessToken['remoteNickName'];
+        }
+        $suggestUsername = str_replace(' ', '', $suggestUsername);
+        if(!$suggestUsername || !preg_match('/^[0-9a-zA-Z]+$/', $suggestUsername)) {
+            return '';
+        }
+        return $suggestUsername;
     }
 
 
@@ -156,8 +192,8 @@ class AuthController extends ControllerBase
         }
         $session = $this->getDI()->get('session');
         try {
-            $user->connect($accessToken);
-            $this->flashSession->success('Connect Success');
+            $user->connectWithPassword($accessToken);
+            $this->flashSession->success('SUCCESS_OAUTH_USER_CONNECTED');
             $session->remove('access-token');
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch(\Exception $e) {

@@ -13,6 +13,47 @@ class Tag extends \Phalcon\Tag
         return $translate;
     }
 
+    public static function flashOutput()
+    {
+        $flash = self::getDI()->get('flash');
+        if(!$flash) {
+            return '';
+        }
+        $messages = $flash->getMessages();
+        $classMapping = array(
+            'error' => 'alert alert-danger',
+            'warning' => 'alert alert-warning',
+            'success' => 'alert alert-success',
+            'notice' => 'alert alert-info',
+        );
+
+        $messageString = '';
+        $escaper = self::getDI()->get('escaper');
+        foreach($messages as $type => $submessages) {
+            foreach($submessages as $message) {
+                $messageString .= '<div class="alert ' . $classMapping[$type] . '" data-raw-message="' . $escaper->escapeHtmlAttr($message) . '">' . self::_($message) . '</div>';
+            }
+        }
+        return $messageString;
+
+        /*
+        <?if($this->flash):?>
+        <?$messages = $this->flash->getMessages();?>
+        <?$classMapping = array(
+            'error' => 'alert alert-danger',
+            'warning' => 'alert alert-warning',
+            'success' => 'alert alert-success',
+            'notice' => 'alert alert-info',
+        );?>
+        <?foreach($messages as $type => $submessages):?>
+        <?foreach($submessages as $message):?>
+        <div class="alert <?=$classMapping[$type]?>" data-raw-message="<?=$this->escaper->escapeHtml($message);?>"><?=$this->tag->_($message)?></div>
+        <?endforeach?>
+        <?endforeach?>
+        <?endif?>
+        */
+    }
+
     /**
     * Get either a Gravatar URL or complete image tag for a specified email address.
     *

@@ -149,13 +149,28 @@ class Engine
             $config = $di->get('config');
             $client = new \GearmanClient();
             $client->setTimeout(1000);
-            $client->addServer();
-            /*
             foreach($config->queue->servers as $key => $server) {
                 $client->addServer($server->host, $server->port);
             }
-            */
             return $client;
+        });
+
+        $di->set('worker', function() use ($di) {
+            $config = $di->get('config');
+            $worker = new \GearmanWorker();
+            foreach($config->queue->servers as $key => $server) {
+                $worker->addServer($server->host, $server->port);
+            }
+            return $worker;
+        });
+
+        $di->set('flash', function(){
+            $flash = new \Phalcon\Flash\Session();
+            return $flash;
+        });
+
+        $di->set('escaper', function(){
+            return new \Phalcon\Escaper();
         });
 
         $di->set('translate', function () use ($di) {

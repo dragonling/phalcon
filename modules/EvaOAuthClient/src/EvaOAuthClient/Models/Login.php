@@ -33,7 +33,43 @@ class Login extends UserEntity
         return $userModel->loginWithId();
     }
 
-    public function connect(array $accessToken)
+    public function connectWithExistEmail(array $accessToken)
+    {
+        if(!$accessToken) {
+            throw new Exception\ResourceConflictException('ERR_OAUTH_NO_ACCESS_TOKEN');
+        }
+
+        $userinfo = self::findFirst("email = '$this->email'");
+        if(!$userinfo) {
+            throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
+        }
+
+        if($userinfo->status == 'deleted') {
+            throw new Exception\OperationNotPermitedException('ERR_USER_BE_BANNED');
+        }
+
+        if($userinfo->status == 'inactive') {
+            $userinfo->status = 'active';
+            if (!$userinfo->save()) {
+                throw new Exception\RuntimeException('ERR_USER_SAVE_FAILED');
+            }
+        }
+
+        $accessTokenEntity = new AccessTokens();
+        $accessTokenEntity->assign($accessToken);
+        $accessTokenEntity->tokenStatus = 'active';
+        $accessTokenEntity->user_id = $userinfo->id;
+        //$this->sendVerificationEmail($userinfo->username);
+        if(!$accessTokenEntity->save()) {
+            throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_CREATE_FAILED');
+        }
+
+        $userModel = new UserLogin(); 
+        $authIdentity = $userModel->saveUserToSession($userinfo);
+        return $authIdentity;
+    }
+
+    public function connectWithPassword(array $accessToken)
     {
         $userModel = new UserLogin();
         $userModel->assign(array(

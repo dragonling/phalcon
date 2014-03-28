@@ -21,7 +21,7 @@ return array(
         'registerSuccessRedirectUri' => '/admin',
         'registerFailedRedirectUri' => '/admin',
         'loginSuccessRedirectUri' => '/admin/dashboard',
-        'loginFailedRedirectUri' => '/admin',
+        'loginFailedRedirectUri' => '/auth/register',
         'authFailedRedirectUri' => '/admin',
         'confirmMailTemplate' => __DIR__ . '/../views/mails/confirm.phtml',
         'confirmSuccessRedirectUri' => '/admin',

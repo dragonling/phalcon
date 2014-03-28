@@ -23,16 +23,6 @@ $engine->loadModules(array(
         'path' => __DIR__ . '/../apps/WscnGold/Module.php'
     ),
 ));
-
-$engine->getDI()->set('flash', function(){
-    $flash = new \Phalcon\Flash\Session(array(
-        'error' => 'alert alert-danger',
-        'warning' => 'alert alert-warning',
-        'success' => 'alert alert-success',
-        'notice' => 'alert alert-info',
-    ));
-    return $flash;
-});
 $engine->bootstrap()->run();
 
 

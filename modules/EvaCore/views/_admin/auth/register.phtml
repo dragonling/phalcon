@@ -20,7 +20,11 @@
                 <div id="auth-tab-register" class="tab-pane in active">
 
                     <h4 class="header blue lighter bigger">
+                        <?if($token && isset($token['remoteImageUrl'])):?>
+                        <img alt="" src="<?=$token['remoteImageUrl']?>" width="30" height="30" class="nav-user-photo">
+                        <?else:?>
                         <i class="icon-coffee green"></i>
+                        <?endif?>
                         Register and Connect
                     </h4>
 
@@ -32,7 +36,7 @@
                             <div class="form-group">
                                 <label class="block clearfix">
                                     <span class="block input-icon input-icon-right">
-                                        <input type="email" name="email" class="form-control" placeholder="Email" data-parsley-trigger="blur change" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="This email has been taken" required />
+                                        <input type="email" name="email" class="form-control" placeholder="Email" data-parsley-trigger="blur change" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="This email has been taken"  value="<?=isset($suggestEmail) ? $suggestEmail: ''?>" required />
                                         <i class="icon-envelope"></i>
                                     </span>
                                 </label>
@@ -42,6 +46,7 @@
                                 <label class="block clearfix">
                                     <span class="block input-icon input-icon-right">
                                         <input type="text" name="username" class="form-control" placeholder="Username"
+                                        value="<?=isset($suggestUsername) ? $suggestUsername : ''?>"
                                         data-parsley-trigger="blur change"
                                         data-parsley-type="alphanum"
                                         data-parsley-minlength="4"
@@ -57,8 +62,10 @@
                                 </label>
                             </div>
 
-                            <div class="social-or-login center">
-                                <span class="bigger-110">Your account will be connected to <?=$token['adapterKey']?></span>
+                            <div class="social-or-login">
+                                <span class="bigger-110">
+                                    <?=isset($token['remoteUserName']) && $token['remoteUserName'] ? $token['remoteUserName'] . ', ' : (isset($token['remoteNickName']) && $token['remoteNickName'] ? $token['remoteNickName'] . ', ' : '') ?>
+                                    You are connecting with <?=$token['adapterKey']?></span>
                             </div>
 
                             <div class="space"></div>
@@ -67,7 +74,7 @@
 
                                 <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
                                     <i class="icon-exchange"></i>
-                                    Connect
+                                    Register
                                 </button>
                             </div>
 
@@ -81,7 +88,11 @@
 
                 <div id="auth-tab-bind" class="tab-pane">
                     <h4 class="header blue lighter bigger">
+                        <?if($token && isset($token['remoteImageUrl'])):?>
+                        <img alt="" src="<?=$token['remoteImageUrl']?>" width="30" height="30" class="nav-user-photo">
+                        <?else:?>
                         <i class="icon-coffee green"></i>
+                        <?endif?>
                         Login and Connect
                     </h4>
 
@@ -109,8 +120,10 @@
                             </div>
 
 
-                            <div class="social-or-login center">
-                                <span class="bigger-110">Your <?=$token['adapterKey']?> account will be connected after login</span>
+                            <div class="social-or-login">
+                                <span class="bigger-110">
+                                    Your <?=$token['adapterKey']?> account will be connected after login
+                                </span>
                             </div>
 
                             <div class="space"></div>
@@ -119,8 +132,7 @@
 
                                 <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
                                     <i class="icon-exchange"></i>
-                                    Bind
-
+                                    Login
                                 </button>
                             </div>
 
