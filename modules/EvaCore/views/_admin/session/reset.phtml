@@ -3,18 +3,18 @@
         <div class="widget-main">
             <h4 class="header green lighter bigger">
                 <i class="icon-group blue"></i>
-                Reset Password
+                <?=$this->tag->_('Reset Password');?> 
             </h4>
 
             <div class="space-6"></div>
-            <p> Enter your new password: </p>
+            <p> <?=$this->tag->_('Enter your new password');?>: </p>
 
             <form action="" method="POST" novalidate="novalidate">
                 <fieldset>
                     <div class="form-group">
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
-                            <input type="password" name="password" class="form-control" placeholder="Password" size="24" placeholder="Password" data-parsley-trigger="blur change" data-parsley-minlength="6"  data-parsley-maxlength="26" required  />
+                            <input type="password" name="password" class="form-control" placeholder="<?=$this->tag->_('Password');?>" size="24" placeholder="Password" data-parsley-trigger="blur change" data-parsley-minlength="6"  data-parsley-maxlength="26" required  />
                             <i class="icon-lock"></i>
                         </span>
                     </label>
@@ -23,7 +23,7 @@
                     <div class="form-group">
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
-                            <input type="password" name="passwordConfirm" class="form-control" placeholder="Repeat password" data-parsley-trigger="blur change" data-parsley-equalto="#reset-box input[name=password]" data-parsley-equalto-message="Password not match" required  />
+                            <input type="password" name="passwordConfirm" class="form-control" placeholder="<?=$this->tag->_('Repeat password');?>" data-parsley-trigger="blur change" data-parsley-equalto="#reset-box input[name=password]" data-parsley-equalto-message="Password not match" required  />
                             <i class="icon-retweet"></i>
                         </span>
                     </label>
@@ -33,7 +33,7 @@
 
                     <div class="clearfix">
                         <button type="submit" class="width-65 pull-right btn btn-sm btn-success">
-                            Reset Password 
+                            <?=$this->tag->_('Reset Password');?> 
                             <i class="icon-arrow-right icon-on-right"></i>
                         </button>
                     </div>
