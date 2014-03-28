@@ -1,6 +1,8 @@
 $(function(){
 
-    console.log('i am in');
+    $('.nano').nanoScroller({
+        preventPageScrolling: true
+    });
 
     $(document).on('click.tab', '.tabbar .link', function(e){
         var $this = $(this);
@@ -20,6 +22,10 @@ $(function(){
         panel.addClass('active');
         e.preventDefault();
     });
+
+    $(document).on('click.spread', '[data-toggle=shrink]', function(e){
+        $(this).parent().toggleClass('shrink');
+    });
     /*
     $(document).on('click', '.tabbar>.tab', function(){
         console.log('ha ha ha ha');
@@ -29,7 +35,25 @@ $(function(){
         var panels = content.children('.panel');
     });
     */
-    $('button[data-toggle=stare-modal]').click(function(){
+    var $modal = $('#modal');
+    var $stare = $('#stare-modal');
 
+    function hideModal() {
+        $modal.find('.panel.active').removeClass('active');
+        $modal.hide();
+    }
+
+    $modal.on('click', function(e){
+        if (e.target == this) {
+            hideModal();
+        }
+    });
+    $('button[data-toggle=stare-modal]').click(function(){
+        $modal.show(0, function(){
+            $stare.addClass('active');
+        });
+    });
+    $('#stare-modal>.close').click(function(){
+        hideModal();
     });
 });
