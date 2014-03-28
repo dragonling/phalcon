@@ -8,7 +8,7 @@ class Tag extends \Phalcon\Tag
     {
         $translate = self::getDI()->get('translate');
         if($message) {
-            return $translate->_($message, $replacement);
+            return $translate->_(trim($message), $replacement);
         }
         return $translate;
     }
