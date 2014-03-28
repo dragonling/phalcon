@@ -3,7 +3,7 @@
         <div class="widget-main">
             <h4 class="header blue lighter bigger">
                 <i class="icon-coffee green"></i>
-                Please Enter Your Information
+                <?=$this->tag->_('Please Enter Your Information');?> 
             </h4>
 
             <div class="space-6"></div>
@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="text" name="identify" class="form-control" placeholder="Username Or Email" data-parsley-minlength="4" required />
+                                <input type="text" name="identify" class="form-control" placeholder="<?=$this->tag->_('Username Or Email');?>" data-parsley-minlength="4" required />
                                 <i class="icon-user"></i>
                             </span>
                         </label>
@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="password" name="password" class="form-control" placeholder="Password" data-parsley-minlength="6"  data-parsley-maxlength="26" required />
+                                <input type="password" name="password" class="form-control" placeholder="<?=$this->tag->_('Password');?>" data-parsley-minlength="6"  data-parsley-maxlength="26" required />
                                 <i class="icon-lock"></i>
                             </span>
                         </label>
@@ -33,12 +33,12 @@
                     <div class="clearfix">
                         <label class="inline">
                             <input type="checkbox" class="ace" name="remember" value="1" />
-                            <span class="lbl"> Remember Me</span>
+                            <span class="lbl"> <?=$this->tag->_('Remember Me');?></span>
                         </label>
 
                         <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
                             <i class="icon-key"></i>
-                            Login
+                            <?=$this->tag->_('Login');?> 
                         </button>
                     </div>
 
@@ -47,7 +47,7 @@
             </form>
 
             <div class="social-or-login center">
-                <span class="bigger-110">Or Login Using</span>
+                <span class="bigger-110"><?=$this->tag->_('Or Login Using');?></span>
 
             </div>
 
@@ -88,13 +88,13 @@
             <div>
                 <a href="#" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
                     <i class="icon-arrow-left"></i>
-                    I forgot my password
+                    <?=$this->tag->_('I forgot my password');?> 
                 </a>
             </div>
 
             <div>
                 <a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
-                    I want to register
+                    <?=$this->tag->_('I want to register');?> 
                     <i class="icon-arrow-right"></i>
                 </a>
             </div>
@@ -107,12 +107,12 @@
         <div class="widget-main">
             <h4 class="header red lighter bigger">
                 <i class="icon-key"></i>
-                Retrieve Password
+                <?=$this->tag->_('Retrieve Password');?> 
             </h4>
 
             <div class="space-6"></div>
             <p>
-            Enter your email and to receive instructions
+            <?=$this->tag->_('Enter your email and to receive instructions');?> 
             </p>
 
             <form action="/session/forgot" method="POST" novalidate="novalidate">
@@ -129,7 +129,7 @@
                     <div class="clearfix">
                         <button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
                             <i class="icon-lightbulb"></i>
-                            Send Me!
+                            <?=$this->tag->_('Send Me');?> 
                         </button>
                     </div>
                 </fieldset>
@@ -138,7 +138,7 @@
 
         <div class="toolbar center">
             <a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
-                Back to login
+                <?=$this->tag->_('Back to login');?> 
                 <i class="icon-arrow-right"></i>
             </a>
         </div>
@@ -150,11 +150,11 @@
         <div class="widget-main">
             <h4 class="header green lighter bigger">
                 <i class="icon-group blue"></i>
-                New User Registration
+                <?=$this->tag->_('New User Registration');?> 
             </h4>
 
             <div class="space-6"></div>
-            <p> Enter your details to begin: </p>
+            <p> <?=$this->tag->_('Enter your details to begin');?></p>
 
             <form action="/register" method="POST" novalidate="novalidate">
                 <fieldset>
@@ -170,7 +170,7 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="text" name="username" class="form-control" placeholder="Username"
+                                <input type="text" name="username" class="form-control" placeholder="<?=$this->tag->_('Username');?>"
                                 data-parsley-trigger="blur change"
                                 data-parsley-type="alphanum"
                                 data-parsley-minlength="4"
@@ -179,7 +179,7 @@
                                 data-parsley-pattern-message="Username not allow pure digits"
                                 data-parsley-remote="/register/check"
                                 data-parsley-remote-options='{ method: "GET", dataType: "json"}'
-                                data-parsley-remote-message="This username has been taken"
+                                data-parsley-remote-message="<?=$this->tag->_('This username has been taken');?>"
                                 required />
                                 <i class="icon-user"></i>
                             </span>
@@ -189,7 +189,7 @@
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="password" name="password" class="form-control" size="24" placeholder="Password" data-parsley-trigger="blur change" data-parsley-minlength="6"  data-parsley-maxlength="26" required />
+                                <input type="password" name="password" class="form-control" size="24" placeholder="<?=$this->tag->_('Password');?>" data-parsley-trigger="blur change" data-parsley-minlength="6"  data-parsley-maxlength="26" required />
                                 <i class="icon-lock"></i>
                             </span>
                         </label>
@@ -219,11 +219,11 @@
                     <div class="clearfix">
                         <button type="reset" class="width-30 pull-left btn btn-sm">
                             <i class="icon-refresh"></i>
-                            Reset
+                            <?=$this->tag->_('Reset');?> 
                         </button>
 
                         <button type="submit" class="width-65 pull-right btn btn-sm btn-success">
-                            Register
+                            <?=$this->tag->_('Register');?> 
                             <i class="icon-arrow-right icon-on-right"></i>
                         </button>
                     </div>
@@ -234,7 +234,7 @@
         <div class="toolbar center">
             <a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
                 <i class="icon-arrow-left"></i>
-                Back to login
+                <?=$this->tag->_('Back to login');?> 
             </a>
         </div>
     </div><!-- /widget-body -->

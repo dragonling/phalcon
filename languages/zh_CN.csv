@@ -25,3 +25,31 @@ SUCCESS_USER_ACTIVED,邮箱验证成功，请登录
 SUCCESS_OAUTH_USER_REGISTERED,注册成功
 SUCCESS_OAUTH_USER_CONNECTED,绑定第三方帐号成功
 SUCCESS_OAUTH_AUTO_CONNECT_EXIST_EMAIL,登录成功
+
+
+Please Enter Your Information,登录
+Remember Me,记住密码
+Or Login Using,使用第三方登录
+Username or Email,用户名或邮箱
+Password,密码
+I forgot my password,忘记密码
+I want to register,注册
+Retrieve Password,重置密码
+Enter your email and to receive instructions,输入注册邮箱
+Back to login,返回登录
+Send Me,发送邮件
+New User Registration,新用户注册
+Enter your details to begin,请输入注册信息
+Email,邮箱
+Username,用户名
+Reset,重置表单
+Register,注册
+This email has been taken,邮箱已被占用
+This username has been taken,用户名已被占用
+Register and Connect,注册并关联第三方帐号
+You are connecting with,你正在关联第三方帐号：
+New User,从未注册过
+Already Have an Account,已经有帐号
+Login and Connect,登录并关联
+Login With Password,使用密码登录
+Your %adapterKey% account will be connected after login,你的帐号将在登录后自动关联到%adapterKey%

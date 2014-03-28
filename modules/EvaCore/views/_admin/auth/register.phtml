@@ -4,10 +4,10 @@
         <div class="widget-toolbar no-border pull-left">
             <ul class="nav nav-tabs" id="auth-tab">
                 <li class="active">
-                <a data-toggle="tab" href="#auth-tab-register">New User</a>
+                <a data-toggle="tab" href="#auth-tab-register"><?=$this->tag->_('New User');?></a>
                 </li>
                 <li>
-                <a data-toggle="tab" href="#auth-tab-bind">Already Have an Account</a>
+                <a data-toggle="tab" href="#auth-tab-bind"><?=$this->tag->_('Already Have an Account');?></a>
                 </li>
             </ul>
         </div>
@@ -25,7 +25,7 @@
                         <?else:?>
                         <i class="icon-coffee green"></i>
                         <?endif?>
-                        Register and Connect
+                        <?=$this->tag->_('Register and Connect');?> 
                     </h4>
 
                     <div class="space-6"></div>
@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label class="block clearfix">
                                     <span class="block input-icon input-icon-right">
-                                        <input type="email" name="email" class="form-control" placeholder="Email" data-parsley-trigger="blur change" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="This email has been taken"  value="<?=isset($suggestEmail) ? $suggestEmail: ''?>" required />
+                                        <input type="email" name="email" class="form-control" placeholder="<?=$this->tag->_('Email');?>" data-parsley-trigger="blur change" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="<?=$this->tag->_('This email has been taken');?>"  value="<?=isset($suggestEmail) ? $suggestEmail: ''?>" required />
                                         <i class="icon-envelope"></i>
                                     </span>
                                 </label>
@@ -45,17 +45,17 @@
                             <div class="form-group">
                                 <label class="block clearfix">
                                     <span class="block input-icon input-icon-right">
-                                        <input type="text" name="username" class="form-control" placeholder="Username"
+                                        <input type="text" name="username" class="form-control" placeholder="<?=$this->tag->_('Username');?>"
                                         value="<?=isset($suggestUsername) ? $suggestUsername : ''?>"
                                         data-parsley-trigger="blur change"
                                         data-parsley-type="alphanum"
                                         data-parsley-minlength="4"
                                         data-parsley-maxlength="24"
                                         data-parsley-pattern="^(?![0-9]+$)"
-                                        data-parsley-pattern-message="Username not allow pure digits"
+                                        data-parsley-pattern-message="<?=$this->tag->_('Username not allow pure digits');?>"
                                         data-parsley-remote="/register/check"
                                         data-parsley-remote-options='{ method: "GET", dataType: "json"}'
-                                        data-parsley-remote-message="This username has been taken"
+                                        data-parsley-remote-message="<?=$this->tag->_('This username has been taken');?>"
                                         required />
                                         <i class="icon-user"></i>
                                     </span>
@@ -65,7 +65,7 @@
                             <div class="social-or-login">
                                 <span class="bigger-110">
                                     <?=isset($token['remoteUserName']) && $token['remoteUserName'] ? $token['remoteUserName'] . ', ' : (isset($token['remoteNickName']) && $token['remoteNickName'] ? $token['remoteNickName'] . ', ' : '') ?>
-                                    You are connecting with <?=$token['adapterKey']?></span>
+                                    <?=$this->tag->_('You are connecting with');?> <?=$token['adapterKey']?></span>
                             </div>
 
                             <div class="space"></div>
@@ -74,7 +74,7 @@
 
                                 <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
                                     <i class="icon-exchange"></i>
-                                    Register
+                                    <?=$this->tag->_('Register');?> 
                                 </button>
                             </div>
 
@@ -93,7 +93,7 @@
                         <?else:?>
                         <i class="icon-coffee green"></i>
                         <?endif?>
-                        Login and Connect
+                        <?=$this->tag->_('Login and Connect');?> 
                     </h4>
 
                     <div class="space-6"></div>
@@ -104,7 +104,7 @@
                             <div class="form-group">
                                 <label class="block clearfix">
                                     <span class="block input-icon input-icon-right">
-                                        <input type="text" name="identify" class="form-control" placeholder="Username Or Email" data-parsley-minlength="4" required />
+                                        <input type="text" name="identify" class="form-control" placeholder="<?=$this->tag->_('Username or Email');?>" data-parsley-minlength="4" required />
                                         <i class="icon-user"></i>
                                     </span>
                                 </label>
@@ -113,7 +113,7 @@
                             <div class="form-group">
                                 <label class="block clearfix">
                                     <span class="block input-icon input-icon-right">
-                                        <input type="password" name="password" class="form-control" placeholder="Password" data-parsley-minlength="6"  data-parsley-maxlength="26" required />
+                                        <input type="password" name="password" class="form-control" placeholder="<?=$this->tag->_('Password');?>" data-parsley-minlength="6"  data-parsley-maxlength="26" required />
                                         <i class="icon-lock"></i>
                                     </span>
                                 </label>
@@ -122,7 +122,9 @@
 
                             <div class="social-or-login">
                                 <span class="bigger-110">
-                                    Your <?=$token['adapterKey']?> account will be connected after login
+                                    <?=$this->tag->_('Your %adapterKey% account will be connected after login', array(
+                                        'adapterKey' => $token['adapterKey'],
+                                    ))?>
                                 </span>
                             </div>
 
@@ -132,7 +134,7 @@
 
                                 <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
                                     <i class="icon-exchange"></i>
-                                    Login
+                                    <?=$this->tag->_('Login');?> 
                                 </button>
                             </div>
 
@@ -148,7 +150,7 @@
             <div>
                 <a href="/admin" class="forgot-password-link">
                     <i class="icon-arrow-left"></i>
-                    Login With Password
+                    <?=$this->tag->_('Login With Password');?> 
                 </a>
             </div>
         </div>
