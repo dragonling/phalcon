@@ -1,7 +1,56 @@
+//live news
+(function(){
+
+    var apiUrl = 'http://api.wallstreetcn.com/apiv1/livenews-list.jsonp';
+    var apiType = 'jsonp';
+    var dataSet;
+    var html = [
+        '<% for(var i=0; i<dataSet.length; i++) { %>',
+        '<% var item = dataSet[i]; %>',
+        '<% if (item.date.charAt(9) != dataSet[i-1].charAt(9) || i === 0) { %>',
+            '<li class="date"><%= item.date %></li>',
+        '<% } %>',
+        '<li class="item">',
+            '<span class="icon <%= item.icon %>"></span>',
+            '<span class="time"><%= item.time %></span>',
+            '<a class="link" href=""><%= item.title %></a>',
+        '</li>',
+        '<% } %>'
+    ].join('');
+
+    function initData() {
+        $.ajax({
+            url: apiUrl,
+            dataType: apiType,
+            success: function(response){
+                var records = response;
+                if (records && records.length) {
+                    for (var i=0; i<records.length; i++) {
+
+                    }
+                }
+            },
+            failure: function() {
+                initData();
+            }
+        });
+    }
+
+
+    /*$(function(){
+        $('.nano.livenews.list').nanoScroller({
+            preventPageScrolling: true
+        });
+    });*/
+
+})();
+
 $(function(){
 
-    $('.nano').nanoScroller({
-        preventPageScrolling: true
+    $(function(){
+        $('.nano.list').nanoScroller({
+            preventPageScrolling: true
+        });
     });
 
     $(document).on('click.tab', '.tabbar .link', function(e){

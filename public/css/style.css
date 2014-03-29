@@ -309,24 +309,27 @@ input {
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#808080), to(#5a5a5a));
   background: -moz-linear-gradient(top, #808080, #5a5a5a);
 }
-.checkbox > input[type=checkbox] {
-  display: none;
-}
-.checkbox > label {
+label.checkbox {
   cursor: pointer;
-  display: block;
-  padding-left: 20px;
-  background-image: url('');
-  background-repeat: no-repeat;
-  background-position: left center;
+  display: inline-block;
+  position: relative;
+  line-height: 20px;
+  height: 20px;
+  overflow: hidden;
+  padding: 5px;
+  /*
+    &>input[type=checkbox] + .icon-my-check:before {
+        content: "\f096";
+    }
+    &>input[type=checkbox]:checked + .icon-my-check:before {
+        content: "\f046";
+    }
+    */
 }
-.checkbox > input[type=checkbox]:checked + label {
-  background-image: url('');
-}
-.checkbox.postfix > label {
-  padding-left: 0;
-  padding-right: 20px;
-  background-position: right center;
+label.checkbox > input[type=checkbox] {
+  width: auto;
+  height: 20px;
+  vertical-align: middle;
 }
 .toolbar:before {
   display: table;
@@ -681,54 +684,57 @@ body {
   margin-top: 50px;
   margin-bottom: 50px;
 }
-.livenews.scrollable.list > .content > .item {
+.livenews.scrollable.list > .content {
   transition: height 0.5s;
   -moz-transition: height 0.5s;
   /* Firefox 4 */
   -webkit-transition: height 0.5s;
   /* Safari 和 Chrome */
   -o-transition: height 0.5s;
-  height: auto;
-  overflow-y: hidden;
 }
-.livenews.scrollable.list > .content > .item.shrink {
-  height: 31px;
-}
-.livenews.scrollable.list > .content > .item > .date {
+.livenews.scrollable.list > .content > .date {
   color: #333;
   height: 30px;
   line-height: 30px;
   border-bottom: 1px solid #DCDCDC;
 }
-.livenews.scrollable.list > .content > .item > .dropdown.list > .item {
+.livenews.scrollable.list > .content > .item {
   border-bottom: 1px solid #DCDCDC;
   padding: 8px 0;
+  /*
+            &>.dropdown.list {
+                &>.item {
+                }
+            }*/
 }
-.livenews.scrollable.list > .content > .item > .dropdown.list > .item:before {
+.livenews.scrollable.list > .content > .item.shrink {
+  height: 31px;
+}
+.livenews.scrollable.list > .content > .item:before {
   display: table;
   content: '';
   clear: both;
 }
-.livenews.scrollable.list > .content > .item > .dropdown.list > .item:after {
+.livenews.scrollable.list > .content > .item:after {
   display: table;
   content: '';
   clear: both;
 }
-.livenews.scrollable.list > .content > .item > .dropdown.list > .item > .icon {
+.livenews.scrollable.list > .content > .item > .icon {
   display: block;
   float: left;
   width: 22px;
   height: 22px;
   margin-right: 0.75em;
 }
-.livenews.scrollable.list > .content > .item > .dropdown.list > .item > .time {
+.livenews.scrollable.list > .content > .item > .time {
   display: block;
   float: left;
   width: 40px;
   line-height: 22px;
   margin-right: 0.75em;
 }
-.livenews.scrollable.list > .content > .item > .dropdown.list > .item > .link {
+.livenews.scrollable.list > .content > .item > .link {
   display: block;
   float: left;
   line-height: 22px;
@@ -759,6 +765,8 @@ body {
 #main .topnews.view .topnews.carousel > .item {
   display: block;
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 #main .topnews.view .topnews.carousel > .item .img {
   width: 100%;
@@ -967,8 +975,7 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: #000;
-  width: 60px;
-  margin-right: 10px;
+  width: 70px;
   font-weight: bold;
   text-align: left;
 }
@@ -1011,8 +1018,12 @@ body {
   text-align: center;
 }
 #sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
   background-color: #323232;
-  box-shadow: 1px 0 3px 2px rgba(0, 0, 0, 0.5) inset;
+  box-shadow: 1px 3px 3px 2px rgba(0, 0, 0, 0.5) inset;
 }
 #sidebar .title {
   height: 48px;
@@ -1070,6 +1081,7 @@ body {
 #sidebar #gold-research .chart.type1 {
   width: 100%;
   height: 150px;
+  margin-bottom: 20px;
 }
 #sidebar #gold-research .button {
   margin: 0 auto;
@@ -1195,9 +1207,9 @@ body {
   right: 0;
 }
 #stare-modal.panel {
-  width: 1100px;
+  width: 1095px;
   height: 545px;
-  padding: 15px 55px 25px 20px;
+  padding: 15px 50px 20px 25px;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -1230,25 +1242,25 @@ body {
 }
 #stare-modal.panel .tabpanel.type4 {
   width: 647px;
-  height: 285px;
   margin-bottom: 20px;
 }
 #stare-modal.panel .tabpanel.type4 > .tabbar {
   background-color: transparent;
 }
 #stare-modal.panel .tabpanel.type4 > .content > .panel {
-  height: 225px;
+  height: 230px;
 }
 #stare-modal.panel .tabpanel.type4 > .content > .panel .toolbar {
   background-color: #b5b5b5;
 }
 #stare-modal.panel .tabpanel.type4 > .content > .panel .toolbar.type1 {
-  width: 205px;
+  width: 125px;
+  padding: 0 40px;
 }
 #stare-modal.panel .tabpanel.type4 > .content > .panel .toolbar.type1 .button {
   width: auto;
-  padding: 0 5px;
-  margin-left: 10px;
+  padding: 0 10px;
+  margin-left: 0;
 }
 #stare-modal.panel .tabpanel.type4 > .content > .panel .toolbar.type2 {
   width: 405px;
@@ -1285,29 +1297,28 @@ body {
 #stare-modal.panel .head.type5 .toolbar .checkbox {
   display: block;
   float: left;
-  margin-right: 50px;
+  margin-left: 50px;
 }
 #stare-modal.panel .livenews.scrollable.list {
   width: 647px;
   height: 205px;
   background-color: #323232;
 }
-#stare-modal.panel .livenews.scrollable.list > .content > .item {
-  color: #fff;
-}
-#stare-modal.panel .livenews.scrollable.list > .content > .item > .date {
+#stare-modal.panel .livenews.scrollable.list > .content > .date {
   color: #dcdcdc;
   padding-left: 15px;
   padding-right: 15px;
   border-bottom: 1px solid #222;
   border-top: 1px solid #b5b5b5;
 }
-#stare-modal.panel .livenews.scrollable.list > .content > .item > .dropdown.list > .item {
+#stare-modal.panel .livenews.scrollable.list > .content > .item {
+  color: #fff;
   padding: 8px 15px;
   border-bottom: 1px solid #222;
   border-top: 1px solid #b5b5b5;
 }
-#stare-modal.panel .livenews.scrollable.list > .content > .item > .dropdown.list > .item > .link {
+#stare-modal.panel .livenews.scrollable.list > .content > .item > .link {
+  width: 500px;
   color: #b5b5b5;
 }
 #stare-modal.panel .livenews.scrollable.list > .nano-pane {
@@ -1318,12 +1329,13 @@ body {
 }
 #stare-modal.panel .finance-calendar.scrollable.list {
   width: 423px;
-  height: 255px;
+  height: 260px;
   margin-bottom: 20px;
   background-color: #efefef;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item {
   padding: 8px 15px;
+  border-bottom: 1px solid #222;
   color: #000;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item:before {
