@@ -29,6 +29,7 @@
 		<link rel="stylesheet" href="/assets/css/ace.min.css" />
 		<link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
 		<link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="/assets/css/dropzone.css" />
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="/assets/css/ace-ie.min.css" />
@@ -46,6 +47,43 @@
 		<script src="/assets/js/html5shiv.js"></script>
 		<script src="/assets/js/respond.min.js"></script>
 		<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/typeahead-bs2.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+		<script src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="/assets/js/markdown/markdown.min.js"></script>
+		<script src="/assets/js/markdown/bootstrap-markdown.min.js"></script>
+		<script src="/assets/js/jquery.hotkeys.min.js"></script>
+		<script src="/assets/js/bootstrap-wysiwyg.min.js"></script>
+		<script src="/assets/js/bootbox.min.js"></script>
+
+		<!-- ace scripts -->
+
+		<script src="/assets/js/ace-elements.min.js"></script>
+		<script src="/assets/js/ace.min.js"></script>
+
+		<!-- inline scripts related to this page -->
 	</head>
 
 	<body>
@@ -68,7 +106,7 @@
 					<ul class="nav ace-nav">
 
 						<li class="light-blue">
-                        <?if($authIdentity):?>
+                        <?if(isset($authIdentity)):?>
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
                                 <img class="nav-user-photo" src="<?=$this->tag->gravatar($authIdentity['email'])?>" alt="Jason's Photo" />
 								<span class="user-info">
@@ -254,42 +292,9 @@
 
 		<!-- basic scripts -->
 
-		<!--[if !IE]> -->
 
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
 
-		<!-- <![endif]-->
 
-		<!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
-
-		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
-		<script src="/assets/js/bootstrap.min.js"></script>
-		<script src="/assets/js/typeahead-bs2.min.js"></script>
-
-		<!-- page specific plugin scripts -->
-
-		<script src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="/assets/js/markdown/markdown.min.js"></script>
-		<script src="/assets/js/markdown/bootstrap-markdown.min.js"></script>
-		<script src="/assets/js/jquery.hotkeys.min.js"></script>
-		<script src="/assets/js/bootstrap-wysiwyg.min.js"></script>
-		<script src="/assets/js/bootbox.min.js"></script>
-
-		<!-- ace scripts -->
-
-		<script src="/assets/js/ace-elements.min.js"></script>
-		<script src="/assets/js/ace.min.js"></script>
-
-		<!-- inline scripts related to this page -->
 
 		<script type="text/javascript">
 			jQuery(function($){

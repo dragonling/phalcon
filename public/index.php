@@ -14,6 +14,7 @@ $engine->loadModules(array(
     'EvaOAuthClient',
     'EvaOAuthServer',
     'EvaPost',
+    'EvaFileSystem',
     'Frontend' => array(
         'className' => 'Eva\Frontend\Module',
         'path' => __DIR__ . '/../apps/Frontend/Module.php'

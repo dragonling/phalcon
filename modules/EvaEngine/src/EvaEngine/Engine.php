@@ -94,6 +94,7 @@ class Engine
         $di->set('router', function () use ($di) {
             $config = $di->get('config');
             $router = new Router();
+            $router->removeExtraSlashes(true);
             if(isset($config->routes)) {
                 foreach($config->routes as $url => $route) {
                     $router->add($url, $route->toArray());
@@ -271,6 +272,14 @@ class Engine
                 $dbAdapter->setEventsManager($eventsManager);
             }
             return $dbAdapter;
+        });
+
+
+        $di->set('fileSystem', function () use ($di) {
+            $config = $di->get('config');
+            $adapter = new \Gaufrette\Adapter\Local();
+            $filesystem = new Filesystem($adapter);
+            return $filesystem;
         });
 
         return $this->di = $di;
