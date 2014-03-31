@@ -1,6 +1,6 @@
 <?php
 
-namespace Eva\EvaOAuthClient\Entities;
+namespace Eva\EvaFileSystem\Entities;
 
 class AccessTokens extends \Eva\EvaEngine\Model
 {
@@ -51,12 +51,6 @@ class AccessTokens extends \Eva\EvaEngine\Model
      * @var string
      */
     public $expireTime;
-     
-    /**
-     *
-     * @var string
-     */
-    public $remoteToken;
      
     /**
      *
@@ -114,7 +108,6 @@ class AccessTokens extends \Eva\EvaEngine\Model
             'refreshToken' => 'refreshToken', 
             'refreshTime' => 'refreshTime', 
             'expireTime' => 'expireTime', 
-            'remoteToken' => 'remoteToken', 
             'remoteUserId' => 'remoteUserId', 
             'remoteUserName' => 'remoteUserName', 
             'remoteNickName' => 'remoteNickName', 
