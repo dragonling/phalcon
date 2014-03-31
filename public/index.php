@@ -13,7 +13,7 @@ $engine->loadModules(array(
     'EvaUser',
     'EvaOAuthClient',
     'EvaOAuthServer',
-    'EvaPost',
+    'EvaBlog',
     'EvaFileSystem',
     'Frontend' => array(
         'className' => 'Eva\Frontend\Module',

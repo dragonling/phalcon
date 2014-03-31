@@ -3,11 +3,11 @@
 return array(
     'routes' =>  array(
         '/admin/post' =>  array(
-            'module' => 'EvaPost',
+            'module' => 'EvaBlog',
             'controller' => 'post',
         ),
         '/admin/post/:action' =>  array(
-            'module' => 'EvaPost',
+            'module' => 'EvaBlog',
             'controller' => 'post',
             'action' => 1,
         ),

@@ -1,8 +1,8 @@
 <?php
 
-namespace Eva\EvaPost\Controllers;
+namespace Eva\EvaBlog\Controllers;
 
-use Eva\EvaPost\Models;
+use Eva\EvaBlog\Models;
 
 class PostController extends ControllerBase
 {
