@@ -3,7 +3,7 @@
 namespace Eva\EvaBlog\Entities;
 
 
-class Posts extends \Phalcon\Mvc\Model
+class Posts extends \Eva\EvaEngine\Model
 {
 
     /**

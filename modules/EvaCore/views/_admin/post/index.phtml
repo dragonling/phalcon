@@ -34,41 +34,60 @@
         <div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
 
-        <textarea class="tinymce">Your content here.</textarea>
+            <form id="" action="/admin/post" method="POST" novalidate="novalidate">
+                <div class="form-group">
+                    <label class="block clearfix">
+                        <input type="text" name="title" class="form-control" placeholder="Title"  required />
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="block clearfix">
+                        <textarea class="tinymce" name="content"></textarea>
+                    </label>
+                </div>
 
+                <div class="clearfix form-actions">
+                        <button type="submit" class="btn btn-info">
+                            <i class="icon-ok bigger-110"></i>
+                            Submit
+                        </button>
+                </div>
+
+
+            </form>
 
             <div class="hr hr-double dotted"></div>
-            </div>
+        </div>
 
-            <!-- PAGE CONTENT ENDS -->
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+        <!-- PAGE CONTENT ENDS -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
 </div><!-- /.page-content -->
 
 <script type="text/javascript" src="/vendor/js/tinymce/jquery.tinymce.min.js"></script>
 <script type="text/javascript">
-$('textarea.tinymce').tinymce({
-    script_url : '/vendor/js/tinymce/tinymce.min.js',
-    language : 'zh_CN',
-    theme: "modern",
-    height: 400,
-    plugins: [
-         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-         "save table contextmenu directionality emoticons template paste textcolor"
-   ],
-   content_css: "css/content.css",
-   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons", 
-   style_formats: [
-        {title: 'Bold text', inline: 'b'},
-        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-        {title: 'Example 1', inline: 'span', classes: 'example1'},
-        {title: 'Example 2', inline: 'span', classes: 'example2'},
-        {title: 'Table styles'},
-        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-    ]
+    $('textarea.tinymce').tinymce({
+            script_url : '/vendor/js/tinymce/tinymce.min.js',
+            language : 'zh_CN',
+            theme: "modern",
+            height: 300,
+            plugins: [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+            "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            content_css: "css/content.css",
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons", 
+            style_formats: [
+            {title: 'Bold text', inline: 'b'},
+            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+            {title: 'Example 1', inline: 'span', classes: 'example1'},
+            {title: 'Example 2', inline: 'span', classes: 'example2'},
+            {title: 'Table styles'},
+            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+            ]
 
-});
+    });
 </script>
 

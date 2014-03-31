@@ -233,6 +233,7 @@ class Engine
                 'username' => $config->dbAdapter->master->username,
                 'password' => $config->dbAdapter->master->password,
                 'dbname' => $config->dbAdapter->master->database,
+                'charset' => isset($config->dbAdapter->master->charset) ? $config->dbAdapter->master->charset : 'utf8',
             ));
 
             if ($config->debug) {
@@ -259,6 +260,7 @@ class Engine
                 'username' => $config->dbAdapter->slave->$slaveKey->username,
                 'password' => $config->dbAdapter->slave->$slaveKey->password,
                 'dbname' => $config->dbAdapter->slave->$slaveKey->database,
+                'charset' => isset($config->dbAdapter->slave->$slaveKey->charset) ? $config->dbAdapter->slave->$slaveKey->charset : 'utf8',
             ));
 
             if ($config->debug) {

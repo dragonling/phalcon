@@ -33,6 +33,7 @@ return array(
             'database' => 'eva',
             'username' => 'root',
             'password' => '',
+            'charset'  => 'utf8'
         ),
         'slave' => array(
             'slave1' => array(
@@ -41,6 +42,7 @@ return array(
                 'database' => 'eva',
                 'username' => 'root',
                 'password' => '',
+                'charset'  => 'utf8'
             ),
         )
     ),
