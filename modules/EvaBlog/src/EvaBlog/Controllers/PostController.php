@@ -44,10 +44,15 @@ class PostController extends ControllerBase
             'order' => 'id DESC',
             //'columns' => 'id, title, status, createTime, User'
         ));
-        $paginator = new \Phalcon\Paginator\Adapter\Model(array(
+        $paginator = new \Eva\EvaEngine\Paginator(array(
             "data" => $posts,
             "limit"=> $limit,
             "page" => $currentPage
+        ));
+        $paginator->setQuery(array(
+            'order' => '',
+            'limit' => $limit,
+            'q' => '',
         ));
         $pager = $paginator->getPaginate();
         $this->view->setVar('pager', $pager);

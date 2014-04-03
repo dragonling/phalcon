@@ -31,8 +31,7 @@
         <div class="col-xs-12">
             <h3 class="header smaller lighter blue">Post List</h3>
             <div class="table-header">
-                <?$offset = ($pager->current - 1) * ceil($pager->total_items / $pager->total_pages) + 1?>
-                        Showing <?=$offset?> to <?=$offset + count($pager->items) - 1?> of <?=$pager->total_items?> Posts 
+                Showing <?=$pager->offset_start?> to <?=$pager->offset_end?> of <?=$pager->total_items?> Posts 
             </div>
 
             <div class="table-responsive dataTables_wrapper">
@@ -155,8 +154,40 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="dataTables_paginate">
+                            <?$pagerBaseQuery = $pager->query;?>
+                            <?$pagerUrl = '/admin/post/list'?>
                             <ul class="pagination">
-                                <li class="prev disabled"><a href="#"><i class="icon-double-angle-left"></i></a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li class="next"><a href="#"><i class="icon-double-angle-right"></i></a></li>
+                                <?if($pager->current > 2):?>
+                                <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->first), $pagerBaseQuery)?>"><i class="icon-double-angle-left"></i></a></li>
+                                <?endif?>
+                                <?if($pager->current > 1):?>
+                                <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->before), $pagerBaseQuery)?>"><i class="icon-angle-left"></i></a></li>
+                                <?endif?>
+                                <?if($pager->prev_skip):?>
+                                <li class="disabled"><a href="javascript:;">...</a></li>
+                                <?endif?>
+                                <?if($pager->prev_range):?>
+                                <?foreach($pager->prev_range as $page):?>
+                                <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $page), $pagerBaseQuery)?>"><?=$page?></a></li>
+                                <?endforeach?>
+                                <?endif?>
+                                <li class="active">
+                                <a href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->current), $pagerBaseQuery)?>"><?=$pager->current?></a>
+                                </li>
+                                <?if($pager->next_range):?>
+                                <?foreach($pager->next_range as $page):?>
+                                <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $page), $pagerBaseQuery)?>"><?=$page?></a></li>
+                                <?endforeach?>
+                                <?endif?>
+                                <?if($pager->next_skip):?>
+                                <li class="disabled"><a href="javascript:;">...</a></li>
+                                <?endif?>
+                                <?if($pager->next && $pager->current < $pager->last):?>
+                                <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->next), $pagerBaseQuery)?>"><i class="icon-angle-right"></i></a></li>
+                                <?endif?>
+                                <?if($pager->current < $pager->last):?>
+                                <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->last), $pagerBaseQuery)?>"><i class="icon-double-angle-right"></i></a></li>
+                                <?endif?>
                             </ul>
                         </div>
                     </div>

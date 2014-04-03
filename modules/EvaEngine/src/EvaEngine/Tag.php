@@ -54,6 +54,14 @@ class Tag extends \Phalcon\Tag
         */
     }
 
+    public static function uri($uri, array $query = array(), array $baseQuery = array())
+    {
+        $url = self::getDI()->get('url');
+        $query = array_merge($baseQuery, $query);
+        return $url->get($uri, $query);
+    }
+    
+
     /**
     * Get either a Gravatar URL or complete image tag for a specified email address.
     *
@@ -66,7 +74,7 @@ class Tag extends \Phalcon\Tag
     * @return String containing either just a URL or a complete image tag
     * @source http://gravatar.com/site/implement/images/php/
     */
-    public static function gravatar( $email, $s = 80, $d = 'mm', $r = 'g') {
+    public static function gravatar($email, $s = 80, $d = 'mm', $r = 'g') {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5( strtolower( trim( $email ) ) );
         $url .= "?s=$s&d=$d&r=$r";
