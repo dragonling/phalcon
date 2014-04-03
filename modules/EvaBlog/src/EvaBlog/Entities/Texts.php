@@ -4,7 +4,7 @@
 namespace Eva\EvaBlog\Entities;
 
 
-class EvaBlogTexts extends \Eva\EvaEngine\Model
+class Texts extends \Eva\EvaEngine\Model
 {
 
     /**

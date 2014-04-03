@@ -32,7 +32,24 @@ class PostController extends ControllerBase
         }
     }
 
-    public function testAction()
+    public function listAction()
     {
+        $currentPage = $this->request->getQuery('page', 'int'); // GET
+        $limit = $this->request->getQuery('limit', 'int');
+        $order = $this->request->getQuery('order', 'int');
+        $limit = $limit > 50 ? 50 : $limit;
+        $limit = $limit < 10 ? 10 : $limit;
+
+        $posts = Models\Post::find(array(
+            'order' => 'id DESC',
+            //'columns' => 'id, title, status, createTime, User'
+        ));
+        $paginator = new \Phalcon\Paginator\Adapter\Model(array(
+            "data" => $posts,
+            "limit"=> $limit,
+            "page" => $currentPage
+        ));
+        $pager = $paginator->getPaginate();
+        $this->view->setVar('pager', $pager);
     }
 }

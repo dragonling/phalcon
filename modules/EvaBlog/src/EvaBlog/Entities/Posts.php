@@ -2,6 +2,7 @@
 
 namespace Eva\EvaBlog\Entities;
 
+use Eva\EvaBlog\Entities\Texts;
 
 class Posts extends \Eva\EvaEngine\Model
 {
@@ -191,4 +192,15 @@ class Posts extends \Eva\EvaEngine\Model
     }
 
     protected $tableName = 'blog_posts';
+
+    public function initialize()
+    {
+        $this->hasOne("id", 'Eva\EvaBlog\Entities\Texts', "post_id", array(
+            'alias' => 'Text'
+        ));
+        $this->belongsTo("user_id", 'Eva\EvaUser\Entities\Users', "id", array(
+            'alias' => 'User'
+        ));
+        parent::initialize();
+    }
 }
