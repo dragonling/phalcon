@@ -16,7 +16,7 @@
 	"knplabs/gaufrette" : "dev-master",
 	"allovince/evaoauth": "dev-master",
 	"swiftmailer/swiftmailer" : "dev-master",
-	"lusitanian/oauth": "dev-master",
+	"ircmaxell/random-lib": "dev-master",
 	"erusev/parsedown" : "dev-master"
     },
     "repositories": [
@@ -26,5 +26,6 @@
         }
     ],
     "require-dev" : {
+	"doctrine/orm": "*"
     }
 }
