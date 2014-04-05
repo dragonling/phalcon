@@ -6,7 +6,6 @@ use Eva\EvaBlog\Entities\Texts;
 
 class Posts extends \Eva\EvaEngine\Model
 {
-
     /**
      *
      * @var integer
@@ -41,7 +40,7 @@ class Posts extends \Eva\EvaEngine\Model
      *
      * @var string
      */
-    public $codeType;
+    public $sourceCode;
      
     /**
      *
@@ -51,51 +50,27 @@ class Posts extends \Eva\EvaEngine\Model
      
     /**
      *
-     * @var string
+     * @var integer
      */
     public $parentId;
      
     /**
      *
-     * @var integer
-     */
-    public $connect_id;
-     
-    /**
-     *
      * @var string
      */
-    public $trackback;
-     
-    /**
-     *
-     * @var string
-     */
-    public $urlName;
-     
-    /**
-     *
-     * @var string
-     */
-    public $preview;
+    public $slug;
      
     /**
      *
      * @var integer
      */
-    public $orderNumber;
+    public $sortOrder;
      
     /**
      *
      * @var integer
      */
-    public $setting;
-     
-    /**
-     *
-     * @var string
-     */
-    public $createTime;
+    public $createdAt;
      
     /**
      *
@@ -107,13 +82,13 @@ class Posts extends \Eva\EvaEngine\Model
      *
      * @var string
      */
-    public $user_name;
+    public $username;
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $updateTime;
+    public $updatedAt;
      
     /**
      *
@@ -126,12 +101,6 @@ class Posts extends \Eva\EvaEngine\Model
      * @var string
      */
     public $editor_name;
-     
-    /**
-     *
-     * @var string
-     */
-    public $postPassword;
      
     /**
      *
@@ -155,7 +124,25 @@ class Posts extends \Eva\EvaEngine\Model
      *
      * @var integer
      */
-    public $viewCount;
+    public $count;
+     
+    /**
+     *
+     * @var integer
+     */
+    public $image_id;
+     
+    /**
+     *
+     * @var string
+     */
+    public $image;
+     
+    /**
+     *
+     * @var string
+     */
+    public $summary;
      
     /**
      * Independent Column Mapping.
@@ -168,26 +155,24 @@ class Posts extends \Eva\EvaEngine\Model
             'status' => 'status', 
             'flag' => 'flag', 
             'visibility' => 'visibility', 
-            'codeType' => 'codeType', 
+            'sourceCode' => 'sourceCode', 
             'language' => 'language', 
             'parentId' => 'parentId', 
-            'connect_id' => 'connect_id', 
-            'trackback' => 'trackback', 
-            'urlName' => 'urlName', 
-            'preview' => 'preview', 
-            'orderNumber' => 'orderNumber', 
-            'setting' => 'setting', 
-            'createTime' => 'createTime', 
+            'slug' => 'slug', 
+            'sortOrder' => 'sortOrder', 
+            'createdAt' => 'createdAt', 
             'user_id' => 'user_id', 
-            'user_name' => 'user_name', 
-            'updateTime' => 'updateTime', 
+            'username' => 'username', 
+            'updatedAt' => 'updatedAt', 
             'editor_id' => 'editor_id', 
             'editor_name' => 'editor_name', 
-            'postPassword' => 'postPassword', 
             'commentStatus' => 'commentStatus', 
             'commentType' => 'commentType', 
             'commentCount' => 'commentCount', 
-            'viewCount' => 'viewCount'
+            'count' => 'count', 
+            'image_id' => 'image_id', 
+            'image' => 'image', 
+            'summary' => 'summary'
         );
     }
 

@@ -57,4 +57,20 @@ class PostController extends ControllerBase
         $pager = $paginator->getPaginate();
         $this->view->setVar('pager', $pager);
     }
+
+    public function newAction()
+    {
+        $form = new \Eva\EvaEngine\Form();
+        $form->setModel(Models\Post::findFirst());
+        $form->add(new \Phalcon\Forms\Element\Text("title"));
+        $this->view->setVar('form', $form);
+        /*
+        array(
+            'username' => 'abc',   //user entity
+            'Profile' => array(   //profile entity
+                'firstName' => 1
+            )
+        )
+        */
+    }
 }
