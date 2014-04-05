@@ -31,7 +31,7 @@ class ResetPassword extends Entities\Users
 
         // generate random hash for email password reset verification (40 char string)
         $userinfo->passwordResetHash = sha1(uniqid(mt_rand(), true));
-        $userinfo->passwordResetTimestamp = time();
+        $userinfo->passwordResetAt = time();
         $userinfo->save();
 
         $this->sendPasswordResetMail($userinfo->email);
@@ -90,7 +90,7 @@ class ResetPassword extends Entities\Users
             throw new Exception\VerifyFailedException('ERR_USER_RESET_CODE_NOT_MATCH');
         }
 
-        if($userinfo->passwordResetTimestamp < time() - $this->resetPasswordHashExpired) {
+        if($userinfo->passwordResetAt < time() - $this->resetPasswordHashExpired) {
             throw new Exception\ResourceExpiredException('ERR_USER_RESET_CODE_EXPIRED');
         }
         return true;

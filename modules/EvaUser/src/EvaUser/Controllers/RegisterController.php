@@ -18,7 +18,7 @@ class RegisterController extends ControllerBase
             $this->validHandler($form);
             return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
-        $user = new Models\Login();
+        $user = new Models\Register();
         $user->assign(array(
             'username' => $this->request->getPost('username'),
             'email' => $this->request->getPost('email'),

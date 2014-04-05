@@ -6,8 +6,6 @@ use Phalcon\Mvc\Model\Validator\Email as Email;
 
 class Users extends \Eva\EvaEngine\Model
 {
-
-
     /**
      *
      * @var integer
@@ -114,19 +112,19 @@ class Users extends \Eva\EvaEngine\Model
      *
      * @var integer
      */
-    public $emailConfirmTimestamp;
+    public $emailConfirmedAt;
      
     /**
      *
      * @var integer
      */
-    public $creationTimestamp;
+    public $createdAt;
      
     /**
      *
      * @var integer
      */
-    public $lastLoginTimestamp;
+    public $loginAt;
      
     /**
      *
@@ -138,7 +136,7 @@ class Users extends \Eva\EvaEngine\Model
      *
      * @var integer
      */
-    public $lastFailedLoginTimestamp;
+    public $loginFailedAt;
      
     /**
      *
@@ -150,7 +148,7 @@ class Users extends \Eva\EvaEngine\Model
      *
      * @var integer
      */
-    public $activationTimestamp;
+    public $activedAt;
      
     /**
      *
@@ -162,7 +160,7 @@ class Users extends \Eva\EvaEngine\Model
      *
      * @var integer
      */
-    public $passwordResetTimestamp;
+    public $passwordResetAt;
      
     /**
      *
@@ -212,15 +210,15 @@ class Users extends \Eva\EvaEngine\Model
             'timezone' => 'timezone', 
             'language' => 'language', 
             'emailStatus' => 'emailStatus', 
-            'emailConfirmTimestamp' => 'emailConfirmTimestamp', 
-            'creationTimestamp' => 'creationTimestamp', 
-            'lastLoginTimestamp' => 'lastLoginTimestamp', 
+            'emailConfirmedAt' => 'emailConfirmedAt', 
+            'createdAt' => 'createdAt', 
+            'loginAt' => 'loginAt', 
             'failedLogins' => 'failedLogins', 
-            'lastFailedLoginTimestamp' => 'lastFailedLoginTimestamp', 
+            'loginFailedAt' => 'loginFailedAt', 
             'activationHash' => 'activationHash', 
-            'activationTimestamp' => 'activationTimestamp', 
+            'activedAt' => 'activedAt', 
             'passwordResetHash' => 'passwordResetHash', 
-            'passwordResetTimestamp' => 'passwordResetTimestamp', 
+            'passwordResetAt' => 'passwordResetAt', 
             'providerType' => 'providerType'
         );
     }

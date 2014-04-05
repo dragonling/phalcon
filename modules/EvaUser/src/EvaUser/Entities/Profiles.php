@@ -5,7 +5,6 @@ namespace Eva\EvaUser\Entities;
 
 class Profiles extends \Eva\EvaEngine\Model
 {
-
     /**
      *
      * @var integer
@@ -193,6 +192,12 @@ class Profiles extends \Eva\EvaEngine\Model
     public $otherIm;
      
     /**
+     *
+     * @var integer
+     */
+    public $updatedAt;
+     
+    /**
      * Independent Column Mapping.
      */
     public function columnMap()
@@ -228,7 +233,8 @@ class Profiles extends \Eva\EvaEngine\Model
             'bio' => 'bio', 
             'localIm' => 'localIm', 
             'internalIm' => 'internalIm', 
-            'otherIm' => 'otherIm'
+            'otherIm' => 'otherIm', 
+            'updatedAt' => 'updatedAt'
         );
     }
 

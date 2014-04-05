@@ -13,7 +13,7 @@ class SessionController extends ControllerBase
     {
         $code = $this->dispatcher->getParam('code');
         $username = $this->dispatcher->getParam('username');
-        $user = new Models\Login();
+        $user = new Models\Register();
 
         try {
             $user->verifyNewUser($username, $code);
