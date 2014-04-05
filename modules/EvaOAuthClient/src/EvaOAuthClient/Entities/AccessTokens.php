@@ -42,9 +42,9 @@ class AccessTokens extends \Eva\EvaEngine\Model
      
     /**
      *
-     * @var string
+     * @var integer
      */
-    public $refreshTime;
+    public $refreshedAt;
      
     /**
      *
@@ -112,7 +112,7 @@ class AccessTokens extends \Eva\EvaEngine\Model
             'tokenStatus' => 'tokenStatus', 
             'scope' => 'scope', 
             'refreshToken' => 'refreshToken', 
-            'refreshTime' => 'refreshTime', 
+            'refreshedAt' => 'refreshedAt', 
             'expireTime' => 'expireTime', 
             'remoteToken' => 'remoteToken', 
             'remoteUserId' => 'remoteUserId', 

@@ -111,6 +111,7 @@ class Login extends UserEntity
         //OAuth register user already active
         $this->status = 'active';
         $this->accountType = 'basic';
+        $this->emailStatus = 'inactive';
 
         //No password
         $this->password = null;
@@ -118,7 +119,7 @@ class Login extends UserEntity
         // generate random hash for email verification (40 char string)
         $this->activationHash = sha1(uniqid(mt_rand(), true));
         // generate integer-timestamp for saving of account-creating date
-        $this->creationTimestamp = time();
+        $this->createdAt = time();
         $this->providerType = $accessToken['adapterKey'] . '_' . $accessToken['version'];
 
         if (!$this->save()) {
