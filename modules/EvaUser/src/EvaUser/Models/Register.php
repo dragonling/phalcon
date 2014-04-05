@@ -22,6 +22,7 @@ class Register extends Entities\Users
         }
 
         $this->status = 'inactive';
+        $this->emailStatus = 'inactive';
         $this->accountType = 'basic';
         // crypt the user's password with the PHP 5.5's password_hash() function, results in a 60 character
         // how those PHP 5.5 functions want the parameter: as an array with, currently only used with 'cost' => XX
@@ -109,6 +110,9 @@ class Register extends Entities\Users
         }
 
         $userinfo->status = 'active';
+        $userinfo->activedAt = time();
+        $userinfo->emailStatus = 'active';
+        $userinfo->emailConfirmedAt = time();
         if (!$userinfo->save()) {
             throw new Exception\RuntimeException('ERR_USER_ACTIVE_FAILED');
         }

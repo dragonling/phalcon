@@ -104,7 +104,7 @@ class Login extends Entities\Users
         }
 
         $userinfo->failedLogins = 0;
-        $userinfo->loginFailedAt = time();
+        $userinfo->loginAt = time();
         $userinfo->save();
 
         $authIdentity = $this->saveUserToSession($userinfo);
