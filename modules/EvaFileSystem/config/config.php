@@ -17,5 +17,6 @@ return array(
         'adapter' => 'local',
         'path' => __DIR__ . '/../uploads/',
         'pathlevel' => 3,
+        'url' => '',
     ),
 );

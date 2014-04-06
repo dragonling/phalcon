@@ -55,7 +55,6 @@ class RegisterController extends ControllerBase
             'id' => $userinfo ? $userinfo->id : 0,
             'status' => $userinfo ? $userinfo->status : null,
         ));
-    
     }
 
 }

@@ -26,6 +26,12 @@ return array(
 
     ),
 
+    'upload' => array(
+        'adapter' => 'local',
+        'path' => __DIR__ . '/../public/uploads/',
+        'url' => '/uploads',
+    ),
+
     'dbAdapter' => array(
         'master' => array(
             'driver' => 'Pdo_Mysql',
