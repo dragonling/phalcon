@@ -9,7 +9,6 @@ use Eva\EvaEngine\Exception;
 
 class Post extends Entities\Posts
 {
-    protected $useMasterSlave = false;
     public function beforeValidationOnCreate()
     {
         $this->createdAt = time();

@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `eva_blog_posts` (
   `image` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `summary` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=180 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=189 ;
 
 DROP TABLE IF EXISTS `eva_blog_tags`;
 CREATE TABLE IF NOT EXISTS `eva_blog_tags` (
@@ -102,8 +102,8 @@ CREATE TABLE IF NOT EXISTS `eva_oauth_accesstokens` (
   `tokenStatus` enum('active','expried') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'active',
   `scope` text COLLATE utf8_unicode_ci,
   `refreshToken` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `refreshTimeAt` int(10) DEFAULT NULL,
-  `expireTimeAt` int(10) DEFAULT NULL,
+  `refreshedAt` int(10) DEFAULT NULL,
+  `expireTime` datetime DEFAULT NULL,
   `remoteToken` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `remoteUserId` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `remoteUserName` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -196,4 +196,4 @@ CREATE TABLE IF NOT EXISTS `eva_user_users` (
   PRIMARY KEY (`id`),
   KEY `userName` (`username`),
   KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;

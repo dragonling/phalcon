@@ -74,13 +74,14 @@ class PostController extends ControllerBase
             return false;
         }
         $data = $this->request->getPost();
+        $textData = $data['Text'];
+        unset($data['Text']);
         $post = new Models\Post();
-        $post->assign($data);
-        /*
         $text = new Models\Text();
-        $text->assign($data['Text']);
-        */
-        if(!$post->create()) {
+        $post->Text = $text;
+        $post->assign($data);
+        $text->assign($textData);
+        if(!$post->save()) {
             p($post->getMessages());
             exit;
         }
