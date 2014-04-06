@@ -1,0 +1,98 @@
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+        <i class="icon-home home-icon"></i>
+        <a href="#">Home</a>
+        </li>
+
+        <li>
+        <a href="#">Forms</a>
+        </li>
+        <li class="active">Wysiwyg &amp; Markdown</li>
+    </ul><!-- .breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                <i class="icon-search nav-search-icon"></i>
+            </span>
+        </form>
+    </div><!-- #nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>Write New Post</h1>
+    </div><!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+
+            <form id="" action="/admin/post" method="POST" novalidate="novalidate">
+                <div class="form-group">
+                    <label class="block clearfix">
+                        <?=$form->render('title', array(
+                            'class' => 'form-control',
+                            'placeholder' => 'Title',
+                            'required' => 'required',
+                        ))?>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="block clearfix">
+                        <textarea class="tinymce" name="content"></textarea>
+                    </label>
+                </div>
+
+                <div class="clearfix form-actions">
+                        <button type="submit" class="btn btn-info">
+                            <i class="icon-ok bigger-110"></i>
+                            Submit
+                        </button>
+                </div>
+
+
+            </form>
+
+            <div class="hr hr-double dotted"></div>
+        </div>
+
+        <!-- PAGE CONTENT ENDS -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
+</div><!-- /.page-content -->
+
+<script type="text/javascript" src="/vendor/js/tinymce/jquery.tinymce.min.js"></script>
+<script type="text/javascript">
+    $('textarea.tinymce').tinymce({
+            script_url : '/vendor/js/tinymce/tinymce.min.js',
+            language : 'zh_CN',
+            theme: "modern",
+            height: 300,
+            plugins: [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+            "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            content_css: "css/content.css",
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons", 
+            style_formats: [
+            {title: 'Bold text', inline: 'b'},
+            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+            {title: 'Example 1', inline: 'span', classes: 'example1'},
+            {title: 'Example 2', inline: 'span', classes: 'example2'},
+            {title: 'Table styles'},
+            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+            ]
+
+    });
+</script>
+
+

@@ -60,17 +60,8 @@ class PostController extends ControllerBase
 
     public function newAction()
     {
-        $form = new \Eva\EvaEngine\Form();
+        $form = new \Eva\EvaBlog\Forms\PostForm();
         $form->setModel(Models\Post::findFirst());
-        $form->add(new \Phalcon\Forms\Element\Text("title"));
         $this->view->setVar('form', $form);
-        /*
-        array(
-            'username' => 'abc',   //user entity
-            'Profile' => array(   //profile entity
-                'firstName' => 1
-            )
-        )
-        */
     }
 }
