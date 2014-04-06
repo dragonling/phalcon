@@ -47,6 +47,15 @@ return array(
         )
     ),
 
+    'modelsMetadata' => array(
+        'enable' => true,
+        'adapter' => 'File',
+        'options' => array(
+            'metaDataDir' => __DIR__ . '/../cache/schema/'
+        
+        ),
+    ),
+
     'queue' => array(
         'servers' => array(
             'server1' => array(

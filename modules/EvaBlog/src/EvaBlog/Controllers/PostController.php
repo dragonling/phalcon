@@ -58,10 +58,31 @@ class PostController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
-    public function newAction()
+    public function createAction()
     {
-        $form = new \Eva\EvaBlog\Forms\PostForm();
-        $form->setModel(Models\Post::findFirst());
-        $this->view->setVar('form', $form);
+        Models\Post::findFirst();
+        $postForm = new \Eva\EvaBlog\Forms\PostForm();
+        $postForm->setModel(new Models\Post());
+        $this->view->setVar('postForm', $postForm);
+
+        $textForm = new \Eva\EvaBlog\Forms\TextForm();
+        $textForm->setModel(new Models\Text());
+        $textForm->setPrefix('Text');
+        $this->view->setVar('textForm', $textForm);
+
+        if(!$this->request->isPost()){
+            return false;
+        }
+        $data = $this->request->getPost();
+        $post = new Models\Post();
+        $post->assign($data);
+        /*
+        $text = new Models\Text();
+        $text->assign($data['Text']);
+        */
+        if(!$post->create()) {
+            p($post->getMessages());
+            exit;
+        }
     }
 }

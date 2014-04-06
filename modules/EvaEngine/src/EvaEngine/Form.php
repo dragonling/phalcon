@@ -42,6 +42,14 @@ class Form extends \Phalcon\Forms\Form
     public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
+        if(!$this->model) {
+            return $this;
+        }
+
+        $elements = $this->_elements;
+        foreach($elements as $key => $element) {
+            $element->setName($prefix . '[' . $element->getName() . ']');
+        }
         return $this;
     }
 

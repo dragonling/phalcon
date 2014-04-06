@@ -22,7 +22,7 @@ class Posts extends \Eva\EvaEngine\Model
      *
      * @var string
      */
-    public $status;
+    public $status = 'pending';
      
     /**
      *
@@ -34,13 +34,13 @@ class Posts extends \Eva\EvaEngine\Model
      *
      * @var string
      */
-    public $visibility;
+    public $visibility = 'public';
      
     /**
      *
      * @var string
      */
-    public $sourceCode;
+    public $sourceCode = 'html';
      
     /**
      *

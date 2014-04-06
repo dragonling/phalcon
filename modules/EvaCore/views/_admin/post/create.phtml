@@ -34,10 +34,10 @@
         <div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
 
-            <form id="" action="/admin/post" method="POST" novalidate="novalidate">
+            <form id="" action="/admin/post/create" method="POST" novalidate="novalidate">
                 <div class="form-group">
                     <label class="block clearfix">
-                        <?=$form->render('title', array(
+                        <?=$postForm->render('title', array(
                             'class' => 'form-control',
                             'placeholder' => 'Title',
                             'required' => 'required',
@@ -46,7 +46,11 @@
                 </div>
                 <div class="form-group">
                     <label class="block clearfix">
-                        <textarea class="tinymce" name="content"></textarea>
+                        <?=$textForm->render('content', array(
+                            'class' => 'form-control tinymce',
+                            'rows' => 12,
+                            'required' => 'required',
+                        ))?>
                     </label>
                 </div>
 

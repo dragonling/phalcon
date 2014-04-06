@@ -9,15 +9,11 @@ use Eva\EvaEngine\Exception;
 
 class Post extends Entities\Posts
 {
-    public function initialize()
+    protected $useMasterSlave = false;
+    public function beforeValidationOnCreate()
     {
-        $modelManager = $this->getDI()->get('modelsManager');
-        $modelManager->registerNamespaceAlias('Text', 'Eva\EvaBlog\Models\Text');
-        //$modelManager->load('Text');
-        //exit;
-        //$this->hasOne("id", 'Eva\EvaBlog\Models\Text', "post_id");
-        $this->hasOne("id", 'Text', "post_id");
-        parent::initialize();
+        $this->createdAt = time();
+        $factory = new \RandomLib\Factory();
+        $this->slug = $factory->getMediumStrengthGenerator()->generateString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
     }
-
 }

@@ -197,6 +197,13 @@ class Engine
             return $logger = new FileLogger($config->logger->path . 'error_' . date('Y-m-d') . '.log');
         });
 
+        $di->set('modelsMetadata', function() use ($di) {
+            $config = $di->get('config');
+            $metaData = new \Phalcon\Mvc\Model\Metadata\Files($config->modelsMetadata->options->toArray());
+            return $metaData;
+        });
+
+
         $di->set('db', function () use ($di) {
             $config = $di->get('config');
             $dbAdapter = new DbAdapter(array(
