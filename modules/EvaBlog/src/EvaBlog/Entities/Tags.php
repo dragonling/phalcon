@@ -59,4 +59,17 @@ class Tags extends \Eva\EvaEngine\Model
         );
     }
 
+    public function initialize()
+    {
+        $this->hasManyToMany(
+            'id',
+            'Eva\EvaBlog\Entities\PostsTags',
+            'tag_id',
+            'post_id',
+            'Eva\EvaBlog\Entities\Posts',
+            'id',
+            array('alias' => 'Posts')
+        );
+
+    }
 }

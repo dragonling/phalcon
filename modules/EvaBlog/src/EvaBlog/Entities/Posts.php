@@ -180,12 +180,34 @@ class Posts extends \Eva\EvaEngine\Model
 
     public function initialize()
     {
-        $this->hasOne("id", 'Eva\EvaBlog\Entities\Texts', "post_id", array(
+        $this->hasOne('id', 'Eva\EvaBlog\Entities\Texts', 'post_id', array(
             'alias' => 'Text'
         ));
-        $this->belongsTo("user_id", 'Eva\EvaUser\Entities\Users', "id", array(
+
+        $this->belongsTo('user_id', 'Eva\EvaUser\Entities\Users', 'id', array(
             'alias' => 'User'
         ));
+
+        $this->hasManyToMany(
+            'id',
+            'Eva\EvaBlog\Entities\CategoriesPosts',
+            'post_id',
+            'category_id',
+            'Eva\EvaBlog\Entities\Categories',
+            'id',
+            array('alias' => 'Categories')
+        );
+
+        $this->hasManyToMany(
+            'id',
+            'Eva\EvaBlog\Entities\TagsPosts',
+            'post_id',
+            'tag_id',
+            'Eva\EvaBlog\Entities\Tags',
+            'id',
+            array('alias' => 'Tags')
+        );
+
         parent::initialize();
     }
 }

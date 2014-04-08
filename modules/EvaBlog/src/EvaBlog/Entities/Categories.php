@@ -93,4 +93,18 @@ class Categories extends \Eva\EvaEngine\Model
             'rightId' => 'rightId'
         );
     }
+
+    public function initialize()
+    {
+        $this->hasManyToMany(
+            'id',
+            'Eva\EvaBlog\Entities\CategoriesPosts',
+            'category_id',
+            'post_id',
+            'Eva\EvaBlog\Entities\Posts',
+            'id',
+            array('alias' => 'Posts')
+        );
+
+    }
 }

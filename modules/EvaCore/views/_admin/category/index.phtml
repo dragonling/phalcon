@@ -6,13 +6,13 @@
     <ul class="breadcrumb">
         <li>
         <i class="icon-home home-icon"></i>
-        <a href="#">Home</a>
+        <a href="/admin/dashboard">Home</a>
         </li>
 
         <li>
-        <a href="#">Forms</a>
+        <a href="/admin/post">Post</a>
         </li>
-        <li class="active">Wysiwyg &amp; Markdown</li>
+        <li class="active">Category</li>
     </ul><!-- .breadcrumb -->
 
     <div class="nav-search" id="nav-search">
@@ -25,7 +25,6 @@
     </div><!-- #nav-search -->
 </div>
 
-<form id="" action="/admin/category/create" method="POST" enctype="multipart/form-data" novalidate="novalidate">
 <div class="page-content">
 
     <div class="row">
@@ -66,12 +65,10 @@
                                 </label>
                             </th>
                             <th class="hidden-480">ID</th>
-                            <th>Title</th>
-                            <th class="hidden-480">Status</th>
-                            <th>User</th>
+                            <th>Name</th>
                             <th>
                                 <i class="icon-time bigger-110 hidden-480"></i>
-                                Update
+                                Create At
                             </th>
                             <th></th>
                         </tr>
@@ -88,14 +85,9 @@
                             </td>
                             <td class="hidden-480"><?=$item->id?></td>
                             <td>
-                                <a href="/admin/post/edit/<?=$item->id?>"><?=$item->title?></a>
+                                <a href="/admin/category/edit/<?=$item->id?>"><?=$item->categoryName?></a>
                             </td>
-                            <td class="hidden-480">
-                                <span class="label label-sm label-success"><?=$item->status?></span>
-                            </td>
-                            <td><?=$item->User->username?></td>
                             <td><?=$item->createdAt?></td>
-
 
                             <td>
                                 <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
@@ -164,7 +156,7 @@
                     <div class="col-sm-6">
                         <div class="dataTables_paginate">
                             <?$this->partial("partial/paginator", array(
-                                'pagerUrl' => '/admin/post/list',
+                                'pagerUrl' => '/admin/category',
                                 'pager' => $pager,
                             ))?>
                         </div>
@@ -177,7 +169,6 @@
     </div><!--row end-->
 
 </div><!-- /.page-content -->
-</form>
 
 <script src="/assets/js/jquery.dataTables.min.js"></script>
 <script src="/assets/js/jquery.dataTables.bootstrap.js"></script>

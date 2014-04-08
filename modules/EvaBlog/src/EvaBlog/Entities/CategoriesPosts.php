@@ -30,4 +30,15 @@ class CategoriesPosts extends \Eva\EvaEngine\Model
             'post_id' => 'post_id'
         );
     }
+
+
+    public function initialize()
+    {
+        $this->belongsTo('category_id', 'Eva\EvaBlog\Entities\Categories', 'id', 
+            array('alias' => 'Category')
+        );
+        $this->belongsTo('post_id', 'Eva\EvaBlog\Entities\Posts', 'id', 
+            array('alias' => 'Post')
+        );
+    }
 }
