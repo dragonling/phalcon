@@ -54,10 +54,12 @@ class Tag extends \Phalcon\Tag
         */
     }
 
-    public static function uri($uri, array $query = array(), array $baseQuery = array())
+    public static function uri($uri, array $query = null, array $baseQuery = null)
     {
         $url = self::getDI()->get('url');
-        $query = array_merge($baseQuery, $query);
+        if($query && $baseQuery) {
+            $query = array_merge($baseQuery, $query);
+        }
         return $url->get($uri, $query);
     }
     

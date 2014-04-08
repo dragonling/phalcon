@@ -30,6 +30,11 @@ class PostForm extends Form
      
     /**
      *
+     * @Type(Select)
+     * @Option(deleted=Deleted)
+     * @Option(draft=Draft)
+     * @Option(pending=Pending)
+     * @Option(published=Published)
      * @var string
      */
     public $status;

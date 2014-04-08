@@ -73,6 +73,9 @@ class PostController extends ControllerBase
             return false;
         }
         $data = $this->request->getPost();
+        p($_POST);
+        p($_FILES);
+        exit;
         $textData = $data['Text'];
         unset($data['Text']);
         $post = new Models\Post();

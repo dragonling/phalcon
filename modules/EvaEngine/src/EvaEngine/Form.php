@@ -132,6 +132,16 @@ class Form extends \Phalcon\Forms\Form
             $element->setAttributes($formProperty->get('Options')->getArguments());
         }
 
+        if($formProperty->has('Option')) {
+            foreach($formProperty as $annotation) {
+                if($annotation->getName() != 'Option') {
+                    continue;
+                }
+                $arguments = $annotation->getArguments();
+                $element->addOption($arguments);
+            }
+        }
+
         return $element;
     }
 

@@ -9,26 +9,28 @@
     <ul class="breadcrumb">
         <li>
         <i class="icon-home home-icon"></i>
-        <a href="#">Home</a>
+        <a href="/admin/dashboard">Home</a>
         </li>
 
         <li>
-        <a href="#">Forms</a>
+        <a href="/admin/post">Post</a>
         </li>
-        <li class="active">Wysiwyg &amp; Markdown</li>
+        <li class="active">Category</li>
     </ul><!-- .breadcrumb -->
 
     <div class="nav-search" id="nav-search">
+        <!--
         <form class="form-search">
             <span class="input-icon">
                 <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
                 <i class="icon-search nav-search-icon"></i>
             </span>
         </form>
+        -->
     </div><!-- #nav-search -->
 </div>
 
-<form id="" action="/admin/post/create" method="POST" enctype="multipart/form-data" novalidate="novalidate">
+<form id="" action="/admin/category/create" method="POST" enctype="multipart/form-data" novalidate="novalidate">
 <div class="page-content">
     <div class="page-header">
         <h1>Write New Post</h1>
@@ -40,17 +42,27 @@
 
                 <div class="form-group">
                     <label class="block clearfix">
-                        <?=$postForm->render('title', array(
+                        <?=$form->render('categoryName', array(
                             'class' => 'form-control',
                             'placeholder' => 'Title',
                             'required' => 'required',
                         ))?>
                     </label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="icon-link"></i>  <span class="label">http://www.goldtoutiao.com/admin/category/</span>
+                        </span>
+                        <?=$form->render('slug', array(
+                            'class' => 'form-control',
+                            'placeholder' => 'Url, No fill will generate a random url',
+                        ))?>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label class="block clearfix">
                         <div id="epiceditor">
-                            <?=$textForm->render('content', array(
+                            <?=$form->render('description', array(
                                 'class' => 'form-control wysiwyg',
                                 'rows' => 12,
                                 'required' => 'required',
@@ -83,9 +95,6 @@
                 <div class="widget-body">
                     <div class="widget-main">
                         <fieldset>
-                        <?=$postForm->render('status', array(
-                            'class' => 'form-control',
-                        ))?>
                         </fieldset>
 
 
@@ -120,8 +129,8 @@
             <div class="hr hr-double dotted"></div>
             <div class="widget-box">
                 <div class="widget-header widget-header-small">
-                    <h5 class="lighter">Categories</h5>
-<span class="widget-toolbar">
+                    <h5 class="lighter">Parent</h5>
+                    <span class="widget-toolbar">
                         <a data-action="collapse" href="#">
                             <i class="icon-chevron-up"></i>
                         </a>
@@ -147,56 +156,6 @@
                     </div>
                 </div>
             </div><!--widgex box-->
-
-
-            <div class="hr hr-double dotted"></div>
-            <div class="widget-box">
-                <div class="widget-header widget-header-small">
-                    <h5 class="lighter">Tags</h5>
-                        <a data-action="collapse" href="#">
-                            <i class="icon-chevron-up"></i>
-                        </a>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <div class="form-group">
-                            <input type="text" placeholder="Enter tags ..." value="" id="form-field-tags" name="tags">
-                        </div>
-                    </div>
-                </div>
-            </div><!--widgex box-->
-
-            <div class="hr hr-double dotted"></div>
-            <div class="widget-box">
-                <div class="widget-header widget-header-small">
-                    <h5 class="lighter">Publish Time</h5>
-                        <a data-action="collapse" href="#">
-                            <i class="icon-chevron-up"></i>
-                        </a>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <div class="input-group">
-                            <input name="day" type="text" data-date-format="dd-mm-yyyy" id="id-date-picker-1" class="form-control date-picker">
-                            <span class="input-group-addon">
-                                <i class="icon-calendar bigger-110"></i>
-                            </span>
-                        </div>
-                        <div class="input-group bootstrap-timepicker">
-                            <input type="text" class="form-control" id="timepicker1">
-                            <span class="input-group-addon">
-                                <i class="icon-time bigger-110"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div><!--widgex box-->
-
-
-
-
 
         </div><!-- /.col -->
 
@@ -243,37 +202,10 @@
 					//console.log($(this).data('ace_input_files'));
 					//console.log($(this).data('ace_input_method'));
 				});
-                /*
-                $('textarea.tinymce').tinymce({
-                        script_url : '/vendor/js/tinymce/tinymce.min.js',
-                        language : 'zh_CN',
-                        theme: "modern",
-                        height: 300,
-                        plugins: [
-                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                        "save table contextmenu directionality emoticons template paste textcolor"
-                        ],
-                        content_css: "css/content.css",
-                        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons", 
-                        style_formats: [
-                        {title: 'Bold text', inline: 'b'},
-                        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-                        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-                        {title: 'Example 1', inline: 'span', classes: 'example1'},
-                        {title: 'Example 2', inline: 'span', classes: 'example2'},
-                        {title: 'Table styles'},
-                        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-                        ]
-
-                });
-                */
-
-                /*
                 var editor = new EpicEditor({
                         autogrow : {
-                                minHeight : 500,
-                                maxHeight : 800
+                                minHeight : 200,
+                                maxHeight : 300
                         },
                         theme: {
                                 base: 'http://www.goldtoutiao.com//vendor/js/epiceditor/themes/base/epiceditor.css',
@@ -293,9 +225,6 @@
 
 
                 }).load();
-                */
-                CKEDITOR.config.contentsCss = '/css/editor.css';
-                $( 'textarea.wysiwyg' ).ckeditor();
 
 				$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
 					$(this).prev().focus();

@@ -2,11 +2,11 @@
 
 return array(
     'routes' =>  array(
-        '/upload' =>  array(
+        '/admin/upload' =>  array(
             'module' => 'EvaFileSystem',
             'controller' => 'upload',
         ),
-        '/upload/:action' =>  array(
+        '/admin/upload/:action' =>  array(
             'module' => 'EvaFileSystem',
             'controller' => 'upload',
             'action' => 1,
