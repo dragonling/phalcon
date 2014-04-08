@@ -21,8 +21,10 @@ class UploadController extends ControllerBase
             return;
         }
 
+        $upload = new Models\Upload();
+
         foreach ($this->request->getUploadedFiles() as $file) {
-            $file->moveTo($this->getDI()->get('config')->upload->path . $file->getName());
+            $upload->upload($file);
         }
         $this->view->disable();
         echo json_encode(array(

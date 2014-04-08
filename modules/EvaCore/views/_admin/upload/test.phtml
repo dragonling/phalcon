@@ -41,9 +41,10 @@
             <!-- PAGE CONTENT BEGINS -->
 
             <div id="dropzone">
-                <form action="/upload" class="dropzone">
+                <form action="/admin/upload" class="dropzone2" method="POST" enctype="multipart/form-data">
                     <div class="fallback">
                         <input name="file" type="file" multiple="" />
+                        <input type="submit" />
                     </div>
                 </form>
             </div><!-- PAGE CONTENT ENDS -->
@@ -52,9 +53,10 @@
 </div><!-- /.page-content -->
 
 
-<script src="/assets/js/dropzone.min.js"></script>
+<script src="/vendor/js/dropzone/dropzone.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+            return;
             try {
                     $(".dropzone").dropzone({
                             paramName: "file", // The name that will be used to transfer the file

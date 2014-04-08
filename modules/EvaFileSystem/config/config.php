@@ -18,5 +18,9 @@ return array(
         'path' => __DIR__ . '/../uploads/',
         'pathlevel' => 3,
         'url' => '',
+        'hashFile' => '',
+        'validator' => array(
+            'maxFileSize' => '1M',
+        )
     ),
 );

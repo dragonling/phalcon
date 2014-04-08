@@ -13,8 +13,10 @@ class Post extends Entities\Posts
     public function beforeValidationOnCreate()
     {
         $this->createdAt = time();
-        $factory = new \RandomLib\Factory();
-        $this->slug = $factory->getMediumStrengthGenerator()->generateString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        if(!$this->slug) {
+            $factory = new \RandomLib\Factory();
+            $this->slug = $factory->getMediumStrengthGenerator()->generateString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        }
     }
 
     public function beforeCreate()
