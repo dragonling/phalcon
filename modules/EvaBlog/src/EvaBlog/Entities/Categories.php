@@ -73,6 +73,18 @@ class Categories extends \Eva\EvaEngine\Model
      * @var integer
      */
     public $rightId;
+
+    /**
+     *
+     * @var integer
+     */
+    public $image_id;
+     
+    /**
+     *
+     * @var string
+     */
+    public $image;
      
     /**
      * Independent Column Mapping.

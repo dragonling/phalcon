@@ -9,13 +9,13 @@
     <ul class="breadcrumb">
         <li>
         <i class="icon-home home-icon"></i>
-        <a href="#">Home</a>
+        <a href="/admin/dashboard">Home</a>
         </li>
 
         <li>
-        <a href="#">Forms</a>
+        <a href="/admin/post">Post</a>
         </li>
-        <li class="active">Wysiwyg &amp; Markdown</li>
+        <li class="active">Write New Post</li>
     </ul><!-- .breadcrumb -->
 
     <div class="nav-search" id="nav-search">
@@ -41,11 +41,20 @@
                 <div class="form-group">
                     <label class="block clearfix">
                         <?=$postForm->render('title', array(
-                            'class' => 'form-control',
+                            'class' => 'form-control input-lg',
                             'placeholder' => 'Title',
                             'required' => 'required',
                         ))?>
                     </label>
+                    <div class="input-group">
+                        <span class="input-group-addon input-sm">
+                            <i class="icon-link"></i>  http://www.goldtoutiao.com/admin/category/
+                        </span>
+                        <?=$postForm->render('slug', array(
+                            'class' => 'form-control input-sm',
+                            'placeholder' => 'Url, No fill will generate a random url',
+                        ))?>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="block clearfix">

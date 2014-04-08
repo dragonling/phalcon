@@ -71,4 +71,16 @@ class CategoryForm extends Form
      */
     public $rightId;
 
+    /**
+     *
+     * @var integer
+     */
+    public $image_id;
+     
+    /**
+     *
+     * @var string
+     */
+    public $image;
+
 }

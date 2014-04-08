@@ -28,8 +28,10 @@ CREATE TABLE IF NOT EXISTS `eva_blog_categories` (
   `count` int(10) DEFAULT '0',
   `leftId` int(15) DEFAULT '0',
   `rightId` int(15) DEFAULT '0',
+  `image_id` int(10) DEFAULT NULL,
+  `image` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 DROP TABLE IF EXISTS `eva_blog_categories_posts`;
 CREATE TABLE IF NOT EXISTS `eva_blog_categories_posts` (
@@ -64,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `eva_blog_posts` (
   `image` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `summary` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=189 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=185 ;
 
 DROP TABLE IF EXISTS `eva_blog_tags`;
 CREATE TABLE IF NOT EXISTS `eva_blog_tags` (
