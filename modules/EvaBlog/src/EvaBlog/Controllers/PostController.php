@@ -60,7 +60,6 @@ class PostController extends ControllerBase
 
     public function createAction()
     {
-        Models\Post::findFirst();
         $postForm = new \Eva\EvaBlog\Forms\PostForm();
         $postForm->setModel(new Models\Post());
         $this->view->setVar('postForm', $postForm);
@@ -85,5 +84,10 @@ class PostController extends ControllerBase
             p($post->getMessages());
             exit;
         }
+    }
+
+    public function editAction()
+    {
+    
     }
 }

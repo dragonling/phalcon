@@ -25,16 +25,16 @@
     </div><!-- #nav-search -->
 </div>
 
+            <form id="" action="/admin/post/create" method="POST" novalidate="novalidate">
 <div class="page-content">
     <div class="page-header">
         <h1>Write New Post</h1>
     </div><!-- /.page-header -->
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-9">
             <!-- PAGE CONTENT BEGINS -->
 
-            <form id="" action="/admin/post/create" method="POST" novalidate="novalidate">
                 <div class="form-group">
                     <label class="block clearfix">
                         <?=$postForm->render('title', array(
@@ -46,57 +46,176 @@
                 </div>
                 <div class="form-group">
                     <label class="block clearfix">
-                        <?=$textForm->render('content', array(
-                            'class' => 'form-control tinymce',
-                            'rows' => 12,
-                            'required' => 'required',
-                        ))?>
+                        <div id="epiceditor">
+                            <?=$textForm->render('content', array(
+                                'class' => 'form-control tinymce',
+                                'rows' => 12,
+                                'required' => 'required',
+                            ))?>
+                        </div>
                     </label>
                 </div>
 
+                <!--
                 <div class="clearfix form-actions">
-                        <button type="submit" class="btn btn-info">
-                            <i class="icon-ok bigger-110"></i>
-                            Submit
-                        </button>
+                    <button type="submit" class="btn btn-info">
+                        <i class="icon-ok bigger-110"></i>
+                        Submit
+                    </button>
                 </div>
+            <div class="hr hr-double dotted"></div>
+                -->
+        </div><!-- /.col -->
+        <div class="col-xs-3">
 
+            <div class="widget-box">
+                <div class="widget-header widget-header-small">
+                    <h4>Publish</h4>
+                    <span class="widget-toolbar">
+                        <a data-action="collapse" href="#">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <fieldset>
+                            <label>Label name</label>
 
-            </form>
+                            <input type="text" placeholder="Type something…">
+                            <span class="help-block">Example block-level help text here.</span>
+
+                        </fieldset>
+
+ 
+                    </div>
+                       <div class="clearfix form-actions no-margin">
+                            <button type="button" class="btn btn-info">
+                                <i class="icon-ok"></i>
+                                Publish
+                            </button>
+                        </div>
+                </div>
+            </div><!--widgex box-->
 
             <div class="hr hr-double dotted"></div>
-        </div>
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h4>Custom File Input</h4>
 
-        <!-- PAGE CONTENT ENDS -->
-    </div><!-- /.col -->
-</div><!-- /.row -->
+                    <span class="widget-toolbar">
+                        <a data-action="collapse" href="#">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+
+                        <a data-action="close" href="#">
+                            <i class="icon-remove"></i>
+                        </a>
+                    </span>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <div class="ace-file-input"><input type="file" id="id-input-file-2"><label data-title="Choose" class="file-label"><span data-title="No File ..." class="file-name"><i class="icon-upload-alt"></i></span></label><a href="#" class="remove"><i class="icon-remove"></i></a></div>
+                        <div class="ace-file-input ace-file-multiple"><input type="file" id="id-input-file-3" multiple=""><label data-title="Drop files here or click to choose" class="file-label"><span data-title="No File ..." class="file-name"><i class="icon-cloud-upload"></i></span></label><a href="#" class="remove"><i class="icon-remove"></i></a></div>
+                        <label>
+                            <input type="checkbox" class="ace" id="id-file-format" name="file-format">
+                            <span class="lbl"> Allow only images</span>
+                        </label>
+                    </div>
+                </div>
+            </div><!--widgex box-->
+
+
+
+
+        </div><!-- /.col -->
+
+    </div><!-- /.row -->
 </div><!-- /.page-content -->
+            </form>
 
-<script type="text/javascript" src="/vendor/js/tinymce/jquery.tinymce.min.js"></script>
-<script type="text/javascript">
-    $('textarea.tinymce').tinymce({
-            script_url : '/vendor/js/tinymce/tinymce.min.js',
-            language : 'zh_CN',
-            theme: "modern",
-            height: 300,
-            plugins: [
-            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            "save table contextmenu directionality emoticons template paste textcolor"
-            ],
-            content_css: "css/content.css",
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons", 
-            style_formats: [
-            {title: 'Bold text', inline: 'b'},
-            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-            {title: 'Example 1', inline: 'span', classes: 'example1'},
-            {title: 'Example 2', inline: 'span', classes: 'example2'},
-            {title: 'Table styles'},
-            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-            ]
+            <script type="text/javascript" src="/vendor/js/tinymce/jquery.tinymce.min.js"></script>
+            <script type="text/javascript" src="/vendor/js/epiceditor/js/epiceditor.js"></script>
+            <script type="text/javascript" src="/vendor/js/jquery.paste.js"></script>
+            <script type="text/javascript">
+                /*
+                $('textarea.tinymce').tinymce({
+                        script_url : '/vendor/js/tinymce/tinymce.min.js',
+                        language : 'zh_CN',
+                        theme: "modern",
+                        height: 300,
+                        plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                        "save table contextmenu directionality emoticons template paste textcolor"
+                        ],
+                        content_css: "css/content.css",
+                        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons", 
+                        style_formats: [
+                        {title: 'Bold text', inline: 'b'},
+                        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                        {title: 'Example 1', inline: 'span', classes: 'example1'},
+                        {title: 'Example 2', inline: 'span', classes: 'example2'},
+                        {title: 'Table styles'},
+                        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+                        ]
 
-    });
-</script>
+                });
+                */
+
+                var editor = new EpicEditor({
+                        autogrow : {
+                                minHeight : 500,
+                                maxHeight : 800
+                        },
+                        theme: {
+                                base: 'http://www.goldtoutiao.com//vendor/js/epiceditor/themes/base/epiceditor.css',
+                                preview: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/preview/bartik.css',
+                                editor: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/editor/epic-light.css'
+                        },
+                        button: {
+                                preview: false,
+                                fullscreen: true,
+                                bar: "auto"
+                        },
+                        string: {
+                                togglePreview: '预览(快捷键Alt+p)',
+                                toggleEdit: 'Toggle Edit Mode',
+                                toggleFullscreen: '全屏(快捷键Alt+f)'
+                        },
+
+
+                }).load();
+
+                $(window).on("paste", function(e){
+                        if(!e || !e.originalEvent || !e.originalEvent.clipboardData) {
+                                return;
+                        }
+                        console.log(e);
+                        var items = e.originalEvent.clipboardData.files,
+                        i = 0,
+                        item;
+                        for(i in items) {
+                                item = items[i];
+                                if(item.type && item.type.match(/^image\//i)) {
+                                        console.log(item);
+
+                                        //var blob = item.getAsFile();
+                                        var reader = new FileReader();
+                                        reader.onload = function(event){
+                                                console.log(event.target.result);
+                                                $('#epiceditor').after('<img src="' + event.target.result + '" alt="">');
+                                        }
+                                        reader.readAsDataURL(item); 
+
+
+                                }
+                        }
+                });
+
+
+            </script>
 
 
