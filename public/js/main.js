@@ -1,82 +1,135 @@
-//live news
+
+
+
+
+/**
+ * 汇率计算器
+ */
 (function(){
 
-    var apiUrl = 'http://api.wallstreetcn.com/apiv1/livenews-list.jsonp';
-    var apiType = 'jsonp';
-    var dataSet;
-    var html = [
-        '<% for(var i=0; i<dataSet.length; i++) { %>',
-        '<% var item = dataSet[i]; %>',
-        '<% if (item.date.charAt(9) != dataSet[i-1].charAt(9) || i === 0) { %>',
-            '<li class="date"><%= item.date %></li>',
-        '<% } %>',
-        '<li class="item">',
-            '<span class="icon <%= item.icon %>"></span>',
-            '<span class="time"><%= item.time %></span>',
-            '<a class="link" href=""><%= item.title %></a>',
-        '</li>',
-        '<% } %>'
-    ].join('');
+    var CER = {};
+    initCurrencyRate('USDCNY');
 
-    function initData() {
+    function initCurrencyRate(exchange) {
+
         $.ajax({
-            url: apiUrl,
-            dataType: apiType,
+            url: 'http://api.markets.wallstreetcn.com/v1/price.json?symbol=' + exchange,
+            dataType: 'jsonp',
             success: function(response){
-                var records = response;
-                if (records && records.length) {
-                    for (var i=0; i<records.length; i++) {
-
-                    }
+                if (response.results && response.results.length) {
+                    //var rate = response.results[0]['price'];
+                    console.log(response.results[0]['price']);
+                    CER[exchange] = response.results[0]['price'];
                 }
             },
             failure: function() {
-                initData();
+                initCurrencyRate(exchange);
             }
         });
+
     }
 
+    function convertPrice(price, type, convertType) {
 
-    /*$(function(){
-        $('.nano.livenews.list').nanoScroller({
-            preventPageScrolling: true
-        });
-    });*/
+        var ounce = 28.3495231;
+
+        if (type === 'CNY' && convertType ==='USD') {
+            return price * ounce / CER['USDCNY'] ;
+        } else if (type === 'USD' && convertType === 'CNY') {
+            return price *  CER['USDCNY'] / ounce;
+        } else if (type === convertType) {
+            return price;
+        }
+
+    }
+
+    $('#gold-price-converter .button.submit').on('click', function(){
+
+        var input = parseFloat($('#gold-price-converter input[name=input]').val());
+        var inputType = $('#gold-price-converter select[name=input-type]').val().toUpperCase();
+        var resultType = $('#gold-price-converter select[name=result-type]').val().toUpperCase();
+        var result = convertPrice(input, inputType, resultType).toFixed(2);
+        $('#gold-price-converter input[name=result]').val(result);
+
+    });
+    /*
+    function getExchangeRate(baseCurrency, exchangeCurrency) {
+
+        var ounce = 28.3495231;
+
+        if (baseCurrency === 'CNY' && exchangeCurrency ==='USD') {
+            return ounce / getMarketPrice('USDCNY') ;
+        } else if (baseCurrency === 'USD' && exchangeCurrency === 'CNY') {
+            return getMarketPrice('USDCNY') / ounce;
+        }
+    }
+    */
 
 })();
 
+
+
+
 $(function(){
 
-    $(function(){
-        $('.nano.list').nanoScroller({
-            preventPageScrolling: true
-        });
+    //
+    $('#main-livenews').lnl();
+    //
+    $('#side-fcl').fcl({
+        autoScroll: false
+    });
+    //
+    mam.init();
+    /**
+     * chart 图表
+     */
+    $(document).on('click', '[data-efc-target]', function(e) {
+
+        var $target = $(this.getAttribute('data-efc-target'));
+        var frame = $target.find('iframe')[0];
+        var symbol = this.getAttribute('data-efc-symbol');
+        var interval = this.getAttribute('data-efc-interval');
+        var type = this.getAttribute('data-efc-type');
+
+        if (symbol) {
+            frame.src = frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + symbol + '$1');
+            $target.find('[data-efc-symbol].active').removeClass('active');
+            $(this).addClass('active');
+        } else if (interval) {
+            frame.src = frame.src.replace(/interval=\w+(&)?/, 'interval=' + interval + '$1');
+            $target.find('[data-efc-interval].active').removeClass('active');
+            $(this).addClass('active');
+        } else if (type) {
+
+        }
+
+        return false;
+
     });
 
-    $(document).on('click.tab', '.tabbar .link', function(e){
-        var $this = $(this);
-        var thisBar = $this.parent();
-        var tabbar = thisBar.parent();
-        var tabs = tabbar.children('.tab');
-        var content = tabbar.next();
-        var panels = content.children();
-        var activeLink = tabbar.find('.active.link');
-        var activePanel = content.children('.active');
-        console.log(activePanel);
-        var index = tabs.index(thisBar);
+    $(document).on('click.tab', '.tab', function(e){
+        var $tab = $(this);
+        var $tabbar = $tab.parent();
+        var $tabs = $tabbar.children('.tab');
+        var $content = $tabbar.next();
+        var $panels = $content.children();
+        var $activeTab = $tabbar.children('.active');
+        var $activePanel = $content.children('.active');
+        var index = $tabs.index($tab);
         console.log(index);
-        var panel = $(panels[index]);
-        activeLink.removeClass('active');
-        activePanel.removeClass('active');
-        $this.addClass('active');
-        panel.addClass('active');
+        var $panel = $($panels[index]);
+        $activeTab.removeClass('active');
+        $activePanel.removeClass('active');
+        $tab.addClass('active');
+        $panel.addClass('active');
         e.preventDefault();
     });
 
+    /*
     $(document).on('click.spread', '[data-toggle=shrink]', function(e){
         $(this).parent().toggleClass('shrink');
     });
-    /*
+
     $(document).on('click', '.tabbar>.tab', function(){
         console.log('ha ha ha ha');
         var thisTab = $(this);
@@ -85,13 +138,26 @@ $(function(){
         var panels = content.children('.panel');
     });
     */
+
+
     var $modal = $('#modal');
     var $stare = $('#stare-modal');
 
     function hideModal() {
         //todo
+        mam.initData();
         $modal.children('.panel.active').removeClass('active');
         $modal.hide();
+    }
+
+    function showStareModal() {
+        //todo
+        mam.initData(true);
+        $('#stare-livenews').lnl();
+        $('#stare-fcl').fcl({
+            autoScroll: true
+        });
+        $stare.addClass('active');
     }
 
     $modal.on('click', function(e){
@@ -100,9 +166,7 @@ $(function(){
         }
     });
     $('button[data-toggle=stare-modal]').click(function(){
-        $modal.show(0, function(){
-            $stare.addClass('active');
-        });
+        $modal.show(0, showStareModal());
     });
     $('#stare-modal>.close').click(function(){
         hideModal();
