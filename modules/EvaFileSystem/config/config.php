@@ -13,12 +13,11 @@ return array(
         ),
     ),
 
-    'upload' => array(
+    'filesystem' => array(
         'adapter' => 'local',
-        'path' => __DIR__ . '/../uploads/',
-        'pathlevel' => 3,
-        'url' => '',
-        'hashFile' => '',
+        'uploadPath' => __DIR__ . '/../uploads/',
+        'uploadPathlevel' => 3,
+        'uploadUrlBase' => '',
         'validator' => array(
             'maxFileSize' => '1M',
         )

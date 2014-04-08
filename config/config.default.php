@@ -26,10 +26,10 @@ return array(
 
     ),
 
-    'upload' => array(
+    'filesystem' => array(
         'adapter' => 'local',
-        'path' => __DIR__ . '/../public/uploads/',
-        'url' => '/uploads',
+        'uploadPath' => __DIR__ . '/../public/uploads/',
+        'uploadUrlBase' => '/uploads',
     ),
 
     'dbAdapter' => array(

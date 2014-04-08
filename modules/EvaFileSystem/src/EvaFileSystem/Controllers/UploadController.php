@@ -22,13 +22,20 @@ class UploadController extends ControllerBase
         }
 
         $upload = new Models\Upload();
-
+        $files = array();
         foreach ($this->request->getUploadedFiles() as $file) {
-            $upload->upload($file);
+            $file = $upload->upload($file);
+            if($file) {
+                $fileinfo = $file->toArray();
+                $fileinfo['fullUrl'] = $file->getFullUrl();
+                $files[] = $fileinfo;
+            }
+
         }
-        $this->view->disable();
-        echo json_encode(array(
-            'url' => $this->getDI()->get('config')->upload->url . '/' . $file->getName(),
+        $this->response->setContentType('application/json', 'utf-8');
+        return $this->response->setJsonContent(array(
+            'count' => count($files),
+            'results' => $files,
         ));
     }
 

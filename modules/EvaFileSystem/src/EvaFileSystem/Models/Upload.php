@@ -22,6 +22,8 @@ class Upload extends Files
         if(!$this->id) {
             return '';
         }
+
+        return $this->getDI()->get('config')->filesystem->uploadUrlBase . '/' . $this->filePath . '/' . $this->fileName;
     }
 
     public function getLocalPath()
@@ -35,8 +37,9 @@ class Upload extends Files
     public function upload(\Phalcon\Http\Request\File $file)
     {
         if($file->getError()){
-        
+            return false;
         }
+
         $originalName = $file->getName();
         $tmp = $file->getTempName();
         $fileSize = $file->getSize();
@@ -80,13 +83,13 @@ class Upload extends Files
             $fileinfo['imageHeight'] = $image[1];
         }
 
-        $config = $this->getDI()->get('config')->upload;
-        $adapter = new \Gaufrette\Adapter\Local($config->path);
+        $config = $this->getDI()->get('config')->filesystem;
+        $adapter = new \Gaufrette\Adapter\Local($config->uploadPath);
         $filesystem = new \Gaufrette\Filesystem($adapter);
 
         $path = md5(time());
         $path = str_split($path, 2);
-        $pathlevel = $config->pathlevel;
+        $pathlevel = $config->uploadPathlevel;
         $pathlevel > 6 ? 6 : $pathlevel;
         $path = array_slice($path, 0, $pathlevel);
         $filePath = implode('/', $path);
@@ -101,10 +104,8 @@ class Upload extends Files
                 $filesystem->write($path, file_get_contents($tmp));
             }
         } else {
-            p($this->getMessages());
+            return false;
         }
-        p($upload);
-        exit;
         return $upload;
     }
 }

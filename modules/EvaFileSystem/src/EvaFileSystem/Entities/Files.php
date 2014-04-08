@@ -28,6 +28,12 @@ class Files extends \Eva\EvaEngine\Model
      *
      * @var string
      */
+    public $storageAdapter;
+     
+    /**
+     *
+     * @var string
+     */
     public $isImage;
      
     /**
@@ -65,6 +71,12 @@ class Files extends \Eva\EvaEngine\Model
      * @var integer
      */
     public $fileSize;
+     
+    /**
+     *
+     * @var string
+     */
+    public $mimeType;
      
     /**
      *
@@ -117,6 +129,7 @@ class Files extends \Eva\EvaEngine\Model
             'id' => 'id', 
             'title' => 'title', 
             'status' => 'status', 
+            'storageAdapter' => 'storageAdapter', 
             'isImage' => 'isImage', 
             'fileName' => 'fileName', 
             'fileExtension' => 'fileExtension', 
@@ -124,6 +137,7 @@ class Files extends \Eva\EvaEngine\Model
             'filePath' => 'filePath', 
             'fileHash' => 'fileHash', 
             'fileSize' => 'fileSize', 
+            'mimeType' => 'mimeType', 
             'imageWidth' => 'imageWidth', 
             'imageHeight' => 'imageHeight', 
             'description' => 'description', 
