@@ -6,6 +6,16 @@ use Phalcon\Mvc\Controller;
 
 class ControllerBase extends Controller
 {
+    public function redirectHandler($defaultRedirect = null, $securityCheck = false)
+    {
+        $formRedirect = $this->request->getPost('__redirect');
+        if($formRedirect) {
+            return $this->response->redirect($formRedirect);
+        }
+        return $this->response->redirect($defaultRedirect);
+    }
+
+
     public function ignoreHandler($exception, $messages = null, $messageType = 'debug')
     {
         $messageArray = array();

@@ -30,11 +30,6 @@ class CategoryController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
-    public function listAction()
-    {
-
-    }
-
     public function createAction()
     {
         $form = new \Eva\EvaBlog\Forms\CategoryForm();
@@ -58,7 +53,7 @@ class CategoryController extends ControllerBase
             //return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_CREATED');
-        return $this->response->redirect('/admin/category/edit/' . $category->id);
+        return $this->redirectHandler('/admin/category/edit/' . $category->id);
     }
 
     public function editAction()
@@ -86,7 +81,6 @@ class CategoryController extends ControllerBase
             return $this->errorHandler($e, $category->getMessages());
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_UPDATED');
-        return $this->response->redirect('/admin/category/edit/' . $category->id);
-    
+        return $this->redirectHandler('/admin/category/edit/' . $category->id);
     }
 }

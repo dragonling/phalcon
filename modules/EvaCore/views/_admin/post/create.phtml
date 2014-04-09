@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="/assets/css/datepicker.css" />
-<link rel="stylesheet" href="/assets/css/bootstrap-timepicker.css" />
-
 <div class="breadcrumbs" id="breadcrumbs">
     <script type="text/javascript">
         try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
@@ -29,14 +26,14 @@
 </div>
 
 <form id="" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
-<div class="page-content">
-    <div class="page-header">
-        <h1>Write New Post</h1>
-    </div><!-- /.page-header -->
+    <div class="page-content">
+        <div class="page-header">
+            <h1>Write New Post</h1>
+        </div><!-- /.page-header -->
 
-    <div class="row">
-        <div class="col-xs-9">
-            <!-- PAGE CONTENT BEGINS -->
+        <div class="row">
+            <div class="col-xs-9">
+                <!-- PAGE CONTENT BEGINS -->
 
                 <div class="form-group">
                     <label class="block clearfix">
@@ -75,293 +72,136 @@
                         Submit
                     </button>
                 </div>
-            <div class="hr hr-double dotted"></div>
+                <div class="hr hr-double dotted"></div>
                 -->
-        </div><!-- /.col -->
-        <div class="col-xs-3">
+            </div><!-- /.col -->
+            <div class="col-xs-3">
 
-            <div class="widget-box">
-                <div class="widget-header widget-header-small">
-                    <h4>Publish</h4>
-                    <span class="widget-toolbar">
-                        <a data-action="collapse" href="#">
-                            <i class="icon-chevron-up"></i>
-                        </a>
-                    </span>
-                </div>
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <fieldset>
-                        <?=$postForm->render('status', array(
-                            'class' => 'form-control',
-                        ))?>
-                        </fieldset>
-
-
+                <div class="widget-box">
+                    <div class="widget-header widget-header-small">
+                        <h4>Publish</h4>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-up"></i>
+                            </a>
+                        </span>
                     </div>
-                    <div class="clearfix form-actions no-margin">
-                        <button type="submit" class="btn btn-info">
-                            <i class="icon-ok"></i>
-                            Publish
-                        </button>
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <fieldset>
+                                <?=$postForm->render('status', array(
+                                    'class' => 'form-control',
+                                ))?>
+                            </fieldset>
+
+
+                        </div>
+                        <div class="clearfix form-actions no-margin">
+                            <button type="submit" class="btn btn-info">
+                                <i class="icon-ok"></i>
+                                Publish
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </div><!--widgex box-->
+                </div><!--widgex box-->
 
-            <div class="hr hr-double dotted"></div>
-            <div class="widget-box">
-                <div class="widget-header widget-header-small">
-                    <h4>Image</h4>
-                    <span class="widget-toolbar">
-                        <a data-action="collapse" href="#">
-                            <i class="icon-chevron-up"></i>
-                        </a>
-                    </span>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <input name="upload" type="file" id="id-input-file-3" multiple="">
+                <div class="hr hr-double dotted"></div>
+                <div class="widget-box">
+                    <div class="widget-header widget-header-small">
+                        <h4>Image</h4>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-up"></i>
+                            </a>
+                        </span>
                     </div>
-                </div>
-            </div><!--widgex box-->
 
-            <div class="hr hr-double dotted"></div>
-            <div class="widget-box">
-                <div class="widget-header widget-header-small">
-                    <h5 class="lighter">Categories</h5>
-<span class="widget-toolbar">
-                        <a data-action="collapse" href="#">
-                            <i class="icon-chevron-up"></i>
-                        </a>
-                    </span>
-                </div>
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <div class="control-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="ace" name="form-field-checkbox">
-                                    <span class="lbl"> choice 1</span>
-                                </label>
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <input name="upload" type="file" class="ace-file-input" multiple="">
+                        </div>
+                    </div>
+                </div><!--widgex box-->
+
+                <div class="hr hr-double dotted"></div>
+                <div class="widget-box">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="lighter">Categories</h5>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-up"></i>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="control-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="ace" name="form-field-checkbox">
+                                        <span class="lbl"> choice 1</span>
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="ace" name="form-field-checkbox">
+                                        <span class="lbl"> choice 2</span>
+                                    </label>
+                                </div>
                             </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="ace" name="form-field-checkbox">
-                                    <span class="lbl"> choice 2</span>
-                                </label>
+
+                        </div>
+                    </div>
+                </div><!--widgex box-->
+
+
+                <div class="hr hr-double dotted"></div>
+                <div class="widget-box">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="lighter">Tags</h5>
+                        <a data-action="collapse" href="#">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="form-group">
+                                <input type="text" placeholder="Enter tags ..." value="" id="form-field-tags" name="tags">
                             </div>
                         </div>
-
                     </div>
-                </div>
-            </div><!--widgex box-->
+                </div><!--widgex box-->
 
-
-            <div class="hr hr-double dotted"></div>
-            <div class="widget-box">
-                <div class="widget-header widget-header-small">
-                    <h5 class="lighter">Tags</h5>
+                <div class="hr hr-double dotted"></div>
+                <div class="widget-box">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="lighter">Publish Time</h5>
                         <a data-action="collapse" href="#">
                             <i class="icon-chevron-up"></i>
                         </a>
-                </div>
+                    </div>
 
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <div class="form-group">
-                            <input type="text" placeholder="Enter tags ..." value="" id="form-field-tags" name="tags">
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="input-group">
+                                <input name="day" type="text" data-date-format="dd-mm-yyyy" class="form-control date-picker">
+                                <span class="input-group-addon">
+                                    <i class="icon-calendar bigger-110"></i>
+                                </span>
+                            </div>
+                            <div class="input-group bootstrap-timepicker">
+                                <input type="text" class="form-control time-picker">
+                                <span class="input-group-addon">
+                                    <i class="icon-time bigger-110"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div><!--widgex box-->
+                </div><!--widgex box-->
 
-            <div class="hr hr-double dotted"></div>
-            <div class="widget-box">
-                <div class="widget-header widget-header-small">
-                    <h5 class="lighter">Publish Time</h5>
-                        <a data-action="collapse" href="#">
-                            <i class="icon-chevron-up"></i>
-                        </a>
-                </div>
+            </div><!-- /.col -->
 
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <div class="input-group">
-                            <input name="day" type="text" data-date-format="dd-mm-yyyy" id="id-date-picker-1" class="form-control date-picker">
-                            <span class="input-group-addon">
-                                <i class="icon-calendar bigger-110"></i>
-                            </span>
-                        </div>
-                        <div class="input-group bootstrap-timepicker">
-                            <input type="text" class="form-control" id="timepicker1">
-                            <span class="input-group-addon">
-                                <i class="icon-time bigger-110"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div><!--widgex box-->
-
-
-
-
-
-        </div><!-- /.col -->
-
-    </div><!-- /.row -->
-</div><!-- /.page-content -->
-            </form>
-
-            <script type="text/javascript" src="/vendor/js/tinymce/jquery.tinymce.min.js"></script>
-            <script type="text/javascript" src="/vendor/js/epiceditor/js/epiceditor.js"></script>
-            <script type="text/javascript" src="/vendor/js/ckeditor/ckeditor.js"></script>
-            <script type="text/javascript" src="/vendor/js/ckeditor/adapters/jquery.js"></script>
-            <script src="/assets/js/bootstrap-tag.min.js"></script>
-            <script src="/assets/js/date-time/bootstrap-datepicker.min.js"></script>
-            <script src="/assets/js/date-time/bootstrap-timepicker.min.js"></script>
-            <script src="/assets/js/dropzone.min.js"></script>
-            <script type="text/javascript">
-				$('#id-input-file-3').ace_file_input({
-					style:'well',
-					btn_choose:'Drop files here or click to choose',
-					btn_change:null,
-					no_icon:'icon-cloud-upload',
-					droppable:true,
-					thumbnail:'small'//large | fit
-					//,icon_remove:null//set null, to hide remove/reset button
-					/**,before_change:function(files, dropped) {
-						//Check an example below
-						//or examples/file-upload.html
-						return true;
-					}*/
-					/**,before_remove : function() {
-						return true;
-					}*/
-					,
-					preview_error : function(filename, error_code) {
-						//name of the file that failed
-						//error_code values
-						//1 = 'FILE_LOAD_FAILED',
-						//2 = 'IMAGE_LOAD_FAILED',
-						//3 = 'THUMBNAIL_FAILED'
-						//alert(error_code);
-					}
-			
-				}).on('change', function(){
-					//console.log($(this).data('ace_input_files'));
-					//console.log($(this).data('ace_input_method'));
-				});
-                /*
-                $('textarea.tinymce').tinymce({
-                        script_url : '/vendor/js/tinymce/tinymce.min.js',
-                        language : 'zh_CN',
-                        theme: "modern",
-                        height: 300,
-                        plugins: [
-                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                        "save table contextmenu directionality emoticons template paste textcolor"
-                        ],
-                        content_css: "css/content.css",
-                        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons", 
-                        style_formats: [
-                        {title: 'Bold text', inline: 'b'},
-                        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-                        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-                        {title: 'Example 1', inline: 'span', classes: 'example1'},
-                        {title: 'Example 2', inline: 'span', classes: 'example2'},
-                        {title: 'Table styles'},
-                        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-                        ]
-
-                });
-                */
-
-                /*
-                var editor = new EpicEditor({
-                        autogrow : {
-                                minHeight : 500,
-                                maxHeight : 800
-                        },
-                        theme: {
-                                base: 'http://www.goldtoutiao.com//vendor/js/epiceditor/themes/base/epiceditor.css',
-                                preview: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/preview/bartik.css',
-                                editor: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/editor/epic-light.css'
-                        },
-                        button: {
-                                preview: false,
-                                fullscreen: true,
-                                bar: "auto"
-                        },
-                        string: {
-                                togglePreview: '预览(快捷键Alt+p)',
-                                toggleEdit: 'Toggle Edit Mode',
-                                toggleFullscreen: '全屏(快捷键Alt+f)'
-                        },
-
-
-                }).load();
-                */
-                CKEDITOR.config.contentsCss = '/css/editor.css';
-                $( 'textarea.wysiwyg' ).ckeditor();
-
-				$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
-					$(this).prev().focus();
-				});
-				$('#timepicker1').timepicker({
-					minuteStep: 1,
-					showSeconds: true,
-					showMeridian: false
-				}).next().on(ace.click_event, function(){
-					$(this).prev().focus();
-                });
-
-				//we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
-				var tag_input = $('#form-field-tags');
-				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
-				{
-					tag_input.tag(
-					  {
-						placeholder:tag_input.attr('placeholder'),
-						//enable typeahead by specifying the source array
-						source: ace.variable_US_STATES,//defined in ace.js >> ace.enable_search_ahead
-					  }
-					);
-				}
-				else {
-					//display a textarea for old IE, because it doesn't support this plugin or another one I tried!
-					tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
-					//$('#form-field-tags').autosize({append: "\n"});
-				}
-
-                $(window).on("paste", function(e){
-                        if(!e || !e.originalEvent || !e.originalEvent.clipboardData) {
-                                return;
-                        }
-                        console.log(e);
-                        var items = e.originalEvent.clipboardData.files,
-                        i = 0,
-                        item;
-                        for(i in items) {
-                                item = items[i];
-                                if(item.type && item.type.match(/^image\//i)) {
-                                        console.log(item);
-
-                                        //var blob = item.getAsFile();
-                                        var reader = new FileReader();
-                                        reader.onload = function(event){
-                                                console.log(event.target.result);
-                                                $('#epiceditor').after('<img src="' + event.target.result + '" alt="">');
-                                        }
-                                        reader.readAsDataURL(item); 
-
-
-                                }
-                        }
-                });
-
-
-            </script>
-
-
+        </div><!-- /.row -->
+    </div><!-- /.page-content -->
+</form>

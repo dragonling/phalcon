@@ -4,7 +4,7 @@ namespace Eva\EvaBlog\Models;
 
 
 use Eva\EvaBlog\Entities;
-use Eva\EvaUser\Models\Login as LoginModel;
+use Eva\EvaFileSystem\Models\Upload as UploadModel;
 use \Phalcon\Mvc\Model\Message as Message;
 use Eva\EvaEngine\Exception;
 
@@ -21,12 +21,28 @@ class Category extends Entities\Categories
 
     public function createCategory()
     {
+        $upload = new UploadModel();
+        $files = $this->getDI()->getRequest()->getUploadedFiles();
+        $file = $files[0];
+        $file = $upload->upload($file);
+        if($file) {
+            $this->image_id = $file->id;
+            $this->image = $file->getFullUrl();
+        }
         $this->save();
     }
 
 
     public function updateCategory()
     {
+        $upload = new UploadModel();
+        $files = $this->getDI()->getRequest()->getUploadedFiles();
+        $file = $files[0];
+        $file = $upload->upload($file);
+        if($file) {
+            $this->image_id = $file->id;
+            $this->image = $file->getFullUrl();
+        }
         $this->save();
     }
 }
