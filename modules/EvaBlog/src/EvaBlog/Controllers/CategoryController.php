@@ -48,15 +48,27 @@ class CategoryController extends ControllerBase
 
         $form->bind($this->request->getPost(), $category);
         if(!$form->isValid()){
-            p($form->getMessages());
-            exit;
+            return $this->validHandler($form);
         }
         $category = $form->getEntity();
-        $category->save();
+        try {
+            $category->createCategory();
+        } catch(\Exception $e) {
+            return $this->errorHandler($e, $user->getMessages());
+            //return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
+        }
+        $this->flashSession->success('SUCCESS_BLOG_CATEGORY_CREATED');
+        return $this->response->redirect('/admin/category/edit/' . $category->id);
     }
 
     public function editAction()
     {
+        $this->view->setTemplateAfter('admin');
+        $this->view->pick('category/create');
+        $form = new \Eva\EvaBlog\Forms\CategoryForm();
+        $category = new Models\Category();
+        $form->setModel($category->findFirst($this->dispatcher->getParam('id')));
+        $this->view->setVar('form', $form);
     
     }
 }

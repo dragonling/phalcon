@@ -31,13 +31,13 @@ class Upload extends Files
         if(!$this->id) {
             return '';
         }
-    
+        return $this->getDI()->get('config')->filesystem->uploadPath . '/'. $this->filePath . '/' . $this->fileName;
     }
 
     public function upload(\Phalcon\Http\Request\File $file)
     {
         if($file->getError()){
-            return false;
+            throw new Exception\IOException('ERR_FILE_UPLOAD_FAILED');
         }
 
         $originalName = $file->getName();
@@ -101,10 +101,16 @@ class Upload extends Files
         $upload->assign($fileinfo);
         if($upload->save()) {
             if (!$filesystem->has($path)) {
-                $filesystem->write($path, file_get_contents($tmp));
+                if($filesystem->write($path, file_get_contents($tmp))) {
+                    unlink($tmp);
+                } else {
+                    throw new Exception\IOException('ERR_FILE_MOVE_TO_STORAGE_FAILED');
+                }
+            } else {
+                throw new Exception\ResourceConflictException('ERR_FILE_UPLOAD_BY_CONFLICT_NAME');
             }
         } else {
-            return false;
+            throw new Exception\RuntimeException('ERR_FILE_SAVE_TO_DB_FAILED');
         }
         return $upload;
     }

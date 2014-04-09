@@ -50,7 +50,7 @@ class RegisterController extends ControllerBase
         if($userinfo) {
             $this->response->setStatusCode('409', 'User Already Exists');
         }
-        echo json_encode(array(
+        return $this->response->setJsonContent(array(
             'exist' => $userinfo ? true : false,
             'id' => $userinfo ? $userinfo->id : 0,
             'status' => $userinfo ? $userinfo->status : null,

@@ -71,5 +71,38 @@ class ControllerBase extends Controller
         return $this;
     }
 
+
+    public function jsonErrorHandler($exception, $messages = null)
+    {
+        $this->response->setContentType('application/json', 'utf-8');
+        if(!($exception instanceof \Eva\EvaEngine\Exception\ExceptionInterface)){
+            $this->response->setStatusCode('500', 'System Runtime Exception');
+            return $this->response->setJsonContent(array(
+                'errors' => array(
+                    array(
+                        'code' => $exception->getCode(),
+                        'message' => $exception->getMessage(),
+                    )
+                ),
+            ));
+        }
+        $this->response->setStatusCode($exception->getStatusCode(), $exception->getMessage());
+        $errors = array();
+        if($messages) {
+            foreach($messages as $message) {
+                $errors[] = array(
+                    'code' => 0,
+                    'message' => $message,
+                );
+            }
+        }
+        $errors[] = array(
+            'code' => $exception->getCode(),
+            'message' => $exception->getMessage(),
+        );
+        return $this->response->setJsonContent(array(
+            'errors' => $errors
+        ));
+    }
 }
 

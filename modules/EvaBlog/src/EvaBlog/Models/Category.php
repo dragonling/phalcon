@@ -19,7 +19,8 @@ class Category extends Entities\Categories
         }
     }
 
-    public function beforeCreate()
+    public function createCategory()
     {
+        $this->save();
     }
 }

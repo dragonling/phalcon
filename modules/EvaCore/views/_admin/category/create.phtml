@@ -43,21 +43,20 @@
                 <div class="form-group">
                     <label class="block clearfix">
                         <?=$form->render('categoryName', array(
-                            'class' => 'form-control',
+                            'class' => 'form-control input-lg',
                             'placeholder' => 'Title',
                             'required' => 'required',
                         ))?>
                     </label>
                     <div class="input-group">
                         <span class="input-group-addon input-sm">
-                            <i class="icon-link"></i>  <span class="label">http://www.goldtoutiao.com/admin/category/</span>
+                            <i class="icon-link"></i>  http://www.goldtoutiao.com/admin/category/
                         </span>
                         <?=$form->render('slug', array(
                             'class' => 'form-control input-sm',
                             'placeholder' => 'Url, No fill will generate a random url',
                         ))?>
                     </div>
-
                 </div>
                 <div class="form-group">
                     <label class="block clearfix">
@@ -96,13 +95,16 @@
                     <div class="widget-main">
                         <fieldset>
                         </fieldset>
-
-
                     </div>
                     <div class="clearfix form-actions no-margin">
+                        <input type="hidden" name="__redirect" value="" />
                         <button type="submit" class="btn btn-info">
+                            <i class="icon-save"></i>
+                             Save
+                        </button>
+                        <button type="submit" class="btn btn-info" data-redirect-btn="/admin/category/create">
                             <i class="icon-ok"></i>
-                            Publish
+                            Save &amp; Add Another
                         </button>
                     </div>
                 </div>

@@ -6,10 +6,11 @@ return array(
             'module' => 'EvaBlog',
             'controller' => 'category',
         ),
-        '/admin/category/:action' =>  array(
+        '/admin/category/:action(/(\d+))*' =>  array(
             'module' => 'EvaBlog',
             'controller' => 'category',
             'action' => 1,
+            'id' => 3,
         ),
         '/admin/post' =>  array(
             'module' => 'EvaBlog',

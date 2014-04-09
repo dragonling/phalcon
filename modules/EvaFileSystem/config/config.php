@@ -18,6 +18,7 @@ return array(
         'uploadPath' => __DIR__ . '/../uploads/',
         'uploadPathlevel' => 3,
         'uploadUrlBase' => '',
+        'localBackup' => false,
         'validator' => array(
             'maxFileSize' => '1M',
         )

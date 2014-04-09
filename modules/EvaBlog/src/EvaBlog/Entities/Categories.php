@@ -102,7 +102,9 @@ class Categories extends \Eva\EvaEngine\Model
             'createdAt' => 'createdAt', 
             'count' => 'count', 
             'leftId' => 'leftId', 
-            'rightId' => 'rightId'
+            'rightId' => 'rightId', 
+            'image_id' => 'image_id', 
+            'image' => 'image'
         );
     }
 
