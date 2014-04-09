@@ -57,7 +57,8 @@
                     <label class="block clearfix">
                         <div id="epiceditor">
                             <?=$textForm->render('content', array(
-                                'class' => 'form-control wysiwyg',
+                                'class' => 'form-control ',
+                                //'class' => 'form-control wysiwyg',
                                 'rows' => 12,
                                 'required' => 'required',
                             ))?>
@@ -167,7 +168,7 @@
                     <div class="widget-body">
                         <div class="widget-main">
                             <div class="form-group">
-                                <input type="text" placeholder="Enter tags ..." value="" id="form-field-tags" name="tags">
+                                <input type="text" placeholder="Enter Tags ..." value="" name="tags" class="tag-input">
                             </div>
                         </div>
                     </div>
@@ -185,7 +186,7 @@
                     <div class="widget-body">
                         <div class="widget-main">
                             <div class="input-group">
-                                <input name="day" type="text" data-date-format="dd-mm-yyyy" class="form-control date-picker">
+                                <input name="day" type="text" data-date-format="yyyy-mm-dd" class="form-control date-picker">
                                 <span class="input-group-addon">
                                     <i class="icon-calendar bigger-110"></i>
                                 </span>

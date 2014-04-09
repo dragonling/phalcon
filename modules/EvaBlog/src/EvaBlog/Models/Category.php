@@ -21,13 +21,16 @@ class Category extends Entities\Categories
 
     public function createCategory()
     {
-        $upload = new UploadModel();
-        $files = $this->getDI()->getRequest()->getUploadedFiles();
-        $file = $files[0];
-        $file = $upload->upload($file);
-        if($file) {
-            $this->image_id = $file->id;
-            $this->image = $file->getFullUrl();
+        if($this->getDI()->getRequest()->hasFiles()) {
+            $upload = new UploadModel();
+            $files = $this->getDI()->getRequest()->getUploadedFiles();
+            if($files)
+            $file = $files[0];
+            $file = $upload->upload($file);
+            if($file) {
+                $this->image_id = $file->id;
+                $this->image = $file->getFullUrl();
+            }
         }
         $this->save();
     }
@@ -35,13 +38,16 @@ class Category extends Entities\Categories
 
     public function updateCategory()
     {
-        $upload = new UploadModel();
-        $files = $this->getDI()->getRequest()->getUploadedFiles();
-        $file = $files[0];
-        $file = $upload->upload($file);
-        if($file) {
-            $this->image_id = $file->id;
-            $this->image = $file->getFullUrl();
+        if($this->getDI()->getRequest()->hasFiles()) {
+            $upload = new UploadModel();
+            $files = $this->getDI()->getRequest()->getUploadedFiles();
+            if($files)
+            $file = $files[0];
+            $file = $upload->upload($file);
+            if($file) {
+                $this->image_id = $file->id;
+                $this->image = $file->getFullUrl();
+            }
         }
         $this->save();
     }

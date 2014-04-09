@@ -1,3 +1,19 @@
+$('form').parsley({
+    successClass: "has-success",
+    errorClass: "has-error",
+    classHandler: function(el) {
+        return el.$element.closest(".form-group");
+    },
+
+    errorsWrapper: "<span class='help-block' style='margin:0;'></span>",
+    errorTemplate: "<span></span>"
+});
+
+
+$('input[type=submit], button[type=submit]').on('click', function(){
+   $(this).parentsUntil('form').parent().find('input[name=__redirect]').val($(this).attr('data-redirect-btn'));
+});
+
 $('table th input:checkbox').on('click' , function(){
     var that = this;
     $(this).closest('table').find('tr > td:first-child input:checkbox')
@@ -77,6 +93,12 @@ var editor = new EpicEditor({
 
 
 }).load();
+
+$(".tag-input").select2({
+    tags:[],
+    tokenSeparators: [",", " "]
+});
+
 
 
 $(window).on("paste", function(e){
