@@ -12,28 +12,6 @@ class PostController extends ControllerBase
      */
     public function indexAction()
     {
-        if(!$this->request->isPost()) {
-            return;
-        }
-
-        $blog = new Models\Post();
-        $blog->assign(array(
-            'title' => $this->request->getPost('title'),
-            'status' => 'published',
-            'visibility' => 'public',
-            'codeType' => 'markdown',
-            'language' => 'zh_CN',
-            'urlName' => 'test',
-            'createTime' => time(),
-        ));
-        if(!$blog->save()) {
-            p($blog->getMessages());
-            exit;
-        }
-    }
-
-    public function listAction()
-    {
         $currentPage = $this->request->getQuery('page', 'int'); // GET
         $limit = $this->request->getQuery('limit', 'int');
         $order = $this->request->getQuery('order', 'int');
@@ -58,6 +36,7 @@ class PostController extends ControllerBase
         $this->view->setVar('pager', $pager);
     }
 
+
     public function createAction()
     {
         $postForm = new \Eva\EvaBlog\Forms\PostForm();
@@ -73,9 +52,6 @@ class PostController extends ControllerBase
             return false;
         }
         $data = $this->request->getPost();
-        p($_POST);
-        p($_FILES);
-        exit;
         $textData = $data['Text'];
         unset($data['Text']);
         $post = new Models\Post();
@@ -91,6 +67,21 @@ class PostController extends ControllerBase
 
     public function editAction()
     {
+        $this->view->setTemplateAfter('admin');
+        $this->view->pick('post/create');
+
+        $post = new Models\Post();
+
+        $postinfo = $post->findFirst($this->dispatcher->getParam('id'));
+
+        $postForm = new \Eva\EvaBlog\Forms\PostForm();
+        $postForm->setModel($postinfo);
+        $this->view->setVar('postForm', $postForm);
+
+        $textForm = new \Eva\EvaBlog\Forms\TextForm();
+        $textForm->setModel($postinfo->Text);
+        $textForm->setPrefix('Text');
+        $this->view->setVar('textForm', $textForm);
     
     }
 }

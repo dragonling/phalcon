@@ -83,4 +83,54 @@ class Tag extends \Phalcon\Tag
         return $url;
     }
 
+
+    /**
+     * Tranform input time to time string which can be parsed by javascript
+     *
+     * @param int $time
+     * @access public
+     *
+     * @return string javascript parse-able string
+     */
+    public static function jsTime($time = '' , $timezone = null)
+    {
+        $time = $time ? $time : time();
+        $timezone = $timezone ? $timezone : self::getDI()->get('config')->datetime->defaultTimezone;
+        $time = $time + $timezone * 3600;
+        $prefix = $timezone < 0 ? '-' : '+';
+    
+        $zone = str_pad(str_pad(abs($timezone), 2, 0, STR_PAD_LEFT), 4, 0);
+        return gmdate('D M j H:i:s', $time) . ' UTC' . $prefix . $zone . ' ' . gmdate('Y', $time);
+    }
+
+
+    /**
+     * Tranform input time to iso time
+     *
+     * @param string $time
+     * @param int $timezone
+     *
+     * @access public
+     *
+     * @return string time string
+     */
+    public static function isoTime($time = null, $timezone = null)
+    {
+        $timezone = $timezone ? $timezone : self::getDI()->get('config')->datetime->defaultTimezone;
+		$time = $time ? $time : time();
+		return $time = gmdate('c', $time);
+    }
+
+
+    public static function datetime($time = '', $timezone = null, $format = '')
+    {
+        $timezone = $timezone ? $timezone : self::getDI()->get('config')->datetime->defaultTimezone;
+        $format = $format ? $format : self::getDI()->get('config')->datetime->defaultFormat;
+        $time = $time ? $time : time();
+        $time = is_numeric($time) ? $time : strtotime($time);
+        $time = $time + $timezone * 3600;
+        return gmdate($format, $time);
+    }
+
+
 }

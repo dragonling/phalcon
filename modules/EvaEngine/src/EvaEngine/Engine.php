@@ -211,6 +211,7 @@ class Engine
                 'username' => $config->dbAdapter->master->username,
                 'password' => $config->dbAdapter->master->password,
                 'dbname' => $config->dbAdapter->master->database,
+                'charset' => 'utf8',
             ));
             $eventsManager = new EventsManager();
             $logger = new FileLogger($config->logger->path . date('Y-m-d') . '.log');

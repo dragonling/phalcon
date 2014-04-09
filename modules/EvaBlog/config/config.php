@@ -16,11 +16,18 @@ return array(
             'module' => 'EvaBlog',
             'controller' => 'post',
         ),
-        '/admin/post/:action' =>  array(
+        '/admin/post/:action(/(\d+))*' =>  array(
             'module' => 'EvaBlog',
             'controller' => 'post',
             'action' => 1,
+            'id' => 3,
         ),
+    ),
+
+    'blog' => array(
+        'postPreviewUrl' => '',
+        'categoryPreviewUrl' => '',
+        'tagPreviewUrl' => '',
     ),
 );
 

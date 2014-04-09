@@ -54,7 +54,7 @@ class CategoryController extends ControllerBase
         try {
             $category->createCategory();
         } catch(\Exception $e) {
-            return $this->errorHandler($e, $user->getMessages());
+            return $this->errorHandler($e, $category->getMessages());
             //return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_CREATED');
@@ -66,9 +66,27 @@ class CategoryController extends ControllerBase
         $this->view->setTemplateAfter('admin');
         $this->view->pick('category/create');
         $form = new \Eva\EvaBlog\Forms\CategoryForm();
-        $category = new Models\Category();
-        $form->setModel($category->findFirst($this->dispatcher->getParam('id')));
+        $category = Models\Category::findFirst($this->dispatcher->getParam('id'));
+        $form->setModel($category);
         $this->view->setVar('form', $form);
+        $this->view->setVar('item', $category);
+        if(!$this->request->isPost()){
+            return false;
+        }
+
+        $form->bind($this->request->getPost(), $category);
+        if(!$form->isValid()){
+            return $this->validHandler($form);
+        }
+        $category = $form->getEntity();
+        $category->assign($this->request->getPost());
+        try {
+            $category->updateCategory();
+        } catch(\Exception $e) {
+            return $this->errorHandler($e, $category->getMessages());
+        }
+        $this->flashSession->success('SUCCESS_BLOG_CATEGORY_UPDATED');
+        return $this->response->redirect('/admin/category/edit/' . $category->id);
     
     }
 }

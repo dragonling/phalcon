@@ -26,6 +26,11 @@ return array(
 
     ),
 
+    'datetime' => array(
+        'defaultTimezone' => 8,
+        'defaultFormat' => 'F j, Y, g:i a',
+    ),
+
     'filesystem' => array(
         'adapter' => 'local',
         'uploadPath' => __DIR__ . '/../public/uploads/',

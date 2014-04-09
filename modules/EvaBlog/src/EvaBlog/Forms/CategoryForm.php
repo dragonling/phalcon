@@ -6,7 +6,7 @@ use Eva\EvaEngine\Form;
 class CategoryForm extends Form
 {
     /**
-     *
+     * @Type(Hidden)
      * @var integer
      */
     public $id;

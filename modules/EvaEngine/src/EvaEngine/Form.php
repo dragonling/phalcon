@@ -46,10 +46,12 @@ class Form extends \Phalcon\Forms\Form
             return $this;
         }
 
+        /*
         $elements = $this->_elements;
         foreach($elements as $key => $element) {
             $element->setName($prefix . '[' . $element->getName() . ']');
         }
+        */
         return $this;
     }
 
@@ -159,6 +161,17 @@ class Form extends \Phalcon\Forms\Form
     public function getModel()
     {
         return $this->model;
+    }
+
+    public function render($name, $attributes = null)
+    {
+        if(!$this->prefix) {
+            return parent::render($name, $attributes);
+        }
+        $attributes = array_merge(array(
+            $name => $this->prefix . '[' . $this->get($name)->getName() . ']'
+        ), $attributes);
+        return parent::render($name, $attributes);
     }
 
     public function addForm($prefix, $form)

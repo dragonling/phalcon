@@ -23,4 +23,10 @@ class Category extends Entities\Categories
     {
         $this->save();
     }
+
+
+    public function updateCategory()
+    {
+        $this->save();
+    }
 }
