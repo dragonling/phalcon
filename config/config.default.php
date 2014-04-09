@@ -34,6 +34,7 @@ return array(
     'filesystem' => array(
         'adapter' => 'local',
         'uploadPath' => __DIR__ . '/../public/uploads/',
+        'uploadTmpPath' => __DIR__ . '/../public/tmp/',
         'uploadUrlBase' => '/uploads',
     ),
 

@@ -39,7 +39,7 @@ class UploadController extends ControllerBase
                  $fileinfo['fullUrl'] = $file->getFullUrl();
              }
          } catch(\Exception $e) {
-             return $this->jsonErrorHandler($e, $upload->getMessage());
+             return $this->jsonErrorHandler($e, $upload->getMessages());
          }
 
          $this->response->setContentType('application/json', 'utf-8');
@@ -48,5 +48,38 @@ class UploadController extends ControllerBase
 
     public function testAction()
     {
+    }
+
+    public function encodeAction()
+    {
+         if(!$this->request->isPost()){
+             $this->response->setStatusCode('400', 'No Upload Files');
+             $this->response->setContentType('application/json', 'utf-8');
+             return $this->response->setJsonContent(array(
+                 'errors' => array(
+                     array(
+                         'code' => 400,
+                         'message' => 'ERR_FILE_NO_UPLOAD'
+                     )
+                 ),
+             ));
+         }
+         $upload = new Models\Upload();
+         try {
+             $file = $upload->uploadByEncodedData(
+                $this->request->getPost('file'),
+                $this->request->getPost('name'),
+                $this->request->getPost('type')
+             );
+             if($file) {
+                 $fileinfo = $file->toArray();
+                 $fileinfo['fullUrl'] = $file->getFullUrl();
+             }
+         } catch(\Exception $e) {
+             return $this->jsonErrorHandler($e, $upload->getMessages());
+         }
+
+         $this->response->setContentType('application/json', 'utf-8');
+         return $this->response->setJsonContent($fileinfo);
     }
 }

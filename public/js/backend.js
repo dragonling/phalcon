@@ -107,24 +107,35 @@ $(window).on("paste", function(e){
     if(!e || !e.originalEvent || !e.originalEvent.clipboardData) {
         return;
     }
-    console.log(e);
+    //Filefox use clipboardData.files
     var items = e.originalEvent.clipboardData.files,
     i = 0,
-    item;
+    item,
+    upload = function(fileinfo, filedata) {
+        var reader = new FileReader();
+        reader.onload = function(event){
+            $.ajax({
+                url : '/admin/upload/encode',
+                type : 'POST',
+                data : {
+                    name : fileinfo.name,
+                    size : fileinfo.size,
+                    type : fileinfo.type,
+                    file : event.target.result
+                },
+                success : function(response) {
+                    $('#epiceditor').after('<img src="' + response.fullUrl + '" alt="">');
+                }
+            }); 
+            //$('#epiceditor').after('<img src="' + event.target.result + '" alt="">');
+        }
+        reader.readAsDataURL(item); 
+
+    };
     for(i in items) {
         item = items[i];
         if(item.type && item.type.match(/^image\//i)) {
-            console.log(item);
-
-            //var blob = item.getAsFile();
-            var reader = new FileReader();
-            reader.onload = function(event){
-                console.log(event.target.result);
-                $('#epiceditor').after('<img src="' + event.target.result + '" alt="">');
-            }
-            reader.readAsDataURL(item); 
-
-
+            upload(item);
         }
     }
 });
