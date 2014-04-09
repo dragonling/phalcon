@@ -148,21 +148,9 @@
                     </div>
                     <div class="widget-body">
                         <div class="widget-main">
-                            <div class="control-group">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" class="ace" name="form-field-checkbox">
-                                        <span class="lbl"> choice 1</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" class="ace" name="form-field-checkbox">
-                                        <span class="lbl"> choice 2</span>
-                                    </label>
-                                </div>
-                            </div>
-
+                            <?=$form->render('parentId', array(
+                                'class' => 'select2 form-control',
+                            ))?>
                         </div>
                     </div>
                 </div><!--widgex box-->

@@ -14,6 +14,8 @@ $('input[type=submit], button[type=submit]').on('click', function(){
    $(this).parentsUntil('form').parent().find('input[name=__redirect]').val($(this).attr('data-redirect-btn'));
 });
 
+$('.select2').select2();
+
 $('table th input:checkbox').on('click' , function(){
     var that = this;
     $(this).closest('table').find('tr > td:first-child input:checkbox')

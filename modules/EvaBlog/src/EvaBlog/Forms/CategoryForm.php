@@ -2,6 +2,8 @@
 namespace Eva\EvaBlog\Forms;
 
 use Eva\EvaEngine\Form;
+use Phalcon\Forms\Element\Select;
+use Eva\EvaBlog\Models;
 
 class CategoryForm extends Form
 {
@@ -83,4 +85,20 @@ class CategoryForm extends Form
      */
     public $image;
 
+    public function initialize($entity = null, $options = null)
+    {
+        $select = new Select('parentId');
+        $category = new Models\Category();
+
+        $categories = $category->find(array(
+            "order" => "id DESC",
+            "limit" => 100
+        ));
+        $categoryArray = array('None');
+        foreach($categories as $key => $item) {
+            $categoryArray[$item->id] = $item->categoryName;
+        }
+        $select->setOptions($categoryArray);
+        $this->add($select);
+    }
 }

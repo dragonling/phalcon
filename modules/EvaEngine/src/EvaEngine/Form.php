@@ -80,6 +80,10 @@ class Form extends \Phalcon\Forms\Form
         $modelProperties = $reader->getProperties($model);
         $formProperties = $reader->getProperties($this);
         foreach($modelProperties as $key => $property) {
+            //already added in initialize
+            if($this->has($key)) {
+                continue;
+            }
             $formProperty = isset($formProperties[$key]) ? $formProperties[$key] : null;
             $element = $this->getElementByPropertyAnnotations($key, $property, $formProperty);
             if($element) {
