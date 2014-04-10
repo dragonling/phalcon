@@ -131,6 +131,10 @@
                             <?if(!empty($item->image)):?>
                             <img src="<?=$item->image?>" alt="" width="100%" />
                             <?endif?>
+                            <div class="paste-uploader" data-upload-url="/admin/upload/encode" data-upload-allow-num="1" data-upload-allow-type="" data-upload-maxsize="" data-callback="">
+                            <?=$form->render('image', array())?>
+                            <?=$form->render('image_id', array())?>
+                            </div>
                             <input name="upload" type="file" class="ace-file-input"  multiple="">
                         </div>
                     </div>
