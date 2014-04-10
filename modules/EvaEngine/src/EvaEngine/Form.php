@@ -139,13 +139,14 @@ class Form extends \Phalcon\Forms\Form
         }
 
         if($formProperty->has('Option')) {
+            $options = array();
             foreach($formProperty as $annotation) {
                 if($annotation->getName() != 'Option') {
                     continue;
                 }
-                $arguments = $annotation->getArguments();
-                $element->addOption($arguments);
+                $options += $annotation->getArguments();
             }
+            $element->setOptions($options);
         }
 
         return $element;
@@ -173,7 +174,7 @@ class Form extends \Phalcon\Forms\Form
             return parent::render($name, $attributes);
         }
         $attributes = array_merge(array(
-            $name => $this->prefix . '[' . $this->get($name)->getName() . ']'
+           'name' => $this->prefix . '[' . $this->get($name)->getName() . ']'
         ), $attributes);
         return parent::render($name, $attributes);
     }

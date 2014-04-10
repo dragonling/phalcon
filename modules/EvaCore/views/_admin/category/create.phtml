@@ -30,7 +30,11 @@
 <form id="" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
     <div class="page-content">
         <div class="page-header">
+            <?if(empty($item->id)):?>
             <h1>Create New Category</h1>
+            <?else:?>
+            <h1>Edit Category</h1>
+            <?endif?>
         </div><!-- /.page-header -->
 
         <div class="row">

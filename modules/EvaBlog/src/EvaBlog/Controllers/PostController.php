@@ -53,7 +53,7 @@ class PostController extends ControllerBase
         }
         $data = $this->request->getPost();
         $textData = $data['Text'];
-        unset($data['Text']);
+        //unset($data['Text']);
         $post = new Models\Post();
         $text = new Models\Text();
         $post->Text = $text;

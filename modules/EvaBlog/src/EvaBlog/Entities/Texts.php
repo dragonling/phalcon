@@ -52,4 +52,12 @@ class Texts extends \Eva\EvaEngine\Model
     }
 
     protected $tableName = 'blog_texts';
+
+    public function initialize()
+    {
+        $this->belongsTo('post_id', 'Eva\EvaBlog\Entities\Posts', 'id', array(
+            'alias' => 'Post'
+        ));
+        parent::initialize();
+    }
 }

@@ -132,6 +132,7 @@ preview_error : function(filename, error_code) {
 
     var pasteUploader = $('.paste-uploader');
     var onPaste = function(e) {
+        console.log(e);
         if(!e || !e.originalEvent || !e.originalEvent.clipboardData) {
             return;
         }
