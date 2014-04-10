@@ -132,7 +132,7 @@ preview_error : function(filename, error_code) {
 
     var pasteUploader = $('.paste-uploader');
     var onPaste = function(e) {
-        console.log(e);
+        console.log(e.originalEvent.clipboardData);
         if(!e || !e.originalEvent || !e.originalEvent.clipboardData) {
             return;
         }
@@ -186,7 +186,7 @@ preview_error : function(filename, error_code) {
         }
     }
     if(pasteUploader) {
-        $(window).on("paste", onPaste);
+        $('body').on("paste", onPaste);
     }
 
 });
