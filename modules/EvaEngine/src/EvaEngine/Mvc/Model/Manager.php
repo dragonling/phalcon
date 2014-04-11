@@ -15,7 +15,7 @@ class Manager extends \Phalcon\Mvc\Model\Manager
     public function getWriteConnection(\Phalcon\Mvc\ModelInterface $model)
     {
         if($this->getDI()->get('dbMaster')) {
-            $this->setReadConnectionService($model, 'dbMaster');
+            $this->setWriteConnectionService($model, 'dbMaster');
         }
         return parent::getWriteConnection($model);
     }

@@ -28,17 +28,12 @@ class CategoryController extends ControllerBase
         ));
         $pager = $paginator->getPaginate();
         $this->view->setVar('pager', $pager);
-
-        $view = $this->view;
-        $view->setViewsDir($this->getDI()->get('modules')->getModulePath('EvaCore') . '/views/_admin/');
-        $view->setLayoutsDir('layouts/');
-        $view->setLayout('admin');
-        $view->setTemplateAfter('admin');
-        $view->pick('category/index');
     }
 
     public function createAction()
     {
+        //$this->view->pick('category/create');
+
         $form = new \Eva\EvaBlog\Forms\CategoryForm();
         $category = new Models\Category();
         $form->setModel($category);

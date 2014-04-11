@@ -3,27 +3,11 @@ require __DIR__ . '/../init_autoloader.php';
 
 use Eva\EvaEngine\Engine;
 
-$debug = new \Phalcon\Debug();
-$debug->listen();
+
 
 $engine = new Engine(__DIR__ . '/..');
 
-$engine->loadModules(array(
-    'EvaCore',
-    'EvaUser',
-    'EvaOAuthClient',
-    'EvaOAuthServer',
-    'EvaBlog',
-    'EvaFileSystem',
-    'Frontend' => array(
-        'className' => 'Eva\Frontend\Module',
-        'path' => __DIR__ . '/../apps/Frontend/Module.php'
-    ),
-    'WscnGold' => array(
-        'className' => 'WscnGold\Module',
-        'path' => __DIR__ . '/../apps/WscnGold/Module.php'
-    ),
-));
+$engine->loadModules(include __DIR__ . '/../config/modules.default.php', include __DIR__ . '/../config/modules.local.php');
 $engine->bootstrap()->run();
 
 

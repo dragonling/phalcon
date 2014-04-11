@@ -1,0 +1,36 @@
+<?$pagerBaseQuery = $pager->query;?>
+<?if($pager->total_pages > 1):?>
+<ul class="pagination">
+    <?if($pager->current > 2):?>
+    <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->first), $pagerBaseQuery)?>"><i class="icon-double-angle-left"></i></a></li>
+    <?endif?>
+    <?if($pager->current > 1):?>
+    <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->before), $pagerBaseQuery)?>"><i class="icon-angle-left"></i></a></li>
+    <?endif?>
+    <?if($pager->prev_skip):?>
+    <li class="disabled"><a href="javascript:;">...</a></li>
+    <?endif?>
+    <?if($pager->prev_range):?>
+    <?foreach($pager->prev_range as $page):?>
+    <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $page), $pagerBaseQuery)?>"><?=$page?></a></li>
+    <?endforeach?>
+    <?endif?>
+    <li class="active">
+    <a href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->current), $pagerBaseQuery)?>"><?=$pager->current?></a>
+    </li>
+    <?if($pager->next_range):?>
+    <?foreach($pager->next_range as $page):?>
+    <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $page), $pagerBaseQuery)?>"><?=$page?></a></li>
+    <?endforeach?>
+    <?endif?>
+    <?if($pager->next_skip):?>
+    <li class="disabled"><a href="javascript:;">...</a></li>
+    <?endif?>
+    <?if($pager->next && $pager->current < $pager->last):?>
+    <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->next), $pagerBaseQuery)?>"><i class="icon-angle-right"></i></a></li>
+    <?endif?>
+    <?if($pager->current < $pager->last):?>
+    <li><a href="<?=$this->tag->uri($pagerUrl, array('page' => $pager->last), $pagerBaseQuery)?>"><i class="icon-double-angle-right"></i></a></li>
+    <?endif?>
+</ul>
+<?endif?>

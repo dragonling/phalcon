@@ -32,10 +32,21 @@ class Module implements ModuleDefinitionInterface
     public function registerServices($di)
     {
         $di->set('dispatcher', function() {
-			$dispatcher = new \Phalcon\Mvc\Dispatcher();
+            /*
+            $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace('Eva\EvaBlog\Controllers');
-			return $dispatcher;
-		});
+            $eventsManager = new \Phalcon\Events\Manager();
+            $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, $dispatcher) {
+                $controllerName =   $dispatcher->getControllerName() . 'Controller';
+                $actionName = $dispatcher->getActionName() . 'Action';
+            });
+            $dispatcher->setEventsManager($eventsManager);
+            return $dispatcher;
+            */
+            $dispatcher = new \Phalcon\Mvc\Dispatcher();
+            $dispatcher->setDefaultNamespace('Eva\EvaBlog\Controllers');
+            return $dispatcher;
+        });
     }
 
 }

@@ -95,7 +95,7 @@ class Engine
 
 
             //merge all loaded module configs
-            $modules = $di->get('modules');
+            $modules = $di->get('moduleManager');
             if($modules) {
                 $modulesArray = $modules->getModules();
                 foreach($modulesArray as $moduleName => $module) {
@@ -407,7 +407,7 @@ class Engine
         }
 
         $di = $this->getDI();
-        $di->set('modules', function() use ($moduleArray){
+        $di->set('moduleManager', function() use ($moduleArray){
             return new ModuleManager($moduleArray);
         });
         return $this;
