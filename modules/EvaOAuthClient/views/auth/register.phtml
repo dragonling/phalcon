@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label class="block clearfix">
                                     <span class="block input-icon input-icon-right">
-                                        <input type="email" name="email" class="form-control" placeholder="<?=$this->tag->_('Email');?>" data-parsley-trigger="blur change" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="<?=$this->tag->_('This email has been taken');?>"  value="<?=isset($suggestEmail) ? $suggestEmail: ''?>" required />
+                                        <input type="email" name="email" class="form-control" placeholder="<?=$this->tag->_('Email');?>" data-parsley-trigger="blur change" data-parsley-remote="/admin/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="<?=$this->tag->_('This email has been taken');?>"  value="<?=isset($suggestEmail) ? $suggestEmail: ''?>" required />
                                         <i class="icon-envelope"></i>
                                     </span>
                                 </label>
@@ -53,7 +53,7 @@
                                         data-parsley-maxlength="24"
                                         data-parsley-pattern="^(?![0-9]+$)"
                                         data-parsley-pattern-message="<?=$this->tag->_('Username not allow pure digits');?>"
-                                        data-parsley-remote="/register/check"
+                                        data-parsley-remote="/admin/register/check"
                                         data-parsley-remote-options='{ method: "GET", dataType: "json"}'
                                         data-parsley-remote-message="<?=$this->tag->_('This username has been taken');?>"
                                         required />

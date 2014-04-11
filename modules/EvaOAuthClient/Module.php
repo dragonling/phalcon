@@ -21,13 +21,6 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerAutoloaders()
     {
-        /*
-        $loader = new Loader();
-        $loader->registerNamespaces(array(
-            'Eva\EvaOAuthClient' => __DIR__ . '/src/EvaOAuthClient',
-        ));
-        $loader->register();
-        */
     }
 
     /**
@@ -42,15 +35,6 @@ class Module implements ModuleDefinitionInterface
             $dispatcher->setDefaultNamespace('Eva\EvaOAuthClient\Controllers');
 			return $dispatcher;
 		};
-
-        /**
-         * Setting up the view component
-         */
-        $di['view'] = function () {
-            $view = new View();
-            $view->setViewsDir(__DIR__ . '/views/');
-            return $view;
-        };
     }
 
 }
