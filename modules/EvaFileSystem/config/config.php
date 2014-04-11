@@ -4,11 +4,11 @@ return array(
     'routes' =>  array(
         '/admin/upload' =>  array(
             'module' => 'EvaFileSystem',
-            'controller' => 'upload',
+            'controller' => 'Admin\Upload',
         ),
         '/admin/upload/:action' =>  array(
             'module' => 'EvaFileSystem',
-            'controller' => 'upload',
+            'controller' => 'Admin\Upload',
             'action' => 1,
         ),
     ),

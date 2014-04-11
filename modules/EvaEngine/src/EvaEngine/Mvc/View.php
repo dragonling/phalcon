@@ -10,6 +10,8 @@ class View extends \Phalcon\Mvc\View
 
     protected $moduleLayoutName;
 
+    protected $modulePartialsDir;
+
     public function getModuleLayout()
     {
         return $this->moduleLayout;
@@ -23,7 +25,7 @@ class View extends \Phalcon\Mvc\View
         }
         $this->moduleLayout = $moduleManager->getModulePath($moduleName) . $layoutPath;
         if($this->moduleViewsDir) {
-            $this->setRelatedPath();
+            $this->caculateLayoutRelatedPath();
         }
         return $this;
     }
@@ -44,12 +46,39 @@ class View extends \Phalcon\Mvc\View
         $this->moduleViewsDir = $moduleViewsDir = $modulePath . $viewsDir;
         $this->setViewsDir($moduleViewsDir);
         if($this->moduleLayout) {
-            $this->setRelatedPath();
+            $this->caculateLayoutRelatedPath();
+        }
+        if($this->modulePartialsDir) {
+            $this->caculatePartialsRelatedPath();
+        }
+
+        return $this;
+    }
+    
+    public function setModulePartialsDir($moduleName, $partialsDir)
+    {
+        $moduleManager = $this->getDI()->get('moduleManager');
+        if(!$moduleManager) {
+            return $this;
+        }
+
+        $modulePath = $moduleManager->getModulePath($moduleName);
+        $this->modulePartialsDir = $modulePartialsDir = $modulePath . $partialsDir;
+        if($this->moduleViewsDir) {
+            $this->caculatePartialsRelatedPath();
         }
         return $this;
     }
 
-    protected function setRelatedPath()
+    protected function caculatePartialsRelatedPath()
+    {
+        $moduleViewsDir = realpath($this->moduleViewsDir);
+        $partialsDir = realpath($this->modulePartialsDir);
+        $this->setPartialsDir(DIRECTORY_SEPARATOR . $this->relativePath($moduleViewsDir, $partialsDir));
+        return $this;
+    } 
+
+    protected function caculateLayoutRelatedPath()
     {
         $moduleViewsDir = realpath($this->moduleViewsDir);
         $moduleLayout = realpath(dirname($this->moduleLayout));
@@ -69,5 +98,6 @@ class View extends \Phalcon\Mvc\View
         }
         return str_pad("", count($arFrom) * 3, '..' . $ps) . implode($ps, $arTo);
     }
+
 
 }

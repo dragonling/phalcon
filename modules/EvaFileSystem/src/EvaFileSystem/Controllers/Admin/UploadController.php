@@ -1,6 +1,6 @@
 <?php
 
-namespace Eva\EvaFileSystem\Controllers;
+namespace Eva\EvaFileSystem\Controllers\Admin;
 
 
 use Eva\EvaFileSystem\Models;
