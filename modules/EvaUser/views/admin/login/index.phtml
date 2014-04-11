@@ -8,7 +8,7 @@
 
             <div class="space-6"></div>
 
-            <form id="login-box-form" action="/login" method="POST" novalidate="novalidate">
+            <form id="login-box-form" action="/admin/login" method="POST" novalidate="novalidate">
                 <fieldset>
                     <div class="form-group">
                         <label class="block clearfix">
@@ -115,7 +115,7 @@
             <?=$this->tag->_('Enter your email and to receive instructions');?> 
             </p>
 
-            <form action="/session/forgot" method="POST" novalidate="novalidate">
+            <form action="/admin/session/forgot" method="POST" novalidate="novalidate">
                 <fieldset>
                     <div class="form-group">
                         <label class="block clearfix">
@@ -156,12 +156,12 @@
             <div class="space-6"></div>
             <p> <?=$this->tag->_('Enter your details to begin');?></p>
 
-            <form action="/register" method="POST" novalidate="novalidate">
+            <form action="/admin/register" method="POST" novalidate="novalidate">
                 <fieldset>
                     <div class="form-group">
                         <label class="block clearfix">
                             <span class="block input-icon input-icon-right">
-                                <input type="email" name="email" class="form-control" placeholder="<?=$this->tag->_('Email');?>" data-parsley-trigger="blur change" data-parsley-remote="/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="<?=$this->tag->_('This email has been taken');?>" required />
+                                <input type="email" name="email" class="form-control" placeholder="<?=$this->tag->_('Email');?>" data-parsley-trigger="blur change" data-parsley-remote="/admin/register/check" data-parsley-remote-options='{ method: "GET", dataType: "json"}' data-parsley-remote-message="<?=$this->tag->_('This email has been taken');?>" required />
                                 <i class="icon-envelope"></i>
                             </span>
                         </label>
@@ -177,7 +177,7 @@
                                 data-parsley-maxlength="24"
                                 data-parsley-pattern="^(?![0-9]+$)"
                                 data-parsley-pattern-message="<?=$this->tag->_('Username not allow pure digits');?>"
-                                data-parsley-remote="/register/check"
+                                data-parsley-remote="/admin/register/check"
                                 data-parsley-remote-options='{ method: "GET", dataType: "json"}'
                                 data-parsley-remote-message="<?=$this->tag->_('This username has been taken');?>"
                                 required />

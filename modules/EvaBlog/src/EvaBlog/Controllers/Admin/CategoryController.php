@@ -32,7 +32,6 @@ class CategoryController extends ControllerBase
 
     public function createAction()
     {
-        //$this->view->pick('category/create');
 
         $form = new \Eva\EvaBlog\Forms\CategoryForm();
         $category = new Models\Category();
@@ -60,8 +59,8 @@ class CategoryController extends ControllerBase
 
     public function editAction()
     {
-        $this->view->setTemplateAfter('admin');
-        $this->view->pick('category/create');
+        $this->view->changeRender('admin/category/create');
+
         $form = new \Eva\EvaBlog\Forms\CategoryForm();
         $category = Models\Category::findFirst($this->dispatcher->getParam('id'));
         $form->setModel($category);

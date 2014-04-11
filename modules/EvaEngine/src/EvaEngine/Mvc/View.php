@@ -23,7 +23,10 @@ class View extends \Phalcon\Mvc\View
         if(!$moduleManager) {
             return $this;
         }
-        $this->moduleLayout = $moduleManager->getModulePath($moduleName) . $layoutPath;
+
+        $moduleLayout = $moduleManager->getModulePath($moduleName) . $layoutPath;
+        $this->moduleLayout = realpath(dirname($moduleLayout));
+        $this->moduleLayoutName = basename($moduleLayout);
         if($this->moduleViewsDir) {
             $this->caculateLayoutRelatedPath();
         }
@@ -43,7 +46,7 @@ class View extends \Phalcon\Mvc\View
         }
 
         $modulePath = $moduleManager->getModulePath($moduleName);
-        $this->moduleViewsDir = $moduleViewsDir = $modulePath . $viewsDir;
+        $this->moduleViewsDir = $moduleViewsDir = realpath($modulePath . $viewsDir);
         $this->setViewsDir($moduleViewsDir);
         if($this->moduleLayout) {
             $this->caculateLayoutRelatedPath();
@@ -63,26 +66,36 @@ class View extends \Phalcon\Mvc\View
         }
 
         $modulePath = $moduleManager->getModulePath($moduleName);
-        $this->modulePartialsDir = $modulePartialsDir = $modulePath . $partialsDir;
+        $this->modulePartialsDir = $modulePartialsDir = realpath($modulePath . $partialsDir);
         if($this->moduleViewsDir) {
             $this->caculatePartialsRelatedPath();
         }
         return $this;
     }
 
+    public function changeRender($renderName)
+    {
+        if(!$this->moduleLayoutName) {
+            return $this;
+        }
+        $this->setTemplateAfter($this->moduleLayoutName);
+        $this->pick($renderName);
+        return $this;
+    }
+
     protected function caculatePartialsRelatedPath()
     {
-        $moduleViewsDir = realpath($this->moduleViewsDir);
-        $partialsDir = realpath($this->modulePartialsDir);
+        $moduleViewsDir = $this->moduleViewsDir;
+        $partialsDir = $this->modulePartialsDir;
         $this->setPartialsDir(DIRECTORY_SEPARATOR . $this->relativePath($moduleViewsDir, $partialsDir));
         return $this;
     } 
 
     protected function caculateLayoutRelatedPath()
     {
-        $moduleViewsDir = realpath($this->moduleViewsDir);
-        $moduleLayout = realpath(dirname($this->moduleLayout));
-        $layoutName = basename($this->moduleLayout);
+        $moduleViewsDir = $this->moduleViewsDir;
+        $moduleLayout = $this->moduleLayout;
+        $layoutName = $this->moduleLayoutName;
         $this->setLayoutsDir(DIRECTORY_SEPARATOR . $this->relativePath($moduleViewsDir, $moduleLayout));
         $this->setLayout($layoutName);
         return $this;

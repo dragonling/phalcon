@@ -1,94 +1,70 @@
 <?php
 return array(
     'user' => array(
-        'registerUri' => '/admin',
-        'registerSuccessRedirectUri' => '/admin',
-        'registerFailedRedirectUri' => '/admin',
+        'registerUri' => '/admin/login',
+        'registerSuccessRedirectUri' => '/admin/login',
+        'registerFailedRedirectUri' => '/admin/login',
         'loginUri' => '/admin',
         'loginSuccessRedirectUri' => '/admin/dashboard',
-        'loginFailedRedirectUri' => '/admin',
+        'loginFailedRedirectUri' => '/admin/login',
         'activeMailTemplate' => __DIR__ . '/../views/mails/active.phtml',
-        'activeSuccessRedirectUri' => '/admin',
-        'activeFailedRedirectUri' => '/admin',
-        'resetSuccessRedirectUri' => '/admin',
-        'resetFailedRedirectUri' => '/admin',
+        'activeSuccessRedirectUri' => '/admin/login',
+        'activeFailedRedirectUri' => '/admin/login',
+        'resetSuccessRedirectUri' => '/admin/login',
+        'resetFailedRedirectUri' => '/admin/login',
         'resetMailTemplate' => __DIR__ . '/../views/mails/reset.phtml',
         'cookieTokenExpired' => 500000,
     ),   
 
     'routes' => array(
-        '/register' => array(
+        '/admin/register' => array(
             'module' => 'EvaUser',
-            'controller' => 'register',
+            'controller' => 'Admin\Register',
         ),
 
-        '/register/:action' => array(
+        '/admin/register/:action' => array(
             'module' => 'EvaUser',
-            'controller' => 'register',
+            'controller' => 'Admin\Register',
             'action' => 1, 
         ),
 
-        '/login' => array(
+        '/admin/login' => array(
             'module' => 'EvaUser',
-            'controller' => 'login',
+            'controller' => 'Admin\Login',
         ),
 
-        '/login/:action([\w/]*)' => array(
+        '/admin/login/:action([\w/]*)' => array(
             'module' => 'EvaUser',
-            'controller' => 'login',
+            'controller' => 'Admin\Login',
             'action' => 1, 
         ),
 
-        '/logout' => array(
+        '/admin/logout' => array(
             'module' => 'EvaUser',
-            'controller' => 'logout',
+            'controller' => 'Admin\Logout',
         ),
 
-        '/session/verify/(\w+)/(\w+)' => array(
+        '/admin/session/verify/(\w+)/(\w+)' => array(
             'module' => 'EvaUser',
-            'controller' => 'session',
+            'controller' => 'Admin\Session',
             'action' => 'verify',
             'username' => 1,
             'code' => 2,
         ),
 
-        '/session/reset/(\w+)/(\w+)' => array(
+        '/admin/session/reset/(\w+)/(\w+)' => array(
             'module' => 'EvaUser',
-            'controller' => 'session',
+            'controller' => 'Admin\Session',
             'action' => 'reset',
             'username' => 1,
             'code' => 2,
         ),
 
-        '/session/:action' => array(
+        '/admin/session/:action' => array(
             'module' => 'EvaUser',
-            'controller' => 'session',
+            'controller' => 'Admin\Session',
             'action' => 1, 
         ),
-
-        /*
-        '/user/verify/(\d+)/(\w+)' => array(
-            'module' => 'EvaUser',
-            'controller' => 'user',
-            'action' => 'verify',
-            'userId' => 1,
-            'code' => 2,
-        ),
-
-        '/user/reset/(\w+)/(\w+)' => array(
-            'module' => 'EvaUser',
-            'controller' => 'user',
-            'action' => 'reset',
-            'username' => 1,
-            'code' => 2,
-        ),
-
-        '/user/:action' => array(
-            'module' => 'EvaUser',
-            'controller' => 'user',
-            'action' => 1,
-        )
-        */
     ),
 
 );

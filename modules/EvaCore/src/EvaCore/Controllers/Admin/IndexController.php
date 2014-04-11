@@ -2,11 +2,7 @@
 
 namespace Eva\EvaCore\Controllers\Admin;
 
-use Phalcon\Mvc\Controller;
-use Phalcon\Mvc\Model\Criteria;
-use Phalcon\Paginator\Adapter\Model as Paginator;
-
-class IndexController extends Controller 
+class IndexController extends \Eva\EvaEngine\Controller\AdminControllerBase
 {
 
     /**
@@ -14,26 +10,20 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
-        $view = $this->view;
-        $view->setViewsDir($this->view->getViewsDir() . '_admin/');
-        $view->setLayoutsDir('layouts/');
-        $view->setLayout('login');
-        $view->setTemplateAfter('login');
-        $view->pick('index/index');
+        $this->view->disable();
+        return $this->response->redirect('/admin/login');
     }
 
 
     public function dashboardAction()
     {
-        $view = $this->view;
+        $this->view->setModuleLayout('EvaCore', '/views/admin/layouts/layout');
+        $this->view->setModuleViewsDir('EvaCore', '/views');
+        $this->view->setModulePartialsDir('EvaCore', '/views');
+
         $user = new \Eva\EvaUser\Models\Login();
         if($user->isUserLoggedIn()) {
             $view->authIdentity = $user->getAuthIdentity();
         }
-        $view->setViewsDir($this->view->getViewsDir() . '_admin/');
-        $view->setLayoutsDir('layouts/');
-        $view->setLayout('admin');
-        $view->setTemplateAfter('admin');
-        $view->pick('index/dashboard');
     }
 }
