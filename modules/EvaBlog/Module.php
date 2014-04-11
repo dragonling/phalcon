@@ -22,13 +22,6 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerAutoloaders()
     {
-        /*
-        $loader = new Loader();
-        $loader->registerNamespaces(array(
-            'Eva\EvaBlog' => __DIR__ . '/src/EvaBlog',
-        ));
-        $loader->register();
-        */
     }
 
     /**
@@ -38,26 +31,11 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
-
-        /**
-         * Read configuration
-         */
-        $config = include __DIR__ . "/config/config.php";
-
-		$di['dispatcher'] = function() {
+        $di->set('dispatcher', function() {
 			$dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace('Eva\EvaBlog\Controllers');
 			return $dispatcher;
-		};
-
-        /**
-         * Setting up the view component
-         */
-        $di['view'] = function () use ($di) {
-            $view = new View();
-            $view->setViewsDir(__DIR__ . '/views/');
-            return $view;
-        };
+		});
     }
 
 }

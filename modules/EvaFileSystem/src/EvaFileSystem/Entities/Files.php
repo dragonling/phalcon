@@ -2,7 +2,7 @@
 
 namespace Eva\EvaFileSystem\Entities;
 
-class Files extends \Eva\EvaEngine\Model
+class Files extends \Eva\EvaEngine\Mvc\Model
 {
     protected $tableName = 'file_files';
 

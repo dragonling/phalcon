@@ -4,7 +4,7 @@
 namespace Eva\EvaBlog\Entities;
 
 
-class Categories extends \Eva\EvaEngine\Model
+class Categories extends \Eva\EvaEngine\Mvc\Model
 {
     protected $tableName = 'blog_categories';
 

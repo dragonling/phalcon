@@ -4,7 +4,7 @@
 namespace Eva\EvaBlog\Entities;
 
 
-class Tags extends \Eva\EvaEngine\Model
+class Tags extends \Eva\EvaEngine\Mvc\Model
 {
     protected $tableName = 'blog_tags';
 

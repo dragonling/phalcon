@@ -21,6 +21,23 @@ class Post extends Entities\Posts
 
     public function beforeCreate()
     {
+        if(!$this->parentId) {
+            $this->parentId = 0;
+            $this->rootId = 0;
+        } else {
+            $parentCategory = self::findFirst($this->parentId);
+            if($parentCategory) {
+                if($parentCategory->parentId) {
+                    $this->rootId = $parentCategory->rootId;
+                } else {
+                    $this->rootId = $parentCategory->id;
+                }
+            } else {
+                $this->rootId = 0;
+            }
+        }
+
+
         $user = new LoginModel();
         if($userinfo = $user->isUserLoggedIn()) {
             $this->user_id = $userinfo['id'];

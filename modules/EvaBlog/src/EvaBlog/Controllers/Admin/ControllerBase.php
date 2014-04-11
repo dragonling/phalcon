@@ -1,6 +1,6 @@
 <?php
 
-namespace Eva\EvaBlog\Controllers;
+namespace Eva\EvaBlog\Controllers\Admin;
 
 class ControllerBase extends \Eva\EvaEngine\Controller\ControllerBase
 {

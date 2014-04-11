@@ -1,6 +1,6 @@
 <?php
 
-namespace Eva\EvaBlog\Controllers;
+namespace Eva\EvaBlog\Controllers\Admin;
 
 use Eva\EvaBlog\Models;
 

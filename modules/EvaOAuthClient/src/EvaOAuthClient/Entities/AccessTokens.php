@@ -2,7 +2,7 @@
 
 namespace Eva\EvaOAuthClient\Entities;
 
-class AccessTokens extends \Eva\EvaEngine\Model
+class AccessTokens extends \Eva\EvaEngine\Mvc\Model
 {
     /**
      *

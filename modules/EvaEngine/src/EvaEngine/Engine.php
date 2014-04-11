@@ -8,7 +8,7 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Config;
-use Phalcon\Mvc\View;
+use Eva\EvaEngine\Mvc\View;
 use Phalcon\Loader;
 use Phalcon\Mvc\Application;
 use Phalcon\Events\Manager as EventsManager;
@@ -204,6 +204,7 @@ class Engine
         });
 
 
+        /*
         $di->set('db', function () use ($di) {
             $config = $di->get('config');
             $dbAdapter = new DbAdapter(array(
@@ -232,6 +233,7 @@ class Engine
             $dbAdapter->setEventsManager($eventsManager);
             return $dbAdapter;
         });
+        */
 
         $di->set('dbMaster', function () use ($di) {
             $config = $di->get('config');
@@ -247,6 +249,8 @@ class Engine
             if ($config->debug) {
                 $eventsManager = new EventsManager();
                 $logger = new FileLogger($config->logger->path . date('Y-m-d') . '.log');
+
+                //database service name hardcore as db
                 $eventsManager->attach('db', function($event, $dbAdapter) use ($logger) {
                     if ($event->getType() == 'beforeQuery') {
                         $sqlVariables = $dbAdapter->getSQLVariables();
@@ -266,6 +270,12 @@ class Engine
             return $dbAdapter;
         });
 
+
+        $di->set('modelsManager', function () use ($di) {
+            //for solving db master/slave under static find method
+            $modelsManager = new \Eva\EvaEngine\Mvc\Model\Manager();
+            return $modelsManager;
+        });
 
         $di->set('dbSlave', function () use ($di) {
             $config = $di->get('config');

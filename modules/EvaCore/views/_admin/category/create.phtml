@@ -12,7 +12,9 @@
         <li>
         <a href="/admin/post">Post</a>
         </li>
-        <li class="active">Category</li>
+        <li class="active">
+        <a href="/admin/category">Category</a>
+        </li>
     </ul><!-- .breadcrumb -->
 
     <div class="nav-search" id="nav-search">
@@ -69,15 +71,16 @@
                             <?=$form->render('description', array(
                                 'class' => 'form-control',
                                 //'class' => 'form-control wysiwyg',
-                                'rows' => 12,
-                                'required' => 'required',
+                                'rows' => 4,
                             ))?>
                         </div>
                     </label>
                 </div>
+                <!--
                 <div class="form-group">
                     <div id="test" contenteditable="true" style="height:100px;background:#CCC;"></div>
                 </div>
+                -->
 
                 <!--
                 <div class="clearfix form-actions">

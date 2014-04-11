@@ -1,6 +1,6 @@
 <?php
 
-namespace Eva\EvaEngine;
+namespace Eva\EvaEngine\Mvc;
 
 class Model extends \Phalcon\Mvc\Model
 {

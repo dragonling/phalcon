@@ -4,21 +4,21 @@ return array(
     'routes' =>  array(
         '/admin/category' =>  array(
             'module' => 'EvaBlog',
-            'controller' => 'category',
+            'controller' => 'Admin\Category',
         ),
         '/admin/category/:action(/(\d+))*' =>  array(
             'module' => 'EvaBlog',
-            'controller' => 'category',
+            'controller' => 'Admin\Category',
             'action' => 1,
             'id' => 3,
         ),
         '/admin/post' =>  array(
             'module' => 'EvaBlog',
-            'controller' => 'post',
+            'controller' => 'Admin\Post',
         ),
         '/admin/post/:action(/(\d+))*' =>  array(
             'module' => 'EvaBlog',
-            'controller' => 'post',
+            'controller' => 'Admin\Post',
             'action' => 1,
             'id' => 3,
         ),

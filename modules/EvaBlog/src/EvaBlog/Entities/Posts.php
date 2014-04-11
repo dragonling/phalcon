@@ -4,7 +4,7 @@ namespace Eva\EvaBlog\Entities;
 
 use Eva\EvaBlog\Entities\Texts;
 
-class Posts extends \Eva\EvaEngine\Model
+class Posts extends \Eva\EvaEngine\Mvc\Model
 {
     /**
      *

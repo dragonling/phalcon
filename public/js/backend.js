@@ -55,8 +55,19 @@ $(document).ready(function(){
 
     });
 
-    CKEDITOR.config.contentsCss = '/css/editor.css';
-    $( 'textarea.wysiwyg' ).ckeditor();
+    var ckeditorContainers = $( 'textarea.wysiwyg' );
+    if(ckeditorContainers[0]) {
+        CKEDITOR.config.contentsCss = '/css/editor.css';
+        var ckeditor = ckeditorContainers.ckeditor().ckeditorGet();
+        ckeditor.on('instanceReady', function( ev ) {
+            $("#test").on('click', function(){
+                ckeditor.insertHtml('<p>a</p>');
+                return false;
+            });
+        });
+    }
+
+
 
     $('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
         $(this).prev().focus();
@@ -101,6 +112,7 @@ preview_error : function(filename, error_code) {
     });
 
 
+    /*
     var editor = new EpicEditor({
         autogrow : {
             minHeight : 500,
@@ -121,9 +133,8 @@ preview_error : function(filename, error_code) {
             toggleEdit: 'Toggle Edit Mode',
             toggleFullscreen: '全屏(快捷键Alt+f)'
         },
-
-
     }).load();
+   */
 
     $(".tag-input").select2({
         tags:[],
@@ -132,7 +143,6 @@ preview_error : function(filename, error_code) {
 
     var pasteUploader = $('.paste-uploader');
     var onPaste = function(e) {
-        console.log(e.originalEvent.clipboardData);
         if(!e || !e.originalEvent || !e.originalEvent.clipboardData) {
             return;
         }
@@ -186,7 +196,7 @@ preview_error : function(filename, error_code) {
         }
     }
     if(pasteUploader) {
-        $('body').on("paste", onPaste);
+        $(window).on("paste", onPaste);
     }
 
 });
