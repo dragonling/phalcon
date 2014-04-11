@@ -13,6 +13,7 @@ use Phalcon\Loader;
 use Phalcon\Mvc\Application;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Logger\Adapter\File as FileLogger;
+use Phalcon\Mvc\Dispatcher;
 
 use Eva\EvaEngine\ModuleManager;
 
@@ -45,7 +46,31 @@ class Engine
 
     public function initErrorHandler()
     {
-    
+        $di = $this->getDI();
+        $eventsManager = $di->getShared('eventsManager');
+        $eventsManager->attach('dispatch:beforeException',  function($event, $dispatcher, $exception) {
+            switch ($exception->getCode()) {
+                case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                $dispatcher->forward(
+                    array(
+                        'controller' => 'error',
+                        'action' => 'notFound',
+                    )
+                );
+                return false;
+                break; // for checkstyle
+                default:
+                $dispatcher->forward(
+                    array(
+                        'controller' => 'error',
+                        'action' => 'uncaughtException',
+                    )
+                );
+                return false;
+                break; // for checkstyle
+            }
+        });
     }
 
     public function getApplication()
@@ -311,12 +336,14 @@ class Engine
         });
 
 
+        /*
         $di->set('fileSystem', function () use ($di) {
             $config = $di->get('config');
             $adapter = new \Gaufrette\Adapter\Local();
             $filesystem = new Filesystem($adapter);
             return $filesystem;
         });
+        */
 
         return $this->di = $di;
     }
@@ -397,15 +424,73 @@ class Engine
         return $this;
     }
 
+    public function runCustom()
+    {
+        $di = $this->getDI();
+
+        $debug = $di->get('config')->debug;
+        if($debug) {
+            $debugger = new \Phalcon\Debug();
+            $debugger->listen();
+        }
+
+        //Roter
+        $router = $di['router'];
+        $router->handle();
+
+        //Module handle
+        $modules = $this->getApplication()->getModules();
+        $routeModule = $router->getModuleName();
+        if(isset($modules[$routeModule])) {
+            $moduleClass = new $modules[$routeModule]['className']();
+            $moduleClass->registerAutoloaders();
+            $moduleClass->registerServices($di);
+        }
+
+        //dispatch
+        $dispatcher = $di['dispatcher'];
+        $dispatcher->setModuleName($router->getModuleName());
+        $dispatcher->setControllerName($router->getControllerName());
+        $dispatcher->setActionName($router->getActionName());
+        $dispatcher->setParams($router->getParams());
+
+        //view
+        $view = $di['view'];
+        $view->start();
+        $controller = $dispatcher->dispatch();
+        //Not able to call render in controller or else will repeat output
+        $view->render(
+            $dispatcher->getControllerName(),
+            $dispatcher->getActionName(),
+            $dispatcher->getParams()
+        );
+        $view->finish();
+
+        //NOTICE: not able to output flash session content
+        $response = $di['response'];
+        $response->setContent($view->getContent());
+        $response->sendHeaders();
+        echo $response->getContent();
+    }
+
+
     public function run()
     {
-        echo $this->getApplication()->handle()->getContent();
+        $di = $this->getDI();
+
+        $debug = $di->get('config')->debug;
+        if($debug) {
+            $debugger = new \Phalcon\Debug();
+            $debugger->listen();
+        }
+
+        $response = $this->getApplication()->handle();
+        echo $response->getContent();
     }
 
     public function __construct($appRoot = null)
     {
         $this->appRoot = $appRoot ? $appRoot : __DIR__;
-
     }
 
 }
