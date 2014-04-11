@@ -7,7 +7,7 @@ use Eva\EvaEngine\Engine;
 
 $engine = new Engine(__DIR__ . '/..');
 
-$engine->loadModules(include __DIR__ . '/../config/modules.default.php', include __DIR__ . '/../config/modules.local.php');
+$engine->loadModules(include __DIR__ . '/../config/modules.php');
 $engine->bootstrap()->run();
 
 
