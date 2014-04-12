@@ -122,7 +122,7 @@ class Tag extends \Phalcon\Tag
     }
 
 
-    public static function datetime($time = '', $timezone = null, $format = '')
+    public static function datetime($time = '', $format = '',  $timezone = null)
     {
         $timezone = $timezone ? $timezone : self::getDI()->get('config')->datetime->defaultTimezone;
         $format = $format ? $format : self::getDI()->get('config')->datetime->defaultFormat;

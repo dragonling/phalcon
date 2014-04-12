@@ -76,10 +76,10 @@
                     </div><!--widget box end-->
 
                     <label class="block clearfix">
-                        <div>
+                        <div class="markdown-editor">
                             <?=$textForm->render('content', array(
-                                'class' => 'form-control ',
-                                'class' => 'form-control wysiwyg',
+                                'class' => 'form-control',
+                                //'class' => 'form-control wysiwyg',
                                 'rows' => 12,
                                 'required' => 'required',
                             ))?>
@@ -92,8 +92,8 @@
 
                 <div class="form-group">
                     <label class="block clearfix">
-                        Summary
-                        <div>
+                        <h5 class="lighter">Summary</h5>
+                        <div class="markdown-editor">
                             <?=$postForm->render('summary', array(
                                 'class' => 'form-control ',
                                 'rows' => 3,
@@ -225,16 +225,18 @@
                     <div class="widget-body">
                         <div class="widget-main">
                             <div class="input-group">
-                                <input name="day" type="text" data-date-format="yyyy-mm-dd" class="form-control date-picker">
+                                <input name="day" type="text" data-date-format="yyyy-mm-dd" class="form-control date-picker" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'Y-m-d')?>">
                                 <span class="input-group-addon">
                                     <i class="icon-calendar bigger-110"></i>
                                 </span>
                             </div>
                             <div class="input-group bootstrap-timepicker">
-                                <input type="text" class="form-control time-picker">
+                                <input name="time" type="text" class="form-control time-picker" value="<?=empty($item->createdAt) ? '' : $this->tag->datetime($item->createdAt, 'H:i:s')?>">
                                 <span class="input-group-addon">
                                     <i class="icon-time bigger-110"></i>
                                 </span>
+                                <?=$postForm->render('createdAt', array(
+                                ))?>
                             </div>
                         </div>
                     </div>

@@ -75,6 +75,7 @@ $(document).ready(function(){
     $('.time-picker').timepicker({
         minuteStep: 1,
         showSeconds: true,
+        defaultTime : false,
         showMeridian: false
     }).next().on(ace.click_event, function(){
         $(this).prev().focus();
@@ -112,29 +113,31 @@ preview_error : function(filename, error_code) {
     });
 
 
-    /*
-    var editor = new EpicEditor({
-        autogrow : {
-            minHeight : 500,
-            maxHeight : 800
-        },
-        theme: {
-            base: 'http://www.goldtoutiao.com//vendor/js/epiceditor/themes/base/epiceditor.css',
-            preview: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/preview/bartik.css',
-            editor: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/editor/epic-light.css'
-        },
-        button: {
-            preview: false,
-            fullscreen: true,
-            bar: "auto"
-        },
-        string: {
-            togglePreview: '预览(快捷键Alt+p)',
-            toggleEdit: 'Toggle Edit Mode',
-            toggleFullscreen: '全屏(快捷键Alt+f)'
-        },
-    }).load();
-   */
+    $('.markdown-editor').each(function(){
+        var self = this;
+        var editor = new EpicEditor({
+            container : self, 
+            autogrow : {
+                minHeight : 300,
+                maxHeight : $(window).height() - 200
+            },
+            theme: {
+                base: 'http://www.goldtoutiao.com//vendor/js/epiceditor/themes/base/epiceditor.css',
+                preview: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/preview/bartik.css',
+                editor: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/editor/epic-light.css'
+            },
+            button: {
+                preview: false,
+                fullscreen: true,
+                bar: "auto"
+            },
+            string: {
+                togglePreview: '预览(快捷键Alt+p)',
+                toggleEdit: 'Toggle Edit Mode',
+                toggleFullscreen: '全屏(快捷键Alt+f)'
+            },
+        }).load(); 
+    });
 
     $(".tag-input").select2({
         tags:[],

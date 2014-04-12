@@ -75,6 +75,7 @@ class PostForm extends Form
      
     /**
      *
+     * @Type(Hidden)
      * @var integer
      */
     public $createdAt;
