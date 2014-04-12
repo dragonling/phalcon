@@ -6,13 +6,12 @@
     <ul class="breadcrumb">
         <li>
         <i class="icon-home home-icon"></i>
-        <a href="#">Home</a>
+        <a href="/admin/dashboard">Home</a>
         </li>
 
         <li>
-        <a href="#">Forms</a>
+        <a href="/admin/post" class="active">Post List</a>
         </li>
-        <li class="active">Wysiwyg &amp; Markdown</li>
     </ul><!-- .breadcrumb -->
 
     <div class="nav-search" id="nav-search">
@@ -41,8 +40,15 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <form class="form-inline">
-                            <input type="text" name="q" placeholder="Keyword" class="input-small">
-                            <label>Display <select size="1" name="limit"><option selected="selected" value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> records</label>
+                            <div class="form-group">
+                                <input type="text" name="q" placeholder="Keyword" class="input-small">
+                            </div>
+                            <span>
+                                <label for="filter-from-limit">Display</label> 
+                            </span>
+                            <div class="form-group">
+                                <select id="filter-from-limit" size="1" name="limit"><option selected="selected" value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>
+                            </div>
                             <button class="btn btn-info btn-sm" type="submit">
                                 <i class="icon-key bigger-110"></i>
                                 Filter 
@@ -86,63 +92,35 @@
                                 <a href="/admin/post/edit/<?=$item->id?>"><?=$item->title?></a>
                             </td>
                             <td class="hidden-480">
-                                <span class="label label-sm label-success"><?=$item->status?></span>
+                                <?$status = array(
+                                    'draft' => 'label-info',
+                                    'pending' => 'label-warning',
+                                    'deleted' => 'label',
+                                    'published' => 'label-success',
+                                )?>
+                                <span class="label label-sm <?=$status[$item->status]?>"><?=$item->status?></span>
                             </td>
                             <td><?=$item->User->username?></td>
-                            <td><?=$item->createdAt?></td>
-
-
+                            <td><?=$this->tag->datetime($item->createdAt)?></td>
                             <td>
-                                <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                                    <button class="btn btn-xs btn-success">
+                                <div class="btn-group">
+                                    <button class="btn btn-xs btn-success ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/status/<?=$item->id?>" data-callback="window.location.reload();">
+                                        <input type="hidden" data-name="status" value="published" >
                                         <i class="icon-ok bigger-120"></i>
                                     </button>
 
-                                    <button class="btn btn-xs btn-info">
+                                    <a class="btn btn-xs btn-info" href="/admin/post/edit/<?=$item->id?>">
                                         <i class="icon-edit bigger-120"></i>
+                                    </a>
+
+                                    <button class="btn btn-xs btn-warning ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/status/<?=$item->id?>" data-callback="window.location.reload();">
+                                        <input type="hidden" data-name="status" value="pending" >
+                                        <i class="icon-eye-close bigger-120"></i>
                                     </button>
 
-                                    <button class="btn btn-xs btn-danger">
+                                    <button class="btn btn-xs btn-danger ajax-form-sumbit" data-ajax-form="1" date-method="delete" data-form-action="/admin/post/delete/<?=$item->id?>" data-confirm="1" data-confirm-message="<?=sprintf('Item %s will be deleted, are you sure?', $item->title)?>" data-callback="form.closest('tr').hide();">
                                         <i class="icon-trash bigger-120"></i>
                                     </button>
-
-                                    <button class="btn btn-xs btn-warning">
-                                        <i class="icon-flag bigger-120"></i>
-                                    </button>
-                                </div>
-
-                                <div class="visible-xs visible-sm hidden-md hidden-lg">
-                                    <div class="inline position-relative">
-                                        <button data-toggle="dropdown" class="btn btn-minier btn-primary dropdown-toggle">
-                                            <i class="icon-cog icon-only bigger-110"></i>
-                                        </button>
-
-                                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
-                                            <li>
-                                            <a title="View" data-rel="tooltip" class="tooltip-info" href="#">
-                                                <span class="blue">
-                                                    <i class="icon-zoom-in bigger-120"></i>
-                                                </span>
-                                            </a>
-                                            </li>
-
-                                            <li>
-                                            <a title="Edit" data-rel="tooltip" class="tooltip-success" href="#">
-                                                <span class="green">
-                                                    <i class="icon-edit bigger-120"></i>
-                                                </span>
-                                            </a>
-                                            </li>
-
-                                            <li>
-                                            <a title="Delete" data-rel="tooltip" class="tooltip-error" href="#">
-                                                <span class="red">
-                                                    <i class="icon-trash bigger-120"></i>
-                                                </span>
-                                            </a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -152,9 +130,7 @@
 
                 <div class="row">
                     <div class="col-sm-6">
-
-<table border="0" cellspacing="0" cellpadding="0" style="float:left;table-layout:auto;" class="ui-pg-table navtable"><tbody><tr><td class="ui-pg-button ui-corner-all" title="" id="add_grid-table" data-original-title="Add new row"><div class="ui-pg-div"><span class="ui-icon icon-plus-sign purple"></span></div></td><td class="ui-pg-button ui-corner-all" title="" id="edit_grid-table" data-original-title="Edit selected row"><div class="ui-pg-div"><span class="ui-icon icon-pencil blue"></span></div></td><td class="ui-pg-button ui-corner-all" title="" id="view_grid-table" data-original-title="View selected row"><div class="ui-pg-div"><span class="ui-icon icon-zoom-in grey"></span></div></td><td class="ui-pg-button ui-corner-all" title="" id="del_grid-table" data-original-title="Delete selected row"><div class="ui-pg-div"><span class="ui-icon icon-trash red"></span></div></td><td style="width:4px;" class="ui-pg-button ui-state-disabled" data-original-title="" title=""><span class="ui-separator"></span></td><td class="ui-pg-button ui-corner-all" title="" id="search_grid-table" data-original-title="Find records"><div class="ui-pg-div"><span class="ui-icon icon-search orange"></span></div></td><td class="ui-pg-button ui-corner-all" title="" id="refresh_grid-table" data-original-title="Reload Grid"><div class="ui-pg-div"><span class="ui-icon icon-refresh green"></span></div></td></tr></tbody></table>
-
+                        <span class="ui-pg-button ui-corner-all" title="" id="del_grid-table" data-original-title="Delete selected row"><div class="ui-pg-div"><span class="ui-icon icon-trash red"></span></div></span>
                     </div>
                     <div class="col-sm-6">
                         <div class="dataTables_paginate">

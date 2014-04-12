@@ -37,7 +37,6 @@ class CategoryController extends ControllerBase
 
     public function createAction()
     {
-
         $form = new \Eva\EvaBlog\Forms\CategoryForm();
         $category = new Models\Category();
         $form->setModel($category);

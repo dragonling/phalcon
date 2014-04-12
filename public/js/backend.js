@@ -212,9 +212,14 @@ $('*[data-ajax-form]').each(function(){
         if(form.attr('data-confirm') && !confirm(form.attr('data-confirm-message'))) {
             return false;
         }
+        var data = {};
+        form.find('input[data-name]').each(function(){
+            data[$(this).attr('data-name')] = $(this).val();
+        });
         $.ajax({
             url : form.attr('data-form-action'),
             type : form.attr('date-method'),
+            data : data,
             success : function(){
                 if(form.attr('data-callback')) {
                     console.log(form.attr('data-callback'));

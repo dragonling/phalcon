@@ -67,13 +67,10 @@ class PostController extends ControllerBase
 
     public function editAction()
     {
-        $this->view->setTemplateAfter('admin');
-        $this->view->pick('post/create');
+        $this->view->changeRender('admin/post/create');
 
         $post = new Models\Post();
-
         $postinfo = $post->findFirst($this->dispatcher->getParam('id'));
-
         $postForm = new \Eva\EvaBlog\Forms\PostForm();
         $postForm->setModel($postinfo);
         $this->view->setVar('postForm', $postForm);
@@ -83,5 +80,61 @@ class PostController extends ControllerBase
         $textForm->setPrefix('Text');
         $this->view->setVar('textForm', $textForm);
     
+    }
+
+    public function deleteAction()
+    {
+        if(!$this->request->isDelete()){
+            $this->response->setStatusCode('405', 'Method Not Allowed');
+            $this->response->setContentType('application/json', 'utf-8');
+            return $this->response->setJsonContent(array(
+                'errors' => array(
+                    array(
+                        'code' => 405,
+                        'message' => 'ERR_POST_REQUEST_METHOD_NOT_ALLOW'
+                    )
+                ),
+            ));
+        }
+
+        $id = $this->dispatcher->getParam('id');
+        $post =  Models\Post::findFirst($id); 
+        try {
+            $post->delete();
+        } catch(\Exception $e) {
+            return $this->jsonErrorHandler($e, $post->getMessages());
+        }
+
+        $this->response->setContentType('application/json', 'utf-8');
+        return $this->response->setJsonContent($post);
+    }
+
+    public function statusAction()
+    {
+        if(!$this->request->isPut()){
+            $this->response->setStatusCode('405', 'Method Not Allowed');
+            $this->response->setContentType('application/json', 'utf-8');
+            return $this->response->setJsonContent(array(
+                'errors' => array(
+                    array(
+                        'code' => 405,
+                        'message' => 'ERR_POST_REQUEST_METHOD_NOT_ALLOW'
+                    )
+                ),
+            ));
+        }
+
+        $id = $this->dispatcher->getParam('id');
+        $post =  Models\Post::findFirst($id); 
+        try {
+
+            $post->status = $this->request->getPut('status');
+            $post->save();
+        } catch(\Exception $e) {
+            return $this->jsonErrorHandler($e, $post->getMessages());
+        }
+
+        $this->response->setContentType('application/json', 'utf-8');
+        return $this->response->setJsonContent($post);
     }
 }
