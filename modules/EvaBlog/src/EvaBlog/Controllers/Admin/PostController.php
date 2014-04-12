@@ -127,7 +127,6 @@ class PostController extends ControllerBase
         $id = $this->dispatcher->getParam('id');
         $post =  Models\Post::findFirst($id); 
         try {
-
             $post->status = $this->request->getPut('status');
             $post->save();
         } catch(\Exception $e) {
@@ -136,5 +135,46 @@ class PostController extends ControllerBase
 
         $this->response->setContentType('application/json', 'utf-8');
         return $this->response->setJsonContent($post);
+    }
+
+    public function batchAction()
+    {
+        if(!$this->request->isPut()){
+            $this->response->setStatusCode('405', 'Method Not Allowed');
+            $this->response->setContentType('application/json', 'utf-8');
+            return $this->response->setJsonContent(array(
+                'errors' => array(
+                    array(
+                        'code' => 405,
+                        'message' => 'ERR_POST_REQUEST_METHOD_NOT_ALLOW'
+                    )
+                ),
+            ));
+        }
+
+        $idArray = $this->request->getPut('id');
+        if(!is_array($idArray) || count($idArray) < 1) {
+            return false;
+        }
+        $status = $this->request->getPut('status');
+        $posts = array();
+
+        try {
+            foreach($idArray as $id) {
+                $post =  Models\Post::findFirst($id);
+                if($post) {
+                    $post->status = $status;
+                    $post->save();
+                    $posts[] = $post;
+                }
+            }
+
+        } catch(\Exception $e) {
+            return $this->jsonErrorHandler($e, $post->getMessages());
+        }
+
+        $this->response->setContentType('application/json', 'utf-8');
+        return $this->response->setJsonContent($posts);
+    
     }
 }

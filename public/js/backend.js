@@ -229,3 +229,47 @@ $('*[data-ajax-form]').each(function(){
         })
     });
 });
+
+$('*[data-batch-form]').each(function(){
+    var form = $(this);
+    var submiter = form.hasClass('ajax-form-sumbit') ? form : null;
+    if(!submiter) {
+        var submiter = form.find('.ajax-form-sumbit');
+    }
+    submiter.on('click', function(){
+        var source = $(form.attr('data-source-selectors'));
+        if(!source[0]) {
+            return false;
+        }
+
+        var data = {};
+        var sourceName = form.attr('data-source-name');
+        data[sourceName] = [];
+        source.each(function(){
+            if($(this).is(':checked')) {
+                data[sourceName].push($(this).val());
+            }
+        });
+        if(data[sourceName].length < 1) {
+            return false;
+        }
+
+        if(form.attr('data-confirm') && !confirm(form.attr('data-confirm-message'))) {
+            return false;
+        }
+        form.find('input[data-name]').each(function(){
+            data[$(this).attr('data-name')] = $(this).val();
+        });
+
+        $.ajax({
+            url : form.attr('data-form-action'),
+            type : form.attr('date-method'),
+            data : data,
+            success : function(){
+                if(form.attr('data-callback')) {
+                    eval(form.attr('data-callback'));
+                }
+            }
+        })
+    });
+});
