@@ -100,7 +100,7 @@
                                 )?>
                                 <span class="label label-sm <?=$status[$item->status]?>"><?=$item->status?></span>
                             </td>
-                            <td><?=$item->User->username?></td>
+                            <td><?=$item->User ? $item->User->username : ''?></td>
                             <td><?=$this->tag->datetime($item->createdAt)?></td>
                             <td>
                                 <div class="btn-group">

@@ -2,16 +2,8 @@
 namespace Eva\EvaBlog\Forms;
 
 use Eva\EvaEngine\Form;
-use Phalcon\Forms\Element\Text;
-use Phalcon\Forms\Element\Hidden;
-use Phalcon\Forms\Element\Password;
-use Phalcon\Forms\Element\Submit;
 use Phalcon\Forms\Element\Check;
-use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Email;
-use Phalcon\Validation\Validator\Identical;
-use Phalcon\Validation\Validator\StringLength;
-use Phalcon\Validation\Validator\Confirmation;
+use Eva\EvaBlog\Models;
 
 class PostForm extends Form
 {
@@ -89,6 +81,7 @@ class PostForm extends Form
      
     /**
      *
+     * @Type(Hidden)
      * @var integer
      */
     public $user_id;
@@ -143,20 +136,60 @@ class PostForm extends Form
      
     /**
      *
+     * @Type(Hidden)
      * @var integer
      */
     public $image_id;
      
     /**
-     *
+     * @Type(Hidden)
      * @var string
      */
     public $image;
      
     /**
      *
+     * @Type(TextArea)
      * @var string
      */
     public $summary;
+
+    protected $categories;
+
+    public function getCategories()
+    {
+        if($this->categories) {
+            return $this->categories;
+        }
+        $category = new Models\Category();
+        $categories = $category->find(array(
+            "order" => "id DESC",
+            "limit" => 100
+        ));
+
+
+        $post = $this->getModel();
+        $values = array();
+        if($post && $post->Categories) {
+            foreach($post->Categories as $categoryitem) {
+                $values[] = $categoryitem->id;
+            }
+        }
+        foreach($categories as $key => $item) {
+            $check = new Check('Categories[]', array(
+                'value' => $item->id
+            ));
+            if(in_array($item->id, $values)) {
+                $check->setDefault($item->id);
+            }
+            $check->setLabel($item->categoryName);
+            $this->categories[] = $check;
+        }
+        return $this->categories;
+    }
+
+    public function initialize($entity = null, $options = null)
+    {
+    }
 
 }

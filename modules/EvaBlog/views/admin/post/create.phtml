@@ -28,7 +28,11 @@
 <form id="" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
     <div class="page-content">
         <div class="page-header">
+            <?if(empty($item->id)):?>
             <h1>Write New Post</h1>
+            <?else:?>
+            <h1>Edit Post</h1>
+            <?endif?>
         </div><!-- /.page-header -->
 
         <div class="row">
@@ -54,34 +58,56 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="widget-box transparent">
+                        <div class="widget-header">
+                            <h4 class="lighter">Content</h4>
+
+                            <div class="widget-toolbar no-border">
+                                <ul id="switch-code" class="nav nav-tabs">
+                                    <li class="active">
+                                    <a href="#format-markdown" data-toggle="tab">Markdown</a>
+                                    </li>
+                                    <li>
+                                    <a href="#format-html" data-toggle="tab">Html</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!--widget box end-->
+
                     <label class="block clearfix">
                         <div>
-                            <button id="test">test</button>
                             <?=$textForm->render('content', array(
                                 'class' => 'form-control ',
                                 'class' => 'form-control wysiwyg',
                                 'rows' => 12,
                                 'required' => 'required',
                             ))?>
+                            <?=$postForm->render('sourceCode', array(
+                            ))?>
+                        </div>
+                            <button id="test">test</button>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="block clearfix">
+                        Summary
+                        <div>
+                            <?=$postForm->render('summary', array(
+                                'class' => 'form-control ',
+                                'rows' => 3,
+                            ))?>
                         </div>
                     </label>
                 </div>
 
-                <!--
-                <div class="clearfix form-actions">
-                    <button type="submit" class="btn btn-info">
-                        <i class="icon-ok bigger-110"></i>
-                        Submit
-                    </button>
-                </div>
-                <div class="hr hr-double dotted"></div>
-                -->
             </div><!-- /.col -->
             <div class="col-xs-3">
 
                 <div class="widget-box">
                     <div class="widget-header widget-header-small">
-                        <h4>Publish</h4>
+                        <h5 class="lighter">Publish</h5>
                         <span class="widget-toolbar">
                             <a data-action="collapse" href="#">
                                 <i class="icon-chevron-up"></i>
@@ -95,10 +121,12 @@
                                     'class' => 'form-control',
                                 ))?>
                             </fieldset>
-
-
                         </div>
                         <div class="clearfix form-actions no-margin">
+                            <button type="submit" class="btn">
+                                <i class="icon-save"></i>
+                                Save Draft
+                            </button>
                             <button type="submit" class="btn btn-info">
                                 <i class="icon-ok"></i>
                                 Publish
@@ -110,7 +138,7 @@
                 <div class="hr hr-double dotted"></div>
                 <div class="widget-box">
                     <div class="widget-header widget-header-small">
-                        <h4>Image</h4>
+                        <h5 class="lighter">Image</h5>
                         <span class="widget-toolbar">
                             <a data-action="collapse" href="#">
                                 <i class="icon-chevron-up"></i>
@@ -145,18 +173,17 @@
                     <div class="widget-body">
                         <div class="widget-main">
                             <div class="control-group">
+                                <?$categories = $postForm->getCategories()?>
+                                <?foreach($categories as $key => $category):?>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" class="ace" name="form-field-checkbox">
-                                        <span class="lbl"> choice 1</span>
+                                        <?=$category->render(array(
+                                            'class' => 'ace',
+                                        ))?>
+                                        <span class="lbl"> <?=$category->getLabel()?></span>
                                     </label>
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" class="ace" name="form-field-checkbox">
-                                        <span class="lbl"> choice 2</span>
-                                    </label>
-                                </div>
+                                <?endforeach?>
                             </div>
 
                         </div>
@@ -168,15 +195,17 @@
                 <div class="widget-box">
                     <div class="widget-header widget-header-small">
                         <h5 class="lighter">Tags</h5>
-                        <a data-action="collapse" href="#">
-                            <i class="icon-chevron-up"></i>
-                        </a>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-up"></i>
+                            </a>
+                        </span>
                     </div>
 
                     <div class="widget-body">
                         <div class="widget-main">
                             <div class="form-group">
-                                <input type="text" placeholder="Enter Tags ..." value="" name="tags" class="tag-input form-control">
+                                <input type="text" placeholder="Enter Tags ..." value="<?=$item->getTagString()?>" name="Tags" class="tag-input form-control">
                             </div>
                         </div>
                     </div>
@@ -186,9 +215,11 @@
                 <div class="widget-box">
                     <div class="widget-header widget-header-small">
                         <h5 class="lighter">Publish Time</h5>
-                        <a data-action="collapse" href="#">
-                            <i class="icon-chevron-up"></i>
-                        </a>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-up"></i>
+                            </a>
+                        </span>
                     </div>
 
                     <div class="widget-body">
@@ -204,6 +235,31 @@
                                 <span class="input-group-addon">
                                     <i class="icon-time bigger-110"></i>
                                 </span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--widgex box-->
+
+                <div class="hr hr-double dotted"></div>
+                <div class="widget-box">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="lighter">Change Author</h5>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-up"></i>
+                            </a>
+                        </span>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="control-group">
+                                <label class="block clearfix">
+                                    <?=$postForm->render('username', array(
+                                        'class' => 'form-control',
+                                        'placeholder' => 'Use current user with no fill',
+                                    ))?>
+                                </label>
                             </div>
                         </div>
                     </div>

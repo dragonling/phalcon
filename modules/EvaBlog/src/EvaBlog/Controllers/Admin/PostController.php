@@ -39,9 +39,11 @@ class PostController extends ControllerBase
 
     public function createAction()
     {
+        $post = new Models\Post();
         $postForm = new \Eva\EvaBlog\Forms\PostForm();
-        $postForm->setModel(new Models\Post());
+        $postForm->setModel($post);
         $this->view->setVar('postForm', $postForm);
+        $this->view->setVar('item', $post);
 
         $textForm = new \Eva\EvaBlog\Forms\TextForm();
         $textForm->setModel(new Models\Text());
@@ -52,34 +54,31 @@ class PostController extends ControllerBase
             return false;
         }
         $data = $this->request->getPost();
-        $textData = $data['Text'];
-        //unset($data['Text']);
-        $post = new Models\Post();
-        $text = new Models\Text();
-        $post->Text = $text;
-        $post->assign($data);
-        $text->assign($textData);
-        if(!$post->save()) {
-            p($post->getMessages());
-            exit;
+
+        try {
+            $post->createPost($data);
+        } catch(\Exception $e) {
+            return $this->errorHandler($e, $post->getMessages());
         }
+        $this->flashSession->success('SUCCESS_POST_UPDATED');
+        return $this->redirectHandler('/admin/post/edit/' . $post->id);
     }
 
     public function editAction()
     {
         $this->view->changeRender('admin/post/create');
 
-        $post = new Models\Post();
-        $postinfo = $post->findFirst($this->dispatcher->getParam('id'));
+        $post = Models\Post::findFirst($this->dispatcher->getParam('id'));
         $postForm = new \Eva\EvaBlog\Forms\PostForm();
-        $postForm->setModel($postinfo);
+        $postForm->setModel($post ? $post : new Models\Post());
         $this->view->setVar('postForm', $postForm);
 
         $textForm = new \Eva\EvaBlog\Forms\TextForm();
-        $textForm->setModel($postinfo->Text);
+        $textForm->setModel($post->Text);
         $textForm->setPrefix('Text');
         $this->view->setVar('textForm', $textForm);
-    
+
+        $this->view->setVar('item', $post);
     }
 
     public function deleteAction()

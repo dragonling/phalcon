@@ -24,25 +24,25 @@ class Tags extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $parentId;
+    public $parentId = 0;
      
     /**
      *
      * @var integer
      */
-    public $rootId;
+    public $rootId = 0;
      
     /**
      *
      * @var integer
      */
-    public $sortOrder;
+    public $sortOrder = 0;
      
     /**
      *
      * @var integer
      */
-    public $count;
+     public $count = 0;
      
     /**
      * Independent Column Mapping.
