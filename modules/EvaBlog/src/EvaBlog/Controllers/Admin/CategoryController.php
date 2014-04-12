@@ -23,11 +23,16 @@ class CategoryController extends ControllerBase
         ));
         $paginator = new \Eva\EvaEngine\Paginator(array(
             "data" => $items,
-            "limit"=> $limit,
+            "limit"=> 500,
             "page" => $currentPage
         ));
         $pager = $paginator->getPaginate();
         $this->view->setVar('pager', $pager);
+    }
+
+    public function treeAction()
+    {
+    
     }
 
     public function createAction()
@@ -83,5 +88,32 @@ class CategoryController extends ControllerBase
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_UPDATED');
         return $this->redirectHandler('/admin/category/edit/' . $category->id);
+    }
+
+    public function deleteAction()
+    {
+        if(!$this->request->isDelete()){
+            $this->response->setStatusCode('405', 'Method Not Allowed');
+            $this->response->setContentType('application/json', 'utf-8');
+            return $this->response->setJsonContent(array(
+                'errors' => array(
+                    array(
+                        'code' => 405,
+                        'message' => 'ERR_POST_REQUEST_METHOD_NOT_ALLOW'
+                    )
+                ),
+            ));
+        }
+
+        $id = $this->dispatcher->getParam('id');
+        $category =  Models\Category::findFirst($id); 
+        try {
+            $category->delete();
+        } catch(\Exception $e) {
+            return $this->jsonErrorHandler($e, $category->getMessages());
+        }
+
+        $this->response->setContentType('application/json', 'utf-8');
+        return $this->response->setJsonContent($category);
     }
 }

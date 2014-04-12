@@ -201,3 +201,26 @@ preview_error : function(filename, error_code) {
 
 });
 
+
+$('*[data-ajax-form]').each(function(){
+    var form = $(this);
+    var submiter = form.hasClass('ajax-form-sumbit') ? form : null;
+    if(!submiter) {
+        var submiter = form.find('.ajax-form-sumbit');
+    }
+    submiter.on('click', function(){
+        if(form.attr('data-confirm') && !confirm(form.attr('data-confirm-message'))) {
+            return false;
+        }
+        $.ajax({
+            url : form.attr('data-form-action'),
+            type : form.attr('date-method'),
+            success : function(){
+                if(form.attr('data-callback')) {
+                    console.log(form.attr('data-callback'));
+                    eval(form.attr('data-callback'));
+                }
+            }
+        })
+    });
+});

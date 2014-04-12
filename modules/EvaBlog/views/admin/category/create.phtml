@@ -162,9 +162,16 @@
                     </div>
                     <div class="widget-body">
                         <div class="widget-main">
+                            <?if(empty($item->id)):?>
                             <?=$form->render('parentId', array(
                                 'class' => 'select2 form-control',
                             ))?>
+                            <?else:?>
+                            <?=$form->render('parentId', array(
+                                'class' => 'select2 form-control',
+                                'disabled' => 'disabled',
+                            ))?>
+                            <?endif?>
                         </div>
                     </div>
                 </div><!--widgex box-->
