@@ -77,8 +77,21 @@ class PostController extends ControllerBase
         $textForm->setModel($post->Text);
         $textForm->setPrefix('Text');
         $this->view->setVar('textForm', $textForm);
-
         $this->view->setVar('item', $post);
+
+        if(!$this->request->isPost()){
+            return false;
+        }
+        $data = $this->request->getPost();
+
+        try {
+            $post->updatePost($data);
+        } catch(\Exception $e) {
+            return $this->errorHandler($e, $post->getMessages());
+        }
+        $this->flashSession->success('SUCCESS_POST_UPDATED');
+        return $this->redirectHandler('/admin/post/edit/' . $post->id);
+
     }
 
     public function deleteAction()
@@ -97,9 +110,9 @@ class PostController extends ControllerBase
         }
 
         $id = $this->dispatcher->getParam('id');
-        $post =  Models\Post::findFirst($id); 
+        $post =  new Models\Post();
         try {
-            $post->delete();
+            $post->remotePost($id);
         } catch(\Exception $e) {
             return $this->jsonErrorHandler($e, $post->getMessages());
         }

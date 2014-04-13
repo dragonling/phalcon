@@ -188,6 +188,13 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'alias' => 'User'
         ));
 
+        $this->hasMany(
+            'id',
+            'Eva\EvaBlog\Entities\CategoriesPosts',
+            'post_id',
+            array('alias' => 'CategoriesPosts')
+        );
+
         $this->hasManyToMany(
             'id',
             'Eva\EvaBlog\Entities\CategoriesPosts',
@@ -196,6 +203,13 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'Eva\EvaBlog\Entities\Categories',
             'id',
             array('alias' => 'Categories')
+        );
+
+        $this->hasMany(
+            'id',
+            'Eva\EvaBlog\Entities\TagsPosts',
+            'post_id',
+            array('alias' => 'TagsPosts')
         );
 
         $this->hasManyToMany(
