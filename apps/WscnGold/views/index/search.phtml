@@ -1,0 +1,108 @@
+<div class="row relative">
+    <div class="span8">
+        <div id="main">
+            <div class="search-result list">
+                <h2 class="title">正在搜索关键字“<span class="keyword">360</span>”，一共找到<span class="amount">2586</span>个结果</h2>
+                <ul class="content">
+                    <li class="item">
+                        <a class="title" href="/">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
+                        <div class="info">2014-03-04 07:00 </div>
+                        <p class="summary">
+                            摘要：<span class="keyword">360</span>智键是由两位去年入职<span class="keyword">360</span>的90后大学生，网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
+                        </p>
+                    </li>
+                    <li class="item">
+                        <a class="title" href="/">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
+                        <div class="info">2014-03-04 07:00 </div>
+                        <p class="summary">
+                            摘要：<span class="keyword">360</span>智键是由两位去年入职<span class="keyword">360</span>的90后大学生，网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
+                        </p>
+                    </li>
+                    <li class="item">
+                        <a class="title" href="/">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
+                        <div class="info">2014-03-04 07:00 </div>
+                        <p class="summary">
+                            摘要：<span class="keyword">360</span>智键是由两位去年入职<span class="keyword">360</span>的90后大学生，网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
+                        </p>
+                    </li>
+                    <li class="item">
+                        <a class="title" href="/">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
+                        <div class="info">2014-03-04 07:00 </div>
+                        <p class="summary">
+                            摘要：<span class="keyword">360</span>智键是由两位去年入职<span class="keyword">360</span>的90后大学生，网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
+                        </p>
+                    </li>
+                    <li class="item">
+                        <a class="title" href="/">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
+                        <div class="info">2014-03-04 07:00 </div>
+                        <p class="summary">
+                            摘要：<span class="keyword">360</span>智键是由两位去年入职<span class="keyword">360</span>的90后大学生，网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
+                        </p>
+                    </li>
+                    <li class="item">
+                        <a class="title" href="/">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
+                        <div class="info">2014-03-04 07:00 </div>
+                        <p class="summary">
+                            摘要：<span class="keyword">360</span>智键是由两位去年入职<span class="keyword">360</span>的90后大学生，网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
+                        </p>
+                    </li>
+                </ul>
+                <div class="toolbar paging">
+                    <div class="button" data-action="prev-page"><i class="icon-caret-left"></i> 上一页</div>
+                    <div class="button active">1</div>
+                    <div class="button">2</div>
+                    <div class="button">3</div>
+                    <div class="button">4</div>
+                    <div class="button">5</div>
+                    <div class="button">6</div>
+                    <div class="button">7</div>
+                    <div class="button">8</div>
+                    <div class="button">9</div>
+                    <div class="button">10</div>
+                    <div class="button" data-action="next-page">下一页 <i class="icon-caret-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="sidebar" class="span4">
+        <h2 class="title">财经日历</h2>
+        <div id="side-fcl" class="nano finance-calendar scrollable list type1" data-fcl-option="auto-scroll:true;">
+            <div class="titlebar">
+                据下次数据公布时间还有：<span class="clock"></span>
+            </div>
+            <ul class="nano-content content"></ul>
+            <script type="text/template" data-template>
+                <% for(var i=0; i<records.length; i++) { %>
+                    <% var record = records[i]; %>
+                    <% if (i == 0 || record.date.charAt(9) != records[i-1].date.charAt(9)) { %>
+                        <li class="date" data-date="<%= record.date %>"><%= record.date %></li>
+                    <% } %>
+                    <li id="<%= record.id %>" class="item" data-trend="<%= record.trend %>" data-utm="<%= record.utm %>">
+                        <div class="row">
+                            <div class="span3 meta">
+                                <span class="time"><%= record.time %></span>
+                            </div>
+                            <div class="span8">
+                                <a class="link" href=""><%= record.title %></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span3 actual meta">
+                                <span class="label">今值：</span>
+                                <span class="value"><%= record.actual %></span>
+                            </div>
+                            <div class="span3 forecast meta">
+                                <span class="label">预测：</span>
+                                <span class="value"><%= record.forecast %></span>
+                            </div>
+                            <div class="span3 previous meta">
+                                <span class="label">前值：</span>
+                                <span class="value"><%= record.previous %></span>
+                            </div>
+                        </div>
+                    </li>
+                <% } %>
+            </script>
+        </div>
+    </div>
+</div>

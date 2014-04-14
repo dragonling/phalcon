@@ -17,6 +17,30 @@ class IndexController extends ControllerBase
     {
     }
 
+    public function articleAction()
+    {
+    }
+
+    public function newsListAction()
+    {
+    }
+
+    public function tutorialAction()
+    {
+    }
+
+    public function livenewsListAction()
+    {
+    }
+
+    public function articleListAction()
+    {
+    }
+
+    public function searchAction()
+    {
+    }
+
     public function abcAction()
     {
     }

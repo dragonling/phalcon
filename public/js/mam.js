@@ -35,9 +35,11 @@ var mam = {
         } else {
             var $active = $('#analysis [data-ma-target][data-ma-symbol].active');
         }
-        var symbol = $active.attr('data-ma-symbol');
-        var $target = $($active.attr('data-ma-target'));
-        this.showData(symbol, $target);
+        if ($active && $active.length) {
+            var symbol = $active.attr('data-ma-symbol');
+            var $target = $($active.attr('data-ma-target'));
+            this.showData(symbol, $target);
+        }
     },
 
     showData: function(symbol, $target) {

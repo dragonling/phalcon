@@ -106,7 +106,21 @@ var tool = {
                 var item = array[l];
                 var index = item.indexOf(':');
                 if (index > -1 && (index < item.length - 1)) {
-                    obj[item.substring(0, index)] = item.substring(index+1);
+                    var key = item.substring(0, index);
+                    key = key.replace(/-\w/g, function(word) {
+                        return word.charAt(1).toUpperCase();
+                    });
+                    var value = item.substring(index+1);
+                    //todo 类型转换？number
+                    switch (value) {
+                        case 'true':
+                            value = true;
+                            break;
+                        case 'false':
+                            value = false;
+                            break;
+                    }
+                    obj[key] = value;
                 }
             }
             return obj;
