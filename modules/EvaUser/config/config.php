@@ -17,6 +17,18 @@ return array(
     ),   
 
     'routes' => array(
+        '/admin/user' =>  array(
+            'module' => 'EvaUser',
+            'controller' => 'Admin\User',
+        ),
+
+        '/admin/user/:action(/(\d+))*' =>  array(
+            'module' => 'EvaUser',
+            'controller' => 'Admin\User',
+            'action' => 1,
+            'id' => 3,
+        ),
+
         '/admin/register' => array(
             'module' => 'EvaUser',
             'controller' => 'Admin\Register',

@@ -2,28 +2,35 @@
 
 namespace Eva\EvaUser\Controllers\Admin;
 
+use Eva\EvaUser\Models;
 
-use Phalcon\Mvc\Model\Criteria;
-use Phalcon\Paginator\Adapter\Model as Paginator;
-
-class UserController extends ControllerBase
+class UserController extends AdminControllerBase
 {
 
     /**
      * Index action
      */
-    public function indexAction()
-    {
-        //$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_LAYOUT);
-        //$this->view->setLayoutsDir('D:\xampp\htdocs\phalcon\modules\EvaCore\layouts');
-        $this->view->setLayout('admin');
-        $this->view->setViewsDir($this->view->getViewsDir() . '_admin/');
+     public function indexAction()
+     {
+        $currentPage = $this->request->getQuery('page', 'int'); // GET
+        $limit = $this->request->getQuery('limit', 'int');
+        $limit = $limit > 50 ? 50 : $limit;
+        $limit = $limit < 10 ? 10 : $limit;
 
-        $this->view->setTemplateAfter('admin');
-        $this->view->setVars(array(
-            'title' => 'abc'
+        $posts = Models\UserManager::find(array(
+            'order' => 'id DESC',
         ));
-        $this->view->pick('user/index');
+        $paginator = new \Eva\EvaEngine\Paginator(array(
+            "data" => $posts,
+            "limit"=> $limit,
+            "page" => $currentPage
+        ));
+        $paginator->setQuery(array(
+            'limit' => $limit,
+        ));
+        $pager = $paginator->getPaginate();
+        $this->view->setVar('pager', $pager);
     }
+
 
 }
