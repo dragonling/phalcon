@@ -26,6 +26,26 @@ $.noty.defaults = {
 };
 
 $(document).ready(function(){
+    var path = new Uri(window.location).path();
+    $(".tobe-highlight").each(function(){
+        var item = $(this),
+        pattern = item.attr("data-highlight-url");
+        if(!pattern) {
+            return;
+        }
+        pattern = pattern.replace(/\//g,"\\/");
+            var reg = new RegExp(pattern),
+        res = reg.exec(path);
+
+        item.removeClass('active');
+        if(res) {
+            var callback = item.attr('data-highlight-callback');
+            item.addClass("active");
+            item.parent().show();
+            item.parentsUntil('li').parent().addClass('open');
+        }
+    });
+
     //form validation
     $('form').parsley({
         successClass: "has-success",
@@ -275,4 +295,9 @@ $('*[data-batch-form]').each(function(){
             }
         })
     });
+
+
+
 });
+
+
