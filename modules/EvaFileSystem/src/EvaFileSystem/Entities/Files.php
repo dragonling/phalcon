@@ -147,4 +147,12 @@ class Files extends \Eva\EvaEngine\Mvc\Model
             'createdAt' => 'createdAt'
         );
     }
+
+
+    public function initialize()
+    {
+        $this->belongsTo('user_id', 'Eva\EvaUser\Entities\Users', 'id', array(
+            'alias' => 'User'
+        ));
+    }
 }
