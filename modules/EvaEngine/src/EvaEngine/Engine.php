@@ -117,13 +117,21 @@ class Engine
         });
 
         $di->set('router', function () use ($di) {
-            $config = $di->get('config');
+            $moduleManager = $di->get('moduleManager');
+
+            $config = new \Phalcon\Config();
+            if($moduleManager && $modulesArray = $moduleManager->getModules()) {
+                foreach($modulesArray as $moduleName => $module) {
+                    $config->merge(new \Phalcon\Config($moduleManager->getModuleRoutesBackend($moduleName)));
+                    $config->merge(new \Phalcon\Config($moduleManager->getModuleRoutesFrontend($moduleName)));
+                }
+            }
+
             $router = new Router();
             $router->removeExtraSlashes(true);
-            if(isset($config->routes)) {
-                foreach($config->routes as $url => $route) {
-                    $router->add($url, $route->toArray());
-                }
+            $config = $config->toArray();
+            foreach($config as $url => $route) {
+                $router->add($url, $route);
             }
             return $router;
         });
