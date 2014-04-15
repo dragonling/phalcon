@@ -407,7 +407,6 @@ html {
     letter-spacing:0.5px;
 }
 
-//fix bootstrap
 blockquote p {
     font-size:14px;
 }
@@ -480,7 +479,7 @@ del {
     text-decoration: line-through;
 }
 
-address, caption, cite, code, den, em, th, var {
+address, caption, cite, code, del, em, th, var {
     font-style: normal;
     font-weight: 500;
 }

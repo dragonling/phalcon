@@ -75,9 +75,7 @@ $(function(){
     //
     $('#main-livenews').lnl();
     //
-    $('#side-fcl').fcl({
-        autoScroll: false
-    });
+    $('#side-fcl').fcl();
     //
     mam.init();
     /**
@@ -106,7 +104,9 @@ $(function(){
         return false;
 
     });
-
+    /**
+     *
+     */
     $(document).on('click.tab', '.tab', function(e){
         var $tab = $(this);
         var $tabbar = $tab.parent();
@@ -123,6 +123,40 @@ $(function(){
         $tab.addClass('active');
         $panel.addClass('active');
         e.preventDefault();
+    });
+    /**
+     *
+     */
+    $(document).on('click.menu', '[data-toggle=menu]', function(e){
+        var $this = $(this);
+        var $parent = $this.parent();
+        if ($parent.hasClass('active')) {
+            $parent.removeClass('active');
+            return false;
+        }
+        var $parents = $this.parents('.item.active');
+        var $menu = $this.parents('.menu');
+        var $active = $menu.find('.item.active');
+        if ($active.length) {
+            if ($parents.length) {
+                var array = $.grep($active, function(dom, i){
+                    var l = $parents.length - 1;
+                    for (l; l>-1; l--) {
+                        if (dom.innerHTML == $parents[l].innerHTML) {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
+                for (var i=0; i<array.length; i++) {
+                    $(array[i]).removeClass('active');
+                }
+            } else {
+                $active.removeClass('active');
+            }
+        }
+        $parent.addClass('active');
+        return false;
     });
 
     /*

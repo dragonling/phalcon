@@ -243,16 +243,19 @@
 
 
     $.fn.lnl = function(inputOptions) {
-        var $this = this;
-        if ($this.attr('data-init') === 'initialized') {
+        if (! this.length) {
             return;
         }
+        if (this.attr('data-init') === 'initialized') {
+            return;
+        }
+        var $this = this;
         $this.attr('data-init', 'initialized');
         var options = {
             $target: $this
         };
         var domOptions = {};
-        var str = $this.attr('data-lnl-options');
+        var str = $this.attr('data-lnl-option');
         if (str) {
             domOptions = tool.parseStringToObject(str);
         }
