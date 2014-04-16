@@ -55,7 +55,7 @@ class ControllerBase extends Controller
             implode('', $messageArray) . "\n" .
             get_class($exception) . ":" . $exception->getMessage(). "\n" .
             " File=" . $exception->getFile() . "\n" .
-            " Line=", $exception->getLine() . "\n" .
+            " Line=" . $exception->getLine() . "\n" .
             $exception->getTraceAsString()
         );
 

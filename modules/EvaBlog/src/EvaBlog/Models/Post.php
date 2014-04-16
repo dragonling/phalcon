@@ -71,6 +71,7 @@ class Post extends Entities\Posts
 
     public function createPost(array $data)
     {
+        $data['Categories'] = isset($data['Categories']) ? $data['Categories'] : array(); 
         $textData = $data['Text'];
         $tagData = $data['Tags'];
         $categoryData = $data['Categories'];
@@ -114,6 +115,7 @@ class Post extends Entities\Posts
 
     public function updatePost($data)
     {
+        $data['Categories'] = isset($data['Categories']) ? $data['Categories'] : array(); 
         $textData = $data['Text'];
         $tagData = $data['Tags'];
         $categoryData = $data['Categories'];
