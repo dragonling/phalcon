@@ -7,29 +7,21 @@ use WscnGold\Models;
 use WscnGold\Forms;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
-class IndexController extends ControllerBase
+class NewsController extends ControllerBase
 {
     public function indexAction()
     {
     }
 
-    public function tutorialAction()
+    public function listAction()
     {
     }
 
-    public function testAction()
-    {
-    }
-
-    public function articleAction()
+    public function postAction()
     {
     }
 
     public function searchAction()
-    {
-    }
-
-    public function abcAction()
     {
     }
 }
