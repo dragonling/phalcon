@@ -378,6 +378,12 @@ class Engine
 
         foreach($modules as $key => $module) {
             if(is_array($module)) {
+                if(!isset($module['className'])) {
+                    $module['className'] = "Eva\\$key\\Module";
+                }
+                if(!isset($module['path'])) {
+                    $module['path'] = "$modulesPath/$key/Module.php";
+                }
                 $moduleArray[$key] = $module;
             } elseif(is_string($module)) {
                 //Only Module Name means its a Eva Standard module
@@ -480,7 +486,6 @@ class Engine
         $response->sendHeaders();
         echo $response->getContent();
     }
-
 
     public function run()
     {

@@ -9,8 +9,6 @@ return array(
     'Frontend' => array(
         'className' => 'Eva\Frontend\Module',
         'path' => __DIR__ . '/../apps/Frontend/Module.php',
-        'routesFrontend' => __DIR__ . '/../apps/config/routes.frontend.php',
-        'routesBackend' => __DIR__ . '/../apps/config/routes.backend.php',
     ),
     'WscnGold' => array(
         'className' => 'WscnGold\Module',
