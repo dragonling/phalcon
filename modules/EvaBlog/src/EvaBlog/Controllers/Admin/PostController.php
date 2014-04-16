@@ -74,7 +74,7 @@ class PostController extends ControllerBase
         $this->view->setVar('postForm', $postForm);
 
         $textForm = new \Eva\EvaBlog\Forms\TextForm();
-        $textForm->setModel($post->Text);
+        $textForm->setModel($post->Text ? $post->Text : new Models\Text());
         $textForm->setPrefix('Text');
         $this->view->setVar('textForm', $textForm);
         $this->view->setVar('item', $post);
