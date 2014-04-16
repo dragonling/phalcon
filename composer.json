@@ -12,6 +12,7 @@
     "require": {
         "php": ">=5.3.10",
 	"ircmaxell/password-compat": "dev-master",
+	"zircote/swagger-php": "*",
         "phalcon/incubator" : "dev-master",
 	"knplabs/gaufrette" : "dev-master",
 	"allovince/evaoauth": "dev-master",
