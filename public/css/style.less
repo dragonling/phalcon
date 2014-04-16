@@ -316,6 +316,31 @@ label.checkbox {
 .titlebar{
     .clearfix;
 }
+.loader {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.3);
+
+    img.indicator {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}
+.loading {
+    position: relative;
+    .loader {
+        display: block;
+    }
+}
 
 .tabpanel {
     @borderColor: #b4b4b4;
@@ -689,6 +714,37 @@ body {
     margin-bottom: 50px;
 }
 
+.toolbar.paging {
+    .button {
+        display: block;
+        float: left;
+        margin-right: 5px;
+        border: 1px solid #c8c8c8;
+        min-width: 18px;
+        padding: 0 5px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        font-size: 14px;
+        color: @blue;
+        &:hover,
+        &.active{
+            border-color: @blue;
+            background-color: @blue;
+            color: #fff;
+        }
+
+        &[data-action=prev-page],
+        &[data-action=next-page] {
+            width: 78px;
+            color: #646464;
+            &:hover {
+                background-color: transparent;
+                color: @blue;
+            }
+        }
+    }
+}
 
 .search-result.list {
     width: 100%;
@@ -735,36 +791,7 @@ body {
             color: #323232;
         }
     }
-    &>.toolbar.paging {
-        .button {
-            display: block;
-            float: left;
-            margin-right: 5px;
-            border: 1px solid #c8c8c8;
-            width: 28px;
-            height: 28px;
-            line-height: 28px;
-            text-align: center;
-            font-size: 14px;
-            color: @blue;
-            &:hover,
-            &.active{
-                border-color: @blue;
-                background-color: @blue;
-                color: #fff;
-            }
 
-            &[data-action=prev-page],
-            &[data-action=next-page] {
-                width: 78px;
-                color: #646464;
-                &:hover {
-                    background-color: transparent;
-                    color: @blue;
-                }
-            }
-        }
-    }
 }
 .article.page {
     .title {
@@ -1037,6 +1064,11 @@ body {
     .date {
         color: #8C8C8C;
         font-weight: bold;
+    }
+    .important {
+        .star {
+            margin-right: 3px;
+        }
     }
 }
 
@@ -1629,7 +1661,7 @@ body {
 
 }
 
-.menu.type1 {
+.menu[data-livenews] {
     //box-shadow: 0 -3px 3px 0 inset rgba(0,0,0,0.5);
     &>.item {
         color: #323232;
@@ -1641,25 +1673,25 @@ body {
             height: 15px;
             margin-right: 20px;
             background: url(../img/icon/livenews/black.sprite.png) no-repeat;
-            &[data-type=livenews-all] {
+            &[data-type=all] {
                 background-position: 0 0;
             }
-            &[data-type=livenews-market] {
+            &[data-type=chart] {
                 background-position: -60px 0;
             }
-            &[data-type=livenews-alert] {
+            &[data-type=alert] {
                 background-position: -20px 0;
             }
-            &[data-type=livenews-common] {
+            &[data-type=common] {
                 background-position: -80px 0;
             }
-            &[data-type=livenews-data] {
+            &[data-type=chart_pie] {
                 background-position: -40px 0;
             }
-            &[data-type=livenews-rumor] {
+            &[data-type=rumor] {
                 background-position: -100px 0;
             }
-            &[data-type=livenews-warning] {
+            &[data-type=warning] {
                 background-position: -120px 0;
             }
         }
@@ -1736,10 +1768,10 @@ body {
         &[data-type=alert] {
             background-position: -20px 0;
         }
-        &[data-type=chart-line] {
+        &[data-type=chart] {
             background-position: -60px 0;
         }
-        &[data-type=chart-column] {
+        &[data-type=chart_pie] {
             background-position: -40px 0;
         }
         &[data-type=rumor] {
@@ -1750,9 +1782,10 @@ body {
         }
     }
 }
-.livenews.list.type0 {
+#livenews {
     width: 650px;
     margin-left: 150px;
+    padding-bottom: 20px;
     background-color: #fff;
     &>.head {
         height: 40px;
@@ -1770,6 +1803,7 @@ body {
         }
     }
     &>.content {
+        min-height: 500px;
         padding: 0 30px;
         &>.date {
             height: 40px;
@@ -1778,9 +1812,9 @@ body {
             margin: 30px -30px;
             background-color: #f0f0f0;
             padding-left: 30px;
-            &:first-child {
+            /*&:first-child {
                 display: none;
-            }
+            }*/
         }
         &>.item {
             position: relative;
@@ -1834,12 +1868,6 @@ body {
                     border-color: @blue;
                 }
             }
-            &:last-child,
-            &.last-child {
-                &:after {
-                    display: none;
-                }
-            }
             &:before {
                 display: block;
                 position: absolute;
@@ -1861,6 +1889,18 @@ body {
                 width: 0;
                 border-left: 1px solid #555;
             }
+            &.last-of-day {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+    .toolbar.paging {
+        margin: 10px 30px;
+    }
+    .loader {
+        img.indicator {
         }
     }
 }
@@ -2143,33 +2183,54 @@ body {
         position: absolute;
         cursor: pointer;
         display: block;
-        right: -20px;
-        top: 20px;
+        right: -30px;
+        top: 30px;
         width: 40px;
         height: 40px;
         border-radius: 40px;
-        background-color: #b4b4b4;
-        color: @gray;
-        text-align: center;
-        line-height: 40px;
+        background: url('../img/close.png') 0 0 no-repeat;
+        &:hover {
+            background-image: url('../img/close_hover.png');
+        }
     }
 
     .button[data-toggle=hide] {
-        width: 85px;
+        width: 55px;
+        padding: 0 15px;
         height: 30px;
         display: block;
-        float: right;
-        position: relative;
+        //float: right;
+        position: absolute;
+        right: 0;
+        top: 0;
         background-color: #004d7f;
         color: #fff;
         &:before {
+            //font-family: Verdana Tahoma "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+            content: '隐藏';
             display: block;
+            float: left;
             line-height: 30px;
             font-size: 12px;
         }
-        &:after {
+        &>.icon-custom {
             display: block;
-            position: absolute;
+            float: right;
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+            color: #fff;
+            &:before {
+                content: '\f077';
+            }
+        }
+        &.active {
+            &:before {
+                content: '展开';
+            }
+            &>.icon-custom:before {
+                content: '\f078';
+            }
         }
     }
 
@@ -2252,7 +2313,7 @@ body {
     }
 
     .head.type5 {
-
+        .relative;
         .clearfix;
         color: #fff;
         background-color: @gray;

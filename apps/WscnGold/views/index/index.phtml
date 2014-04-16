@@ -1046,7 +1046,7 @@
                         <a data-efc-target="#modal-chart" data-efc-symbol="SPX500INDEX" class="link" href="">标普500</a>
                         <a data-efc-target="#modal-chart" data-efc-symbol="UKOil" class="link" href="">石油</a>
                         <a data-efc-target="#modal-chart" data-efc-symbol="US10Year" class="link" href="">美债</a>
-                        <div class="button icon-custom" data-toggle="hide"></div>
+                        <div class="button" data-toggle="hide" data-hide-target="#modal-chart>.content" data-expand-target="#stare-livenews"><i class="icon-custom"></i></div>
                     </div>
                     <div class="content">
                         <div class="toolbar row">
@@ -1404,7 +1404,7 @@
                             <li id="<%= record.id %>" class="item" data-trend="<%= record.trend %>" data-utm="<%= record.utm %>">
                                 <div class="row">
                                     <span class="span time"><%= record.time %></span>
-                                    <span class="span important" data-value="<%= record.importance %>"></span>
+                                    <span class="span important" data-value="<%= record.importance %>"><%= record.stars %></span>
                                     <a class="span title link" href=""><%= record.title %></a>
                                 </div>
                                 <div class="row">
@@ -1426,8 +1426,9 @@
                         <% } %>
                     </script>
                 </div> <!--finance-calendar scrollable list end-->
-                <div class="head type5">
+                <div class="head type5 ">
                     <h2 class="title">技术分析</h2>
+                    <div class="button" data-toggle="hide" data-hide-target="#modal-analysis" data-expand-target="#stare-fcl"><i class="icon-custom"></i></div>
                 </div> <!--head end-->
                 <div id="modal-analysis" class="market-analysis">
                     <div class="titlebar">

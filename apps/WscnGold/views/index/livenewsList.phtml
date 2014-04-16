@@ -1,35 +1,36 @@
 <div class="row relative">
     <div class="span8">
-        <ul class="menu type1">
-            <li class="item">
-                <span class="icon" data-type="livenews-all"></span>全部
+        <ul class="menu" data-livenews>
+            <li class="item active" data-lnl-type="all" data-lnl-target="#livenews">
+                <span class="icon" data-type="all"></span>全部
             </li>
-            <li class="item">
-                <span class="icon" data-type="livenews-market"></span>行情
+            <li class="item" data-lnl-type="chart" data-lnl-target="#livenews">
+                <span class="icon" data-type="chart"></span>行情
             </li>
-            <li class="item">
-                <span class="icon" data-type="livenews-alert"></span>提醒
+            <li class="item" data-lnl-type="alert" data-lnl-target="#livenews">
+                <span class="icon" data-type="alert"></span>提醒
             </li>
-            <li class="item">
-                <span class="icon" data-type="livenews-common"></span>报道
+            <!--<li class="item" data-lnl-type="common" data-lnl-target="#livenews">
+                <span class="icon" data-type="common"></span>报道
+            </li>-->
+            <li class="item" data-lnl-type="chart_pie" data-lnl-target="#livenews">
+                <span class="icon" data-type="chart_pie"></span>数据
             </li>
-            <li class="item">
-                <span class="icon" data-type="livenews-data"></span>数据
+            <li class="item" data-lnl-type="rumor" data-lnl-target="#livenews">
+                <span class="icon" data-type="rumor"></span>传言
             </li>
-            <li class="item">
-                <span class="icon" data-type="livenews-rumor"></span>传言
-            </li>
-            <li class="item">
-                <span class="icon" data-type="livenews-warning"></span>重磅消息
+            <li class="item" data-lnl-type="warning" data-lnl-target="#livenews">
+                <span class="icon" data-type="warning"></span>重磅消息
             </li>
         </ul>
-        <div class="livenews list type0">
+        <div id="livenews" class="livenews list type0" data-lnl-option="nano:false; date-format:YYYY年M月D日，dddd; time-format:LT;">
             <div class="head">
                 <span class="text left">直播中 <i class="icon-refresh"></i></span>
-                <span class="time">2014年3月24日 15:32</span>
+                <span class="clock"></span>
                 <label class="checkbox right" for="livenews-voice-alert"><i class="icon-volume-up"></i> 声音提醒 <input id="livenews-voice-alert" type="checkbox" value="true"></label>
             </div>
             <ul class="content">
+                <!--
                 <li class="date">
                     2014年3月20日，今天
                 </li>
@@ -135,8 +136,38 @@
                     </div>
                     <p class="details">中国石油化工股份有限公司上月和康菲石油旗下Phillips 66签署液化石油气（LPG）长期购销合同显示美国有望成为中国主要的液化石油气供应方之一。</p>
                 </li>
+                -->
             </ul>
-        </div>
+            <script type="text/template" data-template>
+                <% for(var i=0; i<records.length; i++) { %>
+                    <% var record = records[i]; %>
+                    <% if (i == 0 && record.day != day) { %>
+                        <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                            <h3 class="label"><%= record.date %></h3>
+                        </li>
+                    <% } else if (i > 0 && record.day != records[i-1].day) { %>
+                        <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                            <h3 class="label"><%= record.date %></h3>
+                        </li>
+                    <% } %>
+                    <% if (i < records.length-1 && (record.day != records[i+1].day)) { %>
+                        <li class="item last-of-day <%= record.format %> <%= record.color %>" data-nid="<%= record.nid %>" data-timestamp="<%= record.timestamp %>" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                    <% } else { %>
+                        <li class="item <%= record.format %> <%= record.color %>" data-nid="<%= record.nid %>" data-timestamp="<%= record.timestamp %>" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                    <% } %>
+                        <div class="row">
+                            <span class="time left"><%= record.time %></span>
+                            <span class="icon right" data-type="<%= record.icon %>"></span>
+                        </div>
+                        <p class="details"><%= record.title %></p>
+                    </li>
+                <% } %>
+            </script>
+            <div class="loader">
+                <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+            </div>
+            <div class="toolbar paging"></div>
+        </div><!--livenews list end-->
     </div>
     <div id="sidebar" class="span4">
         <h2 class="title">财经日历</h2>

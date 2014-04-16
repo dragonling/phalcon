@@ -75,6 +75,16 @@ $(function(){
     //
     $('#main-livenews').lnl();
     //
+    $('#livenews').lnl({
+        url: 'http://api.wallstreetcn.com/apiv1/livenews-list-gold.jsonp',
+        updateUrl: 'http://api.wallstreetcn.com/apiv1/livenews-gold.jsonp',
+        countUrl: 'http://api.wallstreetcn.com/apiv1/livenews-count-gold.jsonp',
+        pageSize: 80,
+        menu: true,
+        paging: true,
+        clock: true
+    });
+    //
     $('#side-fcl').fcl();
     //
     mam.init();
@@ -104,6 +114,7 @@ $(function(){
         return false;
 
     });
+
     /**
      *
      */
@@ -172,8 +183,6 @@ $(function(){
         var panels = content.children('.panel');
     });
     */
-
-
     var $modal = $('#modal');
     var $stare = $('#stare-modal');
 
@@ -187,9 +196,12 @@ $(function(){
     function showStareModal() {
         //todo
         mam.initData(true);
-        $('#stare-livenews').lnl();
+        $('#stare-livenews').lnl({
+            heightChange: true
+        });
         $('#stare-fcl').fcl({
-            autoScroll: true
+            autoScroll: true,
+            heightChange: true
         });
         $stare.addClass('active');
     }
@@ -198,6 +210,24 @@ $(function(){
         if (e.target == this) {
             hideModal();
         }
+    });
+    $stare.on('click', '[data-toggle=hide][data-hide-target][data-expand-target]', function(e){
+        var $this = $(this);
+        var $hideTarget = $($this.attr('data-hide-target'));
+        var hideTargetHeight = $hideTarget.outerHeight();
+        var $expandTarget = $($this.attr('data-expand-target'));
+        var expandTargetHeight = $expandTarget.height();
+        if ($this.hasClass('active')) {
+            var height = expandTargetHeight - hideTargetHeight;
+            $hideTarget.show();
+            $this.removeClass('active');
+        } else {
+            var height = expandTargetHeight + hideTargetHeight;
+            $hideTarget.hide();
+            $this.addClass('active');
+        }
+        console.log('set the expand Target Height from [' + expandTargetHeight + '] to [' + height + ']');
+        $expandTarget.trigger('height_change', height);
     });
     $('button[data-toggle=stare-modal]').click(function(){
         $modal.show(0, showStareModal());
