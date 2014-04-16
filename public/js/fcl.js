@@ -38,6 +38,13 @@
         var $target = this.$target;
         $target.bind('scrolltop', _.bind(this.prevDay, this));
         $target.bind('scrollend', _.bind(this.nextDay, this));
+        if (options['heightChange']) {
+            $target.bind('height_change', function(e, height){
+                var $this = $(this);
+                $this.height(height);
+                $this.nanoScroller();
+            });
+        }
     };
     Fcl.prototype.timer = function() {
         if (this.timerTargetId) {
@@ -176,19 +183,19 @@
                         //.icon.star
                         switch (parseInt(result['importance'])) {
                             case 1:
-                                result['stars'] = '<img class="icon star" src="resources/icons/star-active.png"/>' +
-                                    '<img class="icon star" src="resources/icons/star.png"/>' +
-                                    '<img class="icon star" src="resources/icons/star.png"/>'
+                                result['stars'] = '<img class="icon star" src="/img/icon/star_blue.png"/>' +
+                                    '<img class="icon star" src="/img/icon/star_grey.png"/>' +
+                                    '<img class="icon star" src="/img/icon/star_grey.png"/>'
                                 break;
                             case 2:
-                                result['stars'] = '<img class="icon star" src="resources/icons/star-active.png"/>' +
-                                    '<img class="icon star" src="resources/icons/star-active.png"/>' +
-                                    '<img class="icon star" src="resources/icons/star.png"/>'
+                                result['stars'] = '<img class="icon star" src="/img/icon/star_blue.png"/>' +
+                                    '<img class="icon star" src="/img/icon/star_blue.png"/>' +
+                                    '<img class="icon star" src="/img/icon/star_grey.png"/>'
                                 break;
                             case 3:
-                                result['stars'] = '<img class="icon star" src="resources/icons/star-active.png"/>' +
-                                    '<img class="icon star" src="resources/icons/star-active.png"/>' +
-                                    '<img class="icon star" src="resources/icons/star-active.png"/>'
+                                result['stars'] = '<img class="icon star" src="/img/icon/star_blue.png"/>' +
+                                    '<img class="icon star" src="/img/icon/star_blue.png"/>' +
+                                    '<img class="icon star" src="/img/icon/star_blue.png"/>'
                                 break;
                         }
                         data.push(result);
@@ -227,7 +234,7 @@
             },
             failure: function() {
                 console.log('do it again!')
-                this.getData(start, end, arg);
+                root.getData(start, end, arg);
             }
         });
 
@@ -265,11 +272,11 @@
         if (! this.length) {
             return;
         }
-        if (this.attr('data-init') === 'initialized') {
+        if (this.attr('data-fcl-init') === 'initialized') {
             return;
         }
         var $this = this;
-        $this.attr('data-init', 'initialized');
+        $this.attr('data-fcl-init', 'initialized');
         var options = {
             $target: $this
         };

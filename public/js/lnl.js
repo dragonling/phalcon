@@ -1,33 +1,67 @@
 //live news
 (function(){
 
-    var PAGE_SIZE = 10;
+    //var PAGE_SIZE = 10;
     var UPDATE_INTERVAL = 10*1000;
 
     function Lnl(options) {
 
         this.$target = options.$target;
-        this.pageSize = options.pageSize || PAGE_SIZE;
-        this.autoRefresh = options.autoRefresh || true;
+
+        this.autoRefresh = options.autoRefresh === false ? false : true;
+        this.nano = options.nano === false ? false : true;
+        this.updateUrl = options.updateUrl || 'http://api.wallstreetcn.com/apiv1/livenews.jsonp';
+        this.countUrl = options.countUrl;
+        this.url = options.url || 'http://api.wallstreetcn.com/apiv1/livenews-list-v2.jsonp';
+        this.baseUpdateUrl = this.updateUrl;
+        this.baseCountUrl = this.countUrl;
+        this.baseUrl = this.url;
+        this.pageSize = options.pageSize;
+        this.dateFormat = options.dateFormat || 'YYYY年MM月DD日';
+        this.timeFormat = options.timeFormat || 'HH:mm';
+        this.clockFormat = options.clockFormat || 'YYYY年M月D日 HH:mm:ss';
         this.updateInterval = null;
-        this.init();
+        this.init(options);
 
     };
-    Lnl.prototype.init = function() {
+    Lnl.prototype.init = function(options) {
         this.initData();
         this.initEvent();
+        if (options['clock']) {
+            this.$clock = this.$target.find('.clock');
+            setInterval(_.bind(function($clock, clockFormat){
+                var text = moment().format(clockFormat);
+                $clock.text(text);
+            }, null, this.$clock, this.clockFormat), 1000);
+        }
+        if (options.paging) {
+            this.lnlType = 'paging';
+            this.initPaging(options);
+        }
+        if (options.menu) {
+            this.initMenu();
+        }
+        if (options['heightChange']) {
+            this.$target.bind('height_change', function(e, height){
+                var $this = $(this);
+                $this.height(height);
+                $this.nanoScroller();
+            });
+        }
     };
     Lnl.prototype.initData = function() {
-        this.page = -1;
+        this.page = 1;
         var callback = _.bind(function(){
-            this.$target.nanoScroller({
-                preventPageScrolling: true
-            });
+            if (this.nano) {
+                this.$target.nanoScroller({
+                    preventPageScrolling: true
+                });
+            }
             if (this.autoRefresh) {
                 this.updateInterval = setInterval(_.bind(this.updateData, this), UPDATE_INTERVAL);
             }
         }, this);
-        this.nextPage(callback);
+        this.loadPage(this.page, callback);
     };
     Lnl.prototype.initEvent = function() {
         var root = this;
@@ -50,18 +84,20 @@
                 $this.addClass('active');
             }
             //
-            $target.nanoScroller();
+            if (root.nano) {
+                $target.nanoScroller();
+            }
         });
     };
-
     Lnl.prototype.updateData = function() {
-
-        console.log('to update the livenews');
         var root = this;
         var $target = root.$target;
-
+        if (root.lnlType === 'paging' && ($target.hasClass('loading') || root.page != 1)) {
+            return;
+        }
+        console.log('to update the livenews');
         $.ajax({
-            url: 'http://api.wallstreetcn.com/apiv1/livenews.jsonp',
+            url: root.updateUrl,
             dataType: 'jsonp',
             success: function(response){
 
@@ -114,11 +150,12 @@
                             });
                             $date.after(afterHtml);
                         }
-                        //
-                        $target.nanoScroller();
-                        //
-                        $target.nanoScroller({ scroll: 'top' });
-
+                        if (root.nano) {
+                            //
+                            $target.nanoScroller();
+                            //
+                            $target.nanoScroller({ scroll: 'top' });
+                        }
                     }
                 }
             }
@@ -129,69 +166,150 @@
             clearInterval(this.updateInterval);
         }
     };
-
-    Lnl.prototype.nextPage = function(callback) {
-
+    Lnl.prototype.loadPage = function(page, callback) {
         var root = this;
         var $target = root.$target;
-
-        if (! $target.hasClass('loading')) {
-
-            $target.addClass('loading');
-
-            $.ajax({
-                url: 'http://api.wallstreetcn.com/apiv1/livenews-list.jsonp',
-                data: {
-                    page: root.page + 1
-                },
-                dataType: 'jsonp',
-                success: function(response){
-
-                    var data = [];
-
-                    if (response && response.length) {
-
-                        for (var i=0; i<response.length; i++) {
-                            var record = root.convertRecord(response[i]);
-                            data.push(record);
+        if ($target.hasClass('loading')) {
+            return;
+        }
+        $target.addClass('loading');
+        var $content = $target.children('.content');
+        if (root.lnlType === 'paging') {
+            $content.html('');
+        }
+        $.ajax({
+            url: root.url,
+            data: {
+                page: page - 1
+            },
+            dataType: 'jsonp',
+            success: function(response){
+                var data = [];
+                if (response && response.length) {
+                    for (var i=0; i<response.length; i++) {
+                        var record = root.convertRecord(response[i]);
+                        data.push(record);
+                    }
+                    var day;
+                    if (root.lnlType === 'paging') {
+                        day = null;
+                    } else {
+                        var $date = $content.children('.date:last');
+                        if ($date.length) {
+                            day = $date.attr('data-day');
                         }
-
-                        var $last = $target.find('.item:last');
-                        //var $date = $target.find('.date:last');
-                        var day;
-                        if ($last.length) {
-                            day = $last.attr('data-day');
-                        }
-                        var $script = $target.find('script[data-template]');
-                        var html = _.template($script.html(), {
-                            records: data,
-                            day: day
-                        });
-                        //1.
-                        if ($last.length) {
-                            $last.after(html);
-                        } else {
-                            $script.before(html);
-                        }
-                        //2.
+                    }
+                    var $script = $target.find('script[data-template]');
+                    var html = _.template($script.html(), {
+                        records: data,
+                        day: day
+                    });
+                    //1.
+                    $content.append(html);
+                    //2.
+                    if (root.nano) {
                         $target.nanoScroller();
                     }
-                    //3.
-                    root.page ++;
-                    console.log('load the page ' + root.page);
-                    //4
-                    $target.removeClass('loading');
-                    //5.
-                    if (callback) {
-                        callback();
-                    }
-                },
-                failure: function() {
-                    this.nextPage(callback);
                 }
-            });
+                //3.
+                root.page = page;
+                console.log('load the page ' + root.page);
+                //4
+                $target.removeClass('loading');
+                //5.
+                if (callback) {
+                    callback();
+                }
+            },
+            failure: function() {
+                root.loadPage(page, callback);
+            }
+        });
+    };
+    Lnl.prototype.nextPage = function() {
+        this.loadPage(this.page + 1);
+    };
+    Lnl.prototype.count = function(callback) {
+        var root = this;
+        $.ajax({
+            url : root.countUrl,
+            dataType: 'jsonp',
+            success: function(response) {
+                if (response.length) {
+                    root.total = response[0].count;
+                }
+                if (typeof callback == 'function') {
+                    callback();
+                }
+            },
+            failure: function() {
+                root.count(callback);
+            }
+        });
+    };
+    Lnl.prototype.changeType = function(type) {
+        switch (type) {
+            case 'all' :
+                this.url = this.baseUrl;
+                this.countUrl = this.baseCountUrl;
+                this.updateUrl = this.baseUpdateUrl;
+                break;
+            case 'chart' :
+            case 'chart_pie' :
+            case 'alert' :
+            case 'warning' :
+            case 'rumor' :
+                this.url = this.baseUrl + '?field_icon=' + type;
+                this.countUrl = this.baseCountUrl + '?field_icon=' + type;
+                this.updateUrl = this.baseUpdateUrl + '?field_icon=' + type;
+                break;
         }
-
+        this.loadPage(1);
+        this.paging();
+        //this.count(_.bind(this.overwritePaging(), this));
+    };
+    Lnl.prototype.initMenu = function() {
+        var selector = '[data-lnl-type][data-lnl-target=#' + this.$target.attr('id') + ']'
+        var root = this;
+        $(document).on('click.menu', selector, function(e){
+            var $this = $(this);
+            if ($this.hasClass('active')) {
+                return;
+            }
+            root.changeType($this.attr('data-lnl-type'));
+            var $active = $this.parent().children('.active');
+            if ($active.length) {
+                $active.removeClass('active');
+            }
+            $this.addClass('active');
+        });
+    };
+    Lnl.prototype.initPaging = function() {
+        this.paging();
+        var root = this;
+        this.$target.bind('paging', function(e, page){
+            root.loadPage(page);
+        });
+    };
+    Lnl.prototype.paging = function() {
+        var root = this;
+        $.ajax({
+            url : root.countUrl,
+            dataType: 'jsonp',
+            success: function(response) {
+                if (response.length) {
+                    var count = response[0].count;
+                }
+                var maxPage = parseInt(count/root.pageSize);
+                root.$target.paging({
+                    maxPage: maxPage,
+                    defaultPage: 1
+                });
+            },
+            failure: function() {
+                root.paging();
+            }
+        });
     };
     Lnl.prototype.convertRecord = function(record) {
 
@@ -200,20 +318,20 @@
         item.nid = record['nid'];
         item.timestamp = record['node_created'] * 1000;
         item.day = moment(item.timestamp).format('DDD');
-        item.time = moment.unix(record['node_created']).format('HH:mm');
-        item.date = moment.unix(record['node_created']).format('YYYY年MM月DD日');
-        item.icon = this.parse(record['新闻图标'], 'icon');
-        item.format = this.parse(record['格式'], 'format');
-        item.color = this.parse(record['颜色'], 'color');
+        item.time = moment.unix(record['node_created']).format(this.timeFormat);
+        item.date = moment.unix(record['node_created']).format(this.dateFormat);
+        item.icon = this.parse(record['node_icon'], 'icon');
+        item.format = this.parse(record['node_format'], 'format');
+        item.color = this.parse(record['node_color'], 'color');
         return item;
     };
     Lnl.prototype.parse = function(val, type) {
 
         if (type === 'icon') {
             if (val === '折线') {
-                return 'chart-line';
+                return 'chart';
             } else if (val === '柱状') {
-                return 'chart-column';
+                return 'chart_pie';
             } else if (val === '提醒') {
                 return 'alert';
             } else if (val === '警告') {
@@ -246,11 +364,11 @@
         if (! this.length) {
             return;
         }
-        if (this.attr('data-init') === 'initialized') {
+        if (this.attr('data-lnl-init') === 'initialized') {
             return;
         }
         var $this = this;
-        $this.attr('data-init', 'initialized');
+        $this.attr('data-lnl-init', 'initialized');
         var options = {
             $target: $this
         };
