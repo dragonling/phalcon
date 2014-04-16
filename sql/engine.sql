@@ -1,6 +1,3 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
 DROP TABLE IF EXISTS `eva_blog_archives`;
 CREATE TABLE IF NOT EXISTS `eva_blog_archives` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -29,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `eva_blog_categories` (
   `image_id` int(10) DEFAULT NULL,
   `image` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 DROP TABLE IF EXISTS `eva_blog_categories_posts`;
 CREATE TABLE IF NOT EXISTS `eva_blog_categories_posts` (
@@ -64,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `eva_blog_posts` (
   `image` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `summary` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=185 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=186 ;
 
 DROP TABLE IF EXISTS `eva_blog_tags`;
 CREATE TABLE IF NOT EXISTS `eva_blog_tags` (
@@ -75,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `eva_blog_tags` (
   `sortOrder` int(10) DEFAULT '0',
   `count` int(10) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=180 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=199 ;
 
 DROP TABLE IF EXISTS `eva_blog_tags_posts`;
 CREATE TABLE IF NOT EXISTS `eva_blog_tags_posts` (
@@ -116,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `eva_file_files` (
   `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `createdAt` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=42 ;
 
 DROP TABLE IF EXISTS `eva_oauth_accesstokens`;
 CREATE TABLE IF NOT EXISTS `eva_oauth_accesstokens` (
@@ -220,4 +217,4 @@ CREATE TABLE IF NOT EXISTS `eva_user_users` (
   PRIMARY KEY (`id`),
   KEY `userName` (`username`),
   KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
