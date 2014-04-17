@@ -24,8 +24,6 @@ class IndexController extends ControllerBase
     {
         $swagger = new \Swagger\Swagger(__DIR__);
         $resource = $swagger->getResource('/' . $this->dispatcher->getParam('id'));
-        p($resource);
-        exit;
-        //return $this->response->setContent($content);
+        return $this->response->setJsonContent($resource);
     }
 }

@@ -3,6 +3,8 @@
 namespace WscnApiVer2\Controllers;
 
 use Swagger\Annotations as SWG;
+use Eva\EvaBlog\Models;
+
 /**
  * @package
  * @category
@@ -11,7 +13,7 @@ use Swagger\Annotations as SWG;
  * @SWG\Resource(
  *  apiVersion="0.2",
  *  swaggerVersion="1.2",
- *  resourcePath="/resource/post",
+ *  resourcePath="/post",
  *  basePath="http://api.goldtoutiao.com/v2"
  * )
  */
@@ -20,23 +22,23 @@ class PostController extends ControllerBase
     /**
      *
      * @SWG\Api(
-     *   path="/post/news{format}/{postId}",
+     *   path="/post/{postId}",
      *   description="Operations about facets",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
-     *       summary="Find facet by ID",
-     *       notes="Returns a facet based on ID",
+     *       summary="Find post by ID",
+     *       notes="Returns a post based on ID",
      *       type="FacetResult",
      *       nickname="getfacetById",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="facetId",
-     *           description="ID of facet that needs to be fetched",
+     *           name="postId",
+     *           description="ID of post",
      *           paramType="path",
      *           required=true,
-     *           type="string"
+     *           type="int"
      *         )
      *       ),
      *       @SWG\ResponseMessages(
@@ -46,16 +48,38 @@ class PostController extends ControllerBase
      *          ),
      *          @SWG\ResponseMessage(
      *            code=404,
-     *            message="facet not found"
+     *            message="post not found"
      *          )
      *       )
      *     )
      *   )
      * )
      */
-    public function newsAction()
+    public function getAction()
     {
         $id = $this->dispatcher->getParam('id');
-        $format = $this->dispatcher->getParam('format');
+        $postModel = new Models\Post();
+        $post = $postModel->findFirst($id);
+        if($post) {
+            $post->dump(array(
+                'id',
+                'title',
+                'sourceCode',
+                'createdAt',
+                'summary',
+                'summaryHtml' => 'getSummaryHtml',
+                'commentStatus',
+                'source',
+                'sourceUrl',
+                'url' => 'getUrl',
+                'imageUrl' => 'getImageUrl',
+                'User', => array(
+                    'id',
+                    'username',
+                ),
+            ));
+        }
+        return $this->response->setJsonContent($post);
+        //$format = $this->dispatcher->getParam('format');
     }
 }

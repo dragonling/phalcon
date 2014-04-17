@@ -14,6 +14,12 @@ class Model extends \Phalcon\Mvc\Model
         return $this->prefix . $this->tableName;
     }
 
+    public function dump(array $dataStructure)
+    {
+        $data = null;
+        return $data;
+    }
+
     public function initialize()
     {
         if(true === $this->useMasterSlave) {
