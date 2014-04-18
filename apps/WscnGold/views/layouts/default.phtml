@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="/css/main.css">
 
         <link rel="stylesheet" href="/vendor/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/vendor/css/datepicker.css">
 
         <link rel="stylesheet" href="/css/nanoscroller.css">
         <link rel="stylesheet" href="/css/style.css"/>
@@ -37,14 +38,14 @@
                 <div class="container">
 
                     <ul class="navbar left">
-                        <li class="nav"><a class="link active" href="/">首页</a></li>
-                        <li class="nav"><a class="link" href="/news">市场新闻</a></li>
-                        <li class="nav"><a class="link" href="/livenews">实时新闻</a></li>
-                        <li class="nav"><a class="link" href="#">行情中心</a></li>
-                        <li class="nav"><a class="link" href="#">财经日历</a></li>
-                        <li class="nav"><a class="link" href="#">技术分析</a></li>
-                        <li class="nav"><a class="link" href="/tutorial">投资教室</a></li>
-                        <li class="nav"><a class="link" href="#">留言板</a></li>
+                        <li class="nav"><a class="link" data-active-url="^\/$" href="/">首页</a></li>
+                        <li class="nav"><a class="link" data-active-url="^\/news.*$" href="/news">市场新闻</a></li>
+                        <li class="nav"><a class="link" data-active-url="^\/livenews.*$" href="/livenews">实时新闻</a></li>
+                        <li class="nav"><a class="link" data-active-url="^\/market.*$" href="#">行情中心</a></li>
+                        <li class="nav"><a class="link" data-active-url="^\/calendar.*$" href="/calendar">财经日历</a></li>
+                        <li class="nav"><a class="link" data-active-url="" href="#">技术分析</a></li>
+                        <li class="nav"><a class="link" data-active-url="^\/tutorial.*$" href="/tutorial">投资教室</a></li>
+                        <li class="nav"><a class="link" data-active-url="" href="#">留言板</a></li>
                     </ul>
 
                     <div class="right">
@@ -126,6 +127,7 @@
         <script src="/js/vendor/jquery.nanoscroller.js"></script>
         <script src="/vendor/js/underscore.min.js"></script>
         <script src="/vendor/js/moment.min.js"></script>
+        <script src="/vendor/js/datepicker.min.js"></script>
 
         <script src="/js/plugins.js"></script>
 

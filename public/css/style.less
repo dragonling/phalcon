@@ -710,10 +710,11 @@ body {
 
 #content {
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.4);
-    margin-top: 50px;
+    margin-top: 40px;
     margin-bottom: 50px;
 }
 
+.pagingbar,
 .toolbar.paging {
     .button {
         display: block;
@@ -859,6 +860,242 @@ body {
             }
         }
     }
+    //add typo.css
+    /* 去除默认边框 */
+    fieldset, img {
+        border: 0;
+    }
+
+    /* 解决 IE6-7 图片缩放锯齿问题 */
+    img {
+        -ms-interpolation-mode: bicubic;
+    }
+
+    /* ie6 7 8(q) bug 显示为行内表现 */
+    iframe {
+        display: block;
+    }
+
+    /* 块/段落引用 */
+    blockquote {
+        font-family:Optima, Georgia, STSong, serif;
+        margin: 1em 0;
+        color:#999;
+        padding: 0.6em 1em;
+        background:#f8f8f8;
+        border-left: 0.4em solid #ddd;
+    }
+    blockquote blockquote {
+        padding: 0 0 0 1em;
+        margin-left: 2em;
+    }
+    blockquote p {
+        margin-bottom: 0;
+    }
+
+    /* Firefox 以外，元素没有下划线，需添加 */
+    acronym, abbr {
+        border-bottom: 1px dotted;
+        font-variant: normal;
+    }
+
+    /* 添加鼠标问号，进一步确保应用的语义是正确的（要知道，交互他们也有洁癖，如果你不去掉，那得多花点口舌） */
+    abbr {
+        cursor: help;
+    }
+
+    /* 一致的 del 样式 */
+    del {
+        text-decoration: line-through;
+    }
+
+    address, caption, cite, code, dfn, em, th, var {
+        font-style: normal;
+        font-weight: 400;
+    }
+
+    /* 去掉列表前的标识, li 会继承，大部分网站通常用列表来很多内容，所以应该当去 */
+    ul, ol {
+        list-style: none;
+    }
+
+    /* 对齐是排版最重要的因素, 别让什么都居中 */
+    caption, th {
+        text-align: left;
+    }
+
+    q:before, q:after {
+        content: '';
+    }
+
+    /* 统一上标和下标 */
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: text-top;
+    }
+    :root sub, :root sup{
+        vertical-align: baseline; /* for ie9 and other mordern browsers */
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    /* 让链接在 hover 状态下显示下划线 */
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* 默认不显示下划线，保持页面简洁 */
+    ins, a {
+        text-decoration: none;
+    }
+
+    /* 专名号：虽然 u 已经重回 html5 Draft，但在所有浏览器中都是可以使用的，
+     * 要做到更好，向后兼容的话，添加 class="typo-u" 来显示专名号
+     * 关于 <u> 标签：http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element
+     * 被放弃的是 4，之前一直搞错 http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated
+     * 一篇关于 <u> 标签的很好文章：http://html5doctor.com/u-element/
+     */
+    u, .typo-u {
+        text-decoration: underline;
+    }
+
+    /* 标记，类似于手写的荧光笔的作用 */
+    mark {
+        background: #fffdd1;
+    }
+
+    /* 代码片断 */
+    pre, code {
+        font-family: "Courier New", Courier, monospace;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+    pre {
+        background: #f8f8f8;
+        border:1px solid #ddd;
+        padding: 1em 1.5em;
+    }
+
+    /* 一致化 horizonal rule */
+    hr{
+        border:none;
+        border-bottom:1px solid #cfcfcf;
+        margin-bottom:10px;
+        //*color:pink;*filter:chroma(color=pink);
+        height:10px;
+        *margin:-7px 0 2px;
+    }
+
+    /* 底部印刷体、版本等标记 */
+    small, .typo-small,
+
+        /* 图片说明 */
+    figcaption {
+        font-size: 0.9em;
+        color: #888;
+    }
+
+    /* 可拖动文件添加拖动手势 */
+    [draggable] {
+        cursor: move;
+    }
+    /* 强制文本换行 */
+    .textwrap, .textwrap td, .textwrap th{
+        word-wrap:break-word;
+        word-break:break-all;
+    }
+    .textwrap-table{
+        table-layout:fixed;
+    }
+
+    /* 提供 serif 版本的字体设置 */
+    .serif{font-family:Palatino, Hiragino Mincho ProN W3, Optima, STSong, Georgia, serif;}
+
+    /* 保证块/段落之间的空白隔行 */
+    .typo p, .typo pre, .typo ul, .typo ol, .typo dl, .typo form, .typo hr, .typo table,
+    .typo-p, .typo-pre, .typo-ul, .typo-ol, .typo-dl, .typo-form, .typo-hr, .typo-table {
+        margin-bottom: 1.2em;
+    }
+    /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
+    .typo h1, .typo h2, .typo h3, .typo h4, .typo h5, .typo h6,
+    .typo-h1, .typo-h2, .typo-h3, .typo-h4, .typo-h5, .typo-h6 {
+        margin-bottom: 0.4em;
+        line-height: 1.5;
+    }
+    .typo h1, .typo-h1 {
+        font-size: 1.8em;
+    }
+    .typo h2, .typo-h2 {
+        font-size: 1.6em;
+    }
+    .typo h3, .typo-h3 {
+        font-size: 1.4em;
+    }
+    .typo h4, .typo-h4 {
+        font-size: 1.2em;
+    }
+    .typo h5, .typo h6, .typo-h5, .typo-h6 {
+        font-size: 1em;
+    }
+
+    /* 在文章中，应该还原 ul 和 ol 的样式 */
+    .typo ul, .typo-ul {
+        margin-left: 1.3em;
+        list-style: disc;
+    }
+    .typo ol, .typo-ol {
+        list-style: decimal;
+        margin-left: 1.9em;
+    }
+    .typo li ul, .typo li ol, .typo-ul ul, .typo-ul ol, .typo-ol ul, .typo-ol ol {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 2em;
+    }
+    .typo li ul, .typo-ul ul, .typo-ol ul {
+        list-style: circle;
+    }
+
+    /* 同 ul/ol，在文章中应用 table 基本格式 */
+    .typo table th, .typo table td, .typo-table th, .typo-table td .typo table caption{
+        border: 1px solid #ddd;
+        padding: 0.5em 1em;
+        color:#666;
+    }
+    .typo table th, .typo-table th {
+        background: #fbfbfb;
+    }
+    .typo table thead th, .typo-table thead th {
+        background: #f1f1f1;
+    }
+    .typo table caption {
+        border-bottom:none;
+    }
+
+    /* 去除 webkit 中 input 和 textarea 的默认样式  */
+    .typo-input, .typo-textarea{
+        -webkit-appearance:none;
+        border-radius:0;
+    }
+
+    /* 高亮选中 */
+    ::-moz-selection {
+        background:#08c;
+        color:#fff;
+    }
+    ::selection {
+        background:#08c;
+        color:#fff;
+    }
+
+    /* TODO: 供着重号使用 */
+    .typo-em, .typo em, legend, caption {font-weight: 700;}
 }
 
 .user-comments {
@@ -1069,6 +1306,341 @@ body {
         .star {
             margin-right: 3px;
         }
+    }
+}
+
+div.datepicker {
+    font: 14px/30px Verdana, Helvetica, Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    //position: absolute;
+    //display: none;
+    a {
+        color: #253F5D;
+        text-decoration: none;
+        cursor: default;
+        outline: none;
+    }
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        background-color: #e6e6e6;
+        thead {
+            background-color: #fff;
+            th {
+                border-bottom: none;
+                border-top: none;
+                height: 30px;
+                line-height: 30px;
+            }
+            .datepickerGoPrev a,
+            .datepickerGoNext a{
+                float: left;
+                background-color: #787878;
+                color: #fff;
+                width: 30px;
+                height: 30px;
+                &:hover {
+                    background-color: @blue;
+                    color: #fff;
+                }
+            }
+            .datepickerGoNext a {
+                float: right;
+            }
+            .datepickerMonth {
+                font-size: 18px;
+            }
+        }
+        th {
+            text-align: center;
+            color: #999;
+            font-weight: normal;
+            border: 1px solid #fff;
+        }
+        tr.datepickerDoW th{
+            color: #323232;
+            width: 60px;
+            line-height: 45px;
+            height: 45px;
+        }
+        td {
+            padding: 0;
+            margin: 0;
+            border: 1px solid #fff;
+        }
+        .datepickerDays a {
+            line-height: 45px;
+            height: 45px;
+            width: 60px;
+            text-align: center;
+        }
+        .datepickerYears a,
+        .datepickerMonths a{
+            width: 121px;
+            line-height: 106px;
+            height: 106px;
+            text-align: center;
+        }
+    }
+}
+
+td.datepickerNotInMonth a {
+    color: #C9C9C9;
+}
+tbody.datepickerDays td.datepickerSelected{
+    background: #399DB3;
+}
+tbody.datepickerDays td.datepickerNotInMonth.datepickerSelected {
+    background: #C9E4EA;
+}
+tbody.datepickerYears td.datepickerSelected,
+tbody.datepickerMonths td.datepickerSelected{
+    background: #399DB3;
+}
+div.datepicker a:hover,
+div.datepicker a:hover {
+    color: #88c5eb;
+}
+div.datepicker td.datepickerNotInMonth a:hover {
+    color: #999;
+}
+.datepickerSpace div {
+    width: 30px;
+}
+td.datepickerDisabled a,
+td.datepickerDisabled.datepickerNotInMonth a{
+    color: #333;
+}
+td.datepickerDisabled a:hover {
+    color: #333;
+}
+td.datepickerSpecial a {
+    background: #700;
+}
+td.datepickerSpecial.datepickerSelected a {
+    background: #a00;
+}
+
+#financeCalendar {
+    background-color: #fff;
+    padding: 30px;
+    padding-top: 0;
+    &>.head {
+        //.clearfix;
+        margin: 0 -30px;
+        height: 50px;
+        color: #505050;
+        font-size: 16px;
+        background-color: #dcdcdc;
+        border-bottom: 1px solid #a0a0a0;
+        &>.item {
+            display: block;
+            cursor: pointer;
+            float: left;
+            width: 99px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-right: 1px solid #a0a0a0;
+            &.active {
+                margin-bottom: -1px;
+                padding-bottom: 1px;
+                background-color: #fff;
+            }
+            &.input {
+                width: 320px;
+                cursor: default;
+                padding: 10px 40px;
+                height: 30px;
+                border-right: none;
+                &.active {
+                    padding-bottom: 11px;
+                }
+                .button,
+                .text {
+                    display: block;
+                    cursor: pointer;
+                    float: left;
+                    font-size: 12px;
+                    line-height: 30px;
+                    text-align: center;
+                    height: 30px;
+                }
+                .text {
+                    width: 208px;
+                    background-color: #dcdcdc;
+                }
+                .button {
+                    width: 30px;
+                    color: #fff;
+                    font-size: 18px;
+                    background-color: #787878;
+                    &:hover,
+                    &.active {
+                        background-color: @blue;
+                    }
+                }
+                .button[data-toggle=calendar] {
+                    float: right;
+                    font-size: 14px;
+                    border-radius: 30px;
+                }
+            }
+        }
+    }
+    &>.calendar {
+        .clearfix;
+        display: none;
+        margin-top: 30px;
+        border-radius: 10px;
+        border: 1px solid #969696;
+        padding: 30px;
+        [data-calendar-info] {
+            float: left;
+            width: 160px;
+        }
+        [data-calendar-label] {
+            width: 140px;
+            height: 140px;
+            border-radius: 140px;
+            background-color: @blue;
+            color: #fff;
+            text-align: center;
+            .text {
+                display: block;
+                font-size: 12px;
+                line-height: 20px;
+                &.big {
+                    font-size: 72px;
+                    font-weight: bold;
+                    line-height: 80px;
+                    height: 80px;
+                    padding-top: 10px;
+                }
+            }
+
+        }
+        [data-picker] {
+            width: 486px;
+            float: right;
+        }
+    }
+    &>.toolbar {
+        margin-top: 30px;
+        padding: 0 30px;
+        background-color: #e6e6e6;
+        .checkbox {
+            height: 30px;
+            width: 55px;
+            margin-right: 30px;
+            padding: 5px 0;
+            &:last-child {
+                margin-right: 0;
+            }
+            [type=checkbox] {
+                margin-top: 5px;
+            }
+            .flag {
+                width: 30px;
+                height: 30px;
+                float: right;
+            }
+        }
+    }
+    &>.content {
+        margin-top: 30px;
+        table {
+            width: 100%;
+            font-size: 12px;
+            line-height: 24px;
+            color: #505050;
+            background-color: #f2f2f2;
+            margin-bottom: 30px;
+
+            .cell1 {
+
+            }
+            .cell2 {
+
+            }
+            .cell3 {
+
+            }
+            th,td {
+                text-align: left;
+                padding: 6px 0;
+                vertical-align: middle;
+                &:first-child {
+                    padding-left: 30px;
+                }
+                &:last-child {
+                    padding-right: 30px;
+                }
+            }
+            thead {
+                background-color: #e6e6e6;
+            }
+            tr:nth-child(even) {
+                background-color: #e6e6e6;
+            }
+            tr:hover {
+                background-color: #c8dce6;
+            }
+            th {
+                color: #323232;
+                font-weight: bold;
+            }
+            td {
+                &.date {
+                    text-align: center;
+                }
+            }
+            th,td {
+                &.time {
+                    width: 55px;
+                }
+                &.important {
+                    width: 75px;
+                }
+                &.country {
+                    width: 70px;
+                }
+                &.price {
+                    width: 75px;
+                    text-align: right;
+                }
+            }
+        }
+        table.type1 {
+            th,td {
+                &.time {
+                    width: 100px;
+                }
+                &.important {
+                    width: 75px;
+                }
+                &.country {
+                    width: 70px;
+                }
+                &.remark {
+                    width: 120px;
+                }
+            }
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 32px;
+            padding-left: 30px;
+            background-color: #323232;
+            color: #fff;
+        }
+
+        .important {
+            .star {
+                margin-right: 5px;
+            }
+        }
+
     }
 }
 
@@ -2206,7 +2778,6 @@ body {
         background-color: #004d7f;
         color: #fff;
         &:before {
-            //font-family: Verdana Tahoma "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
             content: '隐藏';
             display: block;
             float: left;

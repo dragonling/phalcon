@@ -25,7 +25,11 @@ return array(
     '/livenews' =>  array(
         'module' => 'WscnGold',
         'controller' => 'livenews',
-    ), 
+    ),
+    '/calendar' =>  array(
+        'module' => 'WscnGold',
+        'controller' => 'calendar',
+    ),
     '/tutorial' =>  array(
         'module' => 'WscnGold',
         'controller' => 'index',

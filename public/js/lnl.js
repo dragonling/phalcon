@@ -9,7 +9,7 @@
         this.$target = options.$target;
 
         this.autoRefresh = options.autoRefresh === false ? false : true;
-        this.nano = options.nano === false ? false : true;
+        this.scrollable = options.scrollable === false ? false : true;
         this.updateUrl = options.updateUrl || 'http://api.wallstreetcn.com/apiv1/livenews.jsonp';
         this.countUrl = options.countUrl;
         this.url = options.url || 'http://api.wallstreetcn.com/apiv1/livenews-list-v2.jsonp';
@@ -52,7 +52,7 @@
     Lnl.prototype.initData = function() {
         this.page = 1;
         var callback = _.bind(function(){
-            if (this.nano) {
+            if (this.scrollable) {
                 this.$target.nanoScroller({
                     preventPageScrolling: true
                 });
@@ -84,7 +84,7 @@
                 $this.addClass('active');
             }
             //
-            if (root.nano) {
+            if (root.scrollable) {
                 $target.nanoScroller();
             }
         });
@@ -100,32 +100,22 @@
             url: root.updateUrl,
             dataType: 'jsonp',
             success: function(response){
-
                 if (response && response.length) {
-
                     var data = [];
-
                     var $first = $target.find('.item:first');
                     var $date  = $target.find('.date:first');
-                    var day    = $date.attr('data-day');
-
+                    //var day    = $first.attr('data-day');
                     for (var i=0; i<response.length; i++) {
-
                         var item = response[i];
-
                         if (item['node_created'] * 1000 > $first.attr('data-timestamp') * 1) {
                             var record = root.convertRecord(item);
                             data.push(record);
                         }
                     }
                     if (data.length) {
-
                         var template = $target.find('script[data-template]').html();
-
-                        var beforeData = [];
-
+                        /*var beforeData = [];
                         var afterData = [];
-
                         for (var i=0; i<data.length; i++) {
                             if (data[i].day > day) {
                                 beforeData.push(data[i]);
@@ -149,8 +139,26 @@
                                 day: day
                             });
                             $date.after(afterHtml);
+                        }*/
+                        if (root.lnlType === 'paging') {
+                            var html = _.template(template, {
+                                records: data,
+                                day: moment().format('DDD')
+                            });
+                            //todo
+                            /*if (data[data.length-1].day > $first.attr('data-day') && $first.attr('data-day') != $date.attr('data-day')) {
+                                console.log('!!!!');
+                            }*/
+                            $first.before(html);
+                        } else {
+                            var html = _.template(template, {
+                                records: data,
+                                day: null
+                            });
+                            $date.replaceWith(html);
                         }
-                        if (root.nano) {
+
+                        if (root.scrollable) {
                             //
                             $target.nanoScroller();
                             //
@@ -192,7 +200,7 @@
                     }
                     var day;
                     if (root.lnlType === 'paging') {
-                        day = null;
+                        day = moment().format('DDD');
                     } else {
                         var $date = $content.children('.date:last');
                         if ($date.length) {
@@ -207,7 +215,7 @@
                     //1.
                     $content.append(html);
                     //2.
-                    if (root.nano) {
+                    if (root.scrollable) {
                         $target.nanoScroller();
                     }
                 }

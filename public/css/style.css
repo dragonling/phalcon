@@ -682,9 +682,10 @@ body {
 }
 #content {
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.4);
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 50px;
 }
+.pagingbar .button,
 .toolbar.paging .button {
   display: block;
   float: left;
@@ -698,18 +699,24 @@ body {
   font-size: 14px;
   color: #005178;
 }
+.pagingbar .button:hover,
 .toolbar.paging .button:hover,
+.pagingbar .button.active,
 .toolbar.paging .button.active {
   border-color: #005178;
   background-color: #005178;
   color: #fff;
 }
+.pagingbar .button[data-action=prev-page],
 .toolbar.paging .button[data-action=prev-page],
+.pagingbar .button[data-action=next-page],
 .toolbar.paging .button[data-action=next-page] {
   width: 78px;
   color: #646464;
 }
+.pagingbar .button[data-action=prev-page]:hover,
 .toolbar.paging .button[data-action=prev-page]:hover,
+.pagingbar .button[data-action=next-page]:hover,
 .toolbar.paging .button[data-action=next-page]:hover {
   background-color: transparent;
   color: #005178;
@@ -766,6 +773,40 @@ body {
   font-size: 14px;
   line-height: 2em;
   color: #323232;
+}
+.article.page {
+  /* 去除默认边框 */
+  /* 解决 IE6-7 图片缩放锯齿问题 */
+  /* ie6 7 8(q) bug 显示为行内表现 */
+  /* 块/段落引用 */
+  /* Firefox 以外，元素没有下划线，需添加 */
+  /* 添加鼠标问号，进一步确保应用的语义是正确的（要知道，交互他们也有洁癖，如果你不去掉，那得多花点口舌） */
+  /* 一致的 del 样式 */
+  /* 去掉列表前的标识, li 会继承，大部分网站通常用列表来很多内容，所以应该当去 */
+  /* 对齐是排版最重要的因素, 别让什么都居中 */
+  /* 统一上标和下标 */
+  /* 让链接在 hover 状态下显示下划线 */
+  /* 默认不显示下划线，保持页面简洁 */
+  /* 专名号：虽然 u 已经重回 html5 Draft，但在所有浏览器中都是可以使用的，
+     * 要做到更好，向后兼容的话，添加 class="typo-u" 来显示专名号
+     * 关于 <u> 标签：http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element
+     * 被放弃的是 4，之前一直搞错 http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated
+     * 一篇关于 <u> 标签的很好文章：http://html5doctor.com/u-element/
+     */
+  /* 标记，类似于手写的荧光笔的作用 */
+  /* 代码片断 */
+  /* 一致化 horizonal rule */
+  /* 底部印刷体、版本等标记 */
+  /* 可拖动文件添加拖动手势 */
+  /* 强制文本换行 */
+  /* 提供 serif 版本的字体设置 */
+  /* 保证块/段落之间的空白隔行 */
+  /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
+  /* 在文章中，应该还原 ul 和 ol 的样式 */
+  /* 同 ul/ol，在文章中应用 table 基本格式 */
+  /* 去除 webkit 中 input 和 textarea 的默认样式  */
+  /* 高亮选中 */
+  /* TODO: 供着重号使用 */
 }
 .article.page .title {
   font-size: 28px;
@@ -840,6 +881,254 @@ body {
 }
 .article.page > .toolbar .back:hover {
   color: #005178;
+}
+.article.page fieldset,
+.article.page img {
+  border: 0;
+}
+.article.page img {
+  -ms-interpolation-mode: bicubic;
+}
+.article.page iframe {
+  display: block;
+}
+.article.page blockquote {
+  font-family: Optima, Georgia, STSong, serif;
+  margin: 1em 0;
+  color: #999;
+  padding: 0.6em 1em;
+  background: #f8f8f8;
+  border-left: 0.4em solid #ddd;
+}
+.article.page blockquote blockquote {
+  padding: 0 0 0 1em;
+  margin-left: 2em;
+}
+.article.page blockquote p {
+  margin-bottom: 0;
+}
+.article.page acronym,
+.article.page abbr {
+  border-bottom: 1px dotted;
+  font-variant: normal;
+}
+.article.page abbr {
+  cursor: help;
+}
+.article.page del {
+  text-decoration: line-through;
+}
+.article.page address,
+.article.page caption,
+.article.page cite,
+.article.page code,
+.article.page dfn,
+.article.page em,
+.article.page th,
+.article.page var {
+  font-style: normal;
+  font-weight: 400;
+}
+.article.page ul,
+.article.page ol {
+  list-style: none;
+}
+.article.page caption,
+.article.page th {
+  text-align: left;
+}
+.article.page q:before,
+.article.page q:after {
+  content: '';
+}
+.article.page sub,
+.article.page sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: text-top;
+}
+.article.page :root sub,
+.article.page :root sup {
+  vertical-align: baseline;
+  /* for ie9 and other mordern browsers */
+}
+.article.page sup {
+  top: -0.5em;
+}
+.article.page sub {
+  bottom: -0.25em;
+}
+.article.page a:hover {
+  text-decoration: underline;
+}
+.article.page ins,
+.article.page a {
+  text-decoration: none;
+}
+.article.page u,
+.article.page .typo-u {
+  text-decoration: underline;
+}
+.article.page mark {
+  background: #fffdd1;
+}
+.article.page pre,
+.article.page code {
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.article.page pre {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 1em 1.5em;
+}
+.article.page hr {
+  border: none;
+  border-bottom: 1px solid #cfcfcf;
+  margin-bottom: 10px;
+  height: 10px;
+  *margin: -7px 0 2px;
+}
+.article.page small,
+.article.page .typo-small,
+.article.page figcaption {
+  font-size: 0.9em;
+  color: #888;
+}
+.article.page [draggable] {
+  cursor: move;
+}
+.article.page .textwrap,
+.article.page .textwrap td,
+.article.page .textwrap th {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.article.page .textwrap-table {
+  table-layout: fixed;
+}
+.article.page .serif {
+  font-family: Palatino, Hiragino Mincho ProN W3, Optima, STSong, Georgia, serif;
+}
+.article.page .typo p,
+.article.page .typo pre,
+.article.page .typo ul,
+.article.page .typo ol,
+.article.page .typo dl,
+.article.page .typo form,
+.article.page .typo hr,
+.article.page .typo table,
+.article.page .typo-p,
+.article.page .typo-pre,
+.article.page .typo-ul,
+.article.page .typo-ol,
+.article.page .typo-dl,
+.article.page .typo-form,
+.article.page .typo-hr,
+.article.page .typo-table {
+  margin-bottom: 1.2em;
+}
+.article.page .typo h1,
+.article.page .typo h2,
+.article.page .typo h3,
+.article.page .typo h4,
+.article.page .typo h5,
+.article.page .typo h6,
+.article.page .typo-h1,
+.article.page .typo-h2,
+.article.page .typo-h3,
+.article.page .typo-h4,
+.article.page .typo-h5,
+.article.page .typo-h6 {
+  margin-bottom: 0.4em;
+  line-height: 1.5;
+}
+.article.page .typo h1,
+.article.page .typo-h1 {
+  font-size: 1.8em;
+}
+.article.page .typo h2,
+.article.page .typo-h2 {
+  font-size: 1.6em;
+}
+.article.page .typo h3,
+.article.page .typo-h3 {
+  font-size: 1.4em;
+}
+.article.page .typo h4,
+.article.page .typo-h4 {
+  font-size: 1.2em;
+}
+.article.page .typo h5,
+.article.page .typo h6,
+.article.page .typo-h5,
+.article.page .typo-h6 {
+  font-size: 1em;
+}
+.article.page .typo ul,
+.article.page .typo-ul {
+  margin-left: 1.3em;
+  list-style: disc;
+}
+.article.page .typo ol,
+.article.page .typo-ol {
+  list-style: decimal;
+  margin-left: 1.9em;
+}
+.article.page .typo li ul,
+.article.page .typo li ol,
+.article.page .typo-ul ul,
+.article.page .typo-ul ol,
+.article.page .typo-ol ul,
+.article.page .typo-ol ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 2em;
+}
+.article.page .typo li ul,
+.article.page .typo-ul ul,
+.article.page .typo-ol ul {
+  list-style: circle;
+}
+.article.page .typo table th,
+.article.page .typo table td,
+.article.page .typo-table th,
+.article.page .typo-table td .typo table caption {
+  border: 1px solid #ddd;
+  padding: 0.5em 1em;
+  color: #666;
+}
+.article.page .typo table th,
+.article.page .typo-table th {
+  background: #fbfbfb;
+}
+.article.page .typo table thead th,
+.article.page .typo-table thead th {
+  background: #f1f1f1;
+}
+.article.page .typo table caption {
+  border-bottom: none;
+}
+.article.page .typo-input,
+.article.page .typo-textarea {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.article.page ::-moz-selection {
+  background: #08c;
+  color: #fff;
+}
+.article.page ::selection {
+  background: #08c;
+  color: #fff;
+}
+.article.page .typo-em,
+.article.page .typo em,
+.article.page legend,
+.article.page caption {
+  font-weight: 700;
 }
 .user-comments {
   background-color: #f0f0f0;
@@ -1042,6 +1331,333 @@ body {
 }
 .finance-calendar.list .important .star {
   margin-right: 3px;
+}
+div.datepicker {
+  font: 14px/30px Verdana, Helvetica, Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+div.datepicker a {
+  color: #253F5D;
+  text-decoration: none;
+  cursor: default;
+  outline: none;
+}
+div.datepicker table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #e6e6e6;
+}
+div.datepicker table thead {
+  background-color: #fff;
+}
+div.datepicker table thead th {
+  border-bottom: none;
+  border-top: none;
+  height: 30px;
+  line-height: 30px;
+}
+div.datepicker table thead .datepickerGoPrev a,
+div.datepicker table thead .datepickerGoNext a {
+  float: left;
+  background-color: #787878;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+}
+div.datepicker table thead .datepickerGoPrev a:hover,
+div.datepicker table thead .datepickerGoNext a:hover {
+  background-color: #005178;
+  color: #fff;
+}
+div.datepicker table thead .datepickerGoNext a {
+  float: right;
+}
+div.datepicker table thead .datepickerMonth {
+  font-size: 18px;
+}
+div.datepicker table th {
+  text-align: center;
+  color: #999;
+  font-weight: normal;
+  border: 1px solid #fff;
+}
+div.datepicker table tr.datepickerDoW th {
+  color: #323232;
+  width: 60px;
+  line-height: 45px;
+  height: 45px;
+}
+div.datepicker table td {
+  padding: 0;
+  margin: 0;
+  border: 1px solid #fff;
+}
+div.datepicker table .datepickerDays a {
+  line-height: 45px;
+  height: 45px;
+  width: 60px;
+  text-align: center;
+}
+div.datepicker table .datepickerYears a,
+div.datepicker table .datepickerMonths a {
+  width: 121px;
+  line-height: 106px;
+  height: 106px;
+  text-align: center;
+}
+td.datepickerNotInMonth a {
+  color: #C9C9C9;
+}
+tbody.datepickerDays td.datepickerSelected {
+  background: #399DB3;
+}
+tbody.datepickerDays td.datepickerNotInMonth.datepickerSelected {
+  background: #C9E4EA;
+}
+tbody.datepickerYears td.datepickerSelected,
+tbody.datepickerMonths td.datepickerSelected {
+  background: #399DB3;
+}
+div.datepicker a:hover,
+div.datepicker a:hover {
+  color: #88c5eb;
+}
+div.datepicker td.datepickerNotInMonth a:hover {
+  color: #999;
+}
+.datepickerSpace div {
+  width: 30px;
+}
+td.datepickerDisabled a,
+td.datepickerDisabled.datepickerNotInMonth a {
+  color: #333;
+}
+td.datepickerDisabled a:hover {
+  color: #333;
+}
+td.datepickerSpecial a {
+  background: #700;
+}
+td.datepickerSpecial.datepickerSelected a {
+  background: #a00;
+}
+#financeCalendar {
+  background-color: #fff;
+  padding: 30px;
+  padding-top: 0;
+}
+#financeCalendar > .head {
+  margin: 0 -30px;
+  height: 50px;
+  color: #505050;
+  font-size: 16px;
+  background-color: #dcdcdc;
+  border-bottom: 1px solid #a0a0a0;
+}
+#financeCalendar > .head > .item {
+  display: block;
+  cursor: pointer;
+  float: left;
+  width: 99px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  border-right: 1px solid #a0a0a0;
+}
+#financeCalendar > .head > .item.active {
+  margin-bottom: -1px;
+  padding-bottom: 1px;
+  background-color: #fff;
+}
+#financeCalendar > .head > .item.input {
+  width: 320px;
+  cursor: default;
+  padding: 10px 40px;
+  height: 30px;
+  border-right: none;
+}
+#financeCalendar > .head > .item.input.active {
+  padding-bottom: 11px;
+}
+#financeCalendar > .head > .item.input .button,
+#financeCalendar > .head > .item.input .text {
+  display: block;
+  cursor: pointer;
+  float: left;
+  font-size: 12px;
+  line-height: 30px;
+  text-align: center;
+  height: 30px;
+}
+#financeCalendar > .head > .item.input .text {
+  width: 208px;
+  background-color: #dcdcdc;
+}
+#financeCalendar > .head > .item.input .button {
+  width: 30px;
+  color: #fff;
+  font-size: 18px;
+  background-color: #787878;
+}
+#financeCalendar > .head > .item.input .button:hover,
+#financeCalendar > .head > .item.input .button.active {
+  background-color: #005178;
+}
+#financeCalendar > .head > .item.input .button[data-toggle=calendar] {
+  float: right;
+  font-size: 14px;
+  border-radius: 30px;
+}
+#financeCalendar > .calendar {
+  display: none;
+  margin-top: 30px;
+  border-radius: 10px;
+  border: 1px solid #969696;
+  padding: 30px;
+}
+#financeCalendar > .calendar:before {
+  display: table;
+  content: '';
+  clear: both;
+}
+#financeCalendar > .calendar:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+#financeCalendar > .calendar [data-calendar-info] {
+  float: left;
+  width: 160px;
+}
+#financeCalendar > .calendar [data-calendar-label] {
+  width: 140px;
+  height: 140px;
+  border-radius: 140px;
+  background-color: #005178;
+  color: #fff;
+  text-align: center;
+}
+#financeCalendar > .calendar [data-calendar-label] .text {
+  display: block;
+  font-size: 12px;
+  line-height: 20px;
+}
+#financeCalendar > .calendar [data-calendar-label] .text.big {
+  font-size: 72px;
+  font-weight: bold;
+  line-height: 80px;
+  height: 80px;
+  padding-top: 10px;
+}
+#financeCalendar > .calendar [data-picker] {
+  width: 486px;
+  float: right;
+}
+#financeCalendar > .toolbar {
+  margin-top: 30px;
+  padding: 0 30px;
+  background-color: #e6e6e6;
+}
+#financeCalendar > .toolbar .checkbox {
+  height: 30px;
+  width: 55px;
+  margin-right: 30px;
+  padding: 5px 0;
+}
+#financeCalendar > .toolbar .checkbox:last-child {
+  margin-right: 0;
+}
+#financeCalendar > .toolbar .checkbox [type=checkbox] {
+  margin-top: 5px;
+}
+#financeCalendar > .toolbar .checkbox .flag {
+  width: 30px;
+  height: 30px;
+  float: right;
+}
+#financeCalendar > .content {
+  margin-top: 30px;
+}
+#financeCalendar > .content table {
+  width: 100%;
+  font-size: 12px;
+  line-height: 24px;
+  color: #505050;
+  background-color: #f2f2f2;
+  margin-bottom: 30px;
+}
+#financeCalendar > .content table th,
+#financeCalendar > .content table td {
+  text-align: left;
+  padding: 6px 0;
+  vertical-align: middle;
+}
+#financeCalendar > .content table th:first-child,
+#financeCalendar > .content table td:first-child {
+  padding-left: 30px;
+}
+#financeCalendar > .content table th:last-child,
+#financeCalendar > .content table td:last-child {
+  padding-right: 30px;
+}
+#financeCalendar > .content table thead {
+  background-color: #e6e6e6;
+}
+#financeCalendar > .content table tr:nth-child(even) {
+  background-color: #e6e6e6;
+}
+#financeCalendar > .content table tr:hover {
+  background-color: #c8dce6;
+}
+#financeCalendar > .content table th {
+  color: #323232;
+  font-weight: bold;
+}
+#financeCalendar > .content table td.date {
+  text-align: center;
+}
+#financeCalendar > .content table th.time,
+#financeCalendar > .content table td.time {
+  width: 55px;
+}
+#financeCalendar > .content table th.important,
+#financeCalendar > .content table td.important {
+  width: 75px;
+}
+#financeCalendar > .content table th.country,
+#financeCalendar > .content table td.country {
+  width: 70px;
+}
+#financeCalendar > .content table th.price,
+#financeCalendar > .content table td.price {
+  width: 75px;
+  text-align: right;
+}
+#financeCalendar > .content table.type1 th.time,
+#financeCalendar > .content table.type1 td.time {
+  width: 100px;
+}
+#financeCalendar > .content table.type1 th.important,
+#financeCalendar > .content table.type1 td.important {
+  width: 75px;
+}
+#financeCalendar > .content table.type1 th.country,
+#financeCalendar > .content table.type1 td.country {
+  width: 70px;
+}
+#financeCalendar > .content table.type1 th.remark,
+#financeCalendar > .content table.type1 td.remark {
+  width: 120px;
+}
+#financeCalendar > .content h2 {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 32px;
+  padding-left: 30px;
+  background-color: #323232;
+  color: #fff;
+}
+#financeCalendar > .content .important .star {
+  margin-right: 5px;
 }
 #main {
   background-color: #fff;

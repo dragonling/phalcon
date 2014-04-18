@@ -1,0 +1,126 @@
+<div class="row relative">
+    <div class="span8">
+        <div id="financeCalendar">
+            <div class="head">
+                <div class="item" data-action="change-date" data-date="yesterday">昨天</div>
+                <div class="item" data-action="change-date" data-date="today">今天</div>
+                <div class="item" data-action="change-date" data-date="tomorrow">明天</div>
+                <div class="item" data-action="change-date" data-date="week">本周</div>
+                <div class="item active input">
+                <span class="button" data-action="change-date" data-date="prev-date">
+                    <i class="icon-caret-left"></i>
+                </span>
+                    <span class="text" data-calendar-text></span>
+                <span class="button" data-action="change-date" data-date="next-date">
+                    <i class="icon-caret-right"></i>
+                </span>
+                <span class="button" data-toggle="calendar">
+                    <i class="icon-calendar"></i>
+                </span>
+                </div>
+            </div>
+            <div class="calendar">
+                <div data-calendar-info>
+                    <div data-calendar-label>
+                    </div>
+                </div>
+                <div data-picker></div>
+            </div>
+            <div class="toolbar">
+                <label class="checkbox " for="fcl-flag-cny">
+                    <input id="fcl-flag-cny" type="checkbox" data-toggle=currency data-currency="CNY" value="true">
+                    <img class="flag" src="/img/flags/CNY-48.png">
+                </label>
+                <label class="checkbox " for="fcl-flag-usd">
+                    <input id="fcl-flag-usd" type="checkbox" data-toggle=currency data-currency="USD" value="true">
+                    <img class="flag" src="/img/flags/USD-48.png">
+                </label>
+                <label class="checkbox " for="fcl-flag-eur">
+                    <input id="fcl-flag-eur" type="checkbox" data-toggle=currency data-currency="EUR" value="true">
+                    <img class="flag" src="/img/flags/EUR-48.png">
+                </label>
+                <label class="checkbox " for="fcl-flag-jpy">
+                    <input id="fcl-flag-jpy" type="checkbox" data-toggle=currency data-currency="JPY" value="true">
+                    <img class="flag" src="/img/flags/JPY-48.png">
+                </label>
+                <label class="checkbox " for="fcl-flag-gbp">
+                    <input id="fcl-flag-gbp" type="checkbox" data-toggle=currency data-currency="GBP" value="true">
+                    <img class="flag" src="/img/flags/GBP-48.png">
+                </label>
+                <label class="checkbox " for="fcl-flag-cad">
+                    <input id="fcl-flag-cad" type="checkbox" data-toggle=currency data-currency="CAD" value="true">
+                    <img class="flag" src="/img/flags/CAD-48.png">
+                </label>
+                <label class="checkbox " for="fcl-flag-aud">
+                    <input id="fcl-flag-aud" type="checkbox" data-toggle=currency data-currency="AUD" value="true">
+                    <img class="flag" src="/img/flags/AUD-48.png">
+                </label>
+                <label class="checkbox " for="fcl-flag-chf">
+                    <input id="fcl-flag-chf" type="checkbox" data-toggle=currency data-currency="CHF" value="true">
+                    <img class="flag" src="/img/flags/CHF-48.png">
+                </label>
+            </div>
+            <div class="content">
+            </div>
+            <script type="text/template" data-template>
+                <table>
+                    <thead><tr>
+                        <th class="time">时间</th>
+                        <th class="important">重要性</th>
+                        <th class="country">国家</th>
+                        <th class="title">指标</th>
+                        <th class="price actual">今值</th>
+                        <th class="price forecast">预期</th>
+                        <th class="price previous">前值</th>
+                    </tr></thead>
+                    <tbody>
+                        <% for(var i=0; i<records[0].length; i++) { %>
+                            <% var record = records[0][i]; %>
+                            <% if (i == 0 || record.date.charAt(9) != records[0][i-1].date.charAt(9)) { %>
+                                <tr><td class="date" colspan="7" data-date="<%= record.date %>"><%= record.date %></td></tr>
+                            <% } %>
+                            <tr id="<%= record.id %>" class="item" data-currency="<%= record.currency %>" data-trend="<%= record.trend %>" data-utm="<%= record.utm %>">
+                                <td class="time"><%= record.time %></td>
+                                <td class="important" data-value="<%= record.importance %>"><%= record.stars %></td>
+                                <td class="country"><%= record.country %></td>
+                                <td class="title"><a class="link" href=""><%= record.title %></a></td>
+                                <td class="price actual"> <%= record.actual %></td>
+                                <td class="price forecast"> <%= record.forecast %></td>
+                                <td class="price previous"> <%= record.previous %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+                <% var heads = ['', '财经大事','股票财报','国债发行','假期预告'] %>
+                <% for (var j=1; j<records.length; j++) { %>
+                    <h2><%= heads[j] %></h2>
+                    <table class="type1">
+                        <thead> <tr>
+                            <th class="time">时间</th>
+                            <th class="important">重要性</th>
+                            <th class="country">国家</th>
+                            <th class="remark">地点</th>
+                            <th class="title">事件</th>
+                        </tr> </thead>
+                        <tbody>
+                        <% for(var i=0; i<records[j].length; i++) { %>
+                            <% var record = records[j][i]; %>
+                            <% if (i == 0 || record.date.charAt(9) != records[j][i-1].date.charAt(9)) { %>
+                                <tr><td class="date" colspan="5" data-date="<%= record.date %>"><%= record.date %></td></tr>
+                            <% } %>
+                            <tr id="<%= record.id %>" class="item" data-currency="<%= record.currency %>" data-trend="<%= record.trend %>" data-utm="<%= record.utm %>">
+                                <td class="time"><%= record.time %></td>
+                                <td class="important" data-value="<%= record.importance %>"><%= record.stars %></td>
+                                <td class="country"><%= record.country %></td>
+                                <td class="remark"><%= record.remark %></td>
+                                <td class="title"><a class="link" href=""><%= record.title %></a></td>
+                            </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                <% } %>
+            </script>
+        </div>
+    </div>
+    <div id="sidebar" class="span4"></div>
+</div>

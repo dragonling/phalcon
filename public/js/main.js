@@ -1,5 +1,19 @@
-
-
+/**
+ * 导航栏高亮
+ */
+(function(){
+    var matchUrl = window.location.pathname + window.location.search;
+    $('#header .navbar .link').each(function(){
+        var item = $(this);
+        var pattern = item.attr("data-active-url");
+        if (pattern) {
+            var reg = new RegExp(pattern);
+            if(reg.test(matchUrl)) {
+                item.addClass("active");
+            }
+        }
+    });
+})();
 
 
 /**
@@ -86,6 +100,18 @@ $(function(){
     });
     //
     $('#side-fcl').fcl();
+    //
+    var $financeCalendar = $('#financeCalendar');
+    if ($financeCalendar.length) {
+        $('#financeCalendar').fcl({
+            scrollable: false,
+            $datepicker: $financeCalendar.find('[data-picker]'),
+            dateChangeEvent: true,
+            countryChangeEvent: true,
+            sort: true
+        });
+    }
+
     //
     mam.init();
     /**
