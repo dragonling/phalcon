@@ -57,7 +57,7 @@ class View extends \Phalcon\Mvc\View
 
         return $this;
     }
-    
+
     public function setModulePartialsDir($moduleName, $partialsDir)
     {
         $moduleManager = $this->getDI()->get('moduleManager');
@@ -98,7 +98,7 @@ class View extends \Phalcon\Mvc\View
         $partialsDir = $this->modulePartialsDir;
         $this->setPartialsDir(DIRECTORY_SEPARATOR . $this->relativePath($moduleViewsDir, $partialsDir));
         return $this;
-    } 
+    }
 
     protected function caculateLayoutRelatedPath()
     {
@@ -108,7 +108,7 @@ class View extends \Phalcon\Mvc\View
         $this->setLayoutsDir(DIRECTORY_SEPARATOR . $this->relativePath($moduleViewsDir, $moduleLayout));
         $this->setLayout($layoutName);
         return $this;
-    } 
+    }
 
     protected function relativePath($from, $to, $ps = DIRECTORY_SEPARATOR)
     {

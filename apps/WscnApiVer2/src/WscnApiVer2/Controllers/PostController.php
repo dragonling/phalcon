@@ -14,7 +14,7 @@ use Eva\EvaBlog\Models;
  *  apiVersion="0.2",
  *  swaggerVersion="1.2",
  *  resourcePath="/post",
- *  basePath="http://api.goldtoutiao.com/v2"
+ *  basePath="http://l.api.goldtoutiao.com/v2"
  * )
  */
 class PostController extends ControllerBase
@@ -23,15 +23,13 @@ class PostController extends ControllerBase
      *
      * @SWG\Api(
      *   path="/post/{postId}",
-     *   description="Operations about facets",
+     *   description="Post related api",
      *   produces="['application/json']",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       method="GET",
      *       summary="Find post by ID",
      *       notes="Returns a post based on ID",
-     *       type="FacetResult",
-     *       nickname="getfacetById",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
      *           name="postId",
@@ -61,7 +59,7 @@ class PostController extends ControllerBase
         $postModel = new Models\Post();
         $post = $postModel->findFirst($id);
         if($post) {
-            $post->dump(array(
+            $post = $post->dump(array(
                 'id',
                 'title',
                 'sourceCode',
@@ -69,11 +67,19 @@ class PostController extends ControllerBase
                 'summary',
                 'summaryHtml' => 'getSummaryHtml',
                 'commentStatus',
-                'source',
-                'sourceUrl',
+                //'source',
+                //'sourceUrl',
                 'url' => 'getUrl',
                 'imageUrl' => 'getImageUrl',
-                'User', => array(
+                'Tags' => array(
+                    'id',
+                    'tagName',
+                ),
+                'Categories' => array(
+                    'id',
+                    'categoryName',
+                ),
+                'User' => array(
                     'id',
                     'username',
                 ),

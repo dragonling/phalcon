@@ -2,9 +2,8 @@
 
 return array(
     'blog' => array(
-        'postPreviewUrl' => '',
-        'categoryPreviewUrl' => '',
-        'tagPreviewUrl' => '',
+        'postPath' => '/post/%s',
+        'postPreviewPath' => '',
     ),
 );
 

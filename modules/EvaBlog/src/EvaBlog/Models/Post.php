@@ -161,7 +161,6 @@ class Post extends Entities\Posts
 
         $this->assign($data);
         $this->save();
-    
     }
 
     public function remotePost($id)
@@ -191,5 +190,45 @@ class Post extends Entities\Posts
             $tagArray[] = $tag->tagName;
         }
         return implode(',', $tagArray);
+    }
+
+    public function getSummaryHtml()
+    {
+        if(!$this->summary) {
+            return '';
+        }
+
+        if ($this->sourceCode == 'markdown') {
+            return $this->summary;
+        } else {
+            return $this->summary;
+        }
+    }
+
+    public function getUrl()
+    {
+        $postUrl = $this->getDI()->get('config')->baseUri;
+        $postPath = $this->getDI()->get('config')->blog->postPath;
+        return $postUrl . sprintf($postPath, $this->slug);
+    }
+
+    public function getImageUrl()
+    {
+        if(!$this->image) {
+            return '';
+        }
+
+        if($this->image) {
+            if(
+                \Phalcon\Text::startsWith($this->image, 'http://', false) ||
+                \Phalcon\Text::startsWith($this->image, 'http://', false)
+            ) {
+                return $this->image;
+            }
+        }
+
+        $staticUri = $this->getDI()->get('config')->filesystem->staticUri;
+        $staticPath = $this->getDI()->get('config')->filesystem->staticPath;
+        return $staticUri . $staticPath . $this->image;
     }
 }
