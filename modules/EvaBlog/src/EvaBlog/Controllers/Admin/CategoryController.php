@@ -67,7 +67,7 @@ class CategoryController extends ControllerBase
 
         $form = new \Eva\EvaBlog\Forms\CategoryForm();
         $category = Models\Category::findFirst($this->dispatcher->getParam('id'));
-        $form->setModel($category);
+        $form->setModel($category ? $category : new Models\Category());
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $category);
         if(!$this->request->isPost()){

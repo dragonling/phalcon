@@ -40,6 +40,7 @@ class Category extends Entities\Categories
 
     public function beforeUpdate()
     {
+        /*
         //not allow set self to parent
         if(!$this->parentId || $this->parentId == $this->id) {
             $this->parentId = 0;
@@ -65,6 +66,7 @@ class Category extends Entities\Categories
                 $this->rootId = 0;
             }
         }
+        */
     }
 
     public function createCategory()
