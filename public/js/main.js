@@ -1,148 +1,20 @@
-/**
- * 导航栏高亮
- */
-(function(){
-    var matchUrl = window.location.pathname + window.location.search;
+$(function(){
+    /**
+     * 导航栏高亮
+     */
+    var fullPathUrl = window.location.pathname + window.location.search;
     $('#header .navbar .link').each(function(){
         var item = $(this);
         var pattern = item.attr("data-active-url");
         if (pattern) {
             var reg = new RegExp(pattern);
-            if(reg.test(matchUrl)) {
+            if(reg.test(fullPathUrl)) {
                 item.addClass("active");
             }
         }
     });
-})();
-
-
-/**
- * 汇率计算器
- */
-(function(){
-
-    var CER = {};
-    initCurrencyRate('USDCNY');
-
-    function initCurrencyRate(exchange) {
-
-        $.ajax({
-            url: 'http://api.markets.wallstreetcn.com/v1/price.json?symbol=' + exchange,
-            dataType: 'jsonp',
-            success: function(response){
-                if (response.results && response.results.length) {
-                    //var rate = response.results[0]['price'];
-                    console.log(response.results[0]['price']);
-                    CER[exchange] = response.results[0]['price'];
-                }
-            },
-            failure: function() {
-                initCurrencyRate(exchange);
-            }
-        });
-
-    }
-
-    function convertPrice(price, type, convertType) {
-
-        var ounce = 28.3495231;
-
-        if (type === 'CNY' && convertType ==='USD') {
-            return price * ounce / CER['USDCNY'] ;
-        } else if (type === 'USD' && convertType === 'CNY') {
-            return price *  CER['USDCNY'] / ounce;
-        } else if (type === convertType) {
-            return price;
-        }
-
-    }
-
-    $('#gold-price-converter .button.submit').on('click', function(){
-
-        var input = parseFloat($('#gold-price-converter input[name=input]').val());
-        var inputType = $('#gold-price-converter select[name=input-type]').val().toUpperCase();
-        var resultType = $('#gold-price-converter select[name=result-type]').val().toUpperCase();
-        var result = convertPrice(input, inputType, resultType).toFixed(2);
-        $('#gold-price-converter input[name=result]').val(result);
-
-    });
-    /*
-    function getExchangeRate(baseCurrency, exchangeCurrency) {
-
-        var ounce = 28.3495231;
-
-        if (baseCurrency === 'CNY' && exchangeCurrency ==='USD') {
-            return ounce / getMarketPrice('USDCNY') ;
-        } else if (baseCurrency === 'USD' && exchangeCurrency === 'CNY') {
-            return getMarketPrice('USDCNY') / ounce;
-        }
-    }
-    */
-
-})();
-
-
-
-
-$(function(){
-
-    //
-    $('#main-livenews').lnl();
-    //
-    $('#livenews').lnl({
-        url: 'http://api.wallstreetcn.com/apiv1/livenews-list-gold.jsonp',
-        updateUrl: 'http://api.wallstreetcn.com/apiv1/livenews-gold.jsonp',
-        countUrl: 'http://api.wallstreetcn.com/apiv1/livenews-count-gold.jsonp',
-        pageSize: 80,
-        menu: true,
-        paging: true,
-        clock: true
-    });
-    //
-    $('#side-fcl').fcl();
-    //
-    var $financeCalendar = $('#financeCalendar');
-    if ($financeCalendar.length) {
-        $('#financeCalendar').fcl({
-            scrollable: false,
-            $datepicker: $financeCalendar.find('[data-picker]'),
-            dateChangeEvent: true,
-            countryChangeEvent: true,
-            sort: true
-        });
-    }
-
-    //
-    mam.init();
     /**
-     * chart 图表
-     */
-    $(document).on('click', '[data-efc-target]', function(e) {
-
-        var $target = $(this.getAttribute('data-efc-target'));
-        var frame = $target.find('iframe')[0];
-        var symbol = this.getAttribute('data-efc-symbol');
-        var interval = this.getAttribute('data-efc-interval');
-        var type = this.getAttribute('data-efc-type');
-
-        if (symbol) {
-            frame.src = frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + symbol + '$1');
-            $target.find('[data-efc-symbol].active').removeClass('active');
-            $(this).addClass('active');
-        } else if (interval) {
-            frame.src = frame.src.replace(/interval=\w+(&)?/, 'interval=' + interval + '$1');
-            $target.find('[data-efc-interval].active').removeClass('active');
-            $(this).addClass('active');
-        } else if (type) {
-
-        }
-
-        return false;
-
-    });
-
-    /**
-     *
+     * tabpanel
      */
     $(document).on('click.tab', '.tab', function(e){
         var $tab = $(this);
@@ -162,7 +34,7 @@ $(function(){
         e.preventDefault();
     });
     /**
-     *
+     * menu
      */
     $(document).on('click.menu', '[data-toggle=menu]', function(e){
         var $this = $(this);
@@ -195,6 +67,99 @@ $(function(){
         $parent.addClass('active');
         return false;
     });
+    /**
+     * 汇率计算器
+     */
+    var CER = {};
+    initCurrencyRate('USDCNY');
+    function initCurrencyRate(exchange) {
+        $.ajax({
+            url: 'http://api.markets.wallstreetcn.com/v1/price.json?symbol=' + exchange,
+            dataType: 'jsonp',
+            success: function(response){
+                if (response.results && response.results.length) {
+                    //var rate = response.results[0]['price'];
+                    console.log(response.results[0]['price']);
+                    CER[exchange] = response.results[0]['price'];
+                }
+            },
+            failure: function() {
+                initCurrencyRate(exchange);
+            }
+        });
+    }
+    function convertPrice(price, type, convertType) {
+        var ounce = 28.3495231;
+        if (type === 'CNY' && convertType ==='USD') {
+            return price * ounce / CER['USDCNY'] ;
+        } else if (type === 'USD' && convertType === 'CNY') {
+            return price *  CER['USDCNY'] / ounce;
+        } else if (type === convertType) {
+            return price;
+        }
+    }
+    $('#gold-price-converter .button.submit').on('click', function(){
+        var input = parseFloat($('#gold-price-converter input[name=input]').val());
+        var inputType = $('#gold-price-converter select[name=input-type]').val().toUpperCase();
+        var resultType = $('#gold-price-converter select[name=result-type]').val().toUpperCase();
+        var result = convertPrice(input, inputType, resultType).toFixed(2);
+        $('#gold-price-converter input[name=result]').val(result);
+    });
+});
+
+$(function(){
+
+    //
+    $('#main-livenews').lnl();
+    //
+    $('#livenews').lnl({
+        url: 'http://api.wallstreetcn.com/apiv1/livenews-list-gold.jsonp',
+        updateUrl: 'http://api.wallstreetcn.com/apiv1/livenews-gold.jsonp',
+        countUrl: 'http://api.wallstreetcn.com/apiv1/livenews-count-gold.jsonp',
+        pageSize: 80,
+        menu: true,
+        paging: true,
+        clock: true
+    });
+    //
+    $('#side-fcl').fcl();
+    //
+    var $financeCalendar = $('#financeCalendar');
+    if ($financeCalendar.length) {
+        $('#financeCalendar').fcl({
+            scrollable: false,
+            $datepicker: $financeCalendar.find('[data-picker]'),
+            dateChangeEvent: true,
+            countryChangeEvent: true,
+            loadMoreEvent: false,
+            sort: true
+        });
+    }
+
+    //
+    mam.init();
+    /**
+     * chart 图表
+     */
+    $(document).on('click', '[data-efc-target]', function(e) {
+        var $target = $(this.getAttribute('data-efc-target'));
+        var frame = $target.find('iframe')[0];
+        var symbol = this.getAttribute('data-efc-symbol');
+        var interval = this.getAttribute('data-efc-interval');
+        var type = this.getAttribute('data-efc-type');
+        if (symbol) {
+            frame.src = frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + symbol + '$1');
+            $target.find('[data-efc-symbol].active').removeClass('active');
+            $(this).addClass('active');
+        } else if (interval) {
+            frame.src = frame.src.replace(/interval=\w+(&)?/, 'interval=' + interval + '$1');
+            $target.find('[data-efc-interval].active').removeClass('active');
+            $(this).addClass('active');
+        } else if (type) {
+            //todo
+        }
+        return false;
+    });
 
     /*
     $(document).on('click.spread', '[data-toggle=shrink]', function(e){
@@ -220,6 +185,20 @@ $(function(){
     }
 
     function showStareModal() {
+        $stare.addClass('active');
+        //$stare.css('transform', 'scale(0%, 0%)');
+        //$stare.css('transform', 'scale(100%, 100%)');
+        $({number: 0}).animate({number: 100}, {
+            duration: 500,
+            step: function(now) {
+                // in the step-callback (that is fired each step of the animation),
+                // you can use the `now` parameter which contains the current
+                // animation-position (`0` up to `angle`)
+                $stare.css({
+                    transform: 'scale(' + now/100 + ',' + now/100 +')'
+                });
+            }
+        });
         //todo
         mam.initData(true);
         $('#stare-livenews').lnl({
@@ -229,7 +208,6 @@ $(function(){
             autoScroll: true,
             heightChange: true
         });
-        $stare.addClass('active');
     }
 
     $modal.on('click', function(e){
@@ -245,11 +223,11 @@ $(function(){
         var expandTargetHeight = $expandTarget.height();
         if ($this.hasClass('active')) {
             var height = expandTargetHeight - hideTargetHeight;
-            $hideTarget.show();
+            $hideTarget.slideDown(500);
             $this.removeClass('active');
         } else {
             var height = expandTargetHeight + hideTargetHeight;
-            $hideTarget.hide();
+            $hideTarget.slideUp(500);
             $this.addClass('active');
         }
         console.log('set the expand Target Height from [' + expandTargetHeight + '] to [' + height + ']');

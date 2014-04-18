@@ -1,10 +1,7 @@
 <div class="row relative">
     <div class="span9">
-
         <div id="main">
-
             <div class="row">
-
                 <div class="span">
                     <ul class="topnews carousel">
                         <li class="item">
@@ -27,9 +24,7 @@
                         <li class="item"><a class="link" href="">美国2月个人支出创三个月最大，但前值下修，投行下调美一季度GDP预期<span class="time">14:22</span></a></li>
                     </ul>
                 </div><!--span end -->
-
                 <div class="span">
-
                     <div id="chart" class="market chart">
                         <ul class="titlebar">
                             <a data-efc-target="#chart" data-efc-symbol="XAUUSD" class="link active" href="">黄金</a>
@@ -53,100 +48,36 @@
                                 <div data-efc-target="#chart" data-efc-interval="MN" class="button">1M</div>
                             </div>
                             <div class="chart">
-                                <!-- <img width="440" height="206" src="/img/grid02.png" /> -->
                                 <iframe width="440" height="206" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/chart?symbol=XAUUSD&theme=dark&width=440&height=206&rows=50&interval=30"></iframe>
                             </div>
                         </div>
-                    </div>
-
+                    </div><!-- market chart end -->
                     <h2 class="main-title">实时新闻</h2>
-
                     <div id="main-livenews" class="nano livenews scrollable list" data-scroll-config="scroll:y;pane:left;">
-                        <ul class="nano-content content">
-                            <!--
-                            <li class="date">2014年03月21日</li>
-                            <li class="item">
-                                <span class="icon alert"></span>
-                                <span class="time">06:29</span>
-                                <a class="link" href="">穆迪：将俄罗斯BAA1国债评级列入可能调降的观察名单中。做出这一决定是因与乌克兰的冲突以及未来政策的不确定性导致俄罗斯经济增长力量减弱。如果评级检讨导致俄罗斯BAA1国债评级被调降，最可能的结果是调降一个级距。</a>
-                            </li>
-                            <li class="item">
-                                <span class="icon alert"></span>
-                                <span class="time">07:06</span>
-                                <a class="link" href="">本周累计，道琼斯指数上涨0.1%，标普500指数下跌0.5%，纳斯达克指数重跌2.8%。纳斯达克指数录得自2012年10月12日以来最大单周跌幅。</a>
-                            </li>
-                            <li class="item">
-                                <span class="icon alert"></span>
-                                <span class="time">08:29</span>
-                                <a class="link" href="">CFTC：截至到3月25日当周，美国10年期国债期货合约投机净空头增加6751手，至61765手。 </a>
-                            </li>
-                            <li class="item">
-                                <span class="icon alert"></span>
-                                <span class="time">08:36</span>
-                                <a class="link" href="">“美联储通讯社”Hilsenrath：美国通胀连续22个月低于美联储目标水平，这能够使美联储官员暂时停下来，讨论是否继续削减QE，以及何时加息。 </a>
-                            </li>
-                            <li class="item">
-                                <span class="icon alert"></span>
-                                <span class="time">08:55</span>
-                                <a class="link" href="">CFTC：截至到3月25日当周，WTI原油期货投机净多头持仓减少10399手合约，至340970手。</a>
-                            </li>
-                            <li class="item">
-                                <span class="icon alert"></span>
-                                <span class="time">09:12</span>
-                                <a class="link" href="">布伦特原油收盘报108.07美元/桶，上涨0.24美元，涨幅0.22%。</a>
-                            </li>
-                            <li class="item">
-                                <span class="icon alert"></span>
-                                <span class="time">09:25</span>
-                                <a class="link" href="">美国NYMEX 5月原油期货价格收盘上涨0.39美元，涨幅0.4%，报101.67美元/桶。本周累计上涨2.2%。 </a>
-                            </li>
-                            <li class="date">2014年03月20日</li>
-                            <li class="item">
-                                <span class="icon alert"></span>
-                                <span class="time">08:33</span>
-                                <a class="link" href="">巴克莱：由于上个月消费支出数据遭下修，将美国一季度GDP增速预期从2.4%调降至2.0%。</a>
-                            </li>
-                            <li class="item">
-                                <span class="icon alert"></span>
-                                <span class="time">09:17</span>
-                                <a class="link" href="">波罗的海干散货指数下跌2.8%，至1373点。 </a>
-                            </li>
-                            -->
-                            <script type="text/template" data-template>
-
-                                <% for(var i=0; i<records.length; i++) { %>
-
-                                    <% var record = records[i]; %>
-
-                                    <% if (i == 0 && record.day != day) { %>
-                                        <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
-                                            <h3 class="label"><%= record.date %></h3>
-                                            <i data-toggle="shrink" class="icon-custom-toggle"></i>
-                                        </li>
-                                    <% } else if (i > 0 && record.day != records[i-1].day) { %>
-                                        <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
-                                            <h3 class="label"><%= record.date %></h3>
-                                            <i data-toggle="shrink" class="icon-custom-toggle"></i>
-                                        </li>
-                                    <% } %>
-                                    <li class="item <%= record.format %> <%= record.color %>" data-nid="<%= record.nid %>" data-timestamp="<%= record.timestamp %>" data-date="<%= record.date %>" data-day="<%= record.day %>">
-                                        <span class="icon" data-type="<%= record.icon %>"></span>
-                                        <span class="time"><%= record.time %></span>
-                                        <a class="link" href=""><%= record.title %></a>
+                        <ul class="nano-content content"></ul>
+                        <script type="text/template" data-template>
+                            <% for(var i=0; i<records.length; i++) { %>
+                                <% var record = records[i]; %>
+                                <% if (i == 0 && record.day != day) { %>
+                                    <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                                        <h3 class="label"><%= record.date %></h3>
+                                        <i data-toggle="shrink" class="icon-custom-toggle"></i>
                                     </li>
-
+                                <% } else if (i > 0 && record.day != records[i-1].day) { %>
+                                    <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                                        <h3 class="label"><%= record.date %></h3>
+                                        <i data-toggle="shrink" class="icon-custom-toggle"></i>
+                                    </li>
                                 <% } %>
-
-                            </script>
-
-                        </ul>
-                        <!--livenews list end-->
-                    </div>
-
-
-
+                                <li class="item <%= record.format %> <%= record.color %>" data-nid="<%= record.nid %>" data-timestamp="<%= record.timestamp %>" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                                    <span class="icon" data-type="<%= record.icon %>"></span>
+                                    <span class="time"><%= record.time %></span>
+                                    <a class="link" href=""><%= record.title %></a>
+                                </li>
+                            <% } %>
+                        </script>
+                    </div> <!--livenews list end-->
                 </div><!--span end -->
-
             </div><!-- row end -->
 
             <div class="row">
@@ -593,255 +524,11 @@
         <h2 class="title">财经日历</h2>
         <div id="side-fcl" class="nano finance-calendar scrollable list">
             <ul class="nano-content content">
-                <!--
-                <li class="item">
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="time">05:45am</span>
-                        </div>
-                        <div class="span width-180">
-                            <a class="link" href="">日本第一季度GDP平均指数初值</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="label">今值：</span>
-                            <span class="value">4.123%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">预测：</span>
-                            <span class="value">-1.40B</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">前值：</span>
-                            <span class="value">2.394%</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="time">10:22am</span>
-                        </div>
-                        <div class="span width-180">
-                            <a class="link" href="">密歇根大学消费者信心预期初值</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="label">今值：</span>
-                            <span class="value">95.4</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">预测：</span>
-                            <span class="value">94</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">前值：</span>
-                            <span class="value">93.6</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="time">10:30am</span>
-                        </div>
-                        <div class="span width-180">
-                            <a class="link" href="">盖屋同意（月度环比）</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="label">今值：</span>
-                            <span class="value">-8.3%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">预测：</span>
-                            <span class="value">-3.5%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">前值：</span>
-                            <span class="value">7.1%</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="time">11:20am</span>
-                        </div>
-                        <div class="span width-180">
-                            <a class="link" href="">意大利消费者物价指数（月度环比)P</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="label">今值：</span>
-                            <span class="value">-0.1%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">预测：</span>
-                            <span class="value">0.1%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">前值：</span>
-                            <span class="value">0.2%</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="time">14:20pm</span>
-                        </div>
-                        <div class="span width-180">
-                            <a class="link" href="">东京核心消费者物价指数（同比）</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="label">今值：</span>
-                            <span class="value">0.9%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">预测：</span>
-                            <span class="value">0.8%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">前值：</span>
-                            <span class="value">0.7%</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="time">05:45am</span>
-                        </div>
-                        <div class="span width-180">
-                            <a class="link" href="">日本第一季度GDP平均指数初值</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="label">今值：</span>
-                            <span class="value">4.123%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">预测：</span>
-                            <span class="value">-1.40B</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">前值：</span>
-                            <span class="value">2.394%</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="time">10:22am</span>
-                        </div>
-                        <div class="span width-180">
-                            <a class="link" href="">密歇根大学消费者信心预期初值</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="label">今值：</span>
-                            <span class="value">95.4</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">预测：</span>
-                            <span class="value">94</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">前值：</span>
-                            <span class="value">93.6</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="time">10:30am</span>
-                        </div>
-                        <div class="span width-180">
-                            <a class="link" href="">盖屋同意（月度环比）</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="label">今值：</span>
-                            <span class="value">-8.3%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">预测：</span>
-                            <span class="value">-3.5%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">前值：</span>
-                            <span class="value">7.1%</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="time">11:20am</span>
-                        </div>
-                        <div class="span width-180">
-                            <a class="link" href="">意大利消费者物价指数（月度环比)P</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="label">今值：</span>
-                            <span class="value">-0.1%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">预测：</span>
-                            <span class="value">0.1%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">前值：</span>
-                            <span class="value">0.2%</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="time">14:20pm</span>
-                        </div>
-                        <div class="span width-180">
-                            <a class="link" href="">东京核心消费者物价指数（同比）</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span meta width-80">
-                            <span class="label">今值：</span>
-                            <span class="value">0.9%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">预测：</span>
-                            <span class="value">0.8%</span>
-                        </div>
-                        <div class="span meta width-80">
-                            <span class="label">前值：</span>
-                            <span class="value">0.7%</span>
-                        </div>
-                    </div>
-                </li>
-                -->
+                <li class="more"></li>
             </ul>
             <script type="text/template" data-template>
-
                 <% for(var i=0; i<records.length; i++) { %>
-
                     <% var record = records[i]; %>
-
                     <% if (i == 0 || record.date.charAt(9) != records[i-1].date.charAt(9)) { %>
                         <li class="date" data-date="<%= record.date %>"><%= record.date %></li>
                     <% } %>
@@ -869,12 +556,9 @@
                             </div>
                         </div>
                     </li>
-
                 <% } %>
-
             </script>
-        </div>
-
+        </div><!-- finance-calendar list end -->
         <div class="line type1"></div>
         <h2 class="title">黄金多空调查</h2>
         <div class="line type1"></div>
@@ -1036,7 +720,7 @@
 <div id="modal">
     <div id="stare-modal" class="panel">
 
-        <div class="row">
+        <div class="row content">
             <div class="span ">
                 <div id="modal-chart" class="market chart">
                     <div class="titlebar">
@@ -1072,7 +756,7 @@
                 <div class="head type5">
                     <h2 class="title">实时新闻</h2>
                     <div class="toolbar">
-                        <label class="checkbox " for="livenews-auto-refresh"><i class="icon-refresh"></i> 自动刷新 <input id="livenews-auto-refresh" type="checkbox" value="true"></label>
+                        <!--<label class="checkbox " for="livenews-auto-refresh"><i class="icon-refresh"></i> 自动刷新 <input id="livenews-auto-refresh" type="checkbox" value="true"></label>-->
                         <label class="checkbox " for="livenews-voice-alert"><i class="icon-volume-up"></i> 声音提醒 <input id="livenews-voice-alert" type="checkbox" value="true"></label>
                         <label class="checkbox " for="livenews-all-shrink"><i class="icon-double-angle-up"></i> 全部收起 <input id="livenews-all-shrink" type="checkbox" value="true"></label>
                     </div>
@@ -1166,234 +850,7 @@
                         据下次数据公布时间还有：<span class="clock"></span>
                     </div>
                     <ul class="nano-content content">
-                        <!--
-                        <li class="item">
-                            <div class="row">
-                                <div class="span2"><span class="time">05:45am</span></div>
-                                <div class="span3">
-                                    <span class="important" data-value="3"></span>
-                                </div>
-                                <div class="span7"><a class="link" href="">日本第一季度GDP平均指数初值</a></div>
-                            </div>
-                            <div class="row">
-                                <div class="span2">
-                                    <span class="profit good">
-                                        利多金银
-                                    </span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">今值：</span>
-                                    <span class="value">4.123%</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">预测：</span>
-                                    <span class="value">-1.40B</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">前值：</span>
-                                    <span class="value">2.394%</span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="item">
-                            <div class="row">
-                                <div class="span2"><span class="time">10:22am</span></div>
-                                <div class="span3">
-                                    <span class="important" data-value="3"></span>
-                                </div>
-                                <div class="span7"><a class="link" href="">密歇根大学消费者信心预期初值</a></div>
-                            </div>
-                            <div class="row">
-                                <div class="span2">
-                                    <span class="profit good">
-                                        利多金银
-                                    </span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">今值：</span>
-                                    <span class="value">95.4</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">预测：</span>
-                                    <span class="value">94</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">前值：</span>
-                                    <span class="value">93.6</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="row">
-                                <div class="span2"><span class="time">05:45am</span></div>
-                                <div class="span3">
-                                    <span class="important" data-value="3"></span>
-                                </div>
-                                <div class="span7"><a class="link" href="">美国 核心个人消费支出价格指数 (月度环比)</a></div>
-                            </div>
-                            <div class="row">
-                                <div class="span2">
-                                    <span class="profit good">
-                                        利空金银
-                                    </span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">今值：</span>
-                                    <span class="value">4.123%</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">预测：</span>
-                                    <span class="value">-1.40B</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">前值：</span>
-                                    <span class="value">2.394%</span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="item">
-                            <div class="row">
-                                <div class="span2"><span class="time">11:20am</span></div>
-                                <div class="span3">
-                                    <span class="important" data-value="3"></span>
-                                </div>
-                                <div class="span7"><a class="link" href="">意大利消费者物价指数（月度环比)P</a></div>
-                            </div>
-                            <div class="row">
-                                <div class="span2">
-                                    <span class="profit good">
-                                        利多金银
-                                    </span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">今值：</span>
-                                    <span class="value">-0.1%</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">预测：</span>
-                                    <span class="value">0.1%</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">前值：</span>
-                                    <span class="value">0.2%</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="row">
-                                <div class="span2"><span class="time">05:45am</span></div>
-                                <div class="span3">
-                                    <span class="important" data-value="3"></span>
-                                </div>
-                                <div class="span7"><a class="link" href="">美国 美联储公开市场委员会委员皮亚纳尔托(Pianalto)讲话</a></div>
-                            </div>
-                            <div class="row">
-                                <div class="span2">
-                                    <span class="profit good">
-                                        利多金银
-                                    </span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">今值：</span>
-                                    <span class="value">4.123%</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">预测：</span>
-                                    <span class="value">-1.40B</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">前值：</span>
-                                    <span class="value">2.394%</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="row">
-                                <div class="span2"><span class="time">05:45am</span></div>
-                                <div class="span3">
-                                    <span class="important" data-value="3"></span>
-                                </div>
-                                <div class="span7"><a class="link" href="">日本第一季度GDP平均指数初值</a></div>
-                            </div>
-                            <div class="row">
-                                <div class="span2">
-                                    <span class="profit good">
-                                        利多金银
-                                    </span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">今值：</span>
-                                    <span class="value">4.123%</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">预测：</span>
-                                    <span class="value">-1.40B</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">前值：</span>
-                                    <span class="value">2.394%</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="row">
-                                <div class="span2"><span class="time">05:45am</span></div>
-                                <div class="span3">
-                                    <span class="important" data-value="3"></span>
-                                </div>
-                                <div class="span7"><a class="link" href="">日本第一季度GDP平均指数初值</a></div>
-                            </div>
-                            <div class="row">
-                                <div class="span2">
-                                    <span class="profit good">
-                                        利多金银
-                                    </span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">今值：</span>
-                                    <span class="value">4.123%</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">预测：</span>
-                                    <span class="value">-1.40B</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">前值：</span>
-                                    <span class="value">2.394%</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="row">
-                                <div class="span2"><span class="time">05:45am</span></div>
-                                <div class="span3">
-                                    <span class="important" data-value="3"></span>
-                                </div>
-                                <div class="span7"><a class="link" href="">日本第一季度GDP平均指数初值</a></div>
-                            </div>
-                            <div class="row">
-                                <div class="span2">
-                                    <span class="profit good">
-                                        利多金银
-                                    </span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">今值：</span>
-                                    <span class="value">4.123%</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">预测：</span>
-                                    <span class="value">-1.40B</span>
-                                </div>
-                                <div class="span3">
-                                    <span class="label">前值：</span>
-                                    <span class="value">2.394%</span>
-                                </div>
-                            </div>
-                        </li>
-                        -->
+                        <li class="more"></li>
                     </ul>
                     <script type="text/template" data-template>
                         <% for(var i=0; i<records.length; i++) { %>

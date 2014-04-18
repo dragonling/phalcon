@@ -226,11 +226,18 @@ button,select,input {
 @gray: #323232;
 @blue: #005178;
 @skyblue: #068cb5;
+@lightBlue: #07bae8;
 @borderColor: #ccc;
 @color1: #343434;
 @red: #ff3232;
 @upColor: #ff3232;
 @downColor: #00cb32;
+//自定义 nano scroller
+.nano > .nano-pane {
+    top: 5px;
+    bottom: 5px;
+    background-color: transparent;
+}
 .red {
     color: @red;
 }
@@ -1207,9 +1214,7 @@ body {
     //overflow-y: hidden;
 
     &>.content {
-
-        .transition(height 0.5s);
-
+        //.transition(height 0.5s);
         &>.date {
             color: #333;
             //font-weight: bold;
@@ -1305,6 +1310,30 @@ body {
     .important {
         .star {
             margin-right: 3px;
+        }
+    }
+    .more {
+        display: block;
+        padding: 0 15px;
+        cursor: pointer;
+        line-height: 30px;
+        color: #c8c8c8;
+        &:before {
+            content: '加载更多数据';
+        }
+        &:hover {
+            color: @red;
+        }
+    }
+    &.loading {
+        .more {
+            cursor: normal;
+            &:before {
+                content: '正在加载中';
+            }
+            &:hover {
+                color: #c8c8c8;
+            }
         }
     }
 }
@@ -1533,6 +1562,7 @@ td.datepickerSpecial.datepickerSelected a {
             width: 55px;
             margin-right: 30px;
             padding: 5px 0;
+            &.last-child,
             &:last-child {
                 margin-right: 0;
             }
@@ -1692,7 +1722,7 @@ td.datepickerSpecial.datepickerSelected a {
         &.type1 {
             width: 400px;
             height: 356px;
-            margin-bottom: 0;
+            margin: 0;
         }
     }
     .topnews.list{
@@ -1840,12 +1870,8 @@ td.datepickerSpecial.datepickerSelected a {
         width: 470px;
         height: 314px;
         border-bottom: 1px solid #DCDCDC;
-
-        &>.nano-pane {
-            background-color: transparent;
-            &>.nano-slider {
-                background-color: rgba(160,160,160,.6);
-            }
+        .nano-slider {
+            background-color: rgba(160,160,160,.6);
         }
     }
 
@@ -2353,6 +2379,17 @@ td.datepickerSpecial.datepickerSelected a {
             background-position: -120px 0;
         }
     }
+    .item {
+        &.red {
+            color: @lightBlue;
+            .link {
+                color: @lightBlue;
+            }
+        }
+        &.bold {
+            font-weight: bold;
+        }
+    }
 }
 #livenews {
     width: 650px;
@@ -2504,13 +2541,16 @@ td.datepickerSpecial.datepickerSelected a {
         height: 340px;
         //width: 100%;
         &.type1 {
-            height: 500px;
-            .nano-content {
+            //height: 500px;
+            &>.nano-content {
                 top: 32px;
             }
-            .nano-pane {
-                top: 32px;
+            &>.nano-pane {
+                top: 37px;
             }
+        }
+        .nano-slider {
+            background-color: rgba(136,136,136,.6);
         }
         .clock {
             color: @upColor;
@@ -2555,13 +2595,6 @@ td.datepickerSpecial.datepickerSelected a {
                 &>.value {
                     font-weight: bold;
                 }
-            }
-        }
-
-        &>.nano-pane {
-            background-color: transparent;
-            &>.nano-slider {
-                background-color: rgba(136,136,136,.6);
             }
         }
     }
@@ -2729,10 +2762,10 @@ td.datepickerSpecial.datepickerSelected a {
 }
 
 #stare-modal.panel {
+    display: none;
+    padding: 20px 25px;
     width: 1150px;
     height: 540px;
-    padding: 20px 25px;
-    //display: none;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -2741,16 +2774,21 @@ td.datepickerSpecial.datepickerSelected a {
     margin: auto;
     background-color: #0f0f0f;
     //box-shadow: 0 0 1px 1px rgba(0,0,0,.5);
-    transform: scale(0, 0);
+    /*transform: scale(0, 0);
     -webkit-transform: scale(0, 0);
     transition: transform 0.75s;
-    -webkit-transition: -webkit-transform 0.75s;
+    -webkit-transition: -webkit-transform 0.75s;*/
 
     &.active {
-        transform: scale(1, 1);
-        -webkit-transform: scale(1, 1);
+        display: block;
+        /*transform: scale(1, 1);
+        -webkit-transform: scale(1, 1);*/
     }
-
+    &>.content {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
     &>.close {
         position: absolute;
         cursor: pointer;
@@ -2848,7 +2886,7 @@ td.datepickerSpecial.datepickerSelected a {
                         right: 0;
                         top: 0;
                         height: 4px;
-                        background-color: #07bae8;
+                        background-color: @lightBlue;
                     }
                 }
             }
@@ -2920,10 +2958,12 @@ td.datepickerSpecial.datepickerSelected a {
                 border-top: 1px solid #787878;
             }
             &>.item {
-                color: #fff;
                 padding: 8px 15px;
                 border-bottom: 1px solid #1e1e1e;
                 border-top: 1px solid #787878;
+                &:hover {
+                    background-color: #464646;
+                }
                 &>.icon {
                     background-image: url(../img/icon/livenews/white.sprite.png);
                 }
@@ -2931,16 +2971,18 @@ td.datepickerSpecial.datepickerSelected a {
 
                 }
                 &>.link {
+                    color: #dcdcdc;
                     width: 570px;
-                    color: #b5b5b5;
+                }
+                &.red {
+                    &>.link {
+                        color: @lightBlue;
+                    }
                 }
             }
         }
-        &>.nano-pane {
-            background-color: transparent;
-            &>.nano-slider {
-                background-color: #aaa;
-            }
+        .nano-slider {
+            background-color: #aaa;
         }
 
     }
@@ -2966,7 +3008,10 @@ td.datepickerSpecial.datepickerSelected a {
             top: 30px;
         }
         .nano-pane {
-            top: 30px;
+            top: 35px;
+        }
+        .nano-slider {
+            background-color: #666;
         }
         .date {
             border-bottom: 1px solid #222;
@@ -3002,7 +3047,7 @@ td.datepickerSpecial.datepickerSelected a {
                 width: 105px;
             }
             .label {
-                color: #b4b4b4;
+                color: #666;
             }
             .value {
                 font-weight: bold;

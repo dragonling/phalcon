@@ -5,7 +5,7 @@
     var UPDATE_INTERVAL = 10*1000;
 
     function Lnl(options) {
-
+        //todo 添加默认config 到 原型中，所有的配置放在config中
         this.$target = options.$target;
 
         this.autoRefresh = options.autoRefresh === false ? false : true;
@@ -24,6 +24,7 @@
         this.init(options);
 
     };
+    Lnl.prototype.config = {};
     Lnl.prototype.init = function(options) {
         this.initData();
         this.initEvent();
@@ -44,8 +45,18 @@
         if (options['heightChange']) {
             this.$target.bind('height_change', function(e, height){
                 var $this = $(this);
-                $this.height(height);
-                $this.nanoScroller();
+                $this.animate(
+                    {
+                        height: height
+                    },
+                    500,
+                    'linear',
+                    function() {
+                        if ($this.hasClass('nano')) {
+                            $this.nanoScroller();
+                        }
+                    }
+                );
             });
         }
     };
@@ -54,6 +65,8 @@
         var callback = _.bind(function(){
             if (this.scrollable) {
                 this.$target.nanoScroller({
+                    disableResize: true,
+                    alwaysVisible: true,
                     preventPageScrolling: true
                 });
             }
@@ -146,8 +159,12 @@
                                 day: moment().format('DDD')
                             });
                             //todo
-                            /*if (data[data.length-1].day > $first.attr('data-day') && $first.attr('data-day') != $date.attr('data-day')) {
-                                console.log('!!!!');
+                            /*if (data[data.length-1].day != $first.attr('data-day')) {
+                                var record = {
+                                    date: $first.attr('data-date'),
+                                    day : $first.attr('data-day')
+                                };
+                                html += _.template($target.find('[data-date-template]').html(), {record: record});
                             }*/
                             $first.before(html);
                         } else {

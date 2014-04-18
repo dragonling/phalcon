@@ -15,17 +15,27 @@
         this.$target = options.$target;
         this.id = this.$target.attr('id') || 'fcl' + FCL_INDEX ++;
         this.itemIndex = 1;
-        this.scrollable = options.scrollable === false ? false : true;
         this.$datepicker = options.$datepicker;
-        this.dateChangeEvent = options.dateChangeEvent;
-        this.countryChangeEvent = options.countryChangeEvent;
-        this.sort = options.sort;
         this.$clock = this.$target.find('.clock');
+
+        this.config.dateChangeEvent = options.dateChangeEvent;
+        this.config.dateChangeEvent = options.countryChangeEvent;
+        this.config.loadMoreEvent = options.loadMoreEvent === false ? false : true;
+        if (this.config.loadMoreEvent) {
+            this.$more = this.$target.find('.more');
+        }
+        this.config.sort = options.sort;
+        this.config.scrollable = options.scrollable === false ? false : true;
+
         this.init(options);
-    }
+    };
+    Fcl.prototype.config = {};
     Fcl.prototype.init = function(options) {
-        if (this.scrollable) {
+        if (this.config.scrollable) {
             this.$target.nanoScroller({
+                //flash: true,
+                disableResize: true,
+                alwaysVisible: true,
                 preventPageScrolling: true
             });
         }
@@ -55,31 +65,28 @@
     Fcl.prototype.initEvent = function(options) {
         var $target = this.$target;
         var root = this;
-        if (this.scrollable) {
+        if (this.config.scrollable) {
             $target.bind('scrolltop', _.bind(this.prevDay, this));
             $target.bind('scrollend', _.bind(this.nextDay, this));
         }
         if (options['heightChange']) {
             $target.bind('height_change', function(e, height){
                 var $this = $(this);
-                $this.height(height);
-                if ($target.hasClass('nano')) {
-                    $this.nanoScroller();
-                }
+                $this.animate(
+                    {
+                        height: height
+                    },
+                    500,
+                    'linear',
+                    function() {
+                        if ($this.hasClass('nano')) {
+                            $this.nanoScroller();
+                        }
+                    }
+                );
             });
         }
-        if (this.dateChangeEvent) {
-            /*this.$target.on('click', '.head>.item[data-action=change-date]', this.$target, function(e){
-                var $this = $(this);
-                if ($this.hasClass('active') || e.data.hasClass('loading')) {
-                    return;
-                }
-                var $active = $this.parent().children('.active');
-                $active.removeClass('active');
-                $this.addClass('active');
-                var date = $this.attr('data-date');
-                root.changeDate(date);
-            });*/
+        if (this.config.dateChangeEvent) {
             this.$target.on('click', '[data-action=change-date]', this.$target, function(e) {
                 var $this = $(this);
                 if ($this.hasClass('active') || e.data.hasClass('loading')) {
@@ -99,7 +106,7 @@
                 root.changeDate(date);
             });
         }
-        if (this.countryChangeEvent) {
+        if (this.config.dateChangeEvent) {
             this.$target.on('click', '[data-toggle=currency]', function(e){
                 var $content = root.$target.children('.content');
                 var checkedItems = root.$target.find('[data-toggle=currency]:checked');
@@ -121,6 +128,12 @@
                         $content.find('.item[data-currency=' + $this.attr('data-currency') + ']').hide();
                     }
                 }
+            });
+        }
+        if (this.config.loadMoreEvent) {
+            this.$more.on('click', function(e) {
+                root.nextDay();
+                return false;
             });
         }
     };
@@ -168,7 +181,7 @@
                 $clock.text(hh + mm + ss);
             } else {
                 var $timerTarget = $('#' + this.timerTargetId);
-                if (this.scrollable) {
+                if (this.config.scrollable) {
                     this.$target.nanoScroller({
                         scrollTo: $timerTarget
                     });
@@ -303,12 +316,20 @@
                 if (arg === 'prev') {
                     $content.prepend(html);
                 } else if (arg === 'next') {
-                    $content.append(html);
+                    if (root.$more) {
+                        root.$more.before(html);
+                    } else {
+                        $content.append(html);
+                    }
                 } else {
-                    $content.html(html);
+                    if (root.$more) {
+                        root.$more.before(html);
+                    } else {
+                        $content.html(html);
+                    }
                 }
                 //4
-                if (root.scrollable) {
+                if (root.config.scrollable) {
                     $target.nanoScroller();
                 }
                 //5
@@ -333,7 +354,7 @@
     };
     Fcl.prototype.parseData = function(results) {
         var data = [];
-        if (this.sort) {
+        if (this.config.sort) {
             data[0] = []; //fd 财经日历
             data[1] = []; //fe 财经大事
             data[2] = []; //sr 股票财报
@@ -386,7 +407,7 @@
                     break;
             }
             //
-            if (this.sort) {
+            if (this.config.sort) {
                 switch (result['calendarType']) {
                     case 'FD':
                         data[0].push(result);
@@ -441,7 +462,7 @@
         this.getData(start, end);
     };
     Fcl.prototype.unixTimeFrame = function(arg1, arg2) {
-        console.log('fcl unixTimeFrame : ' + arg1 + ' > ' + arg2);
+        //console.log('fcl unixTimeFrame : ' + arg1 + ' > ' + arg2);
         var $target = this.$target;
         if (arg1) {
             $target.attr('data-start', arg1);

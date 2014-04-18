@@ -2,31 +2,27 @@
     <div class="span8">
         <div id="main">
             <div class="row">
-                <div class="span">
-                    <ul class="topnews carousel type1">
-                        <li class="item">
-                            <a class="link" href="/post/1">
-                                <img class="img" src="/img/img01.png" alt=""/>
-                                <h3 class="title">央行今日在施600亿元正回购操作，本周净回笼1080亿元流行</h3>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="span">
-                    <ul class="topnews list type1">
-                        <li class="title"><h2>头条新闻</h2></li>
-                        <li class="item"><a class="link" href="/post/1">上海证券报：高层或已特许部分城市松绑限购 <span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="/post/1">金融战首个牺牲品——俄铝录得2008年以来最惨重亏损 警告违约风险<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="/post/1">欧洲竭力争取中国在乌克兰危机支持<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="/post/1">报道：银监会首次下发地方同业规范文件 治理15万亿“异变”业务<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="/post/1">穆迪将俄罗斯列入降级观察 称与乌克兰冲突削弱经济<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="/post/1">神秘致电白宫，普京到底在打什么牌？<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="/post/1">西方不亮东方亮 俄罗斯引资中投与中东基金<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="/post/1">美国3月密歇根大学消费者信心指数终值不及预期，降至四个月新低<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="/post/1">廉价信贷消失 中国房地产开发商“大洗牌”在即<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="/post/1">美国2月个人支出创三个月最大，但前值下修，投行下调美一季度GDP预期<span class="time">14:22</span></a></li>
-                    </ul>
-                </div>
+                <ul class="topnews carousel type1 left">
+                    <li class="item">
+                        <a class="link" href="/post/1">
+                            <img class="img" src="/img/img01.png" alt=""/>
+                            <h3 class="title">央行今日在施600亿元正回购操作，本周净回笼1080亿元流行</h3>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="topnews list type1 right">
+                    <li class="title"><h2>头条新闻</h2></li>
+                    <li class="item"><a class="link" href="/post/1">上海证券报：高层或已特许部分城市松绑限购 <span class="time">14:22</span></a></li>
+                    <li class="item"><a class="link" href="/post/1">金融战首个牺牲品——俄铝录得2008年以来最惨重亏损 警告违约风险<span class="time">14:22</span></a></li>
+                    <li class="item"><a class="link" href="/post/1">欧洲竭力争取中国在乌克兰危机支持<span class="time">14:22</span></a></li>
+                    <li class="item"><a class="link" href="/post/1">报道：银监会首次下发地方同业规范文件 治理15万亿“异变”业务<span class="time">14:22</span></a></li>
+                    <li class="item"><a class="link" href="/post/1">穆迪将俄罗斯列入降级观察 称与乌克兰冲突削弱经济<span class="time">14:22</span></a></li>
+                    <li class="item"><a class="link" href="/post/1">神秘致电白宫，普京到底在打什么牌？<span class="time">14:22</span></a></li>
+                    <li class="item"><a class="link" href="/post/1">西方不亮东方亮 俄罗斯引资中投与中东基金<span class="time">14:22</span></a></li>
+                    <li class="item"><a class="link" href="/post/1">美国3月密歇根大学消费者信心指数终值不及预期，降至四个月新低<span class="time">14:22</span></a></li>
+                    <li class="item"><a class="link" href="/post/1">廉价信贷消失 中国房地产开发商“大洗牌”在即<span class="time">14:22</span></a></li>
+                    <li class="item"><a class="link" href="/post/1">美国2月个人支出创三个月最大，但前值下修，投行下调美一季度GDP预期<span class="time">14:22</span></a></li>
+                </ul>
             </div>
             <div class="row">
                 <h2 class="main-title type1">编辑推荐</h2>
@@ -111,7 +107,9 @@
             <div class="titlebar">
                 据下次数据公布时间还有：<span class="clock"></span>
             </div>
-            <ul class="nano-content content"></ul>
+            <ul class="nano-content content">
+                <li class="more"></li>
+            </ul>
             <script type="text/template" data-template>
                 <% for(var i=0; i<records.length; i++) { %>
                 <% var record = records[i]; %>
@@ -144,6 +142,7 @@
                 </li>
                 <% } %>
             </script>
-        </div>
+        </div> <!-- side-fcl end -->
+        <div class="line type1"></div>
     </div>
 </div>

@@ -274,6 +274,11 @@ input {
 .text-right {
   text-align: right;
 }
+.nano > .nano-pane {
+  top: 5px;
+  bottom: 5px;
+  background-color: transparent;
+}
 .red {
   color: #ff3232;
 }
@@ -1236,14 +1241,6 @@ body {
   width: 608px;
   border-color: #00ace5;
 }
-.livenews.scrollable.list > .content {
-  transition: height 0.5s;
-  -moz-transition: height 0.5s;
-  /* Firefox 4 */
-  -webkit-transition: height 0.5s;
-  /* Safari 和 Chrome */
-  -o-transition: height 0.5s;
-}
 .livenews.scrollable.list > .content > .date {
   color: #333;
   height: 30px;
@@ -1331,6 +1328,28 @@ body {
 }
 .finance-calendar.list .important .star {
   margin-right: 3px;
+}
+.finance-calendar.list .more {
+  display: block;
+  padding: 0 15px;
+  cursor: pointer;
+  line-height: 30px;
+  color: #c8c8c8;
+}
+.finance-calendar.list .more:before {
+  content: '加载更多数据';
+}
+.finance-calendar.list .more:hover {
+  color: #ff3232;
+}
+.finance-calendar.list.loading .more {
+  cursor: normal;
+}
+.finance-calendar.list.loading .more:before {
+  content: '正在加载中';
+}
+.finance-calendar.list.loading .more:hover {
+  color: #c8c8c8;
 }
 div.datepicker {
   font: 14px/30px Verdana, Helvetica, Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
@@ -1563,6 +1582,7 @@ td.datepickerSpecial.datepickerSelected a {
   margin-right: 30px;
   padding: 5px 0;
 }
+#financeCalendar > .toolbar .checkbox.last-child,
 #financeCalendar > .toolbar .checkbox:last-child {
   margin-right: 0;
 }
@@ -1705,7 +1725,7 @@ td.datepickerSpecial.datepickerSelected a {
 #main .topnews.carousel.type1 {
   width: 400px;
   height: 356px;
-  margin-bottom: 0;
+  margin: 0;
 }
 #main .topnews.list {
   width: 340px;
@@ -1862,10 +1882,7 @@ td.datepickerSpecial.datepickerSelected a {
   height: 314px;
   border-bottom: 1px solid #DCDCDC;
 }
-#main .livenews.scrollable.list > .nano-pane {
-  background-color: transparent;
-}
-#main .livenews.scrollable.list > .nano-pane > .nano-slider {
+#main .livenews.scrollable.list .nano-slider {
   background-color: rgba(160, 160, 160, 0.6);
 }
 #main .market.chart {
@@ -2307,6 +2324,15 @@ td.datepickerSpecial.datepickerSelected a {
 .livenews .icon[data-type=warning] {
   background-position: -120px 0;
 }
+.livenews .item.red {
+  color: #07bae8;
+}
+.livenews .item.red .link {
+  color: #07bae8;
+}
+.livenews .item.bold {
+  font-weight: bold;
+}
 #livenews {
   width: 650px;
   margin-left: 150px;
@@ -2432,14 +2458,14 @@ td.datepickerSpecial.datepickerSelected a {
 #sidebar .finance-calendar.list {
   height: 340px;
 }
-#sidebar .finance-calendar.list.type1 {
-  height: 500px;
-}
-#sidebar .finance-calendar.list.type1 .nano-content {
+#sidebar .finance-calendar.list.type1 > .nano-content {
   top: 32px;
 }
-#sidebar .finance-calendar.list.type1 .nano-pane {
-  top: 32px;
+#sidebar .finance-calendar.list.type1 > .nano-pane {
+  top: 37px;
+}
+#sidebar .finance-calendar.list .nano-slider {
+  background-color: rgba(136, 136, 136, 0.6);
 }
 #sidebar .finance-calendar.list .clock {
   color: #ff3232;
@@ -2491,12 +2517,6 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #sidebar .finance-calendar.list .item .meta > .value {
   font-weight: bold;
-}
-#sidebar .finance-calendar.list > .nano-pane {
-  background-color: transparent;
-}
-#sidebar .finance-calendar.list > .nano-pane > .nano-slider {
-  background-color: rgba(136, 136, 136, 0.6);
 }
 #sidebar #gold-research {
   padding: 20px 30px;
@@ -2636,9 +2656,10 @@ td.datepickerSpecial.datepickerSelected a {
   right: 0;
 }
 #stare-modal.panel {
+  display: none;
+  padding: 20px 25px;
   width: 1150px;
   height: 540px;
-  padding: 20px 25px;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -2646,14 +2667,20 @@ td.datepickerSpecial.datepickerSelected a {
   right: 0;
   margin: auto;
   background-color: #0f0f0f;
-  transform: scale(0, 0);
-  -webkit-transform: scale(0, 0);
-  transition: transform 0.75s;
-  -webkit-transition: -webkit-transform 0.75s;
+  /*transform: scale(0, 0);
+    -webkit-transform: scale(0, 0);
+    transition: transform 0.75s;
+    -webkit-transition: -webkit-transform 0.75s;*/
 }
 #stare-modal.panel.active {
-  transform: scale(1, 1);
-  -webkit-transform: scale(1, 1);
+  display: block;
+  /*transform: scale(1, 1);
+        -webkit-transform: scale(1, 1);*/
+}
+#stare-modal.panel > .content {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 #stare-modal.panel > .close {
   position: absolute;
@@ -2821,22 +2848,24 @@ td.datepickerSpecial.datepickerSelected a {
   border-top: 1px solid #787878;
 }
 #stare-modal.panel .livenews.scrollable.list > .content > .item {
-  color: #fff;
   padding: 8px 15px;
   border-bottom: 1px solid #1e1e1e;
   border-top: 1px solid #787878;
+}
+#stare-modal.panel .livenews.scrollable.list > .content > .item:hover {
+  background-color: #464646;
 }
 #stare-modal.panel .livenews.scrollable.list > .content > .item > .icon {
   background-image: url(../img/icon/livenews/white.sprite.png);
 }
 #stare-modal.panel .livenews.scrollable.list > .content > .item > .link {
+  color: #dcdcdc;
   width: 570px;
-  color: #b5b5b5;
 }
-#stare-modal.panel .livenews.scrollable.list > .nano-pane {
-  background-color: transparent;
+#stare-modal.panel .livenews.scrollable.list > .content > .item.red > .link {
+  color: #07bae8;
 }
-#stare-modal.panel .livenews.scrollable.list > .nano-pane > .nano-slider {
+#stare-modal.panel .livenews.scrollable.list .nano-slider {
   background-color: #aaa;
 }
 #stare-modal.panel .finance-calendar.scrollable.list {
@@ -2860,7 +2889,10 @@ td.datepickerSpecial.datepickerSelected a {
   top: 30px;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .nano-pane {
-  top: 30px;
+  top: 35px;
+}
+#stare-modal.panel .finance-calendar.scrollable.list .nano-slider {
+  background-color: #666;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .date {
   border-bottom: 1px solid #222;
@@ -2906,7 +2938,7 @@ td.datepickerSpecial.datepickerSelected a {
   width: 105px;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item .label {
-  color: #b4b4b4;
+  color: #666;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item .value {
   font-weight: bold;
