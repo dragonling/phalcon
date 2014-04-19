@@ -17,16 +17,53 @@ return array(
         'controller' => 'index',
         'action' => 'resources',
     ),
-    '/v2/post' =>  array(
-        'module' => 'WscnApiVer2',
-        'controller' => 'post',
-        'action' => 'index',
+    'postlist' =>  array(
+        'pattern' => '/v2/post',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'post',
+            'action' => 'index',
+        ),
+        'httpMethods' => 'GET'
     ),
-    '/v2/post/(\d+)' =>  array(
-        'module' => 'WscnApiVer2',
-        'controller' => 'post',
-        'action' => 'get',
-        'id' => 1,
+    'createpost' =>  array(
+        'pattern' => '/v2/post',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'post',
+            'action' => 'post',
+        ),
+        'httpMethods' => 'POST'
+    ),
+    'getpost' =>  array(
+        'pattern' => '/v2/post/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'post',
+            'action' => 'get',
+            'id' => 1,
+        ),
+        'httpMethods' => 'GET'
+    ),
+    'putpost' =>  array(
+        'pattern' => '/v2/post/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'post',
+            'action' => 'put',
+            'id' => 1,
+        ),
+        'httpMethods' => 'PUT'
+    ),
+    'deletepost' =>  array(
+        'pattern' => '/v2/post/(\d+)',
+        'paths' => array(
+            'module' => 'WscnApiVer2',
+            'controller' => 'post',
+            'action' => 'delete',
+            'id' => 1,
+        ),
+        'httpMethods' => 'DELETE'
     ),
     /*
     '/v2/:controller/:action(/(\w+))*(\.(json|jsonp|xml))*' =>  array(

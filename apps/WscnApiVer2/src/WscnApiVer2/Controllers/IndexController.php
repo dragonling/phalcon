@@ -9,7 +9,7 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-        echo 1;
+        $this->response->redirect($this->getDI()->get('config')->apiUri . '/explorer/index.html');
     }
 
     public function resourcesAction()

@@ -28,7 +28,8 @@ return array(
 
     'datetime' => array(
         'defaultTimezone' => 8,
-        'defaultFormat' => 'F j, Y, g:i a',
+        //'defaultFormat' => 'F j, Y, g:i a',
+        'defaultFormat' => 'Y年m月d日 H:i:s',
     ),
 
     'filesystem' => array(

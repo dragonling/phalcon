@@ -128,10 +128,20 @@ class Engine
             }
 
             $router = new Router();
-            $router->removeExtraSlashes(true);
+            //$router->clear();
+            //$router->removeExtraSlashes(true);
             $config = $config->toArray();
             foreach($config as $url => $route) {
-                $router->add($url, $route);
+                if(count($route) !== count($route, COUNT_RECURSIVE)) {
+                    if(isset($route['pattern']) && isset($route['paths'])) {
+                        $method = isset($route['httpMethods']) ? $route['httpMethods'] : null;
+                        $router->add($route['pattern'], $route['paths'], $method);
+                    } else {
+                        throw new Exception\InvalidArgumentException(sprintf('No route pattern and paths found by route %s', $url));
+                    }
+                } else {
+                    $router->add($url, $route);
+                }
             }
             return $router;
         });

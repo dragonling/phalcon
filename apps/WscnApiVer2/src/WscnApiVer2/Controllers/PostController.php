@@ -85,7 +85,61 @@ class PostController extends ControllerBase
                 ),
             ));
         }
+        $this->response->setContentType('application/json', 'utf-8');
         return $this->response->setJsonContent($post);
         //$format = $this->dispatcher->getParam('format');
+    }
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/post",
+     *   description="Post related api",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="POST",
+     *       summary="Create new post",
+     *       notes="Returns a post based on ID",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="postId",
+     *           description="ID of post",
+     *           paramType="path",
+     *           required=true,
+     *           type="int"
+     *         )
+     *       ),
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
+     *            code=400,
+     *            message="Invalid ID supplied"
+     *          ),
+     *          @SWG\ResponseMessage(
+     *            code=404,
+     *            message="post not found"
+     *          )
+     *       )
+     *     )
+     *   )
+     * )
+     */
+    public function postAction()
+    {
+        $post = new Models\Post();
+        $postForm = new \Eva\EvaBlog\Forms\PostForm();
+        $postForm->setModel($post);
+
+        $textForm = new \Eva\EvaBlog\Forms\TextForm();
+        $textForm->setModel(new Models\Text());
+        $textForm->setPrefix('Text');
+
+        $data = $this->request->getPost();
+
+        try {
+            $post->createPost($data);
+        } catch(\Exception $e) {
+            return $this->errorHandler($e, $post->getMessages());
+        }
     }
 }
