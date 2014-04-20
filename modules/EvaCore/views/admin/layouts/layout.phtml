@@ -9,39 +9,30 @@
 
 		<!-- basic styles -->
 
-		<link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="/vendor/css/bootstrap-3.1.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/vendor/css/bootstrap-3.1.1/css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="/vendor/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="/vendor/js/datepicker/css/datepicker3.css" />
+        <link rel="stylesheet" href="/vendor/js/select2/select2.css" />
+        <link rel="stylesheet" href="/vendor/js/select2/select2-bootstrap.css" />
+        <link rel="stylesheet" href="/vendor/js/timepicker/css/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="/vendor/js/jfu/css/jquery.fileupload.css" />
 
 		<!--[if IE 7]>
-		  <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css" />
+		  <link rel="stylesheet" href="/vendor/css/font-awesome-ie7.min.css" />
 		<![endif]-->
 
-		<!-- page specific plugin styles -->
-
 		<link rel="stylesheet" href="/assets/css/jquery-ui-1.10.3.custom.min.css" />
-
-		<!-- fonts -->
-
 		<link rel="stylesheet" href="/assets/css/ace-fonts.css" />
-
-		<!-- ace styles -->
-
 		<link rel="stylesheet" href="/assets/css/ace.min.css" />
 		<link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
 		<link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="/assets/css/dropzone.css" />
-        <link rel="stylesheet" href="/assets/css/datepicker.css" />
-        <link rel="stylesheet" href="/assets/css/bootstrap-timepicker.css" />
-        <link rel="stylesheet" href="/vendor/js/select2/select2.css" />
-        <link rel="stylesheet" href="/vendor/js/select2/select2-bootstrap.css" />
+
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="/assets/css/ace-ie.min.css" />
 		<![endif]-->
-
-		<!-- inline styles related to this page -->
-
-		<!-- ace settings handler -->
 
 		<script src="/assets/js/ace-extra.min.js"></script>
 
@@ -53,41 +44,44 @@
 		<![endif]-->
 
 		<!--[if !IE]> -->
-
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
-
+        <script type="text/javascript" src="/vendor/js/jquery-2.0.3.js"></script>
 		<!-- <![endif]-->
-
 		<!--[if IE]>
-<script type="text/javascript">
- window.jQuery || document.write("<script src='/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
-
+		<script type="text/javascript" src="/vendor/js/jquery-1.10.2.min.js"></script>
+        <![endif]-->
 		<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="/assets/js/bootstrap.min.js"></script>
-        <script src="/assets/js/typeahead-bs2.min.js"></script>
 
-		<!-- page specific plugin scripts -->
+        <!--
+		<script type="text/javascript" src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+        -->
+        <script type="text/javascript" src="/vendor/js/jquery-ui-1.10.4/js/jquery-ui-1.10.4.min.js"></script>
+        <script type="text/javascript" src="/vendor/css/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/vendor/js/parsley.min.js"></script>
+        <script type="text/javascript" src="/vendor/js/parsley.remote.min.js"></script>
+        <script type="text/javascript" src="/vendor/js/garlic.min.js"></script>
+        <script type="text/javascript" src="/vendor/js/moment.min.js"></script>
+        <script type="text/javascript" src="/vendor/js/moment-with-langs.min.js"></script>
+        <script type="text/javascript" src="/vendor/js/epiceditor/js/epiceditor.js"></script>
+        <script type="text/javascript" src="/vendor/js/ckeditor/ckeditor.js"></script>
+        <script type="text/javascript" src="/vendor/js/ckeditor/adapters/jquery.js"></script>
+        <script type="text/javascript" src="/vendor/js/select2/select2.js"></script>
+        <script type="text/javascript" src="/vendor/js/select2/select2_locale_zh-CN.js"></script>
+        <script type="text/javascript" src="/vendor/js/jquery.noty.js"></script>
+        <script type="text/javascript" src="/vendor/js/Uri.min.js"></script>
+        <script type="text/javascript" src="/vendor/js/datepicker/js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="/vendor/js/datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+        <script type="text/javascript" src="/vendor/js/timepicker/js/bootstrap-timepicker.min.js"></script>
+        <script type="text/javascript" src="/vendor/js/dropzone/dropzone.min.js"></script>
+        <script type="text/javascript" src="/vendor/js/jfu/js/jquery.fileupload.js"></script>
 
-		<script src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="/assets/js/markdown/markdown.min.js"></script>
-		<script src="/assets/js/markdown/bootstrap-markdown.min.js"></script>
-		<script src="/assets/js/jquery.hotkeys.min.js"></script>
-		<script src="/assets/js/bootstrap-wysiwyg.min.js"></script>
-		<script src="/assets/js/bootbox.min.js"></script>
+        <script type="text/javascript" src="/assets/js/typeahead-bs2.min.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery.ui.touch-punch.min.js"></script>
 
-		<!-- ace scripts -->
 
-		<script src="/assets/js/ace-elements.min.js"></script>
-		<script src="/assets/js/ace.min.js"></script>
-
-		<!-- inline scripts related to this page -->
+		<script type="text/javascript" src="/assets/js/ace-elements.min.js"></script>
+		<script type="text/javascript" src="/assets/js/ace.min.js"></script>
 	</head>
 
 	<body>
@@ -323,21 +317,7 @@
 
 		<!-- basic scripts -->
 
-        <script src="/assets/js/bootstrap.min.js"></script>
-        <script src="/assets/js/parsley/parsley.remote.js"></script>
-        <script src="/assets/js/parsley/parsley.js"></script>
-        <script src="/assets/js/parsley/i18n/zh_cn.js"></script>
-        <script type="text/javascript" src="/vendor/js/epiceditor/js/epiceditor.js"></script>
-        <script type="text/javascript" src="/vendor/js/ckeditor/ckeditor.js"></script>
-        <script type="text/javascript" src="/vendor/js/ckeditor/adapters/jquery.js"></script>
-        <script type="text/javascript" src="/vendor/js/select2/select2.js"></script>
-        <script type="text/javascript" src="/vendor/js/select2/select2_locale_zh-CN.js"></script>
-        <script type="text/javascript" src="/vendor/js/jquery.noty.js"></script>
-        <script type="text/javascript" src="/vendor/js/Uri.min.js"></script>
-        <script src="/assets/js/bootstrap-tag.min.js"></script>
-        <script src="/assets/js/date-time/bootstrap-datepicker.min.js"></script>
-        <script src="/assets/js/date-time/bootstrap-timepicker.min.js"></script>
-        <script src="/assets/js/dropzone.min.js"></script>
+
         <script src="/js/backend.js"></script>
 		<script type="text/javascript">
 		</script>

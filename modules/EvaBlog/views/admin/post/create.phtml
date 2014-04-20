@@ -47,6 +47,8 @@
                             'required' => 'required',
                         ))?>
                     </label>
+                </div>
+                <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon input-sm">
                             <i class="icon-link"></i>  http://www.goldtoutiao.com/admin/category/
@@ -61,24 +63,37 @@
                     <div class="widget-box transparent">
                         <div class="widget-header">
                             <h4 class="lighter">Content</h4>
+                            <div class="widget-toolbar no-border ">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-info editor-open-media-handle">
+                                        <i class="icon-plus align-top bigger-125"></i>
+                                        Add Media
+                                    </button>
 
-                            <div class="widget-toolbar no-border">
-                                <ul id="switch-code" class="nav nav-tabs">
-                                    <li class="active">
-                                    <a href="#format-markdown" data-toggle="tab">Markdown</a>
-                                    </li>
-                                    <li>
-                                    <a href="#format-html" data-toggle="tab">Html</a>
-                                    </li>
-                                </ul>
+                                    <span class="btn btn-sm btn-purple fileinput-button">
+                                        <i class="icon-cloud-upload align-top bigger-125"></i>
+                                        Upload Media
+                                        <input type="file" multiple  class="editor-upload-handle" data-connect-editor=".editor-content" />
+                                    </span>
+
+                                    <ul id="switch-code" class="nav nav-tabs hide">
+                                        <li class="">
+                                        <a href="#format-markdown" data-toggle="tab">Markdown</a>
+                                        </li>
+                                        <li>
+                                        <a href="#format-html" data-toggle="tab">Html</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        </div><!--widget box header-->
                     </div><!--widget box end-->
 
                     <label class="block clearfix">
+
                         <div class="markdown-editor">
                             <?=$textForm->render('content', array(
-                                'class' => 'form-control',
+                                'class' => 'form-control editor editor-content',
                                 //'class' => 'form-control wysiwyg',
                                 'rows' => 12,
                                 'required' => 'required',
@@ -86,7 +101,9 @@
                             <?=$postForm->render('sourceCode', array(
                             ))?>
                         </div>
-                            <button id="test">test</button>
+                        <!--
+                        <button id="test">test</button>
+                        -->
                     </label>
                 </div>
 
@@ -95,7 +112,7 @@
                         <h5 class="lighter">Summary</h5>
                         <div class="markdown-editor">
                             <?=$postForm->render('summary', array(
-                                'class' => 'form-control ',
+                                'class' => 'form-control editor',
                                 'rows' => 3,
                             ))?>
                         </div>

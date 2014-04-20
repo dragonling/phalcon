@@ -75,20 +75,6 @@ $(document).ready(function(){
 
     });
 
-    var ckeditorContainers = $( 'textarea.wysiwyg' );
-    if(ckeditorContainers[0]) {
-        CKEDITOR.config.contentsCss = '/css/editor.css';
-        var ckeditor = ckeditorContainers.ckeditor().ckeditorGet();
-        ckeditor.on('instanceReady', function( ev ) {
-            $("#test").on('click', function(){
-                ckeditor.insertHtml('<p>a</p>');
-                return false;
-            });
-        });
-    }
-
-
-
     $('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
         $(this).prev().focus();
     });
@@ -101,13 +87,15 @@ $(document).ready(function(){
         $(this).prev().focus();
     });
 
+
+
     $('.ace-file-input').ace_file_input({
         style:'well',
         btn_choose:'Drop files here or click to choose',
         btn_change:null,
         no_icon:'icon-cloud-upload',
         droppable:true,
-        thumbnail:'small'//large | fit
+        thumbnail:'small', //large | fit
         //,icon_remove:null//set null, to hide remove/reset button
         /**,before_change:function(files, dropped) {
         //Check an example below
@@ -117,22 +105,209 @@ $(document).ready(function(){
         /**,before_remove : function() {
           return true;
           }*/
-    ,
-preview_error : function(filename, error_code) {
-    //name of the file that failed
-    //error_code values
-    //1 = 'FILE_LOAD_FAILED',
-    //2 = 'IMAGE_LOAD_FAILED',
-    //3 = 'THUMBNAIL_FAILED'
-    //alert(error_code);
-}
-
+        preview_error : function(filename, error_code) {
+            //name of the file that failed
+            //error_code values
+            //1 = 'FILE_LOAD_FAILED',
+            //2 = 'IMAGE_LOAD_FAILED',
+            //3 = 'THUMBNAIL_FAILED'
+            //alert(error_code);
+        }
     }).on('change', function(){
         //console.log($(this).data('ace_input_files'));
         //console.log($(this).data('ace_input_method'));
     });
 
 
+
+    var evaEditor = function(ui, options){
+        //构造函数
+        this.init(ui, options);
+    }
+    evaEditor.prototype = {
+       defaultUI :  {
+           switcher : '#switch-code',
+           editors : 'textarea.editor',
+           uploaders : '.editor-upload-handle'
+       }
+       , defaultOptions : {
+           debug : false
+       }
+       , htmlEditorEvents : function(editor){
+   /*
+            $("#test").on('click', function(){
+                ckeditor.insertHtml('<p>a</p>');
+                return false;
+            });
+           */
+       }
+       , initHtmlEditorUploader : function() {
+            var uploaders = $(this.ui.uploaders);
+
+            if(!uploaders[0]) {
+                return false;
+            }
+
+            var uploaderNoty = [];
+
+            var findNoty = function(file) {
+                var i, item;
+                for(i in uploaderNoty){
+                    item = uploaderNoty[i];
+                    if(file.originalName == item.file) {
+                        return item.noty;
+                    }
+                }
+                return false;
+            }
+
+            uploaders.each(function(){
+                var uploader = $(this);
+                uploader.fileupload({
+                    url: '/admin/upload',
+                    dataType: 'json',
+                    send : function (e, data) {
+                        var files = data.files,
+                            i = 0,
+                            file;
+                        for(i in files) {
+                            file = files[i];
+                            uploaderNoty.push({
+                                file : file.name,
+                                noty : noty({text: 'Uploading file ' + files[i].name})
+                            });
+                        }
+                        //console.log(files);
+                    },
+                    done: function (e, data) {
+                        var editor = $(uploader.attr('data-connect-editor')).data('eva-ui');
+                        var file = data.result;
+                        console.log(data);
+                        var notyHandle = findNoty(file);
+                        if(notyHandle) {
+                            notyHandle.setText(file.originalName + ' uploaded.').setType('success');
+                            setTimeout(function(){
+                                notyHandle.close();
+                            }, 2000);
+                        }
+                        if(file.isImage > 0) {
+                            editor.insertHtml('<a href="' + file.fullUrl + '"><img src="' + file.fullUrl + '" alt="' + file.title + '" /></a>');
+                        } else {
+                            editor.insertHtml('<a href="' + file.fullUrl + '">' + file.fileName + '</a>');
+                        }
+                        //console.log(data);
+                    },
+                    progressall: function (e, data) {
+                        //console.log(data);
+                    }
+                });
+            });
+       
+
+       }
+       , initHtmlEditor : function() {
+            var self = this;
+            var editors = this.editors;
+            CKEDITOR.config.contentsCss = '/css/editor.css';
+            CKEDITOR.config.toolbar = [
+                { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source'] },
+                { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+                { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll' ] },
+                { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl' ] },
+                { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] }, 
+                '/',
+                { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+                { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+                { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+                { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+                { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar'] }
+            ];
+            
+            editors.each(function(){
+                var ckeditor = $(this).ckeditor().ckeditorGet();
+                ckeditor.on('instanceReady', function( ev ) {
+                    self.htmlEditorEvents(ckeditor);
+                });            
+                $(this).data('eva-ui', ckeditor);
+            });
+       }
+       , initMarkdownEditor : function(){
+            var editors = this.editors;
+            editors.each(function(){
+                var self = $(this).parent()[0];
+                var markdownEditor = new EpicEditor({
+                    container : self, 
+                    autogrow : {
+                        minHeight : 300,
+                        maxHeight : $(window).height() - 200
+                    },
+                    theme: {
+                        base: 'http://www.goldtoutiao.com//vendor/js/epiceditor/themes/base/epiceditor.css',
+                        preview: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/preview/bartik.css',
+                        editor: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/editor/epic-light.css'
+                    },
+                    button: {
+                        preview: false,
+                        fullscreen: true,
+                        bar: "auto"
+                    },
+                    string: {
+                        togglePreview: '预览(快捷键Alt+p)',
+                        toggleEdit: 'Toggle Edit Mode',
+                        toggleFullscreen: '全屏(快捷键Alt+f)'
+                    },
+                }).load(); 
+                //console.log(markdownEditor);
+                //$(this).data('eva-ui', markdownEditor);
+            });
+                    
+       }
+       , init : function(ui, options){
+           this.ui = $.extend({}, this.defaultUI, ui);
+           this.options = $.extend({}, this.defaultOptions, options);
+
+           var switcher = $(this.ui.switcher);
+           if(!switcher[0]) {
+               return false;
+           }
+
+           this.editors = $(this.ui.editors);
+           if(!this.editors[0]) {
+               return false;
+           }
+
+           var uri = new Uri(window.location);
+           var anchor = uri.anchor();
+           var sourceCode = 'format-markdown';
+           if(switcher.find('a[href=#' + anchor + ']')[0]) {
+               sourceCode = anchor;
+           }
+           switcher.find('a[href=#' + sourceCode + ']').parent().addClass('active');
+
+           if(sourceCode == 'format-markdown') {
+               this.initMarkdownEditor();
+               $('input[name=sourceCode]').val('markdown');
+           } else {
+               this.initHtmlEditor();
+               this.initHtmlEditorUploader();
+               $('input[name=sourceCode]').val('html');
+           }
+
+           this.switcher = switcher;
+           this.sourceCode = sourceCode;
+       }
+    }
+    var editor = new evaEditor();
+
+    var uploadNoty = [];
+
+
+
+
+    //var ckeditorContainers = $( 'textarea.wysiwyg' );
+
+
+    /*
     $('.markdown-editor').each(function(){
         var self = this;
         var editor = new EpicEditor({
@@ -158,6 +333,7 @@ preview_error : function(filename, error_code) {
             },
         }).load(); 
     });
+   */
 
     $(".tag-input").select2({
         tags:[],

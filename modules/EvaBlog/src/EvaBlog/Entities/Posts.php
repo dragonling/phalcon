@@ -145,6 +145,18 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
     public $summary;
      
     /**
+     *
+     * @var string
+     */
+    public $source;
+     
+    /**
+     *
+     * @var string
+     */
+    public $sourceUrl;
+     
+    /**
      * Independent Column Mapping.
      */
     public function columnMap()
@@ -172,7 +184,9 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'count' => 'count', 
             'image_id' => 'image_id', 
             'image' => 'image', 
-            'summary' => 'summary'
+            'summary' => 'summary',
+            'source' => 'source',
+            'sourceUrl' => 'sourceUrl',
         );
     }
 
