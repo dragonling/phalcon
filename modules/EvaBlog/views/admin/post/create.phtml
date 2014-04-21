@@ -112,7 +112,7 @@
                         <h5 class="lighter">Summary</h5>
                         <div class="markdown-editor">
                             <?=$postForm->render('summary', array(
-                                'class' => 'form-control editor',
+                                'class' => 'form-control editor editor-summary',
                                 'rows' => 3,
                             ))?>
                         </div>
@@ -133,18 +133,36 @@
                     </div>
                     <div class="widget-body">
                         <div class="widget-main">
+                                
+                                <?if(!empty($item->id)):?>
+                                <dl class="dl-horizontal">
+                                    <dt>Created At</dt>
+                                    <dd><?=$this->tag->datetime($item->createdAt)?></dd>
+                                </dl>
+                                <?endif?>
                             <fieldset>
+                                <label for="status">
+                                    Status
+                                </label>
                                 <?=$postForm->render('status', array(
                                     'class' => 'form-control',
                                 ))?>
+                                <?$status = array(
+                                    'draft' => 'label-info',
+                                    'pending' => 'label-warning',
+                                    'deleted' => 'label',
+                                    'published' => 'label-success',
+                                )?>
+
                             </fieldset>
                         </div>
                         <div class="clearfix form-actions no-margin">
-                            <button type="submit" class="btn">
+                            <input name="__redirect" type="hidden" value="" />
+                            <button type="submit" class="btn form-submiter" data-change-name="status" data-change-value="draft">
                                 <i class="icon-save"></i>
                                 Save Draft
                             </button>
-                            <button type="submit" class="btn btn-info">
+                            <button type="submit" class="btn btn-info form-submiter" data-change-name="status" data-change-value="published" data-redirect-url="/admin/post">
                                 <i class="icon-ok"></i>
                                 Publish
                             </button>
@@ -289,3 +307,15 @@
         </div><!-- /.row -->
     </div><!-- /.page-content -->
 </form>
+
+<script>
+$(document).ready(function(){
+    var updateCreateTime = function(){
+        var day = $('input[name=day]').val();
+        var time = $('input[name=time]').val();
+        var timestamp = moment(day + ' ' + time).format('X');
+        $('input[name=createdAt]').val(timestamp);
+    }
+    $('input[name=day], input[name=time]').on('change', updateCreateTime);
+});
+</script>

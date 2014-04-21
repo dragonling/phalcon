@@ -47,6 +47,7 @@ $(document).ready(function(){
     });
 
     //form validation
+    /*
     $('form').parsley({
         successClass: "has-success",
         errorClass: "has-error",
@@ -57,10 +58,11 @@ $(document).ready(function(){
         errorsWrapper: "<span class='help-block' style='margin:0;'></span>",
         errorTemplate: "<span></span>"
     });
+   */
 
 
     $('input[type=submit], button[type=submit]').on('click', function(){
-        $(this).closest('form').find('input[name=__redirect]').val($(this).attr('data-redirect-btn'));
+        $(this).closest('form').find('input[name=__redirect]').val($(this).attr('data-redirect-url'));
     });
 
     $('.select2').select2();
@@ -278,7 +280,11 @@ $(document).ready(function(){
 
            var uri = new Uri(window.location);
            var anchor = uri.anchor();
-           var sourceCode = 'format-markdown';
+           var sourceCode = 'format-html';
+           var sourceCodeValue = $('input[name=sourceCode]').val();
+           if(sourceCodeValue) {
+               sourceCode = sourceCodeValue == 'html' ? 'format-html' : 'format-markdown';
+           }
            if(switcher.find('a[href=#' + anchor + ']')[0]) {
                sourceCode = anchor;
            }
@@ -293,7 +299,7 @@ $(document).ready(function(){
                $('input[name=sourceCode]').val('html');
            }
 
-           this.switcher = switcher;
+           //this.switcher = switcher;
            this.sourceCode = sourceCode;
        }
     }
@@ -398,6 +404,16 @@ $(document).ready(function(){
         $(window).on("paste", onPaste);
     }
 
+});
+
+$('.form-submiter').on('click', function(){
+    var submiter = $(this);
+    var form = submiter.closest('form');
+    if(submiter.attr('data-change-name')) {
+        var name = submiter.attr('data-change-name');
+        form.find('*[name=' + name + ']').val(submiter.attr('data-change-value'));
+    }
+    return true;
 });
 
 
