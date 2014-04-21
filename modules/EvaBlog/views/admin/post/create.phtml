@@ -12,7 +12,12 @@
         <li>
         <a href="/admin/post">Post</a>
         </li>
+
+        <?if(empty($item->id)):?>
         <li class="active">Write New Post</li>
+        <?else:?>
+        <li class="active">Edit Post</li>
+        <?endif?>
     </ul><!-- .breadcrumb -->
 
     <div class="nav-search" id="nav-search">
@@ -133,13 +138,20 @@
                     </div>
                     <div class="widget-body">
                         <div class="widget-main">
-                                
-                                <?if(!empty($item->id)):?>
-                                <dl class="dl-horizontal">
-                                    <dt>Created At</dt>
-                                    <dd><?=$this->tag->datetime($item->createdAt)?></dd>
-                                </dl>
-                                <?endif?>
+
+                            <?$status = array(
+                                'draft' => 'label-info',
+                                'pending' => 'label-warning',
+                                'deleted' => 'label',
+                                'published' => 'label-success',
+                            )?>
+                            <?if(!empty($item->id)):?>
+                            <ul class="list-unstyled">
+                                <li>Created At : <?=$this->tag->datetime($item->createdAt)?></li>
+                                <li>Status : <span class="label label-sm <?=$status[$item->status]?>"><?=$item->status?></span></li>
+                                <li>Autor : <?=$item->User ? $item->User->username : ''?></li>
+                            </ul>
+                            <?endif?>
                             <fieldset>
                                 <label for="status">
                                     Status
@@ -147,13 +159,6 @@
                                 <?=$postForm->render('status', array(
                                     'class' => 'form-control',
                                 ))?>
-                                <?$status = array(
-                                    'draft' => 'label-info',
-                                    'pending' => 'label-warning',
-                                    'deleted' => 'label',
-                                    'published' => 'label-success',
-                                )?>
-
                             </fieldset>
                         </div>
                         <div class="clearfix form-actions no-margin">
@@ -162,7 +167,7 @@
                                 <i class="icon-save"></i>
                                 Save Draft
                             </button>
-                            <button type="submit" class="btn btn-info form-submiter" data-change-name="status" data-change-value="published" data-redirect-url="/admin/post">
+                            <button type="submit" class="btn btn-info form-submiter" data-change-name="status" data-change-value="published">
                                 <i class="icon-ok"></i>
                                 Publish
                             </button>
@@ -247,12 +252,12 @@
                 </div><!--widgex box-->
 
                 <div class="hr hr-double dotted"></div>
-                <div class="widget-box">
+                <div class="widget-box collapsed">
                     <div class="widget-header widget-header-small">
                         <h5 class="lighter">Publish Time</h5>
                         <span class="widget-toolbar">
                             <a data-action="collapse" href="#">
-                                <i class="icon-chevron-up"></i>
+                                <i class="icon-chevron-down"></i>
                             </a>
                         </span>
                     </div>
@@ -278,12 +283,12 @@
                 </div><!--widgex box-->
 
                 <div class="hr hr-double dotted"></div>
-                <div class="widget-box">
+                <div class="widget-box collapsed">
                     <div class="widget-header widget-header-small">
                         <h5 class="lighter">Change Author</h5>
                         <span class="widget-toolbar">
                             <a data-action="collapse" href="#">
-                                <i class="icon-chevron-up"></i>
+                                <i class="icon-chevron-down"></i>
                             </a>
                         </span>
                     </div>
@@ -302,6 +307,39 @@
                     </div>
                 </div><!--widgex box-->
 
+                <div class="hr hr-double dotted"></div>
+                <div class="widget-box collapsed">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="lighter">Post Source</h5>
+                        <span class="widget-toolbar">
+                            <a data-action="collapse" href="#">
+                                <i class="icon-chevron-down"></i>
+                            </a>
+                        </span>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="control-group">
+                                <label class="block clearfix">
+                                    Source Name
+                                    <?=$postForm->render('sourceName', array(
+                                        'class' => 'form-control',
+                                    ))?>
+                                </label>
+                            </div>
+                            <div class="control-group">
+                                <label class="block clearfix">
+                                    Source Url 
+                                    <?=$postForm->render('sourceUrl', array(
+                                        'class' => 'form-control',
+                                    ))?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--widgex box-->
+
             </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -309,13 +347,13 @@
 </form>
 
 <script>
-$(document).ready(function(){
-    var updateCreateTime = function(){
-        var day = $('input[name=day]').val();
-        var time = $('input[name=time]').val();
-        var timestamp = moment(day + ' ' + time).format('X');
-        $('input[name=createdAt]').val(timestamp);
-    }
-    $('input[name=day], input[name=time]').on('change', updateCreateTime);
-});
+    $(document).ready(function(){
+            var updateCreateTime = function(){
+                    var day = $('input[name=day]').val();
+                    var time = $('input[name=time]').val();
+                    var timestamp = moment(day + ' ' + time).format('X');
+                    $('input[name=createdAt]').val(timestamp);
+            }
+            $('input[name=day], input[name=time]').on('change', updateCreateTime);
+    });
 </script>

@@ -148,7 +148,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
-    public $source;
+    public $sourceName;
      
     /**
      *
@@ -185,7 +185,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'image_id' => 'image_id', 
             'image' => 'image', 
             'summary' => 'summary',
-            'source' => 'source',
+            'sourceName' => 'sourceName',
             'sourceUrl' => 'sourceUrl',
         );
     }

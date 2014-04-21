@@ -47,7 +47,6 @@ $(document).ready(function(){
     });
 
     //form validation
-    /*
     $('form').parsley({
         successClass: "has-success",
         errorClass: "has-error",
@@ -58,8 +57,6 @@ $(document).ready(function(){
         errorsWrapper: "<span class='help-block' style='margin:0;'></span>",
         errorTemplate: "<span></span>"
     });
-   */
-
 
     $('input[type=submit], button[type=submit]').on('click', function(){
         $(this).closest('form').find('input[name=__redirect]').val($(this).attr('data-redirect-url'));
@@ -304,42 +301,6 @@ $(document).ready(function(){
        }
     }
     var editor = new evaEditor();
-
-    var uploadNoty = [];
-
-
-
-
-    //var ckeditorContainers = $( 'textarea.wysiwyg' );
-
-
-    /*
-    $('.markdown-editor').each(function(){
-        var self = this;
-        var editor = new EpicEditor({
-            container : self, 
-            autogrow : {
-                minHeight : 300,
-                maxHeight : $(window).height() - 200
-            },
-            theme: {
-                base: 'http://www.goldtoutiao.com//vendor/js/epiceditor/themes/base/epiceditor.css',
-                preview: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/preview/bartik.css',
-                editor: 'http://www.goldtoutiao.com/vendor/js/epiceditor/themes/editor/epic-light.css'
-            },
-            button: {
-                preview: false,
-                fullscreen: true,
-                bar: "auto"
-            },
-            string: {
-                togglePreview: '预览(快捷键Alt+p)',
-                toggleEdit: 'Toggle Edit Mode',
-                toggleFullscreen: '全屏(快捷键Alt+f)'
-            },
-        }).load(); 
-    });
-   */
 
     $(".tag-input").select2({
         tags:[],
