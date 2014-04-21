@@ -15,8 +15,7 @@ class Post extends Entities\Posts
     {
         $this->createdAt = time();
         if(!$this->slug) {
-            $factory = new \RandomLib\Factory();
-            $this->slug = $factory->getMediumStrengthGenerator()->generateString(8, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }
     }
 
@@ -106,8 +105,6 @@ class Post extends Entities\Posts
             }
             $this->Categories = $categories;
         }
-
-
 
         $this->assign($data);
         $this->save();
@@ -199,10 +196,23 @@ class Post extends Entities\Posts
         }
 
         if ($this->sourceCode == 'markdown') {
-            return $this->summary;
+            $parsedown = new \Parsedown();
+            return $parsedown->text($this->summary);
         } else {
             return $this->summary;
         }
+    }
+
+    public function getContentHtml()
+    {
+        if(!$this->Text) {
+            return '';
+        }
+        if($this->sourceCode == 'markdown') {
+            $parsedown = new \Parsedown();
+            return $parsedown->text($this->Text->content);
+        }
+        return $this->Text->content;
     }
 
     public function getUrl()

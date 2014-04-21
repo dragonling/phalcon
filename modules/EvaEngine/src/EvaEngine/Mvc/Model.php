@@ -21,15 +21,20 @@ class Model extends \Phalcon\Mvc\Model
             if(is_numeric($key)) {
                 $data[$subdata] = $this->$subdata;
             } elseif (is_array($subdata)) {
-                if($this->$key instanceof \Phalcon\Mvc\Model\Resultset\Simple) {
-                    $subdatas = array();
-                    foreach($this->$key as $child) {
-                        $subdatas[] = $child->dump($subdata);
+                if($this->$key) {
+                    if($this->$key instanceof \Phalcon\Mvc\Model\Resultset\Simple) {
+                        $subdatas = array();
+                        foreach($this->$key as $child) {
+                            $subdatas[] = $child->dump($subdata);
+                        }
+                        $data[$key] = $subdatas;
+                    } else {
+                        $data[$key] = $this->$key->dump($subdata);
                     }
-                    $data[$key] = $subdatas;
                 } else {
-                    $data[$key] = $this->$key->dump($subdata);
+                    $data[$key] = null;
                 }
+
             } elseif (is_string($subdata)) {
                 $data[$key] = $this->$subdata();
             }

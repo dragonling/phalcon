@@ -4,7 +4,7 @@ namespace Eva\EvaEngine\Mvc\Model;
 
 class Manager extends \Phalcon\Mvc\Model\Manager
 {
-    public function getReadConnection(\Phalcon\Mvc\ModelInterface $model)
+    public function getReadConnection($model)
     {
         if($this->getDI()->get('dbSlave')) {
             $this->setReadConnectionService($model, 'dbSlave');
@@ -12,7 +12,7 @@ class Manager extends \Phalcon\Mvc\Model\Manager
         return parent::getReadConnection($model);
     }
 
-    public function getWriteConnection(\Phalcon\Mvc\ModelInterface $model)
+    public function getWriteConnection($model)
     {
         if($this->getDI()->get('dbMaster')) {
             $this->setWriteConnectionService($model, 'dbMaster');

@@ -67,10 +67,14 @@ class PostController extends ControllerBase
                 'summary',
                 'summaryHtml' => 'getSummaryHtml',
                 'commentStatus',
-                //'source',
-                //'sourceUrl',
+                'sourceName',
+                'sourceUrl',
                 'url' => 'getUrl',
                 'imageUrl' => 'getImageUrl',
+                'content' => 'getContentHtml',
+                'Text' => array(
+                    'content',
+                ),
                 'Tags' => array(
                     'id',
                     'tagName',
@@ -103,11 +107,11 @@ class PostController extends ControllerBase
      *       notes="Returns a post based on ID",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
-     *           name="postId",
-     *           description="ID of post",
-     *           paramType="path",
+     *           name="post json",
+     *           description="Post info",
+     *           paramType="body",
      *           required=true,
-     *           type="int"
+     *           type="string"
      *         )
      *       ),
      *       @SWG\ResponseMessages(
@@ -134,10 +138,46 @@ class PostController extends ControllerBase
         $textForm->setModel(new Models\Text());
         $textForm->setPrefix('Text');
 
-        $data = $this->request->getPost();
-
+        $data = $this->request->getRawBody();
+        if(!$data) {
+            throw new Exception\InvalidArgumentException('No data input');
+        }
+        if(!$data = json_decode($data, true)) {
+            throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
+        }
         try {
             $post->createPost($data);
+            $data = $post->dump(array(
+                'id',
+                'title',
+                'sourceCode',
+                'createdAt',
+                'summary',
+                'summaryHtml' => 'getSummaryHtml',
+                'commentStatus',
+                'sourceName',
+                'sourceUrl',
+                'url' => 'getUrl',
+                'imageUrl' => 'getImageUrl',
+                'content' => 'getContentHtml',
+                'Text' => array(
+                    'content',
+                ),
+                'Tags' => array(
+                    'id',
+                    'tagName',
+                ),
+                'Categories' => array(
+                    'id',
+                    'categoryName',
+                ),
+                'User' => array(
+                    'id',
+                    'username',
+                ),
+            ));
+            $this->response->setContentType('application/json', 'utf-8');
+            return $this->response->setJsonContent($data);
         } catch(\Exception $e) {
             return $this->errorHandler($e, $post->getMessages());
         }
