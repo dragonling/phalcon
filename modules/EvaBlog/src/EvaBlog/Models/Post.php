@@ -11,6 +11,37 @@ use Eva\EvaEngine\Exception;
 
 class Post extends Entities\Posts
 {
+    public static $defaultDump = array(
+        'id',
+        'title',
+        'sourceCode',
+        'createdAt',
+        'summary',
+        'summaryHtml' => 'getSummaryHtml',
+        'commentStatus',
+        'sourceName',
+        'sourceUrl',
+        'url' => 'getUrl',
+        'imageUrl' => 'getImageUrl',
+        'content' => 'getContentHtml',
+        'Text' => array(
+            'content',
+        ),
+        'Tags' => array(
+            'id',
+            'tagName',
+        ),
+        'Categories' => array(
+            'id',
+            'categoryName',
+        ),
+        'User' => array(
+            'id',
+            'username',
+        ),
+    );
+
+
     public function beforeValidationOnCreate()
     {
         $this->createdAt = time();
@@ -157,10 +188,13 @@ class Post extends Entities\Posts
         }
 
         $this->assign($data);
-        $this->save();
+        if(!$this->save()) {
+            throw new Exception\RuntimeException('Save post failed');
+        }
+        return $this;
     }
 
-    public function remotePost($id)
+    public function removePost($id)
     {
         $this->id = $id;
         //remove old relations

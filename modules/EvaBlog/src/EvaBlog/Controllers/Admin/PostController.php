@@ -112,7 +112,7 @@ class PostController extends ControllerBase
         $id = $this->dispatcher->getParam('id');
         $post =  new Models\Post();
         try {
-            $post->remotePost($id);
+            $post->removePost($id);
         } catch(\Exception $e) {
             return $this->jsonErrorHandler($e, $post->getMessages());
         }
