@@ -20,6 +20,62 @@ use Eva\EvaEngine\Exception;
  */
 class PostController extends ControllerBase
 {
+
+    /**
+     *
+     * @SWG\Api(
+     *   path="/post",
+     *   description="Post related api",
+     *   produces="['application/json']",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       method="GET",
+     *       summary="Get post list",
+     *       notes="Returns a post based on ID",
+     *       @SWG\Parameters(
+     *         @SWG\Parameter(
+     *           name="q",
+     *           description="Keyword",
+     *           paramType="path",
+     *           required=true,
+     *           type="string"
+     *         )
+     *       )
+     *     )
+     *   )
+     * )
+     */
+    public function indexAction()
+    {
+        $currentPage = $this->request->getQuery('page', 'int'); // GET
+        $limit = $this->request->getQuery('limit', 'int');
+        $order = $this->request->getQuery('order', 'int');
+        $limit = $limit > 50 ? 50 : $limit;
+        $limit = $limit < 10 ? 10 : $limit;
+
+        $posts = Models\Post::find(array(
+            'order' => 'id DESC',
+        ));
+        $paginator = new \Eva\EvaEngine\Paginator(array(
+            "data" => $posts,
+            "limit"=> $limit,
+            "page" => $currentPage
+        ));
+        $paginator->setQuery(array(
+            'limit' => $limit,
+        ));
+        $pager = $paginator->getPaginate();
+
+        $postArray = array();
+        if($pager->items) {
+            foreach($pager->items as $key => $post) {
+                $postArray[] = $post->dump(Models\Post::$defaultDump);
+            }
+        }
+        $this->response->setContentType('application/json', 'utf-8');
+        return $this->response->setJsonContent($postArray);
+    }
+
     /**
      *
      * @SWG\Api(
