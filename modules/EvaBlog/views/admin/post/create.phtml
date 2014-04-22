@@ -214,6 +214,7 @@
                         <div class="widget-main">
                             <div class="control-group">
                                 <?$categories = $postForm->getCategories()?>
+                                <?if($categories):?>
                                 <?foreach($categories as $key => $category):?>
                                 <div class="checkbox">
                                     <label>
@@ -224,6 +225,7 @@
                                     </label>
                                 </div>
                                 <?endforeach?>
+                                <?endif?>
                             </div>
 
                         </div>

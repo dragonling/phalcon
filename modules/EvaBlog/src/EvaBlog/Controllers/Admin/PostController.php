@@ -60,7 +60,7 @@ class PostController extends ControllerBase
         } catch(\Exception $e) {
             return $this->errorHandler($e, $post->getMessages());
         }
-        $this->flashSession->success('SUCCESS_POST_UPDATED');
+        $this->flashSession->success('SUCCESS_POST_CREATED');
         return $this->redirectHandler('/admin/post/edit/' . $post->id);
     }
 

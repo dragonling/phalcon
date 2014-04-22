@@ -1,5 +1,5 @@
 {
-    "name": "EvaEngineByPhalcon",
+    "name": "allovince/phalcon",
     "description": "",
     "license": "Business Licenses",
     "authors": [
@@ -16,6 +16,8 @@
         "phalcon/incubator" : "dev-master",
 	"knplabs/gaufrette" : "dev-master",
 	"allovince/evaoauth": "dev-master",
+	"allovince/evathumber": "dev-master",
+	"imagine/imagine": "dev-master",
 	"swiftmailer/swiftmailer" : "dev-master",
 	"ircmaxell/random-lib": "dev-master",
 	"erusev/parsedown" : "dev-master"
