@@ -110,11 +110,49 @@ $(function(){
         var result = convertPrice(input, inputType, resultType).toFixed(2);
         $('#gold-price-converter input[name=result]').val(result);
     });
-    /**
-     * raphael
-     */
-//    var paper = Raphael(150, 150);
 
+});
+/**
+ * gold-research
+ */
+$(function(){
+
+    var $dom = $('#gold-research');
+    if (! $dom.length) {
+        return;
+    }
+    var data = [];
+    //todo
+    data.push({
+        value: 120,
+        label: '上涨',
+        color: ''
+    });
+    data.push({
+        value: 165,
+        label: '下跌',
+        color: ''
+    });
+    data.push({
+        value: 52,
+        label: '盘整',
+        color: ''
+    });
+    var chart = Raphael("gold-research-chart", 150, 150).circleChart(75, 75, 72, 42, data, "#fff");
+    $dom.on('click', '[data-action]', function(){
+        var $this = $(this);
+        var action = $this.attr('data-action');
+        if (action === 'rise') {
+            data[0].value ++;
+        } else if (action === 'fall') {
+            data[1].value ++;
+        } else if (action === 'dull') {
+            data[2].value ++;
+        }
+        console.log(chart);
+        //raphael.clear();
+        //chart.circleChart(75, 75, 72, 42, data, "#fff");
+    });
 });
 
 $(function(){

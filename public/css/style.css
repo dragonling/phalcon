@@ -2482,10 +2482,10 @@ td.datepickerSpecial.datepickerSelected a {
 #sidebar #gold-research {
   padding: 20px 30px;
 }
-#sidebar #gold-research .chart.type1 {
-  width: 100%;
+#sidebar #gold-research .chart {
+  width: 150px;
   height: 150px;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
 }
 #sidebar #gold-research .button {
   margin: 0 auto;
