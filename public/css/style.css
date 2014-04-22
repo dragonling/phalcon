@@ -70,9 +70,9 @@ acronym {
 }
 body {
   color: #000;
-  background: #fff;
+  background: #f5f5f5;
   font-family: Verdana Tahoma "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
-  font-size: 16px;
+  font-size: 12px;
 }
 a {
   text-decoration: none;
@@ -287,6 +287,10 @@ input {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.tab:hover,
+.link:hover {
+  color: #068cb5;
+}
 .button {
   border: none;
   outline: none;
@@ -394,6 +398,9 @@ label.checkbox > input[type=checkbox] {
   float: left;
   cursor: pointer;
 }
+.tabpanel > .tabbar > .tab:hover {
+  color: #068cb5;
+}
 .tabpanel > .content > .panel {
   display: none;
   width: 100%;
@@ -433,6 +440,9 @@ label.checkbox > input[type=checkbox] {
   text-align: center;
   color: #fff;
 }
+.tabpanel.type2 > .tabbar > .tab:hover {
+  color: #068cb5;
+}
 .tabpanel.type2 > .tabbar > .tab.active {
   background-color: #231815;
   position: relative;
@@ -467,6 +477,9 @@ label.checkbox > input[type=checkbox] {
   text-align: center;
   color: #fff;
   position: relative;
+}
+.tabpanel.type3 > .tabbar > .tab:hover {
+  color: #068cb5;
 }
 .tabpanel.type3 > .tabbar > .tab:after {
   display: block;
@@ -553,7 +566,9 @@ label.checkbox > input[type=checkbox] {
 .market.chart > .titlebar > .link:first-child {
   border-left-color: transparent;
 }
-.market.chart > .titlebar > .link:hover,
+.market.chart > .titlebar > .link:hover {
+  color: #068cb5;
+}
 .market.chart > .titlebar > .link.active {
   z-index: 9;
   margin: 0;
@@ -596,10 +611,6 @@ label.checkbox > input[type=checkbox] {
 .market.chart > .content .toolbar .button.active {
   background-color: #000;
   color: #fff;
-}
-body {
-  background-color: #e6e6e6;
-  font-size: 12px;
 }
 #header {
   background-color: #1e1e1e;
@@ -646,8 +657,7 @@ body {
   text-align: center;
 }
 #header .navbar .nav > .link:hover {
-  position: relative;
-  background-color: #343434;
+  color: #068cb5;
 }
 #header .navbar .nav > .link.active {
   position: relative;
@@ -1334,19 +1344,19 @@ body {
   padding: 0 15px;
   cursor: pointer;
   line-height: 30px;
-  color: #c8c8c8;
+  color: #068cb5;
 }
 .finance-calendar.list .more:before {
-  content: '加载更多数据';
+  content: '加载更多>>';
 }
 .finance-calendar.list .more:hover {
-  color: #ff3232;
+  color: #c8c8c8;
 }
 .finance-calendar.list.loading .more {
   cursor: normal;
 }
 .finance-calendar.list.loading .more:before {
-  content: '正在加载中';
+  content: '正在加载中…';
 }
 .finance-calendar.list.loading .more:hover {
   color: #c8c8c8;
@@ -1489,6 +1499,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #financeCalendar > .head > .item.input {
   width: 320px;
+  width: 319px\0;
   cursor: default;
   padding: 10px 40px;
   height: 30px;
@@ -1579,12 +1590,12 @@ td.datepickerSpecial.datepickerSelected a {
 #financeCalendar > .toolbar .checkbox {
   height: 30px;
   width: 55px;
-  margin-right: 30px;
+  margin-left: 30px;
   padding: 5px 0;
 }
-#financeCalendar > .toolbar .checkbox.last-child,
-#financeCalendar > .toolbar .checkbox:last-child {
-  margin-right: 0;
+#financeCalendar > .toolbar .checkbox.first-child,
+#financeCalendar > .toolbar .checkbox:first-child {
+  margin-left: 0;
 }
 #financeCalendar > .toolbar .checkbox [type=checkbox] {
   margin-top: 5px;
@@ -1610,16 +1621,24 @@ td.datepickerSpecial.datepickerSelected a {
   text-align: left;
   padding: 6px 0;
   vertical-align: middle;
+  padding-right: 30px;
+  /*&.first-child,
+                &:first-child {
+                    padding-left: 30px;
+                }
+                &.last-child,
+                &:last-child {
+                    padding-right: 30px;
+                }*/
 }
 #financeCalendar > .content table th:first-child,
 #financeCalendar > .content table td:first-child {
   padding-left: 30px;
 }
-#financeCalendar > .content table th:last-child,
-#financeCalendar > .content table td:last-child {
-  padding-right: 30px;
-}
 #financeCalendar > .content table thead {
+  background-color: #e6e6e6;
+}
+#financeCalendar > .content table tr.even-of-child {
   background-color: #e6e6e6;
 }
 #financeCalendar > .content table tr:nth-child(even) {
@@ -1637,36 +1656,28 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #financeCalendar > .content table th.time,
 #financeCalendar > .content table td.time {
-  width: 55px;
+  width: 40px;
 }
 #financeCalendar > .content table th.important,
 #financeCalendar > .content table td.important {
-  width: 75px;
+  width: 60px;
 }
 #financeCalendar > .content table th.country,
 #financeCalendar > .content table td.country {
-  width: 70px;
+  width: 4em;
 }
 #financeCalendar > .content table th.price,
 #financeCalendar > .content table td.price {
-  width: 75px;
+  width: 50px;
   text-align: right;
 }
 #financeCalendar > .content table.type1 th.time,
 #financeCalendar > .content table.type1 td.time {
-  width: 100px;
-}
-#financeCalendar > .content table.type1 th.important,
-#financeCalendar > .content table.type1 td.important {
-  width: 75px;
-}
-#financeCalendar > .content table.type1 th.country,
-#financeCalendar > .content table.type1 td.country {
-  width: 70px;
+  width: 80px;
 }
 #financeCalendar > .content table.type1 th.remark,
 #financeCalendar > .content table.type1 td.remark {
-  width: 120px;
+  width: 90px;
 }
 #financeCalendar > .content h2 {
   font-size: 16px;
@@ -1803,10 +1814,10 @@ td.datepickerSpecial.datepickerSelected a {
 #main .recommend-news.list > .item {
   display: block;
   float: left;
-  margin-right: 25px;
+  margin-left: 25px;
 }
-#main .recommend-news.list > .item:last-child {
-  margin-right: 0;
+#main .recommend-news.list > .item:first-child {
+  margin-left: 0;
 }
 #main .recommend-news.list > .item > .link {
   display: block;
@@ -2091,178 +2102,128 @@ td.datepickerSpecial.datepickerSelected a {
 }
 .menu {
   width: 120px;
-  padding: 20px 6px 0 24px;
-  background-color: #e6e6e6;
+  padding: 20px 15px;
+  background-color: #ececec;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   font-size: 14px;
 }
-.menu.tree {
-  padding-left: 15px;
-  padding-right: 15px;
-  /*.link[data-toggle=menu].active {
-        color: @blue;
-        background-color: transparent;
-        margin: 0;
-        padding: 10px 0;
-        &:before {
-            display: block;
-        }
-        & + .sub-menu {
-            display: block;
-        }
-        .icon-custom-toggle:before {
-            content: "\f106";
-        }
-    }*/
-}
-.menu.tree .text {
-  font-size: 14px;
-  line-height: 1.5em;
-  display: block;
-  float: left;
-}
-.menu.tree .icon-custom-toggle {
-  display: block;
-  float: right;
-}
-.menu.tree .sub-menu {
-  display: none;
-}
-.menu.tree .sub-menu .text {
-  font-size: 12px;
-  margin-left: 15px;
-  width: 90px;
-}
-.menu.tree .link {
-  padding: 10px 0;
+.menu .item {
   display: block;
   position: relative;
+  cursor: pointer;
+  padding: 10px 0;
+  color: #323232;
+  line-height: 22px;
+  margin-bottom: 2px;
 }
-.menu.tree .link:before {
+.menu .item:before {
   display: block;
   position: absolute;
+  top: -2px;
   content: '';
-  left: 0;
-  right: 0;
-  bottom: -1px;
+  width: 100%;
   height: 0;
   border-top: 1px solid #c8c8c8;
   border-bottom: 1px solid #fff;
 }
-.menu.tree .link:after {
+.menu .item:after {
   display: table;
   content: '';
   clear: both;
 }
-.menu.tree .link:hover {
-  color: #fff;
+.menu .item:hover,
+.menu .item.active {
   background-color: #005178;
+  color: #fff;
+  /*margin: -1px -15px;
+            padding: 11px 15px;*/
   margin-left: -15px;
   margin-right: -15px;
   padding-left: 15px;
   padding-right: 15px;
-  margin-top: -1px;
-  margin-bottom: -1px;
-  padding-top: 11px;
-  padding-bottom: 11px;
 }
-.menu.tree .link:hover:before {
+.menu .item:hover:before,
+.menu .item.active:before {
   display: none;
 }
-.menu.tree .link[data-toggle=menu] .icon-custom-toggle:before {
-  font-size: 18px;
-  content: "\f107";
-}
-.menu.tree .item.active > .link {
-  color: #fff;
-  background-color: #005178;
-  margin-left: -15px;
-  margin-right: -15px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-top: -1px;
-  margin-bottom: -1px;
-  padding-top: 11px;
-  padding-bottom: 11px;
-}
-.menu.tree .item.active > .link:before {
+.menu .item:hover + .item:before,
+.menu .item.active + .item:before {
   display: none;
 }
-.menu.tree .item.active > .link[data-toggle=menu] {
-  color: #005178;
-  background-color: transparent;
-  margin: 0;
-  padding: 10px 0;
-}
-.menu.tree .item.active > .link[data-toggle=menu]:before {
-  display: block;
-}
-.menu.tree .item.active > .link[data-toggle=menu] .icon-custom-toggle:before {
-  content: "\f106";
-}
-.menu.tree .item.active > .sub-menu {
-  display: block;
-}
-.menu[data-livenews] > .item {
-  color: #323232;
-  line-height: 42px;
-  cursor: pointer;
-}
-.menu[data-livenews] > .item .icon {
+.menu[data-livenews] .icon {
   display: inline-block;
   width: 20px;
   height: 15px;
   margin-right: 20px;
   background: url(../img/icon/livenews/black.sprite.png) no-repeat;
 }
-.menu[data-livenews] > .item .icon[data-type=all] {
+.menu[data-livenews] .icon[data-type=all] {
   background-position: 0 0;
 }
-.menu[data-livenews] > .item .icon[data-type=chart] {
+.menu[data-livenews] .icon[data-type=chart] {
   background-position: -60px 0;
 }
-.menu[data-livenews] > .item .icon[data-type=alert] {
+.menu[data-livenews] .icon[data-type=alert] {
   background-position: -20px 0;
 }
-.menu[data-livenews] > .item .icon[data-type=common] {
+.menu[data-livenews] .icon[data-type=common] {
   background-position: -80px 0;
 }
-.menu[data-livenews] > .item .icon[data-type=chart_pie] {
+.menu[data-livenews] .icon[data-type=chart_pie] {
   background-position: -40px 0;
 }
-.menu[data-livenews] > .item .icon[data-type=rumor] {
+.menu[data-livenews] .icon[data-type=rumor] {
   background-position: -100px 0;
 }
-.menu[data-livenews] > .item .icon[data-type=warning] {
+.menu[data-livenews] .icon[data-type=warning] {
   background-position: -120px 0;
 }
-.menu[data-livenews] > .item:hover,
-.menu[data-livenews] > .item.active {
-  background-color: #005178;
-  color: #fff;
-  margin-left: -24px;
-  margin-right: -6px;
-  padding-left: 24px;
-  padding-right: 6px;
-}
-.menu[data-livenews] > .item:hover .icon,
-.menu[data-livenews] > .item.active .icon {
+.menu[data-livenews] .item:hover .icon,
+.menu[data-livenews] .item.active .icon {
   background-image: url(../img/icon/livenews/white.sprite.png);
 }
-.menu[data-livenews] > .item:hover:after,
-.menu[data-livenews] > .item.active:after {
-  visibility: hidden;
-}
-.menu[data-livenews] > .item:after {
+.menu[data-tree] .text {
+  font-size: 14px;
+  padding-right: 20px;
   display: block;
-  content: '';
-  width: 100%;
-  height: 0;
-  border-top: 1px solid #c8c8c8;
-  border-bottom: 1px solid #fff;
+}
+.menu[data-tree] .icon-custom-toggle {
+  display: block;
+  top: 10px;
+  font-size: 18px;
+  line-height: 22px;
+  right: 0;
+  position: absolute;
+}
+.menu[data-tree] .item:hover .icon-custom-toggle,
+.menu[data-tree] .item.active .icon-custom-toggle {
+  right: 15px;
+}
+.menu[data-tree] .sub-menu {
+  display: none;
+}
+.menu[data-tree] .sub-menu .text {
+  font-size: 12px;
+  padding-left: 15px;
+}
+.menu[data-tree] .item[data-toggle=sub-menu] .icon-custom-toggle:before {
+  content: "\f107";
+}
+.menu[data-tree] [data-tree-branch].active > .item[data-toggle=sub-menu] {
+  color: #005178;
+  background-color: transparent;
+  /*&:before {
+                display: block;
+            }*/
+}
+.menu[data-tree] [data-tree-branch].active > .item[data-toggle=sub-menu] .icon-custom-toggle:before {
+  content: "\f106";
+}
+.menu[data-tree] [data-tree-branch].active > .sub-menu {
+  display: block;
 }
 .tutorial.page {
   color: #323232;
@@ -2848,6 +2809,7 @@ td.datepickerSpecial.datepickerSelected a {
   border-top: 1px solid #787878;
 }
 #stare-modal.panel .livenews.scrollable.list > .content > .item {
+  color: #dcdcdc;
   padding: 8px 15px;
   border-bottom: 1px solid #1e1e1e;
   border-top: 1px solid #787878;

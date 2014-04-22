@@ -36,14 +36,20 @@ $(function(){
     /**
      * menu
      */
-    $(document).on('click.menu', '[data-toggle=menu]', function(e){
+    $('[data-tree]').on('click', '.item', function(e){
         var $this = $(this);
-        var $parent = $this.parent();
-        if ($parent.hasClass('active')) {
-            $parent.removeClass('active');
-            return false;
+        if ($this.is('[data-toggle=sub-menu]')) {
+            var $parent = $this.parent();
+            $parent.toggleClass('active');
+        } else {
+            var $menu = $this.parents('.menu');
+            var $active = $menu.find('[data-tree-leaf].active');
+            $active.removeClass('active');
+            $this.addClass('active');
         }
-        var $parents = $this.parents('.item.active');
+        return false;
+
+        /*var $parents = $this.parents('.item.active');
         var $menu = $this.parents('.menu');
         var $active = $menu.find('.item.active');
         if ($active.length) {
@@ -63,9 +69,8 @@ $(function(){
             } else {
                 $active.removeClass('active');
             }
-        }
-        $parent.addClass('active');
-        return false;
+        }*/
+
     });
     /**
      * 汇率计算器
@@ -105,6 +110,11 @@ $(function(){
         var result = convertPrice(input, inputType, resultType).toFixed(2);
         $('#gold-price-converter input[name=result]').val(result);
     });
+    /**
+     * raphael
+     */
+//    var paper = Raphael(150, 150);
+
 });
 
 $(function(){
