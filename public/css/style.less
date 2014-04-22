@@ -12,9 +12,9 @@ abbr,acronym { border: 0;}
 //Global
 body {
     color: #000;
-    background: #fff;
+    background: #f5f5f5;
     font-family: Verdana Tahoma "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
-    font-size: 16px;
+    font-size: 12px;
 }
 a {
     text-decoration: none;
@@ -76,12 +76,9 @@ button,select,input {
 }
 
 .row {
-
     .clearfix;
-
     display: block;
     width: 100%;
-
     &>.span {
         float: left;
         display: block;
@@ -253,6 +250,11 @@ button,select,input {
     white-space: nowrap;
 }
 
+.tab:hover,
+.link:hover {
+    color: @skyblue;
+}
+
 .button{
     border: none;
     outline: none;
@@ -358,6 +360,9 @@ label.checkbox {
             display: block;
             float: left;
             cursor: pointer;
+            &:hover {
+                color: @skyblue;
+            }
         }
     }
     &>.content{
@@ -406,6 +411,9 @@ label.checkbox {
             border-right: 1px solid #fff;
             text-align: center;
             color: #fff;
+            &:hover {
+                color: @skyblue;
+            }
             &.active {
                 background-color: #231815;
                 position: relative;
@@ -443,7 +451,9 @@ label.checkbox {
             text-align: center;
             color: #fff;
             position: relative;
-
+            &:hover {
+                color: @skyblue;
+            }
             &:after {
                 display: block;
                 position: absolute;
@@ -557,7 +567,9 @@ label.checkbox {
                 border-left-color: transparent;
             }
 
-            &:hover,
+            &:hover {
+                color: @skyblue;
+            }
             &.active {
                 z-index: 9;
                 margin: 0;
@@ -611,11 +623,6 @@ label.checkbox {
     }
 }
 
-body {
-    background-color: #e6e6e6;
-    font-size: 12px;
-}
-
 #header {
 
     background-color: @black;
@@ -664,17 +671,12 @@ body {
                 line-height: 39px;
                 color: #fff;
                 text-align: center;
-
                 &:hover {
-                    position: relative;
-                    background-color: @color1;
+                    color: @skyblue;
                 }
-
                 &.active {
-
                     position: relative;
                     background-color: @color1;
-
                     &:after {
                         content: "";
                         display: block;
@@ -1317,19 +1319,19 @@ body {
         padding: 0 15px;
         cursor: pointer;
         line-height: 30px;
-        color: #c8c8c8;
+        color: @skyblue;
         &:before {
-            content: '加载更多数据';
+            content: '加载更多>>';
         }
         &:hover {
-            color: @red;
+            color: #c8c8c8;
         }
     }
     &.loading {
         .more {
             cursor: normal;
             &:before {
-                content: '正在加载中';
+                content: '正在加载中…';
             }
             &:hover {
                 color: #c8c8c8;
@@ -1477,6 +1479,7 @@ td.datepickerSpecial.datepickerSelected a {
             }
             &.input {
                 width: 320px;
+                width: 319px\0;
                 cursor: default;
                 padding: 10px 40px;
                 height: 30px;
@@ -1560,11 +1563,11 @@ td.datepickerSpecial.datepickerSelected a {
         .checkbox {
             height: 30px;
             width: 55px;
-            margin-right: 30px;
+            margin-left: 30px;
             padding: 5px 0;
-            &.last-child,
-            &:last-child {
-                margin-right: 0;
+            &.first-child,
+            &:first-child {
+                margin-left: 0;
             }
             [type=checkbox] {
                 margin-top: 5px;
@@ -1599,14 +1602,23 @@ td.datepickerSpecial.datepickerSelected a {
                 text-align: left;
                 padding: 6px 0;
                 vertical-align: middle;
+                padding-right: 30px;
                 &:first-child {
                     padding-left: 30px;
                 }
+                /*&.first-child,
+                &:first-child {
+                    padding-left: 30px;
+                }
+                &.last-child,
                 &:last-child {
                     padding-right: 30px;
-                }
+                }*/
             }
             thead {
+                background-color: #e6e6e6;
+            }
+            tr.even-of-child {
                 background-color: #e6e6e6;
             }
             tr:nth-child(even) {
@@ -1626,16 +1638,16 @@ td.datepickerSpecial.datepickerSelected a {
             }
             th,td {
                 &.time {
-                    width: 55px;
+                    width: 40px;
                 }
                 &.important {
-                    width: 75px;
+                    width: 60px;
                 }
                 &.country {
-                    width: 70px;
+                    width: 4em;
                 }
                 &.price {
-                    width: 75px;
+                    width: 50px;
                     text-align: right;
                 }
             }
@@ -1643,16 +1655,10 @@ td.datepickerSpecial.datepickerSelected a {
         table.type1 {
             th,td {
                 &.time {
-                    width: 100px;
-                }
-                &.important {
-                    width: 75px;
-                }
-                &.country {
-                    width: 70px;
+                    width: 80px;
                 }
                 &.remark {
-                    width: 120px;
+                    width: 90px;
                 }
             }
         }
@@ -1791,9 +1797,9 @@ td.datepickerSpecial.datepickerSelected a {
         &>.item {
             display: block;
             float: left;
-            margin-right: 25px;
-            &:last-child {
-                margin-right: 0;
+            margin-left: 25px;
+            &:first-child {
+                margin-left: 0;
             }
 
             &>.link {
@@ -2132,49 +2138,28 @@ td.datepickerSpecial.datepickerSelected a {
 
 .menu {
     width: 120px;
-    padding: 20px 6px 0 24px;
-    background-color: #e6e6e6;
+    padding: 20px 15px;
+    background-color: #ececec;
     position: absolute;
     top:0;
     bottom: 0;
     left: 0;
     font-size: 14px;
-}
 
-.menu.tree {
-    padding-left: 15px;
-    padding-right: 15px;
-
-    .text {
-        font-size: 14px;
-        line-height: 1.5em;
-        display: block;
-        float: left;
-    }
-    .icon-custom-toggle {
-        display: block;
-        float: right;
-    }
-    .sub-menu {
-        display: none;
-        .text {
-            font-size: 12px;
-            margin-left: 15px;
-            width: 90px;
-        }
-    }
-
-    .link {
-        padding: 10px 0;
+    .item {
         display: block;
         position: relative;
+        cursor: pointer;
+        padding: 10px 0;
+        color: #323232;
+        line-height: 22px;
+        margin-bottom: 2px;
         &:before {
             display: block;
             position: absolute;
+            top: -2px;
             content: '';
-            left: 0;
-            right: 0;
-            bottom: -1px;
+            width: 100%;
             height: 0;
             border-top: 1px solid #c8c8c8;
             border-bottom: 1px solid #fff;
@@ -2184,137 +2169,114 @@ td.datepickerSpecial.datepickerSelected a {
             content: '';
             clear: both;
         }
-        //&.active,
-        &:hover {
-            color: #fff;
+        &:hover,
+        &.active {
             background-color: @blue;
+            color: #fff;
+            /*margin: -1px -15px;
+            padding: 11px 15px;*/
             margin-left: -15px;
             margin-right: -15px;
             padding-left: 15px;
             padding-right: 15px;
-            margin-top: -1px;
-            margin-bottom: -1px;
-            padding-top: 11px;
-            padding-bottom: 11px;
             &:before {
+                display: none;
+            }
+            &+.item:before {
                 display: none;
             }
         }
     }
+}
 
-    .link[data-toggle=menu] {
+.menu[data-livenews] {
+    //box-shadow: 0 -3px 3px 0 inset rgba(0,0,0,0.5);
+    .icon {
+        display: inline-block;
+        width: 20px;
+        height: 15px;
+        margin-right: 20px;
+        background: url(../img/icon/livenews/black.sprite.png) no-repeat;
+        &[data-type=all] {
+            background-position: 0 0;
+        }
+        &[data-type=chart] {
+            background-position: -60px 0;
+        }
+        &[data-type=alert] {
+            background-position: -20px 0;
+        }
+        &[data-type=common] {
+            background-position: -80px 0;
+        }
+        &[data-type=chart_pie] {
+            background-position: -40px 0;
+        }
+        &[data-type=rumor] {
+            background-position: -100px 0;
+        }
+        &[data-type=warning] {
+            background-position: -120px 0;
+        }
+    }
+    .item:hover,
+    .item.active {
+        .icon {
+            background-image: url(../img/icon/livenews/white.sprite.png);
+        }
+    }
+
+}
+
+.menu[data-tree] {
+
+    .text {
+        font-size: 14px;
+        padding-right: 20px;
+        display: block;
+    }
+    .icon-custom-toggle {
+        display: block;
+        top: 10px;
+        font-size: 18px;
+        line-height: 22px;
+        right: 0;
+        position: absolute;
+    }
+    .item:hover,
+    .item.active {
+        .icon-custom-toggle {
+            right: 15px;
+        }
+    }
+    .sub-menu {
+        display: none;
+        .text {
+            font-size: 12px;
+            padding-left: 15px;
+        }
+    }
+
+    .item[data-toggle=sub-menu] {
         .icon-custom-toggle:before {
-            font-size: 18px;
             content: "\f107";
         }
     }
-    /*.link[data-toggle=menu].active {
-        color: @blue;
-        background-color: transparent;
-        margin: 0;
-        padding: 10px 0;
-        &:before {
-            display: block;
-        }
-        & + .sub-menu {
-            display: block;
-        }
-        .icon-custom-toggle:before {
-            content: "\f106";
-        }
-    }*/
 
-    .item.active {
-        &>.link {
-            color: #fff;
-            background-color: @blue;
-            margin-left: -15px;
-            margin-right: -15px;
-            padding-left: 15px;
-            padding-right: 15px;
-            margin-top: -1px;
-            margin-bottom: -1px;
-            padding-top: 11px;
-            padding-bottom: 11px;
-            &:before {
-                display: none;
-            }
-        }
-        &>.link[data-toggle=menu] {
+    [data-tree-branch].active {
+
+        &>.item[data-toggle=sub-menu] {
             color: @blue;
             background-color: transparent;
-            margin: 0;
-            padding: 10px 0;
-            &:before {
+            /*&:before {
                 display: block;
-            }
+            }*/
             .icon-custom-toggle:before {
                 content: "\f106";
             }
         }
         &>.sub-menu {
             display: block;
-        }
-    }
-
-}
-
-.menu[data-livenews] {
-    //box-shadow: 0 -3px 3px 0 inset rgba(0,0,0,0.5);
-    &>.item {
-        color: #323232;
-        line-height: 42px;
-        cursor: pointer;
-        .icon {
-            display: inline-block;
-            width: 20px;
-            height: 15px;
-            margin-right: 20px;
-            background: url(../img/icon/livenews/black.sprite.png) no-repeat;
-            &[data-type=all] {
-                background-position: 0 0;
-            }
-            &[data-type=chart] {
-                background-position: -60px 0;
-            }
-            &[data-type=alert] {
-                background-position: -20px 0;
-            }
-            &[data-type=common] {
-                background-position: -80px 0;
-            }
-            &[data-type=chart_pie] {
-                background-position: -40px 0;
-            }
-            &[data-type=rumor] {
-                background-position: -100px 0;
-            }
-            &[data-type=warning] {
-                background-position: -120px 0;
-            }
-        }
-        &:hover,
-        &.active {
-            .icon {
-                background-image: url(../img/icon/livenews/white.sprite.png);
-            }
-            background-color: @blue;
-            color: #fff;
-            margin-left: -24px;
-            margin-right: -6px;
-            padding-left: 24px;
-            padding-right: 6px;
-            &:after {
-                visibility: hidden;
-            }
-        }
-        &:after {
-            display: block;
-            content: '';
-            width: 100%;
-            height: 0;
-            border-top: 1px solid #c8c8c8;
-            border-bottom: 1px solid #fff;
         }
     }
 
@@ -2958,6 +2920,7 @@ td.datepickerSpecial.datepickerSelected a {
                 border-top: 1px solid #787878;
             }
             &>.item {
+                color: #dcdcdc;
                 padding: 8px 15px;
                 border-bottom: 1px solid #1e1e1e;
                 border-top: 1px solid #787878;
