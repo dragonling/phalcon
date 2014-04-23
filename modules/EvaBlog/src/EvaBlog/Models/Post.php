@@ -44,7 +44,7 @@ class Post extends Entities\Posts
 
     public function beforeValidationOnCreate()
     {
-        $this->createdAt = time();
+        $this->createdAt = $this->createdAt ? $this->createdAt : time();
         if(!$this->slug) {
             $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }

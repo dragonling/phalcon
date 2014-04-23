@@ -254,7 +254,7 @@
                 </div><!--widgex box-->
 
                 <div class="hr hr-double dotted"></div>
-                <div class="widget-box collapsed">
+                <div class="widget-box ">
                     <div class="widget-header widget-header-small">
                         <h5 class="lighter">Publish Time</h5>
                         <span class="widget-toolbar">
@@ -353,6 +353,7 @@
             var updateCreateTime = function(){
                     var day = $('input[name=day]').val();
                     var time = $('input[name=time]').val();
+                    time = time.length == 7 ? '0' + time : time;
                     var timestamp = moment(day + ' ' + time).format('X');
                     $('input[name=createdAt]').val(timestamp);
             }
