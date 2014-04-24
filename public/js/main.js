@@ -124,21 +124,28 @@ $(function(){
     var data = [];
     //todo
     data.push({
-        value: 120,
+        value: 1,
         label: '上涨',
         color: ''
     });
     data.push({
-        value: 165,
+        value: 1,
         label: '下跌',
         color: ''
     });
     data.push({
-        value: 52,
+        value: 1,
         label: '盘整',
         color: ''
     });
-    var chart = Raphael("gold-research-chart", 150, 150).circleChart(75, 75, 72, 42, data, "#fff");
+    var chart = Raphael("gold-research-chart", 150, 150).circleChart({
+        cx: 75,
+        cy: 75,
+        or: 72,
+        ir: 42,
+        title: '投票结果',
+        data: data
+    });
     $dom.on('click', '[data-action]', function(){
         var $this = $(this);
         var action = $this.attr('data-action');
@@ -149,7 +156,8 @@ $(function(){
         } else if (action === 'dull') {
             data[2].value ++;
         }
-        console.log(chart);
+        chart.updateData(data);
+        //console.log(chart);
         //raphael.clear();
         //chart.circleChart(75, 75, 72, 42, data, "#fff");
     });
