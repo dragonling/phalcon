@@ -76,6 +76,13 @@
         var ms = 500, delta = 5;
         var angle = 90;
         var total = this.total;
+        var textStyle = {
+            fill: '#fff',
+            stroke: "none",
+            "font-size": 12,
+            "font-weight": "bold",
+            "font-family": "Consolas, monospace"
+        };
         for (var l = this.values.length - 1; l > -1; l--) {
             var value = this.values[l];
             var pathAngle = 360 * value / total;
@@ -85,14 +92,15 @@
             this.paper.text(
                 this.cx + (this.ir + 15) * Math.cos(-textAngle * this.rad),
                 this.cy + (this.ir + 15) * Math.sin(-textAngle * this.rad),
-                Math.floor(value * 100 / total) + '%'
-            ).attr({
-                fill: '#fff',
-                stroke: "none",
-                "font-size": 12,
-                "font-weight": "bold",
-                "font-family": "Consolas, monospace"
-            });
+                Math.round(value * 100 / total) + '%'
+            ).attr(textStyle);
+            //todo 加上值的说明
+            this.paper.rect(10 + l * 80, this.cy + this.or + 10, 10, 10).attr({fill: this.colors[l], stroke: 'none'});
+            this.paper.text(
+                40 + l * 80,
+                this.cy + this.or + 15,
+                this.values[l]
+            ).attr(textStyle);
             //
             //this.chart.sectors.push(sector);
             //this.chart.texts.push(text);

@@ -1469,12 +1469,12 @@ td.datepickerSpecial a {
 td.datepickerSpecial.datepickerSelected a {
   background: #a00;
 }
-#financeCalendar {
+#finance-calendar {
   background-color: #fff;
   padding: 30px;
   padding-top: 0;
 }
-#financeCalendar > .head {
+#finance-calendar > .head {
   margin: 0 -30px;
   height: 50px;
   color: #505050;
@@ -1482,7 +1482,7 @@ td.datepickerSpecial.datepickerSelected a {
   background-color: #dcdcdc;
   border-bottom: 1px solid #a0a0a0;
 }
-#financeCalendar > .head > .item {
+#finance-calendar > .head > .item {
   display: block;
   cursor: pointer;
   float: left;
@@ -1492,12 +1492,12 @@ td.datepickerSpecial.datepickerSelected a {
   line-height: 50px;
   border-right: 1px solid #a0a0a0;
 }
-#financeCalendar > .head > .item.active {
+#finance-calendar > .head > .item.active {
   margin-bottom: -1px;
   padding-bottom: 1px;
   background-color: #fff;
 }
-#financeCalendar > .head > .item.input {
+#finance-calendar > .head > .item.input {
   width: 320px;
   width: 319px\0;
   cursor: default;
@@ -1505,11 +1505,11 @@ td.datepickerSpecial.datepickerSelected a {
   height: 30px;
   border-right: none;
 }
-#financeCalendar > .head > .item.input.active {
+#finance-calendar > .head > .item.input.active {
   padding-bottom: 11px;
 }
-#financeCalendar > .head > .item.input .button,
-#financeCalendar > .head > .item.input .text {
+#finance-calendar > .head > .item.input .button,
+#finance-calendar > .head > .item.input .text {
   display: block;
   cursor: pointer;
   float: left;
@@ -1518,47 +1518,47 @@ td.datepickerSpecial.datepickerSelected a {
   text-align: center;
   height: 30px;
 }
-#financeCalendar > .head > .item.input .text {
+#finance-calendar > .head > .item.input .text {
   width: 208px;
   background-color: #dcdcdc;
 }
-#financeCalendar > .head > .item.input .button {
+#finance-calendar > .head > .item.input .button {
   width: 30px;
   color: #fff;
   font-size: 18px;
   background-color: #787878;
 }
-#financeCalendar > .head > .item.input .button:hover,
-#financeCalendar > .head > .item.input .button.active {
+#finance-calendar > .head > .item.input .button:hover,
+#finance-calendar > .head > .item.input .button.active {
   background-color: #005178;
 }
-#financeCalendar > .head > .item.input .button[data-toggle=calendar] {
+#finance-calendar > .head > .item.input .button[data-toggle=calendar] {
   float: right;
   font-size: 14px;
   border-radius: 30px;
 }
-#financeCalendar > .calendar {
+#finance-calendar > .calendar {
   display: none;
   margin-top: 30px;
   border-radius: 10px;
   border: 1px solid #969696;
   padding: 30px;
 }
-#financeCalendar > .calendar:before {
+#finance-calendar > .calendar:before {
   display: table;
   content: '';
   clear: both;
 }
-#financeCalendar > .calendar:after {
+#finance-calendar > .calendar:after {
   display: table;
   content: '';
   clear: both;
 }
-#financeCalendar > .calendar [data-calendar-info] {
+#finance-calendar > .calendar [data-calendar-info] {
   float: left;
   width: 160px;
 }
-#financeCalendar > .calendar [data-calendar-label] {
+#finance-calendar > .calendar [data-calendar-label] {
   width: 140px;
   height: 140px;
   border-radius: 140px;
@@ -1566,49 +1566,49 @@ td.datepickerSpecial.datepickerSelected a {
   color: #fff;
   text-align: center;
 }
-#financeCalendar > .calendar [data-calendar-label] .text {
+#finance-calendar > .calendar [data-calendar-label] .text {
   display: block;
   font-size: 12px;
   line-height: 20px;
 }
-#financeCalendar > .calendar [data-calendar-label] .text.big {
+#finance-calendar > .calendar [data-calendar-label] .text.big {
   font-size: 72px;
   font-weight: bold;
   line-height: 80px;
   height: 80px;
   padding-top: 10px;
 }
-#financeCalendar > .calendar [data-picker] {
+#finance-calendar > .calendar [data-picker] {
   width: 486px;
   float: right;
 }
-#financeCalendar > .toolbar {
+#finance-calendar > .toolbar {
   margin-top: 30px;
   padding: 0 30px;
   background-color: #e6e6e6;
 }
-#financeCalendar > .toolbar .checkbox {
+#finance-calendar > .toolbar .checkbox {
   height: 30px;
   width: 55px;
   margin-left: 30px;
   padding: 5px 0;
 }
-#financeCalendar > .toolbar .checkbox.first-child,
-#financeCalendar > .toolbar .checkbox:first-child {
+#finance-calendar > .toolbar .checkbox.first-child,
+#finance-calendar > .toolbar .checkbox:first-child {
   margin-left: 0;
 }
-#financeCalendar > .toolbar .checkbox [type=checkbox] {
+#finance-calendar > .toolbar .checkbox [type=checkbox] {
   margin-top: 5px;
 }
-#financeCalendar > .toolbar .checkbox .flag {
+#finance-calendar > .toolbar .checkbox .flag {
   width: 30px;
   height: 30px;
   float: right;
 }
-#financeCalendar > .content {
+#finance-calendar > .content {
   margin-top: 30px;
 }
-#financeCalendar > .content table {
+#finance-calendar > .content table {
   width: 100%;
   font-size: 12px;
   line-height: 24px;
@@ -1616,8 +1616,8 @@ td.datepickerSpecial.datepickerSelected a {
   background-color: #f2f2f2;
   margin-bottom: 30px;
 }
-#financeCalendar > .content table th,
-#financeCalendar > .content table td {
+#finance-calendar > .content table th,
+#finance-calendar > .content table td {
   text-align: left;
   padding: 6px 0;
   vertical-align: middle;
@@ -1631,55 +1631,55 @@ td.datepickerSpecial.datepickerSelected a {
                     padding-right: 30px;
                 }*/
 }
-#financeCalendar > .content table th:first-child,
-#financeCalendar > .content table td:first-child {
+#finance-calendar > .content table th:first-child,
+#finance-calendar > .content table td:first-child {
   padding-left: 30px;
 }
-#financeCalendar > .content table thead {
+#finance-calendar > .content table thead {
   background-color: #e6e6e6;
 }
-#financeCalendar > .content table tr.even-of-child {
+#finance-calendar > .content table tr.even-of-child {
   background-color: #e6e6e6;
 }
-#financeCalendar > .content table tr:nth-child(even) {
+#finance-calendar > .content table tr:nth-child(even) {
   background-color: #e6e6e6;
 }
-#financeCalendar > .content table tr:hover {
+#finance-calendar > .content table tr:hover {
   background-color: #c8dce6;
 }
-#financeCalendar > .content table th {
+#finance-calendar > .content table th {
   color: #323232;
   font-weight: bold;
 }
-#financeCalendar > .content table td.date {
+#finance-calendar > .content table td.date {
   text-align: center;
 }
-#financeCalendar > .content table th.time,
-#financeCalendar > .content table td.time {
+#finance-calendar > .content table th.time,
+#finance-calendar > .content table td.time {
   width: 40px;
 }
-#financeCalendar > .content table th.important,
-#financeCalendar > .content table td.important {
+#finance-calendar > .content table th.important,
+#finance-calendar > .content table td.important {
   width: 60px;
 }
-#financeCalendar > .content table th.country,
-#financeCalendar > .content table td.country {
+#finance-calendar > .content table th.country,
+#finance-calendar > .content table td.country {
   width: 4em;
 }
-#financeCalendar > .content table th.price,
-#financeCalendar > .content table td.price {
+#finance-calendar > .content table th.price,
+#finance-calendar > .content table td.price {
   width: 50px;
   text-align: right;
 }
-#financeCalendar > .content table.type1 th.time,
-#financeCalendar > .content table.type1 td.time {
+#finance-calendar > .content table.type1 th.time,
+#finance-calendar > .content table.type1 td.time {
   width: 80px;
 }
-#financeCalendar > .content table.type1 th.remark,
-#financeCalendar > .content table.type1 td.remark {
+#finance-calendar > .content table.type1 th.remark,
+#finance-calendar > .content table.type1 td.remark {
   width: 90px;
 }
-#financeCalendar > .content h2 {
+#finance-calendar > .content h2 {
   font-size: 16px;
   font-weight: normal;
   line-height: 32px;
@@ -1687,7 +1687,7 @@ td.datepickerSpecial.datepickerSelected a {
   background-color: #323232;
   color: #fff;
 }
-#financeCalendar > .content .important .star {
+#finance-calendar > .content .important .star {
   margin-right: 5px;
 }
 #main {
@@ -2482,14 +2482,13 @@ td.datepickerSpecial.datepickerSelected a {
 #sidebar #gold-research {
   padding: 20px 30px;
 }
-#sidebar #gold-research .chart {
-  width: 150px;
-  height: 150px;
-  margin: 0 auto 20px;
-}
 #sidebar #gold-research .button {
   margin: 0 auto;
   display: block;
+}
+#sidebar #gold-research-chart {
+  width: 100%;
+  height: 180px;
 }
 #sidebar .form.type1 {
   padding: 15px 30px;

@@ -15,9 +15,13 @@
         this.$target = options.$target;
         this.id = this.$target.attr('id') || 'fcl' + FCL_INDEX ++;
         this.itemIndex = 1;
-        this.$datepicker = options.$datepicker;
         this.$clock = this.$target.find('.clock');
 
+        this.config.autoScroll = options.autoScroll;
+        this.config.datepicker = options.datepicker;
+        if (this.config.datepicker) {
+            this.$datepicker = this.$target.find('[data-picker]');
+        }
         this.config.dateChangeEvent = options.dateChangeEvent;
         this.config.dateChangeEvent = options.countryChangeEvent;
         this.config.loadMoreEvent = options.loadMoreEvent === false ? false : true;

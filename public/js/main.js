@@ -124,22 +124,23 @@ $(function(){
     var data = [];
     //todo
     data.push({
-        value: 1,
+        value: 100,
         label: '上涨',
         color: ''
     });
     data.push({
-        value: 1,
+        value: 100,
         label: '下跌',
         color: ''
     });
     data.push({
-        value: 1,
+        value: 100,
         label: '盘整',
         color: ''
     });
-    var chart = Raphael("gold-research-chart", 150, 150).circleChart({
-        cx: 75,
+    var $chart = $('#gold-research-chart');
+    var chart = Raphael("gold-research-chart", $chart.width(), $chart.height()).circleChart({
+        cx: $chart.width() / 2,
         cy: 75,
         or: 72,
         ir: 42,
@@ -180,17 +181,14 @@ $(function(){
     //
     $('#side-fcl').fcl();
     //
-    var $financeCalendar = $('#financeCalendar');
-    if ($financeCalendar.length) {
-        $('#financeCalendar').fcl({
-            scrollable: false,
-            $datepicker: $financeCalendar.find('[data-picker]'),
-            dateChangeEvent: true,
-            countryChangeEvent: true,
-            loadMoreEvent: false,
-            sort: true
-        });
-    }
+    $('#finance-calendar').fcl({
+        scrollable: false,
+        datepicker: true,
+        dateChangeEvent: true,
+        countryChangeEvent: true,
+        loadMoreEvent: false,
+        sort: true
+    });
 
     //
     mam.init();
