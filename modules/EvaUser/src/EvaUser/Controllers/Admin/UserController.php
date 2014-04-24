@@ -32,5 +32,22 @@ class UserController extends AdminControllerBase
         $this->view->setVar('pager', $pager);
     }
 
+    public function suggestionsAction()
+    {
+        $query = $this->request->get('query');
+        if($query) {
+            $users = Models\User::find(array(
+                "columns" => array('id', 'username', 'status'),
+                "conditions" => "username like '%$query%'",
+                "limit" => 10,
+            ));
+            $users = $users ? $users->toArray() : array();
+        } else {
+            $users = array();
+        }
+
+        return $this->response->setJsonContent($users);
+
+    }
 
 }

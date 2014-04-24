@@ -150,6 +150,7 @@
                                 <li>Created At : <?=$this->tag->datetime($item->createdAt)?></li>
                                 <li>Status : <span class="label label-sm <?=$status[$item->status]?>"><?=$item->status?></span></li>
                                 <li>Autor : <?=$item->User ? $item->User->username : ''?></li>
+                                <li>Source : <?if($item->sourceName):?><a href="<?=$item->sourceUrl ? $item->sourceUrl : '#'?>" target="_blank"><?=$item->sourceName?><?endif?></a></li>
                             </ul>
                             <?endif?>
                             <fieldset>
@@ -285,7 +286,7 @@
                 </div><!--widgex box-->
 
                 <div class="hr hr-double dotted"></div>
-                <div class="widget-box collapsed">
+                <div class="widget-box ">
                     <div class="widget-header widget-header-small">
                         <h5 class="lighter">Change Author</h5>
                         <span class="widget-toolbar">
@@ -302,6 +303,9 @@
                                     <?=$postForm->render('username', array(
                                         'class' => 'form-control',
                                         'placeholder' => 'Use current user with no fill',
+                                    ))?>
+                                    <?=$postForm->render('user_id', array(
+                                        'class' => 'form-control',
                                     ))?>
                                 </label>
                             </div>
@@ -358,5 +362,21 @@
                     $('input[name=createdAt]').val(timestamp);
             }
             $('input[name=day], input[name=time]').on('change', updateCreateTime);
+
+
+            var users = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    remote: '/admin/user/suggestions?query=%QUERY'
+            });
+            users.initialize();
+            $('#username').typeahead(null, {
+                    name: 'users',
+                    displayKey: 'username',
+                    source: users.ttAdapter()
+            }).on('typeahead:selected', function (obj, datum) {
+                $("#user_id").val(datum.id);
+            });
+
     });
 </script>

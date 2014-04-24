@@ -54,8 +54,8 @@ class Post extends Entities\Posts
     {
         $user = new LoginModel();
         if($userinfo = $user->isUserLoggedIn()) {
-            $this->user_id = $userinfo['id'];
-            $this->username = $userinfo['username'];
+            $this->user_id = $this->user_id ? $this->user_id : $userinfo['id'];
+            $this->username = $this->username ? $this->username : $userinfo['username'];
         }
 
         if($this->getDI()->getRequest()->hasFiles()) {
