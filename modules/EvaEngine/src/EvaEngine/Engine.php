@@ -90,14 +90,17 @@ class Engine
         $di = new FactoryDefault();
         $self = $this;
 
+        //call loadmodules will overwrite this
+        $di->set('moduleManager', function() {
+            return new ModuleManager();
+        });
+
         $di->set('config', function () use ($di, $self) {
             $config = new Config(include $self->getConfigPath() . "/config.default.php");
 
-
             //merge all loaded module configs
             $modules = $di->get('moduleManager');
-            if($modules) {
-                $modulesArray = $modules->getModules();
+            if($modules && $modulesArray = $modules->getModules()) {
                 foreach($modulesArray as $moduleName => $module) {
                     $moduleConfig = $modules->getModuleConfig($moduleName);
                     if($moduleConfig instanceof Config) {

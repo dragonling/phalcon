@@ -4,7 +4,7 @@ namespace Eva\EvaEngine;
 
 class ModuleManager
 {
-    protected $modules;
+    protected $modules = array();
 
     public function getModules()
     {

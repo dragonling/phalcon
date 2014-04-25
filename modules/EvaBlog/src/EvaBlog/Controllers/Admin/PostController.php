@@ -3,6 +3,8 @@
 namespace Eva\EvaBlog\Controllers\Admin;
 
 use Eva\EvaBlog\Models;
+use Eva\EvaBlog\Models\Post;
+
 
 class PostController extends ControllerBase
 {
@@ -12,16 +14,22 @@ class PostController extends ControllerBase
      */
     public function indexAction()
     {
-        $currentPage = $this->request->getQuery('page', 'int'); // GET
-        $limit = $this->request->getQuery('limit', 'int');
-        $order = $this->request->getQuery('order', 'int');
+        $query = array(
+            'page' => $this->request->getQuery('page', 'int', 1),
+            'limit' => $this->request->getQuery('limit', 'int', 20),
+            'order' => $this->request->getQuery('order', array('alphanum', 'lower'), 'id DESC'),
+            'uid' => $this->request->getQuery('uid', 'int'),
+        );
         $limit = $limit > 50 ? 50 : $limit;
         $limit = $limit < 10 ? 10 : $limit;
 
-        $posts = Models\Post::find(array(
-            'order' => 'id DESC',
-            //'columns' => 'id, title, status, createTime, User'
-        ));
+        $post = new Models\Post();
+        $itemQuery = Models\Post::query();
+        $posts = $itemQuery->execute();
+
+        $posts = $itemQuery->join('Eva\EvaBlog\Entities\CategoriesPosts', 'id = r.post_id', 'r')
+        ->where('category_id = :id:', array('id' => 5))
+        ->execute();
         $paginator = new \Eva\EvaEngine\Paginator(array(
             "data" => $posts,
             "limit"=> $limit,

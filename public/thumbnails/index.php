@@ -17,34 +17,25 @@ if( version_compare(phpversion(), '5.3.0', '<') ) {
 }
 
 
-$dir = __DIR__ . '/../..';
-$autoloader = $dir . '/vendor/autoload.php';
-$localConfig = './config.local.php';
+require __DIR__ . '/../../init_autoloader.php';
 
-if (file_exists($autoloader)) {
-    $loader = include $autoloader;
-} else {
-    die('Dependent library not found, run "composer install" first.');
-}
-
-/** Debug functions */
-function p($r, $usePr = false)
-{
-   FB::log($r);
-    //echo sprintf("<pre>%s</pre>", var_dump($r));
-}
+$engine = new \Eva\EvaEngine\Engine(__DIR__ . '/../../');
+$engine->bootstrap();
+$localConfig = $engine->getDI()->get('config');
 
 $config = new EvaThumber\Config\Config(include './config.default.php');
-if(file_exists($localConfig)){
-    $localConfig = new EvaThumber\Config\Config(include $localConfig);
-    $config = $config->merge($localConfig);
+if(isset($localConfig->thumbnail->thumbers)){
+    $config = $config->merge(new EvaThumber\Config\Config($localConfig->thumbnail->thumbers->toArray()));
 }
 
 try {
     $thumber = new EvaThumber\Thumber($config);
     $thumber->show();
 } catch(Exception $e){
-    throw $e;
-    //header('location:http://www.goldtoutiao.com/thumbnails/error.png?msg=' . urlencode($e->getMessage()));
+    if(isset($localConfig->thumbnail->default->errorUri) && $url = $localConfig->thumbnail->default->errorUri) {
+        header("location:$url?msg=" . urlencode($e->getMessage()));
+    } else {
+        throw $e;
+    }
 }
 

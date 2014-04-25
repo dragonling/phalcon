@@ -4,6 +4,22 @@ return array(
     'debug' => 0,
     'baseUri' => '/',
 
+    'thumbnail' => array(
+        'default' => array(
+            'enable' => false,
+            'baseUri' => '',
+            'errorUri' => '',
+        ),
+        'thumbers' => array(
+            'uploads' => array(
+                'adapter' => 'gd',
+                'cache' => 1,
+                'source_path' => __DIR__ . '/../public/uploads',
+                'thumb_cache_path' => __DIR__ . '/../public/thumbnails/thumb',
+            ),
+        ),
+    ),
+
     'app' => array(
         'title' => 'EvaEngine',
         'subtitle' => '',
