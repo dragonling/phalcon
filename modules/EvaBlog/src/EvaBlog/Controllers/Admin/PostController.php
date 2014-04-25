@@ -26,8 +26,8 @@ class PostController extends ControllerBase
         );
 
         $form = new Forms\FilterForm();
+        $form->setValues($this->request->getQuery());
         $this->view->setVar('form', $form);
-
         $post = new Models\Post();
         $itemQuery = Models\Post::query();
         $posts = $itemQuery->execute();

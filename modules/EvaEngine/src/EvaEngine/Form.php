@@ -12,6 +12,8 @@ class Form extends \Phalcon\Forms\Form
 
     protected $model;
 
+    protected $values;
+
     protected $elementAlias = array(
         'check' => 'Phalcon\Forms\Element\Check',
         'date' => 'Phalcon\Forms\Element\Date',
@@ -40,6 +42,25 @@ class Form extends \Phalcon\Forms\Form
         'regex' => 'Phalcon\Validation\Validator\Regex',
         'stringlength' => 'Phalcon\Validation\Validator\StringLength',
     );
+
+    public function getValues()
+    {
+        return $this->values;
+    }
+
+    public function setValues(array $data)
+    {
+        if(!$data) {
+            return $this;
+        }
+        foreach($data as $key => $value) {
+            if($this->has($key)) {
+                $this->get($key)->setDefault($value);
+            }
+        }
+        $this->values = $data;
+        return $this;
+    }
 
     public function setPrefix($prefix)
     {
@@ -107,7 +128,6 @@ class Form extends \Phalcon\Forms\Form
             }
         }
         return $this;
-    
     }
 
     protected function createElementByProperty($elementName, Property $baseProperty, Property $mergeProperty = null)
