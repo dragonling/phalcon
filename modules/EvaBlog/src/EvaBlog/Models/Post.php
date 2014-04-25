@@ -93,7 +93,7 @@ class Post extends Entities\Posts
             $file = $upload->upload($file);
             if($file) {
                 $this->image_id = $file->id;
-                $this->image = $file->getFullUrl();
+                $this->image = $file->getLocalUrl();
             }
         }
     }

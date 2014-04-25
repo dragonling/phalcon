@@ -36,7 +36,7 @@ class UploadController extends ControllerBase
              $file = $upload->upload($file);
              if($file) {
                  $fileinfo = $file->toArray();
-                 $fileinfo['fullUrl'] = $file->getFullUrl();
+                 $fileinfo['localUrl'] = $file->getLocalUrl();
              }
          } catch(\Exception $e) {
              return $this->jsonErrorHandler($e, $upload->getMessages());
@@ -73,7 +73,7 @@ class UploadController extends ControllerBase
              );
              if($file) {
                  $fileinfo = $file->toArray();
-                 $fileinfo['fullUrl'] = $file->getFullUrl();
+                 $fileinfo['localUrl'] = $file->getLocalUrl();
              }
          } catch(\Exception $e) {
              return $this->jsonErrorHandler($e, $upload->getMessages());

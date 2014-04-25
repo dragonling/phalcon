@@ -190,9 +190,9 @@ $(document).ready(function(){
                             }, 2000);
                         }
                         if(file.isImage > 0) {
-                            editor.insertHtml('<a href="' + file.fullUrl + '"><img src="' + file.fullUrl + '" alt="' + file.title + '" /></a>');
+                            editor.insertHtml('<a href="' + file.localUrl + '"><img src="' + file.localUrl + '" alt="' + file.title + '" /></a>');
                         } else {
-                            editor.insertHtml('<a href="' + file.fullUrl + '">' + file.fileName + '</a>');
+                            editor.insertHtml('<a href="' + file.localUrl + '">' + file.fileName + '</a>');
                         }
                         //console.log(data);
                     },
@@ -337,9 +337,9 @@ $(document).ready(function(){
                         file : event.target.result
                     },
                     success : function(response) {
-                        pasteUploader.find('input[name=image]').val(response.fullUrl);
+                        pasteUploader.find('input[name=image]').val(response.localUrl);
                         pasteUploader.find('input[name=image_id]').val(response.id);
-                        pasteUploader.append('<img src="' + response.fullUrl + '" class="paste-upload-image" width="100%" alt="">');
+                        pasteUploader.append('<img src="' + response.localUrl + '" class="paste-upload-image" width="100%" alt="">');
                         notice.setText(fileinfo.name + ' uploaded').setType('success');
                     },
                     error : function(response) {

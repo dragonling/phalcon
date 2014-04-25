@@ -15,7 +15,7 @@ class PostController extends ControllerBase
      */
     public function indexAction()
     {
-        $limit = $this->request->getQuery('limit', 'int', 20);
+        $limit = $this->request->getQuery('limit', 'int', 25);
         $limit = $limit > 50 ? 50 : $limit;
         $limit = $limit < 10 ? 10 : $limit;
         $query = array(

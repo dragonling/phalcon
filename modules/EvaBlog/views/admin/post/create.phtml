@@ -56,7 +56,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon input-sm">
-                            <i class="icon-link"></i>  http://www.goldtoutiao.com/admin/category/
+                            <i class="icon-link"></i>  http://www.goldtoutiao.com/post/
                         </span>
                         <?=$postForm->render('slug', array(
                             'class' => 'form-control input-sm',
@@ -190,7 +190,7 @@
                     <div class="widget-body">
                         <div class="widget-main">
                             <?if(!empty($item->image)):?>
-                            <img src="<?=$item->image?>" alt="" width="100%" />
+                            <img src="<?=$this->tag->thumb($item->image, 'w_300')?>" alt="" width="100%" />
                             <?endif?>
                             <div class="paste-uploader" data-upload-url="/admin/upload/encode" data-upload-allow-num="1" data-upload-allow-type="" data-upload-maxsize="" data-callback="">
                                 <?=$postForm->render('image', array())?>
@@ -255,7 +255,7 @@
                 </div><!--widgex box-->
 
                 <div class="hr hr-double dotted"></div>
-                <div class="widget-box ">
+                <div class="widget-box collapsed">
                     <div class="widget-header widget-header-small">
                         <h5 class="lighter">Publish Time</h5>
                         <span class="widget-toolbar">
@@ -286,7 +286,7 @@
                 </div><!--widgex box-->
 
                 <div class="hr hr-double dotted"></div>
-                <div class="widget-box ">
+                <div class="widget-box collapsed">
                     <div class="widget-header widget-header-small">
                         <h5 class="lighter">Change Author</h5>
                         <span class="widget-toolbar">
