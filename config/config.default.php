@@ -50,9 +50,10 @@ return array(
 
     'filesystem' => array(
         'adapter' => 'local',
+        'urlBaseForLocal' => '/uploads',
+        //'urlBaseForCDN' => '',
         'uploadPath' => __DIR__ . '/../public/uploads/',
         'uploadTmpPath' => __DIR__ . '/../public/tmp/',
-        'uploadUrlBase' => '/uploads',
     ),
 
     'dbAdapter' => array(

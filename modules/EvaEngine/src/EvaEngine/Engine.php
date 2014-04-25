@@ -96,7 +96,7 @@ class Engine
         });
 
         $di->set('config', function () use ($di, $self) {
-            $config = new Config(include $self->getConfigPath() . "/config.default.php");
+            $config = new Config();
 
             //merge all loaded module configs
             $modules = $di->get('moduleManager');
@@ -111,10 +111,13 @@ class Engine
                 }
             }
 
+            //merge config default
+            $config->merge(new Config(include $self->getConfigPath() . "/config.default.php"));
+
+            //merge config local
             if(false === file_exists($self->getConfigPath() . "/config.local.php")) {
                 return $config;
             }
-
             $config->merge(new Config(include $self->getConfigPath() . "/config.local.php"));
             return $config;
         });

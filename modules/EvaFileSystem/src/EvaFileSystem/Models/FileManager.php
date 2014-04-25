@@ -8,13 +8,25 @@ use Eva\EvaEngine\Exception;
 
 class FileManager extends Files
 {
+
     public function getFullUrl()
     {
         if(!$this->id) {
             return '';
         }
+        if($url = $this->getDI()->get('config')->filesystem->urlBaseForCDN) {
+            return $url . '/' . $this->filePath . '/' . $this->fileName;
+        }
+        return $this->getLocalUrl();
+    }
 
-        return $this->getDI()->get('config')->filesystem->uploadUrlBase . '/' . $this->filePath . '/' . $this->fileName;
+    public function getLocalUrl()
+    {
+        if(!$this->id) {
+            return '';
+        }
+
+        return $this->getDI()->get('config')->filesystem->urlBaseForLocal . '/' . $this->filePath . '/' . $this->fileName;
     }
 
     public function getLocalPath()

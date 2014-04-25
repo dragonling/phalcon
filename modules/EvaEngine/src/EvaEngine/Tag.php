@@ -62,6 +62,39 @@ class Tag extends \Phalcon\Tag
         }
         return $url->get($uri, $query);
     }
+
+    public static function thumb($uri, $query = null, $configKey = 'default')
+    {
+        if(\Phalcon\Text::startsWith($uri, 'http://', false) || \Phalcon\Text::startsWith($uri, 'https://', false)) {
+            return $uri;
+        }
+
+        if($query) {
+            if(true === is_array($query)) {
+                $query = implode(',', $query);
+            }
+
+            if(false !== ($pos = strrpos($uri, '.'))) {
+                $uri = explode('/', $uri);
+                $fileName = array_pop($uri);
+                $nameArray = explode('.', $fileName);
+                $nameExt = array_pop($nameArray);
+                $nameFinal = array_pop($nameArray);
+                $nameFinal .= ',' . $query;
+                array_push($nameArray, $nameFinal, $nameExt);
+                $fileName = implode('.', $nameArray);
+                array_push($uri, $fileName);
+                $uri = implode('/', $uri);
+            }
+        }
+
+
+        $config = self::getDI()->get('config');
+        if(isset($config->thumbnail->$configKey->baseUri) && $baseUrl = $config->thumbnail->$configKey->baseUri) {
+            return $baseUrl . $uri;
+        }
+        return $uri;
+    }
     
 
     /**

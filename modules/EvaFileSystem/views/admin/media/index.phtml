@@ -89,6 +89,9 @@
                             </td>
                             <td class="hidden-480"><?=$item->id?></td>
                             <td>
+                                <?if($item->isImage):?>
+                                <a href="<?=$item->getFullUrl()?>"><img src="<?=$this->tag->thumb($item->getLocalUrl(), 'c_fill,h_30,w_40')?>" /></a>
+                                <?endif?>
                                 <a href="/admin/media/edit/<?=$item->id?>"><?=$item->originalName?></a>
                             </td>
                             <td><?=$item->getReadableFileSize()?></td>

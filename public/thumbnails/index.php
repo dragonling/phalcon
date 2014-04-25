@@ -23,9 +23,11 @@ $engine = new \Eva\EvaEngine\Engine(__DIR__ . '/../../');
 $engine->bootstrap();
 $localConfig = $engine->getDI()->get('config');
 
-$config = new EvaThumber\Config\Config(include './config.default.php');
+$config = new EvaThumber\Config\Config(include __DIR__ . '/config.default.php');
 if(isset($localConfig->thumbnail->thumbers)){
-    $config = $config->merge(new EvaThumber\Config\Config($localConfig->thumbnail->thumbers->toArray()));
+    $config = $config->merge(new EvaThumber\Config\Config(array(
+        'thumbers' => $localConfig->thumbnail->thumbers->toArray())
+    ));
 }
 
 try {
