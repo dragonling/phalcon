@@ -27,13 +27,15 @@ class PostController extends ControllerBase
         $itemQuery = Models\Post::query();
         $posts = $itemQuery->execute();
 
+        /*
         $posts = $itemQuery->join('Eva\EvaBlog\Entities\CategoriesPosts', 'id = r.post_id', 'r')
         ->where('category_id = :id:', array('id' => 5))
         ->execute();
+        */
         $paginator = new \Eva\EvaEngine\Paginator(array(
             "data" => $posts,
             "limit"=> $limit,
-            "page" => $currentPage
+            "page" => $query['page']
         ));
         $paginator->setQuery(array(
             'order' => '',
@@ -86,6 +88,8 @@ class PostController extends ControllerBase
         $textForm->setPrefix('Text');
         $this->view->setVar('textForm', $textForm);
         $this->view->setVar('item', $post);
+        p($post);
+        exit;
 
         if(!$this->request->isPost()){
             return false;

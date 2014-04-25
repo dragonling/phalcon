@@ -17,23 +17,6 @@ class Upload extends Files
         }
     }
 
-    public function getFullUrl()
-    {
-        if(!$this->id) {
-            return '';
-        }
-
-        return $this->getDI()->get('config')->filesystem->uploadUrlBase . '/' . $this->filePath . '/' . $this->fileName;
-    }
-
-    public function getLocalPath()
-    {
-        if(!$this->id) {
-            return '';
-        }
-        return $this->getDI()->get('config')->filesystem->uploadPath . '/'. $this->filePath . '/' . $this->fileName;
-    }
-
     public function upload(\Phalcon\Http\Request\File $file)
     {
         if($file->getError()){

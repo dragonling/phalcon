@@ -138,7 +138,10 @@ class Post extends Entities\Posts
         }
 
         $this->assign($data);
-        $this->save();
+        if(!$this->save()) {
+            throw new Exception\RuntimeException('Create post failed');
+        }
+        return $this;
     }
 
     public function updatePost($data)
@@ -189,7 +192,7 @@ class Post extends Entities\Posts
 
         $this->assign($data);
         if(!$this->save()) {
-            throw new Exception\RuntimeException('Save post failed');
+            throw new Exception\RuntimeException('Update post failed');
         }
         return $this;
     }

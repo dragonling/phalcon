@@ -8,42 +8,4 @@ use Eva\EvaEngine\Exception;
 
 class FileManager extends Files
 {
-
-    public function getFullUrl()
-    {
-        if(!$this->id) {
-            return '';
-        }
-        if($url = $this->getDI()->get('config')->filesystem->urlBaseForCDN) {
-            return $url . '/' . $this->filePath . '/' . $this->fileName;
-        }
-        return $this->getLocalUrl();
-    }
-
-    public function getLocalUrl()
-    {
-        if(!$this->id) {
-            return '';
-        }
-
-        return $this->getDI()->get('config')->filesystem->urlBaseForLocal . '/' . $this->filePath . '/' . $this->fileName;
-    }
-
-    public function getLocalPath()
-    {
-        if(!$this->id) {
-            return '';
-        }
-        return $this->getDI()->get('config')->filesystem->uploadPath . '/'. $this->filePath . '/' . $this->fileName;
-    }
-
-    public function getReadableFileSize()
-    {
-        $size = $this->fileSize;
-        $units = array(' B', ' KB', ' MB', ' GB', ' TB');
-        for ($i = 0; $size >= 1024 && $i < 4; $i++) {
-            $size /= 1024;
-        }
-        return round($size, 2) . $units[$i];
-    }
 }
