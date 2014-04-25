@@ -2,6 +2,8 @@
 
 namespace Eva\EvaEngine;
 
+use Phalcon\Annotations\Collection as Property;
+
 class Form extends \Phalcon\Forms\Form
 {
     protected $prefix;
@@ -85,7 +87,7 @@ class Form extends \Phalcon\Forms\Form
                 continue;
             }
             $formProperty = isset($formProperties[$key]) ? $formProperties[$key] : null;
-            $element = $this->getElementByPropertyAnnotations($key, $property, $formProperty);
+            $element = $this->createElementByProperty($key, $property, $formProperty);
             if($element) {
                 $this->add($element);
             }
@@ -93,31 +95,49 @@ class Form extends \Phalcon\Forms\Form
         return $this;
     }
 
-    protected function getElementByPropertyAnnotations($elementName, \Phalcon\Annotations\Collection $modelProperty, \Phalcon\Annotations\Collection $formProperty = null)
+    public function initializeFromAnnotations()
+    {
+        $reader = new \Phalcon\Annotations\Adapter\Memory();
+        $formProperties = $reader->getProperties($this);
+        foreach($formProperties as $key => $property) {
+            $formProperty = isset($formProperties[$key]) ? $formProperties[$key] : null;
+            $element = $this->createElementByProperty($key, $property);
+            if($element && $element instanceof \Phalcon\Forms\ElementInterface) {
+                $this->add($element);
+            }
+        }
+        return $this;
+    
+    }
+
+    protected function createElementByProperty($elementName, Property $baseProperty, Property $mergeProperty = null)
     {
         $elementType = 'Phalcon\Forms\Element\Text';
-        if(!$formProperty) {
+        if(!$baseProperty && !$mergeProperty) {
             return new $elementType($elementName);
         }
 
-        if($formProperty->has('Type')) {
-            $typeArguments = $formProperty->get('Type')->getArguments();
+        $property = $mergeProperty && $mergeProperty->has('Type') ? $mergeProperty : $baseProperty;
+        if($property->has('Type')) {
+            $typeArguments = $property->get('Type')->getArguments();
             $alias = isset($typeArguments[0]) ? strtolower($typeArguments[0]) : null;
             $elementType = isset($this->elementAlias[$alias]) ? $this->elementAlias[$alias] : $elementType;
         }
 
-        if($formProperty->has('Name')) {
-            $arguments = $formProperty->get('Name')->getArguments();
+        $property = $mergeProperty && $mergeProperty->has('Name') ? $mergeProperty : $baseProperty;
+        if($property->has('Name')) {
+            $arguments = $property->get('Name')->getArguments();
             $elementName = isset($arguments[0]) ? $arguments[0] : $elementName;
         }
-
         $element = new $elementType($elementName);
-        if($formProperty->has('Attr')) {
-            $element->setAttributes($formProperty->get('Attr')->getArguments());
+
+        $property = $mergeProperty && $mergeProperty->has('Attr') ? $mergeProperty : $baseProperty;
+        if($property->has('Attr')) {
+            $element->setAttributes($property->get('Attr')->getArguments());
         }
 
-        if($formProperty->has('Validator')) {
-            foreach($formProperty as $annotation) {
+        $addValidator = function($property, $element, $validatorAlias) {
+            foreach($property as $annotation) {
                 if($annotation->getName() != 'Validator') {
                     continue;
                 }
@@ -126,29 +146,45 @@ class Form extends \Phalcon\Forms\Form
                     continue;
                 }
                 $validatorName = strtolower($arguments[0]);
-                if(!isset($this->validatorAlias[$validatorName])) {
+                if(!isset($validatorAlias[$validatorName])) {
                     continue;
                 }
-                $validator = $this->validatorAlias[$validatorName];
+                $validator = $validatorAlias[$validatorName];
                 $element->addValidator(new $validator($arguments));
-            }
+            }        
+            return $element;
+        };
+        if($baseProperty->has('Validator')) {
+            $element = $addValidator($baseProperty, $element, $this->validatorAlias);
+        }
+        if($mergeProperty && $mergeProperty->has('Validator')) {
+            $element = $addValidator($mergeProperty, $element, $this->validatorAlias);
         }
 
-        if($formProperty->has('Options')) {
-            $element->setAttributes($formProperty->get('Options')->getArguments());
+
+        $property = $mergeProperty && $mergeProperty->has('Options') ? $mergeProperty : $baseProperty;
+        if($property->has('Options')) {
+            $element->setAttributes($property->get('Options')->getArguments());
         }
 
-        if($formProperty->has('Option')) {
+        $addOption = function($property, $element) {
             $options = array();
-            foreach($formProperty as $annotation) {
+            foreach($property as $annotation) {
                 if($annotation->getName() != 'Option') {
                     continue;
                 }
                 $options += $annotation->getArguments();
             }
             $element->setOptions($options);
-        }
+            return $element;
+        };
 
+        if($baseProperty->has('Option')) {
+            $element = $addOption($baseProperty, $element);
+        }
+        if($mergeProperty && $mergeProperty->has('Option')) {
+            $element = $addOption($mergeProperty, $element);
+        }
         return $element;
     }
 

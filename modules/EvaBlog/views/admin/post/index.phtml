@@ -41,13 +41,33 @@
                     <div class="col-sm-12">
                         <form class="form-inline">
                             <div class="form-group">
-                                <input type="text" name="q" placeholder="Keyword" class="input-small">
+                                <?=$form->render('q', array(
+                                    'placeholder' => 'Keyword',
+                                    'class' => 'input-sm'
+                                ))?>
                             </div>
-                            <span>
+                            <div class="form-group">
+                                <?=$form->render('status', array(
+                                ))?>
+                            </div>
+                            <div class="form-group">
+                                <?=$form->render('uid', array())?>
+                                <?=$form->render('username', array(
+                                    'placeholder' => 'Username',
+                                    'class' => 'input-sm'
+                                ))?>
+                            </div>
+                            <div class="form-group">
+                                <?=$form->render('cid', array(
+                                    'class' => 'input-sm'
+                                ))?>
+                            </div>
+                           <span>
                                 <label for="filter-from-limit">Display</label> 
                             </span>
                             <div class="form-group">
-                                <select id="filter-from-limit" size="1" name="limit"><option selected="selected" value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>
+                                <?=$form->render('per_page', array(
+                                ))?>
                             </div>
                             <button class="btn btn-info btn-sm" type="submit">
                                 <i class="icon-search bigger-110"></i>

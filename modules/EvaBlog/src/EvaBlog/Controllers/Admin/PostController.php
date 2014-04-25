@@ -4,6 +4,7 @@ namespace Eva\EvaBlog\Controllers\Admin;
 
 use Eva\EvaBlog\Models;
 use Eva\EvaBlog\Models\Post;
+use Eva\EvaBlog\Forms;
 
 
 class PostController extends ControllerBase
@@ -14,14 +15,18 @@ class PostController extends ControllerBase
      */
     public function indexAction()
     {
+        $limit = $this->request->getQuery('limit', 'int', 20);
+        $limit = $limit > 50 ? 50 : $limit;
+        $limit = $limit < 10 ? 10 : $limit;
         $query = array(
             'page' => $this->request->getQuery('page', 'int', 1),
-            'limit' => $this->request->getQuery('limit', 'int', 20),
+            'limit' => $limit,
             'order' => $this->request->getQuery('order', array('alphanum', 'lower'), 'id DESC'),
             'uid' => $this->request->getQuery('uid', 'int'),
         );
-        $limit = $limit > 50 ? 50 : $limit;
-        $limit = $limit < 10 ? 10 : $limit;
+
+        $form = new Forms\FilterForm();
+        $this->view->setVar('form', $form);
 
         $post = new Models\Post();
         $itemQuery = Models\Post::query();
@@ -88,8 +93,6 @@ class PostController extends ControllerBase
         $textForm->setPrefix('Text');
         $this->view->setVar('textForm', $textForm);
         $this->view->setVar('item', $post);
-        p($post);
-        exit;
 
         if(!$this->request->isPost()){
             return false;
