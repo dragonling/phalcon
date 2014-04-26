@@ -90,6 +90,10 @@ class Engine
         $di = new FactoryDefault();
         $self = $this;
 
+        $di->set('app', function() use ($self){
+            return $self->getApplication();
+        });
+
         //call loadmodules will overwrite this
         $di->set('moduleManager', function() {
             return new ModuleManager();

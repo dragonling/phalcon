@@ -9,10 +9,9 @@ use Eva\EvaBlog\Forms;
 
 class PostController extends ControllerBase
 {
-
     /**
-     * Index action
-     */
+    * Index action
+    */
     public function indexAction()
     {
         $limit = $this->request->getQuery('limit', 'int', 25);
@@ -50,6 +49,8 @@ class PostController extends ControllerBase
         $paginator->setQuery($query);
         $pager = $paginator->getPaginate();
         $this->view->setVar('pager', $pager);
+
+        return $paginator;
     }
 
 
@@ -203,6 +204,6 @@ class PostController extends ControllerBase
 
         $this->response->setContentType('application/json', 'utf-8');
         return $this->response->setJsonContent($posts);
-    
+
     }
 }

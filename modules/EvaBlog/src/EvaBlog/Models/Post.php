@@ -101,6 +101,14 @@ class Post extends Entities\Posts
     public function findPosts(array $query = array())
     {
         $itemQuery = $this->query();
+
+        $orderMapping = array(
+            'id' => 'id ASC',
+            '-id' => 'id DESC',
+            'created_at' => 'createdAt ASC',
+            '-created_at' => 'createdAt DESC',
+        );
+
         if(!empty($query['q'])) {
         }
 
@@ -118,7 +126,8 @@ class Post extends Entities\Posts
         }
 
         if(!empty($query['order'])) {
-            $itemQuery->order($query['order']);
+            $order = empty($orderMapping[$query['order']]) ? 'id DESC' : $orderMapping[$query['order']];
+            //$itemQuery->order($order);
         }
 
         $posts = $itemQuery->execute();
