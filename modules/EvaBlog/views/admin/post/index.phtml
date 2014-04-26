@@ -43,23 +43,28 @@
                             <div class="form-group">
                                 <?=$form->render('q', array(
                                     'placeholder' => 'Keyword',
-                                    'class' => 'input-sm'
+                                    'class' => 'form-control input-sm'
                                 ))?>
                             </div>
                             <div class="form-group">
                                 <?=$form->render('status', array(
+                                    'class' => 'form-control input-sm'
                                 ))?>
                             </div>
                             <div class="form-group">
                                 <?=$form->render('uid', array())?>
                                 <?=$form->render('username', array(
                                     'placeholder' => 'Username',
-                                    'class' => 'input-sm'
+                                    'class' => 'form-control input-sm autocomplete',
+                                    'data-autocomplete-source' => '/admin/user/suggestions?query=%QUERY',
+                                    'data-autocomplete-target' => 'input[name=uid]',
+                                    'data-autocomplete-fill-name' => 'id',
+                                    'data-autocomplete-display-key' => 'username',
                                 ))?>
                             </div>
                             <div class="form-group">
                                 <?=$form->render('cid', array(
-                                    'class' => 'input-sm'
+                                    'class' => 'form-control input-sm'
                                 ))?>
                             </div>
                            <span>
@@ -67,9 +72,16 @@
                             </span>
                             <div class="form-group">
                                 <?=$form->render('per_page', array(
+                                    'class' => 'form-control input-sm'
                                 ))?>
                             </div>
-                            <button class="btn btn-info btn-sm" type="submit">
+                            <!--
+                            <button class="btn btn-sm form-control" type="reset">
+                                <i class="icon-refresh bigger-110"></i>
+                                Reset
+                            </button>
+                            -->
+                            <button class="btn btn-info btn-sm form-control" type="submit">
                                 <i class="icon-search bigger-110"></i>
                                 Filter 
                             </button>
@@ -135,7 +147,7 @@
                                         <i class="icon-edit bigger-120"></i>
                                     </a>
 
-                                    <button class="btn btn-xs btn-warning ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/status/<?=$item->id?>" data-callback="window.location.reload();">
+                                    <button class="btn btn-xs ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/status/<?=$item->id?>" data-callback="window.location.reload();">
                                         <input type="hidden" data-name="status" value="deleted" >
                                         <i class="icon-eye-close bigger-120"></i>
                                     </button>
@@ -158,7 +170,7 @@
                                 <i class="icon-ok bigger-120"></i>
                             </button>
 
-                            <button class="btn btn-xs btn-warning ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/post/batch" data-callback="window.location.reload();">
+                            <button class="btn btn-xs ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/post/batch" data-callback="window.location.reload();">
                                 <input type="hidden" data-name="status" value="deleted" >
                                 <i class="icon-eye-close bigger-120"></i>
                             </button>

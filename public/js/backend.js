@@ -58,6 +58,44 @@ $(document).ready(function(){
         errorTemplate: "<span></span>"
     });
 
+
+    var autocompleters = $('.autocomplete');
+    if(autocompleters[0]) {
+        autocompleters.each(function(){
+            var autocompleter = $(this),
+                remote = autocompleter.attr('data-autocomplete-source'),
+                target = $(autocompleter.attr('data-autocomplete-target')),
+                displayKey = autocompleter.attr('data-autocomplete-display-key'),
+                fillName = autocompleter.attr('data-autocomplete-fill-name');
+
+            var dataSource = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    remote: remote
+            });
+            dataSource.initialize();
+            autocompleter.typeahead(null, {
+                    displayKey: displayKey,
+                    source: dataSource.ttAdapter()
+            }).on('typeahead:opened', function (obj, datum) {
+                target.data('autocomplete-old-name', autocompleter.val());
+                target.data('autocomplete-old-value', target.val());
+            }).on('typeahead:selected', function (obj, datum) {
+                target.val(datum[fillName]);
+                target.data('autocomplete-new-name', autocompleter.val());
+                target.data('autocomplete-new-value', target.val());
+            }).on('typeahead:closed', function (obj, datum) {
+                var oldname = target.data('autocomplete-old-name');
+                var oldvalue = target.data('autocomplete-old-value');
+                var newname = target.data('autocomplete-new-name');
+                var newvalue = target.data('autocomplete-new-value');
+                //TODO: data mismatch need to clear old id
+                console.log(oldname, oldvalue, newname, newvalue);
+            });
+
+        });
+    }
+
     $('input[type=submit], button[type=submit]').on('click', function(){
         $(this).closest('form').find('input[name=__redirect]').val($(this).attr('data-redirect-url'));
     });
@@ -366,6 +404,7 @@ $(document).ready(function(){
     }
 
 });
+
 
 $('.form-submiter').on('click', function(){
     var submiter = $(this);

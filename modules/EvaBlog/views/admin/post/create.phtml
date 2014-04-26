@@ -301,7 +301,12 @@
                             <div class="control-group">
                                 <label class="block clearfix">
                                     <?=$postForm->render('username', array(
-                                        'class' => 'form-control',
+                                        'class' => 'form-control autocomplete',
+                                        'data-autocomplete-source' => '/admin/user/suggestions?query=%QUERY',
+                                        'data-autocomplete-target' => 'input[name=user_id]',
+                                        'data-autocomplete-fill-name' => 'id',
+                                        'data-autocomplete-display-key' => 'username',
+                                        'data-autocomplete-clear-fill-when-nomatch' => '1',
                                         'placeholder' => 'Use current user with no fill',
                                     ))?>
                                     <?=$postForm->render('user_id', array(
@@ -362,21 +367,5 @@
                     $('input[name=createdAt]').val(timestamp);
             }
             $('input[name=day], input[name=time]').on('change', updateCreateTime);
-
-
-            var users = new Bloodhound({
-                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-                    queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    remote: '/admin/user/suggestions?query=%QUERY'
-            });
-            users.initialize();
-            $('#username').typeahead(null, {
-                    name: 'users',
-                    displayKey: 'username',
-                    source: users.ttAdapter()
-            }).on('typeahead:selected', function (obj, datum) {
-                $("#user_id").val(datum.id);
-            });
-
     });
 </script>

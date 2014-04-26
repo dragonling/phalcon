@@ -98,6 +98,33 @@ class Post extends Entities\Posts
         }
     }
 
+    public function findPosts(array $query = array())
+    {
+        $itemQuery = $this->query();
+        if(!empty($query['q'])) {
+        }
+
+        if(!empty($query['status'])) {
+            $itemQuery->where('status = :status:', array('status' => $query['status']));
+        }
+
+        if(!empty($query['uid'])) {
+            $itemQuery->where('user_id = :uid:', array('uid' => $query['uid']));
+        }
+
+        if(!empty($query['cid'])) {
+            $itemQuery->join('Eva\EvaBlog\Entities\CategoriesPosts', 'id = r.post_id', 'r')
+            ->where('category_id = :cid:', array('cid' => $query['cid']));
+        }
+
+        if(!empty($query['order'])) {
+            $itemQuery->order($query['order']);
+        }
+
+        $posts = $itemQuery->execute();
+        return $posts;
+    }
+
 
     public function createPost(array $data)
     {
