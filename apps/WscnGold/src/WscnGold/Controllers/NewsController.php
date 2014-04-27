@@ -20,13 +20,7 @@ class NewsController extends ControllerBase
         $limit = $this->request->getQuery('limit', 'int', 25);
         $limit = $limit > 100 ? 100 : $limit;
         $limit = $limit < 10 ? 10 : $limit;
-        $orderMapping = array(
-            'id' => 'id ASC',
-            '-id' => 'id DESC',
-            'created_at' => 'createdAt ASC',
-            '-created_at' => 'createdAt DESC',
-        );
-        $order = $this->request->getQuery('order', array('alphanum', 'lower'), '-id');
+        $order = $this->request->getQuery('order', 'string', '-created_at');
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
             'status' => $this->request->getQuery('status', 'string'),

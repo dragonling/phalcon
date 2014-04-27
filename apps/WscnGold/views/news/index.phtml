@@ -35,7 +35,7 @@
                 </ul>
             </div>
             <div class="row">
-                <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 3 ,'limit' => 7));$posts = $pager->items?>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 3, 'limit' => 7));$posts = $pager->items?>
                 <ul class="news list left">
                     <li class="title">黄金要闻</li>
                     <?foreach($posts as $post):?>

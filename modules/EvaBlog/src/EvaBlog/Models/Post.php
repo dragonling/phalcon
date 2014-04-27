@@ -129,10 +129,11 @@ class Post extends Entities\Posts
             ->andWhere('r.category_id = :cid:', array('cid' => $query['cid']));
         }
 
+        $order = 'createdAt DESC';
         if(!empty($query['order'])) {
             $order = empty($orderMapping[$query['order']]) ? 'createdAt DESC' : $orderMapping[$query['order']];
-            $itemQuery->orderBy($order);
         }
+        $itemQuery->orderBy($order);
 
         $posts = $itemQuery->execute();
         return $posts;
