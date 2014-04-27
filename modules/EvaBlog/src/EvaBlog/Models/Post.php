@@ -114,6 +114,7 @@ class Post extends Entities\Posts
         }
 
         if(!empty($query['q'])) {
+            $itemQuery->andWhere('title LIKE :q:', array('q' => "%{$query['q']}%"));
         }
 
         if(!empty($query['status'])) {
