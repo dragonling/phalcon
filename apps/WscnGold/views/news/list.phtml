@@ -2,78 +2,39 @@
     <div class="span8">
         <div id="main">
             <div class="search-result list">
-                <h2 class="title">市场新闻 &gt; <span class="tag">黄金要闻</span></h2>
+                <h2 class="title">市场新闻 
+                    <?if(!empty($category)):?>
+                    &gt; <span class="tag"><?=$category->categoryName?></span>
+                    <?endif?>
+                </h2>
                 <ul class="content">
+                <?$items = $pager->items;?>
+                <?foreach($items as $item):?>
                     <li class="item">
-                        <a class="title" href="/post/1">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
+                    <a class="title" href="/post/<?=$item->slug?>"><?=$item->title?></a>
                         <div class="info">
-                            <span class="tag">james.Ng</span>
-                            <span class="time">2014-03-04 07:00</span>
-                            <span class="tag">香港金融业/影子银行/铜融资</span>
+                            <span class="tag"><?=$item->username ? $item->username : '黄金头条'?></span>
+                            <span class="time"><?=$this->tag->datetime($item->createdAt)?></span>
+                            <?if($item->Tags):?>
+                            <span class="tag">
+                                <?foreach($item->Tags as $tag):?>
+                                <?=$tag->tagName?>
+                                <?endforeach?>
+                            </span>
+                            <?endif?>
                         </div>
                         <p class="summary">
-                            网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
+                        <?if($item->summary):?>
+                        <?=$item->getSummaryHtml()?>
+                        <?endif?>
                         </p>
                     </li>
-                    <li class="item">
-                        <a class="title" href="/post/1">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
-                        <div class="info">
-                            <span class="tag">james.Ng</span>
-                            <span class="time">2014-03-04 07:00</span>
-                            <span class="tag">香港金融业/影子银行/铜融资</span>
-                        </div>
-                        <p class="summary">
-                            网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
-                        </p>
-                    </li>
-                    <li class="item">
-                        <a class="title" href="/post/1">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
-                        <div class="info">
-                            <span class="tag">james.Ng</span>
-                            <span class="time">2014-03-04 07:00</span>
-                            <span class="tag">香港金融业/影子银行/铜融资</span>
-                        </div>
-                        <p class="summary">
-                            网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
-                        </p>
-                    </li>
-                    <li class="item">
-                        <a class="title" href="/post/1">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
-                        <div class="info">
-                            <span class="tag">james.Ng</span>
-                            <span class="time">2014-03-04 07:00</span>
-                            <span class="tag">香港金融业/影子银行/铜融资</span>
-                        </div>
-                        <p class="summary">
-                            网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
-                        </p>
-                    </li>
-                    <li class="item">
-                        <a class="title" href="/post/1">【动见一周】你算过<span class="keyword">360</span>出了几款智能硬件吗？</a>
-                        <div class="info">
-                            <span class="tag">james.Ng</span>
-                            <span class="time">2014-03-04 07:00</span>
-                            <span class="tag">香港金融业/影子银行/铜融资</span>
-                        </div>
-                        <p class="summary">
-                            网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的 ...
-                        </p>
-                    </li>
+                <?endforeach?>
                 </ul>
-                <div class="toolbar paging">
-                    <div class="button" data-action="prev-page"><i class="icon-caret-left"></i> 上一页</div>
-                    <div class="button active">1</div>
-                    <div class="button">2</div>
-                    <div class="button">3</div>
-                    <div class="button">4</div>
-                    <div class="button">5</div>
-                    <div class="button">6</div>
-                    <div class="button">7</div>
-                    <div class="button">8</div>
-                    <div class="button">9</div>
-                    <div class="button">10</div>
-                    <div class="button" data-action="next-page">下一页 <i class="icon-caret-right"></i></div>
-                </div>
+                <?$this->partial("partial/paginator", array(
+                    'pagerUrl' => '/news/list',
+                    'pager' => $pager,
+                ))?>
             </div>
         </div>
     </div>

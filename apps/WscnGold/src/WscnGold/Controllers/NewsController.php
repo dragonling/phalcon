@@ -5,7 +5,9 @@ namespace WscnGold\Controllers;
 
 use WscnGold\Models;
 use WscnGold\Forms;
-use Phalcon\Paginator\Adapter\Model as Paginator;
+use Eva\EvaBlog\Models\Post;
+use Eva\EvaBlog\Models\Category;
+
 
 class NewsController extends ControllerBase
 {
@@ -15,6 +17,43 @@ class NewsController extends ControllerBase
 
     public function listAction()
     {
+        $limit = $this->request->getQuery('limit', 'int', 25);
+        $limit = $limit > 100 ? 100 : $limit;
+        $limit = $limit < 10 ? 10 : $limit;
+        $orderMapping = array(
+            'id' => 'id ASC',
+            '-id' => 'id DESC',
+            'created_at' => 'createdAt ASC',
+            '-created_at' => 'createdAt DESC',
+        );
+        $order = $this->request->getQuery('order', array('alphanum', 'lower'), '-id');
+        $query = array(
+            'q' => $this->request->getQuery('q', 'string'),
+            'status' => $this->request->getQuery('status', 'string'),
+            'uid' => $this->request->getQuery('uid', 'int'),
+            'cid' => $this->request->getQuery('cid', 'int'),
+            'username' => $this->request->getQuery('username', 'string'),
+            'order' => $order,
+            'limit' => $limit,
+            'page' => $this->request->getQuery('page', 'int', 1),
+        );
+
+        if($query['cid']) {
+            $this->view->setVar('category', Category::findFirst($query['cid']));
+        }
+
+        $post = new Post();
+        $posts = $post->findPosts($query);
+        $paginator = new \Eva\EvaEngine\Paginator(array(
+            "data" => $posts,
+            "limit"=> $limit,
+            "page" => $query['page']
+        ));
+        $paginator->setQuery($query);
+        $pager = $paginator->getPaginate();
+        $this->view->setVar('pager', $pager);
+
+        return $paginator;
     }
 
     public function postAction()
@@ -23,5 +62,9 @@ class NewsController extends ControllerBase
 
     public function searchAction()
     {
+        $this->dispatcher->forward(array(
+            "controller" => "news",
+            "action" => "list"
+        ));
     }
 }

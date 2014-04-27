@@ -41,7 +41,7 @@
                     <?foreach($posts as $post):?>
                     <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
                     <?endforeach?>
-                    <li class="more"><a class="link" href="/news/list">MORE &gt;&gt;</a></li>
+                    <li class="more"><a class="link" href="/news/list?cid=3">MORE &gt;&gt;</a></li>
                 </ul>
                 <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 4 ,'limit' => 7));$posts = $pager->items?>
                 <ul class="news list right">
@@ -49,7 +49,7 @@
                     <?foreach($posts as $post):?>
                     <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
                     <?endforeach?>
-                    <li class="more"><a class="link" href="/news/list">MORE &gt;&gt;</a></li>
+                    <li class="more"><a class="link" href="/news/list?cid=4">MORE &gt;&gt;</a></li>
                 </ul>
             </div>
             <div class="row">
@@ -59,7 +59,7 @@
                     <?foreach($posts as $post):?>
                     <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
                     <?endforeach?>
-                    <li class="more"><a class="link" href="/news/list">MORE &gt;&gt;</a></li>
+                    <li class="more"><a class="link" href="/news/list?cid=5">MORE &gt;&gt;</a></li>
                 </ul>
                 <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 6 ,'limit' => 7));$posts = $pager->items?>
                 <ul class="news list right">
@@ -67,7 +67,7 @@
                     <?foreach($posts as $post):?>
                     <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
                     <?endforeach?>
-                    <li class="more"><a class="link" href="/news/list">MORE &gt;&gt;</a></li>
+                    <li class="more"><a class="link" href="/news/list?cid=6">MORE &gt;&gt;</a></li>
                 </ul>
             </div>
         </div>
