@@ -1,7 +1,7 @@
 <div class="row relative">
     <div class="span8">
         <div id="main">
-            <?$pager = $this->tag->component('post', array('limit' => 11));$posts = $pager->items?>
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 11));$posts = $pager->items?>
             <?$post = $posts[0]; unset($posts[0]);?>
             <div class="row">
                 <ul class="topnews carousel type1 left">
@@ -21,7 +21,7 @@
             </div>
             <div class="row">
                 <h2 class="main-title type1">编辑推荐</h2>
-                <?$pager = $this->tag->component('post', array('limit' => 3));$posts = $pager->items?>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 2 ,'limit' => 3));$posts = $pager->items?>
                 <ul class="recommend-news list">
                     <?foreach($posts as $post):?>
                     <li class="item">
@@ -35,7 +35,7 @@
                 </ul>
             </div>
             <div class="row">
-                <?$pager = $this->tag->component('post', array('limit' => 7));$posts = $pager->items?>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 3 ,'limit' => 7));$posts = $pager->items?>
                 <ul class="news list left">
                     <li class="title">黄金要闻</li>
                     <?foreach($posts as $post):?>
@@ -43,7 +43,7 @@
                     <?endforeach?>
                     <li class="more"><a class="link" href="/news/list">MORE &gt;&gt;</a></li>
                 </ul>
-                <?$pager = $this->tag->component('post', array('limit' => 7));$posts = $pager->items?>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 4 ,'limit' => 7));$posts = $pager->items?>
                 <ul class="news list right">
                     <li class="title">白银要闻</li>
                     <?foreach($posts as $post):?>
@@ -53,7 +53,7 @@
                 </ul>
             </div>
             <div class="row">
-                <?$pager = $this->tag->component('post', array('limit' => 7));$posts = $pager->items?>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 5 ,'limit' => 7));$posts = $pager->items?>
                 <ul class="news list left">
                     <li class="title">机构分析</li>
                     <?foreach($posts as $post):?>
@@ -61,7 +61,7 @@
                     <?endforeach?>
                     <li class="more"><a class="link" href="/news/list">MORE &gt;&gt;</a></li>
                 </ul>
-                <?$pager = $this->tag->component('post', array('limit' => 7));$posts = $pager->items?>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 6 ,'limit' => 7));$posts = $pager->items?>
                 <ul class="news list right">
                     <li class="title">全球要闻</li>
                     <?foreach($posts as $post):?>

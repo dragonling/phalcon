@@ -109,25 +109,29 @@ class Post extends Entities\Posts
             '-created_at' => 'createdAt DESC',
         );
 
+        if(!empty($query['columns'])) {
+            $itemQuery->columns($query['columns']);
+        }
+
         if(!empty($query['q'])) {
         }
 
         if(!empty($query['status'])) {
-            $itemQuery->where('status = :status:', array('status' => $query['status']));
+            $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
         }
 
         if(!empty($query['uid'])) {
-            $itemQuery->where('user_id = :uid:', array('uid' => $query['uid']));
+            $itemQuery->andWhere('user_id = :uid:', array('uid' => $query['uid']));
         }
 
         if(!empty($query['cid'])) {
             $itemQuery->join('Eva\EvaBlog\Entities\CategoriesPosts', 'id = r.post_id', 'r')
-            ->where('category_id = :cid:', array('cid' => $query['cid']));
+            ->andWhere('r.category_id = :cid:', array('cid' => $query['cid']));
         }
 
         if(!empty($query['order'])) {
-            $order = empty($orderMapping[$query['order']]) ? 'id DESC' : $orderMapping[$query['order']];
-            //$itemQuery->order($order);
+            $order = empty($orderMapping[$query['order']]) ? 'createdAt DESC' : $orderMapping[$query['order']];
+            $itemQuery->orderBy($order);
         }
 
         $posts = $itemQuery->execute();

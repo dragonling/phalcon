@@ -1,7 +1,7 @@
-<?$pager = $this->tag->component('post', array('limit' => 11));$posts = $pager->items?>
 <div class="row relative">
     <div class="span9">
         <div id="main">
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 11));$posts = $pager->items?>
             <div class="row">
                 <div class="span">
                     <?$post = $posts[0]; unset($posts[0]);?>
@@ -208,7 +208,7 @@
                             <a class="tab " href="">美元指数</a>
                         </nav>
                         <ul class="content">
-                            <?$pager = $this->tag->component('post', array('limit' => 8));$posts = $pager->items?>
+                            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 9, 'limit' => 8));$posts = $pager->items?>
                             <li class="panel active">
                                 <ul class="economic-evaluation list">
                                     <?foreach($posts as $post):?>
@@ -222,7 +222,7 @@
                                     <?endforeach?>
                                 </ul>
                             </li>
-                            <?$pager = $this->tag->component('post', array('limit' => 8));$posts = $pager->items?>
+                            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 10, 'limit' => 8));$posts = $pager->items?>
                             <li class="panel ">
                                 <ul class="economic-evaluation list">
                                     <?foreach($posts as $post):?>
@@ -236,7 +236,7 @@
                                     <?endforeach?>
                                 </ul>
                             </li>
-                            <?$pager = $this->tag->component('post', array('limit' => 8));$posts = $pager->items?>
+                            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 11, 'limit' => 8));$posts = $pager->items?>
                             <li class="panel ">
                                 <ul class="economic-evaluation list">
                                     <?foreach($posts as $post):?>
@@ -250,7 +250,7 @@
                                     <?endforeach?>
                                 </ul>
                             </li>
-                            <?$pager = $this->tag->component('post', array('limit' => 8));$posts = $pager->items?>
+                            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 12, 'limit' => 8));$posts = $pager->items?>
                             <li class="panel ">
                                 <ul class="economic-evaluation list">
                                     <?foreach($posts as $post):?>
