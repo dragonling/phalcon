@@ -21,7 +21,7 @@ class View extends \Phalcon\Mvc\View
         self::$components[$componentName] = $componentClass;
     }
 
-    public function component($componentName, array $params = array())
+    public static function getComponent($componentName, $params)
     {
         if(!isset(self::$components[$componentName])) {
             throw new Exception\BadMethodCallException(sprintf('Component %s not registered', $componentName));

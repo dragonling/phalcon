@@ -6,7 +6,13 @@ class Component extends \Phalcon\Mvc\User\Component
 {
     public function reDispatch($location, $data = null)
     {
-        $dispatcher = clone $this->getDI()->get('dispatcher');
+        //Here must clone full DI for reset dispatcher
+        $di = clone $this->getDI();
+        $dispatcher = $di->get('dispatcher');
+
+        if (isset($location['module'])) {
+            $dispatcher->setModuleName($location['module']);
+        }
 
         if (isset($location['namespace'])) {
             $dispatcher->setNamespaceName($location['namespace']);
@@ -34,13 +40,14 @@ class Component extends \Phalcon\Mvc\User\Component
             $dispatcher->setParams(array());
         }
 
-        $dispatcher->dispatch();
+        $di->set('dispatcher', $dispatcher);
 
+        $controller = $dispatcher->dispatch();
         $response = $dispatcher->getReturnedValue();
+
         if ($response instanceof ResponseInterface) {
             return $response->getContent();
         }
-
         return $response;
     }
 }

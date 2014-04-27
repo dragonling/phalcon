@@ -7,7 +7,7 @@ use Eva\EvaBlog\Models\Post;
 use Eva\EvaBlog\Forms;
 
 
-class PostController extends \Eva\EvaEngine\Mvc\Controller\ControllerBase
+class PostController extends \Phalcon\Mvc\Controller
 {
     public function listAction()
     {

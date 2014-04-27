@@ -4,6 +4,11 @@ namespace Eva\EvaEngine;
 
 class Tag extends \Phalcon\Tag
 {
+    public static function component($componentName, array $params = array())
+    {
+        return Mvc\View::getComponent($componentName, $params);
+    }
+
     public static function _($message = null, $replacement = null)
     {
         $translate = self::getDI()->get('translate');
