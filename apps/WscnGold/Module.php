@@ -3,7 +3,7 @@
 namespace WscnGold;
 
 use Phalcon\Loader;
-use Phalcon\Mvc\View;
+use Eva\EvaEngine\Mvc\View;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 
 
@@ -35,6 +35,8 @@ class Module implements ModuleDefinitionInterface
             $dispatcher->setDefaultNamespace('WscnGold\Controllers');
 			return $dispatcher;
 		};
+
+        View::registerComponent('post', 'Eva\EvaBlog\Components\Post');
     }
 
 }

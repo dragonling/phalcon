@@ -2,7 +2,7 @@
 
 namespace Eva\EvaCore\Controllers\Admin;
 
-class IndexController extends \Eva\EvaEngine\Controller\AdminControllerBase
+class IndexController extends \Eva\EvaEngine\Mvc\Controller\AdminControllerBase
 {
 
     /**

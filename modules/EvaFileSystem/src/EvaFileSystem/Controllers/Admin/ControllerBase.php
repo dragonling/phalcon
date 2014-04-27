@@ -2,7 +2,7 @@
 
 namespace Eva\EvaFileSystem\Controllers\Admin;
 
-class ControllerBase extends \Eva\EvaEngine\Controller\AdminControllerBase
+class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\AdminControllerBase
 {
     public function initialize()
     {

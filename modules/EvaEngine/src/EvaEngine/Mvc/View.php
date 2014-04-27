@@ -2,6 +2,8 @@
 
 namespace Eva\EvaEngine\Mvc;
 
+use Eva\EvaEngine\Exception;
+
 class View extends \Phalcon\Mvc\View
 {
     protected $moduleLayout;
@@ -11,6 +13,23 @@ class View extends \Phalcon\Mvc\View
     protected $moduleLayoutName;
 
     protected $modulePartialsDir;
+
+    protected static $components;
+
+    public static function registerComponent($componentName, $componentClass)
+    {
+        self::$components[$componentName] = $componentClass;
+    }
+
+    public function component($componentName, array $params = array())
+    {
+        if(!isset(self::$components[$componentName])) {
+            throw new Exception\BadMethodCallException(sprintf('Component %s not registered', $componentName));
+        }
+
+        $component = new self::$components[$componentName]();
+        return $component($params);
+    }
 
     public function getModuleLayout()
     {
@@ -91,6 +110,8 @@ class View extends \Phalcon\Mvc\View
         }
         return parent::render($controllerName, $actionName, $params);
     }
+
+
 
     protected function caculatePartialsRelatedPath()
     {

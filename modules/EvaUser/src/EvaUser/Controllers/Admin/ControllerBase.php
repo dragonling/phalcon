@@ -4,7 +4,7 @@ namespace Eva\EvaUser\Controllers\Admin;
 
 use Phalcon\Mvc\Controller;
 
-class ControllerBase extends \Eva\EvaEngine\Controller\AdminControllerBase
+class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\AdminControllerBase
 {
     public function initialize()
     {

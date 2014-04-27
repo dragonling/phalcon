@@ -2,7 +2,7 @@
 
 namespace WscnGold\Controllers;
 
-class ControllerBase extends \Eva\EvaEngine\Controller\ControllerBase
+class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase
 {
     public function initialize()
     {

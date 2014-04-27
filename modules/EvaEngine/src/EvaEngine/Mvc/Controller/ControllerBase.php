@@ -1,6 +1,6 @@
 <?php
 
-namespace Eva\EvaEngine\Controller;
+namespace Eva\EvaEngine\Mvc\Controller;
 
 use Phalcon\Mvc\Controller;
 
