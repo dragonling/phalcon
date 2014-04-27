@@ -2,37 +2,27 @@
     <div class="span8">
         <div id="main">
             <div class="article page">
-                <h2 class="title">路透：香港金管局要求银行收紧对中国内地企业的贷款</h2>
+                <h2 class="title"><?=$item->title?></h2>
                 <div class="info">
-                    <span class="item author">James.Nga</span>
-                    <span class="item time">2014年03月28日 14:12</span>
-                    <span class="item tag">香港金融业/影子银行/铜融资</span>
+                    <span class="item author"><?=$item->username ? $item->username : '黄金头条'?></span>
+                    <span class="item time"><?=$this->tag->datetime($item->createdAt)?></span>
+                    <span class="item tag"><?if($item->Tags):?>
+                        <?foreach($item->Tags as $tag):?>    
+                        <?=$tag->tagName?> /
+                        <?endforeach?>    
+                    <?endif?></span>
+                    <!--
                     <span class="item view-times">21256</span>
-                    <span class="item source right">来源：华尔街见闻</span>
+                    -->
+                    <span class="item source right">来源：<a href="<?=$item->sourceUrl ? $item->sourceUrl : '#'?>" target="_blank"><?=$item->sourceName ? $item->sourceName : '黄金头条'?></a></span>
                 </div>
+                <?if($item->summary):?>
                 <div class="summary">
-                    摘要：据国际清算银行（BIS）数据显示，外资银行在华（大陆）债权去年已达1万亿美元，而十年前这个数字还近乎为0。而香港是这些贷款最大的来源地，其发放的高达4300亿美元的贷款相当于香港GDP的165%。
+                    摘要：<?=$item->summary?>
                 </div>
+                <?endif?>
                 <div class="content">
-                    <img src="/img/article.jpg" alt=""/>
-                    <p>
-                        路透援引消息人士的话称，香港金管局已要求银行收紧对中国企业离岸贷款的审批流程。金管局尚未公布任何具体或官方指导方针，但近期一系列对话都在向银行施压，要求他们进一步改善流程和把控。
-                    </p>
-                    <p>
-                        路透援引消息人士的话称，香港金管局已要求银行收紧对中国企业离岸贷款的审批流程。金管局尚未公布任何具体或官方指导方针，但近期一系列对话都在向银行施压，要求他们进一步改善流程和把控。
-                    </p>
-                    <p>
-                        近年来香港的银行向大陆发放贷款数量从无到有，激增至4300亿美元，但大陆方面最近经济显示出下滑的迹象并且信贷违约风险突出，这使得香港银行业神经紧绷。
-                    </p>
-                    <p>
-                        近年来香港的银行向大陆发放贷款数量从无到有，激增至4300亿美元，但大陆方面最近经济显示出下滑的迹象并且信贷违约风险突出，这使得香港银行业神经紧绷。
-                    </p>
-                    <p>
-                        据国际清算银行（BIS）数据显示，外资银行在华（大陆）债权去年已达1万亿美元，而十年前这个数字还近乎为0。而香港是这些贷款最大的来源地，其发放的高达4300亿美元的贷款相当于香港GDP的165%。
-                    </p>
-                    <p>
-                        据国际清算银行（BIS）数据显示，外资银行在华（大陆）债权去年已达1万亿美元，而十年前这个数字还近乎为0。而香港是这些贷款最大的来源地，其发放的高达4300亿美元的贷款相当于香港GDP的165%。
-                    </p>
+                    <?=$item->getContentHtml()?>
                 </div>
                 <div class="state">
                     本文内容仅供读者参考，并非投资建议。 转载请注明来源并加上本站链接，华尔街见闻将保留所有法律权益。

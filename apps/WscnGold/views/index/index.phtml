@@ -1,28 +1,22 @@
-<?$posts = $this->tag->component('post', array('limit' => 5))?>
+<?$pager = $this->tag->component('post', array('limit' => 11));$posts = $pager->items?>
 <div class="row relative">
     <div class="span9">
         <div id="main">
             <div class="row">
                 <div class="span">
+                    <?$post = $posts[0]; unset($posts[0]);?>
                     <ul class="topnews carousel">
                         <li class="item">
-                            <a class="link" href="">
-                                <img class="img" src="/img/img01.png" alt=""/>
-                                <h3 class="title">央行今日在施600亿元正回购操作，本周净回笼1080亿元流行</h3>
-                            </a>
+                        <a class="link" href="/post/<?=$post->slug?>">
+                            <img class="img" src="/img/img01.png" alt=""/>
+                            <h3 class="title"><?=$post->title?></h3>
+                        </a>
                         </li>
                     </ul>
                     <ul class="topnews list">
-                        <li class="item"><a class="link" href="">上海证券报：高层或已特许部分城市松绑限购 <span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link active" href="">金融战首个牺牲品——俄铝录得2008年以来最惨重亏损 警告违约风险<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="">欧洲竭力争取中国在乌克兰危机支持<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="">报道：银监会首次下发地方同业规范文件 治理15万亿“异变”业务<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="">穆迪将俄罗斯列入降级观察 称与乌克兰冲突削弱经济<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="">神秘致电白宫，普京到底在打什么牌？<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="">西方不亮东方亮 俄罗斯引资中投与中东基金<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="">美国3月密歇根大学消费者信心指数终值不及预期，降至四个月新低<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="">廉价信贷消失 中国房地产开发商“大洗牌”在即<span class="time">14:22</span></a></li>
-                        <li class="item"><a class="link" href="">美国2月个人支出创三个月最大，但前值下修，投行下调美一季度GDP预期<span class="time">14:22</span></a></li>
+                        <?foreach($posts as $post):?>
+                        <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?> <span class="time"><?=$this->tag->datetime($post->createdAt, 'H:i')?></span></a></li>
+                        <?endforeach?>
                     </ul>
                 </div><!--span end -->
                 <div class="span">
@@ -214,256 +208,60 @@
                             <a class="tab " href="">美元指数</a>
                         </nav>
                         <ul class="content">
+                            <?$pager = $this->tag->component('post', array('limit' => 8));$posts = $pager->items?>
                             <li class="panel active">
                                 <ul class="economic-evaluation list">
+                                    <?foreach($posts as $post):?>
                                     <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金走势会受市场消息影响</span>
-                                            <span class="span author">Peter Hug</span>
-                                            <span class="span time">14/02/28 16:18</span>
+                                    <a class="link row" href="/post/<?=$post->slug?>">
+                                        <span class="span title"><?=$post->title?></span>
+                                        <span class="span author"><?=$post->username ? $post->username : '黄金头条'?></span>
+                                        <span class="span time"><?=$this->tag->datetime($post->createdAt, 'y/m/d H:i')?></span>
                                         </a>
                                     </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2月27日黄金白银止蚀买/卖盘价位</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/28 09:33</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金白银能否重拾涨势？</span>
-                                            <span class="span author">Admin</span>
-                                            <span class="span time">14/02/27 15:21</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">交易员需谨慎小心</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/27 07:49</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2月26日黄金白银止蚀买/卖盘价位</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/25 08:21</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">越多证据显示原材料商品市场已经筑底</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/23 10:11</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金走势起伏不断</span>
-                                            <span class="span author">布莱希特</span>
-                                            <span class="span time">14/02/23 12:03</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2014年商品市场会否迎来新一轮牛市周期？</span>
-                                            <span class="span author">布莱希特</span>
-                                            <span class="span time">14/02/18 10:52</span>
-                                        </a>
-                                    </li>
-                                    <!--
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">全球继续维持量化宽松</span>
-                                            <span class="span author">Peter Hug</span>
-                                            <span class="span time">14/02/16 13:25</span>
-                                        </a>
-                                    </li>
-                                    -->
+                                    <?endforeach?>
                                 </ul>
                             </li>
+                            <?$pager = $this->tag->component('post', array('limit' => 8));$posts = $pager->items?>
                             <li class="panel ">
                                 <ul class="economic-evaluation list">
+                                    <?foreach($posts as $post):?>
                                     <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金走势会受市场消息影响</span>
-                                            <span class="span author">Peter Hug</span>
-                                            <span class="span time">14/02/28 16:18</span>
+                                    <a class="link row" href="/post/<?=$post->slug?>">
+                                        <span class="span title"><?=$post->title?></span>
+                                        <span class="span author"><?=$post->username ? $post->username : '黄金头条'?></span>
+                                        <span class="span time"><?=$this->tag->datetime($post->createdAt, 'y/m/d H:i')?></span>
                                         </a>
                                     </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2月27日黄金白银止蚀买/卖盘价位</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/28 09:33</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金白银能否重拾涨势？</span>
-                                            <span class="span author">Admin</span>
-                                            <span class="span time">14/02/27 15:21</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">交易员需谨慎小心</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/27 07:49</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2月26日黄金白银止蚀买/卖盘价位</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/25 08:21</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">越多证据显示原材料商品市场已经筑底</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/23 10:11</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金走势起伏不断</span>
-                                            <span class="span author">布莱希特</span>
-                                            <span class="span time">14/02/23 12:03</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2014年商品市场会否迎来新一轮牛市周期？</span>
-                                            <span class="span author">布莱希特</span>
-                                            <span class="span time">14/02/18 10:52</span>
-                                        </a>
-                                    </li>
-
+                                    <?endforeach?>
                                 </ul>
                             </li>
+                            <?$pager = $this->tag->component('post', array('limit' => 8));$posts = $pager->items?>
                             <li class="panel ">
                                 <ul class="economic-evaluation list">
+                                    <?foreach($posts as $post):?>
                                     <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金走势会受市场消息影响</span>
-                                            <span class="span author">Peter Hug</span>
-                                            <span class="span time">14/02/28 16:18</span>
+                                    <a class="link row" href="/post/<?=$post->slug?>">
+                                        <span class="span title"><?=$post->title?></span>
+                                        <span class="span author"><?=$post->username ? $post->username : '黄金头条'?></span>
+                                        <span class="span time"><?=$this->tag->datetime($post->createdAt, 'y/m/d H:i')?></span>
                                         </a>
                                     </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2月27日黄金白银止蚀买/卖盘价位</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/28 09:33</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金白银能否重拾涨势？</span>
-                                            <span class="span author">Admin</span>
-                                            <span class="span time">14/02/27 15:21</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">交易员需谨慎小心</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/27 07:49</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2月26日黄金白银止蚀买/卖盘价位</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/25 08:21</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">越多证据显示原材料商品市场已经筑底</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/23 10:11</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金走势起伏不断</span>
-                                            <span class="span author">布莱希特</span>
-                                            <span class="span time">14/02/23 12:03</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2014年商品市场会否迎来新一轮牛市周期？</span>
-                                            <span class="span author">布莱希特</span>
-                                            <span class="span time">14/02/18 10:52</span>
-                                        </a>
-                                    </li>
-
+                                    <?endforeach?>
                                 </ul>
                             </li>
+                            <?$pager = $this->tag->component('post', array('limit' => 8));$posts = $pager->items?>
                             <li class="panel ">
                                 <ul class="economic-evaluation list">
+                                    <?foreach($posts as $post):?>
                                     <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金走势会受市场消息影响</span>
-                                            <span class="span author">Peter Hug</span>
-                                            <span class="span time">14/02/28 16:18</span>
+                                    <a class="link row" href="/post/<?=$post->slug?>">
+                                        <span class="span title"><?=$post->title?></span>
+                                        <span class="span author"><?=$post->username ? $post->username : '黄金头条'?></span>
+                                        <span class="span time"><?=$this->tag->datetime($post->createdAt, 'y/m/d H:i')?></span>
                                         </a>
                                     </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2月27日黄金白银止蚀买/卖盘价位</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/28 09:33</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金白银能否重拾涨势？</span>
-                                            <span class="span author">Admin</span>
-                                            <span class="span time">14/02/27 15:21</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">交易员需谨慎小心</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/27 07:49</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2月26日黄金白银止蚀买/卖盘价位</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/25 08:21</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">越多证据显示原材料商品市场已经筑底</span>
-                                            <span class="span author">威科夫</span>
-                                            <span class="span time">14/02/23 10:11</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">黄金走势起伏不断</span>
-                                            <span class="span author">布莱希特</span>
-                                            <span class="span time">14/02/23 12:03</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a class="link row" href="">
-                                            <span class="span title">2014年商品市场会否迎来新一轮牛市周期？</span>
-                                            <span class="span author">布莱希特</span>
-                                            <span class="span time">14/02/18 10:52</span>
-                                        </a>
-                                    </li>
-
+                                    <?endforeach?>
                                 </ul>
                             </li>
                         </ul>

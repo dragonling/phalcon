@@ -16,7 +16,7 @@ return array(
         'action' => 1,
         'id' => 3,
     ),
-    '/post/(\d+)' =>  array(
+    '/post/(\w+)' =>  array(
         'module' => 'WscnGold',
         'controller' => 'post',
         'action' => 'article',

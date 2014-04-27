@@ -1,100 +1,72 @@
 <div class="row relative">
     <div class="span8">
         <div id="main">
+            <?$pager = $this->tag->component('post', array('limit' => 11));$posts = $pager->items?>
+            <?$post = $posts[0]; unset($posts[0]);?>
             <div class="row">
                 <ul class="topnews carousel type1 left">
                     <li class="item">
-                        <a class="link" href="/post/1">
+                        <a class="link" href="/post/<?=$post->slug?>">
                             <img class="img" src="/img/img01.png" alt=""/>
-                            <h3 class="title">央行今日在施600亿元正回购操作，本周净回笼1080亿元流行</h3>
+                            <h3 class="title"><?=$post->title?></h3>
                         </a>
                     </li>
                 </ul>
                 <ul class="topnews list type1 right">
                     <li class="title"><h2>头条新闻</h2></li>
-                    <li class="item"><a class="link" href="/post/1">上海证券报：高层或已特许部分城市松绑限购 <span class="time">14:22</span></a></li>
-                    <li class="item"><a class="link" href="/post/1">金融战首个牺牲品——俄铝录得2008年以来最惨重亏损 警告违约风险<span class="time">14:22</span></a></li>
-                    <li class="item"><a class="link" href="/post/1">欧洲竭力争取中国在乌克兰危机支持<span class="time">14:22</span></a></li>
-                    <li class="item"><a class="link" href="/post/1">报道：银监会首次下发地方同业规范文件 治理15万亿“异变”业务<span class="time">14:22</span></a></li>
-                    <li class="item"><a class="link" href="/post/1">穆迪将俄罗斯列入降级观察 称与乌克兰冲突削弱经济<span class="time">14:22</span></a></li>
-                    <li class="item"><a class="link" href="/post/1">神秘致电白宫，普京到底在打什么牌？<span class="time">14:22</span></a></li>
-                    <li class="item"><a class="link" href="/post/1">西方不亮东方亮 俄罗斯引资中投与中东基金<span class="time">14:22</span></a></li>
-                    <li class="item"><a class="link" href="/post/1">美国3月密歇根大学消费者信心指数终值不及预期，降至四个月新低<span class="time">14:22</span></a></li>
-                    <li class="item"><a class="link" href="/post/1">廉价信贷消失 中国房地产开发商“大洗牌”在即<span class="time">14:22</span></a></li>
-                    <li class="item"><a class="link" href="/post/1">美国2月个人支出创三个月最大，但前值下修，投行下调美一季度GDP预期<span class="time">14:22</span></a></li>
+                    <?foreach($posts as $post):?>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?> <span class="time"><?=$this->tag->datetime($post->createdAt, 'H:m')?></span></a></li>
+                    <?endforeach?>
                 </ul>
             </div>
             <div class="row">
                 <h2 class="main-title type1">编辑推荐</h2>
+                <?$pager = $this->tag->component('post', array('limit' => 3));$posts = $pager->items?>
                 <ul class="recommend-news list">
+                    <?foreach($posts as $post):?>
                     <li class="item">
-                        <a class="link" href="/post/1">
-                            <img class="img" src="/img/img01.png" alt=""/>
-                            <h3 class="title">央行今日在施600亿元正回购操作，本周净回笼1080亿元流行</h3>
+                    <a class="link" href="/post/<?=$post->slug?>">
+                        <img class="img" src="/img/img01.png" alt=""/>
+                        <h3 class="title"><?=$post->title?></h3>
                         </a>
-                        <p class="info">by 莫西干 2014年03月13日 04:40</p>
+                        <p class="info">by <?=$post->username ? $post->username : '黄金头条'?> <?=$this->tag->datetime($post->createdAt)?></p>
                     </li>
-                    <li class="item">
-                        <a class="link" href="/post/1">
-                            <img class="img" src="/img/img01.png" alt=""/>
-                            <h3 class="title">央行今日在施600亿元正回购操作，本周净回笼1080亿元流行</h3>
-                        </a>
-                        <p class="info">by 莫西干 2014年03月13日 04:40</p>
-                    </li>
-                    <li class="item">
-                        <a class="link" href="/post/1">
-                            <img class="img" src="/img/img01.png" alt=""/>
-                            <h3 class="title">央行今日在施600亿元正回购操作，本周净回笼1080亿元流行</h3>
-                        </a>
-                        <p class="info">by 莫西干 2014年03月13日 04:40</p>
-                    </li>
+                    <?endforeach?>
                 </ul>
             </div>
             <div class="row">
+                <?$pager = $this->tag->component('post', array('limit' => 7));$posts = $pager->items?>
                 <ul class="news list left">
                     <li class="title">黄金要闻</li>
-                    <li class="item"><a class="link" href="/post/1">直播：马航客机失联进入第六天 媒体曝马警方搜查失联客机</a></li>
-                    <li class="item"><a class="link" href="/post/1">新西兰央行加息25个基点，成首个加息发达国家</a></li>
-                    <li class="item"><a class="link" href="/post/1">违约蝴蝶效应之五：波罗的海指数暴跌8%</a></li>
-                    <li class="item"><a class="link" href="/post/1">标普500指数微涨，黄金创半年高点，WTI油价大跌2%</a></li>
-                    <li class="item"><a class="link" href="/post/1">美联储副主席和理事提名人听证会证词：美国失业率过高</a></li>
-                    <li class="item"><a class="link" href="/post/1">G7领导人：不承认克里米亚公投结果</a></li>
-                    <li class="item"><a class="link" href="/post/1">澳大利亚就业数据远超预期，澳元大涨</a></li>
+                    <?foreach($posts as $post):?>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
+                    <?endforeach?>
                     <li class="more"><a class="link" href="/news/list">MORE &gt;&gt;</a></li>
                 </ul>
+                <?$pager = $this->tag->component('post', array('limit' => 7));$posts = $pager->items?>
                 <ul class="news list right">
                     <li class="title">白银要闻</li>
-                    <li class="item"><a class="link" href="/post/1">直播：马航客机失联进入第六天 媒体曝马警方搜查失联客机</a></li>
-                    <li class="item"><a class="link" href="/post/1">新西兰央行加息25个基点，成首个加息发达国家</a></li>
-                    <li class="item"><a class="link" href="/post/1">违约蝴蝶效应之五：波罗的海指数暴跌8%</a></li>
-                    <li class="item"><a class="link" href="/post/1">标普500指数微涨，黄金创半年高点，WTI油价大跌2%</a></li>
-                    <li class="item"><a class="link" href="/post/1">美联储副主席和理事提名人听证会证词：美国失业率过高</a></li>
-                    <li class="item"><a class="link" href="/post/1">G7领导人：不承认克里米亚公投结果</a></li>
-                    <li class="item"><a class="link" href="/post/1">澳大利亚就业数据远超预期，澳元大涨</a></li>
+                    <?foreach($posts as $post):?>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
+                    <?endforeach?>
                     <li class="more"><a class="link" href="/news/list">MORE &gt;&gt;</a></li>
                 </ul>
             </div>
             <div class="row">
+                <?$pager = $this->tag->component('post', array('limit' => 7));$posts = $pager->items?>
                 <ul class="news list left">
                     <li class="title">机构分析</li>
-                    <li class="item"><a class="link" href="/post/1">直播：马航客机失联进入第六天 媒体曝马警方搜查失联客机</a></li>
-                    <li class="item"><a class="link" href="/post/1">新西兰央行加息25个基点，成首个加息发达国家</a></li>
-                    <li class="item"><a class="link" href="/post/1">违约蝴蝶效应之五：波罗的海指数暴跌8%</a></li>
-                    <li class="item"><a class="link" href="/post/1">标普500指数微涨，黄金创半年高点，WTI油价大跌2%</a></li>
-                    <li class="item"><a class="link" href="/post/1">美联储副主席和理事提名人听证会证词：美国失业率过高</a></li>
-                    <li class="item"><a class="link" href="/post/1">G7领导人：不承认克里米亚公投结果</a></li>
-                    <li class="item"><a class="link" href="/post/1">澳大利亚就业数据远超预期，澳元大涨</a></li>
+                    <?foreach($posts as $post):?>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
+                    <?endforeach?>
                     <li class="more"><a class="link" href="/news/list">MORE &gt;&gt;</a></li>
                 </ul>
+                <?$pager = $this->tag->component('post', array('limit' => 7));$posts = $pager->items?>
                 <ul class="news list right">
                     <li class="title">全球要闻</li>
-                    <li class="item"><a class="link" href="/post/1">直播：马航客机失联进入第六天 媒体曝马警方搜查失联客机</a></li>
-                    <li class="item"><a class="link" href="/post/1">新西兰央行加息25个基点，成首个加息发达国家</a></li>
-                    <li class="item"><a class="link" href="/post/1">违约蝴蝶效应之五：波罗的海指数暴跌8%</a></li>
-                    <li class="item"><a class="link" href="/post/1">标普500指数微涨，黄金创半年高点，WTI油价大跌2%</a></li>
-                    <li class="item"><a class="link" href="/post/1">美联储副主席和理事提名人听证会证词：美国失业率过高</a></li>
-                    <li class="item"><a class="link" href="/post/1">G7领导人：不承认克里米亚公投结果</a></li>
-                    <li class="item"><a class="link" href="/post/1">澳大利亚就业数据远超预期，澳元大涨</a></li>
+                    <?foreach($posts as $post):?>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
+                    <?endforeach?>
                     <li class="more"><a class="link" href="/news/list">MORE &gt;&gt;</a></li>
                 </ul>
             </div>
