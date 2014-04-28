@@ -1,0 +1,47 @@
+<div id="sidebar" class="span4">
+    <h2 class="title">行情中心</h2>
+    <iframe src="http://markets.wallstreetcn.com/embed/sidebar?theme=dark" width="100%" height="380" scrolling="no" frameborder="0"></iframe>
+
+    <h2 class="title">财经日历</h2>
+    <div id="side-fcl" class="nano finance-calendar scrollable list type1" data-fcl-option="auto-scroll:true;">
+        <div class="titlebar">
+            据下次数据公布时间还有：<span class="clock"></span>
+        </div>
+        <ul class="nano-content content">
+            <li class="more"></li>
+        </ul>
+        <script type="text/template" data-template>
+            <% for(var i=0; i<records.length; i++) { %>
+            <% var record = records[i]; %>
+            <% if (i == 0 || record.date.charAt(9) != records[i-1].date.charAt(9)) { %>
+            <li class="date" data-date="<%= record.date %>"><%= record.date %></li>
+            <% } %>
+            <li id="<%= record.id %>" class="item" data-trend="<%= record.trend %>" data-utm="<%= record.utm %>">
+                <div class="row">
+                    <div class="span3 meta">
+                        <span class="time"><%= record.time %></span>
+                    </div>
+                    <div class="span8">
+                        <a class="link" href=""><%= record.title %></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3 actual meta">
+                        <span class="label">今值：</span>
+                        <span class="value"><%= record.actual %></span>
+                    </div>
+                    <div class="span3 forecast meta">
+                        <span class="label">预测：</span>
+                        <span class="value"><%= record.forecast %></span>
+                    </div>
+                    <div class="span3 previous meta">
+                        <span class="label">前值：</span>
+                        <span class="value"><%= record.previous %></span>
+                    </div>
+                </div>
+            </li>
+            <% } %>
+        </script>
+    </div>
+    <div class="line type1"></div>
+</div>
