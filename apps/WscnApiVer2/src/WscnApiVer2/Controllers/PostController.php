@@ -4,6 +4,7 @@ namespace WscnApiVer2\Controllers;
 
 use Swagger\Annotations as SWG;
 use Eva\EvaBlog\Models;
+use Eva\EvaBlog\Forms;
 use Eva\EvaEngine\Exception;
 
 /**
@@ -47,23 +48,38 @@ class PostController extends ControllerBase
      */
     public function indexAction()
     {
-        $currentPage = $this->request->getQuery('page', 'int'); // GET
-        $limit = $this->request->getQuery('limit', 'int');
-        $order = $this->request->getQuery('order', 'int');
-        $limit = $limit > 50 ? 50 : $limit;
+        $limit = $this->request->getQuery('limit', 'int', 25);
+        $limit = $limit > 100 ? 100 : $limit;
         $limit = $limit < 10 ? 10 : $limit;
+        $orderMapping = array(
+            'id' => 'id ASC',
+            '-id' => 'id DESC',
+            'created_at' => 'createdAt ASC',
+            '-created_at' => 'createdAt DESC',
+        );
+        $order = $this->request->getQuery('order', 'string', '-created_at');
+        $query = array(
+            'q' => $this->request->getQuery('q', 'string'),
+            'status' => $this->request->getQuery('status', 'string'),
+            'uid' => $this->request->getQuery('uid', 'int'),
+            'cid' => $this->request->getQuery('cid', 'int'),
+            'username' => $this->request->getQuery('username', 'string'),
+            'order' => $order,
+            'limit' => $limit,
+            'page' => $this->request->getQuery('page', 'int', 1),
+        );
 
-        $posts = Models\Post::find(array(
-            'order' => 'id DESC',
-        ));
+        $form = new Forms\FilterForm();
+        $form->setValues($this->request->getQuery());
+
+        $post = new Models\Post();
+        $posts = $post->findPosts($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
             "data" => $posts,
             "limit"=> $limit,
-            "page" => $currentPage
+            "page" => $query['page']
         ));
-        $paginator->setQuery(array(
-            'limit' => $limit,
-        ));
+        $paginator->setQuery($query);
         $pager = $paginator->getPaginate();
 
         $postArray = array();
