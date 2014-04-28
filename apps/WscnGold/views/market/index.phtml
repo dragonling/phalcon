@@ -65,22 +65,120 @@
         </div>
         <div class="content" >
             <ul class="menu" data-market>
-                <li class="item active" data-efc-symbol="" data-efc-target="">
+                <li class="tab item active" data-efc-symbol="" data-efc-target="">
                     <span class="text">ETF持仓</span>
                 </li>
-                <li class="item" data-efc-symbol="" data-efc-target="">
+                <li class="tab item" data-efc-symbol="" data-efc-target="">
                     <span class="text">CFTC持仓</span>
                 </li>
-                <li class="item" data-efc-symbol="" data-efc-target="">
+                <li class="tab item" data-efc-symbol="" data-efc-target="">
                     <span class="text">定盘价</span>
                 </li>
             </ul>
-            <div data-quote data-active-item="fixing">
-                <div data-type="etf">
-
+            <div data-quote>
+                <div class="active" data-type="etf">
+                    <div class="chart"></div>
+                    <div class="line"></div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>持仓量（盎司）</th>
+                            <th>持仓量（吨）</th>
+                            <th>总价值（美元）</th>
+                            <th>增减（吨）</th>
+                        </tr>
+                        <tbody>
+                        <tr>
+                            <td>2014.03.25</td>
+                            <td>2654235.42</td>
+                            <td>819.67</td>
+                            <td>35656511252.15</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>2014.03.25</td>
+                            <td>2654235.42</td>
+                            <td>819.67</td>
+                            <td>35656511252.15</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>2014.03.25</td>
+                            <td>2654235.42</td>
+                            <td>819.67</td>
+                            <td>35656511252.15</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>2014.03.25</td>
+                            <td>2654235.42</td>
+                            <td>819.67</td>
+                            <td>35656511252.15</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>2014.03.25</td>
+                            <td>2654235.42</td>
+                            <td>819.67</td>
+                            <td>35656511252.15</td>
+                            <td>0.00</td>
+                        </tr>
+                        </tbody>
+                        </thead>
+                    </table>
                 </div>
                 <div data-type="cftc">
-
+                    <div class="chart"></div>
+                    <div class="line"></div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>持仓量（盎司）</th>
+                            <th>持仓量（吨）</th>
+                            <th>总价值（美元）</th>
+                            <th>增减（吨）</th>
+                        </tr>
+                        <tbody>
+                        <tr>
+                            <td>2014.03.25</td>
+                            <td>2654235.42</td>
+                            <td>819.67</td>
+                            <td>35656511252.15</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>2014.03.25</td>
+                            <td>2654235.42</td>
+                            <td>819.67</td>
+                            <td>35656511252.15</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>2014.03.25</td>
+                            <td>2654235.42</td>
+                            <td>819.67</td>
+                            <td>35656511252.15</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>2014.03.25</td>
+                            <td>2654235.42</td>
+                            <td>819.67</td>
+                            <td>35656511252.15</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
+                            <td>2014.03.25</td>
+                            <td>2654235.42</td>
+                            <td>819.67</td>
+                            <td>35656511252.15</td>
+                            <td>0.00</td>
+                        </tr>
+                        </tbody>
+                        </thead>
+                    </table>
                 </div>
                 <div data-type="fixing">
                     <table class="table">
@@ -177,6 +275,18 @@
                                 19.9700
                             </div>
                         </li>
+                        <li class="item">
+                            <div class="cell1">
+                                <div class="row">
+                                    <div class="span4">2014-04-25</div>
+                                    <div class="span4">1294.00</div>
+                                    <div class="span4">1291.75</div>
+                                </div>
+                            </div>
+                            <div class="cell2">
+                                19.9700
+                            </div>
+                        </li>
                         <li class="pagingbar">
                             <div class="button active">1</div>
                             <div class="button">2</div>
@@ -194,6 +304,7 @@
                 </div>
             </div>
         </div>
+        <!--
         <div class="content">
             <ul class="menu" data-market>
                 <li class="item active" data-efc-symbol="" data-efc-target="">
@@ -204,9 +315,57 @@
 
             </div>
         </div>
+        -->
     </div>
     <div id="sidebar" class="span4">
-
+        <div class="title">央行利率</div>
+        <ul class="list bank-rate">
+            <li class="item row head">
+                <div class="span title">央行</div>
+                <div class="span rate">利率</div>
+                <div class="span date">下次会议</div>
+            </li>
+            <li class="item row">
+                <div class="span title"><span class="flag flag-us" title="美联储"></span> 美联储</div>
+                <div class="span rate">0.00%-0.25%</div>
+                <div class="span date">5月01日</div>
+            </li>
+            <li class="item row">
+                <div class="span title"><span class="flag flag-eu" title="欧洲央行"></span> 欧洲央行</div>
+                <div class="span rate">0.25%</div>
+                <div class="span date">4月03日</div>
+            </li>
+            <li class="item row">
+                <div class="span title"><span class="flag flag-gb" title="英国央行"></span> 英国央行</div>
+                <div class="span rate">0.50%</div>
+                <div class="span date">4月10日</div>
+            </li>
+            <li class="item row">
+                <div class="span title"><span class="flag flag-jp" title="日本央行"></span> 日本央行</div>
+                <div class="span rate">0.10%</div>
+                <div class="span date">4月08日</div>
+            </li>
+            <li class="item row">
+                <div class="span title"><span class="flag flag-au" title="澳大利亚联储"></span> 澳大利亚联储</div>
+                <div class="span rate">2.5%</div>
+                <div class="span date">4月01日</div>
+            </li>
+            <li class="item row">
+                <div class="span title"><span class="flag flag-ch" title="瑞士央行"></span> 瑞士央行</div>
+                <div class="span rate">0.00%-0.25%</div>
+                <div class="span date">6月19日</div>
+            </li>
+            <li class="item row">
+                <div class="span title"><span class="flag flag-ca" title="加拿大央行"></span> 加拿大央行</div>
+                <div class="span rate">1.00%</div>
+                <div class="span date">4月16日</div>
+            </li>
+            <li class="item row">
+                <div class="span title"><span class="flag flag-hk" title="香港金融管理局"></span> 香港金融管理局</div>
+                <div class="span rate">0.34%</div>
+                <div class="span date"></div>
+            </li>
+        </ul>
         <div class="line type1"></div>
     </div>
 </div>
