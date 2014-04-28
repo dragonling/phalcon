@@ -1,7 +1,7 @@
 <?php
 
 
-use WscnGold\Entities\Techanalysis;
+namespace WscnGold\Entities\Techanalysis;
 
 class TechnicalIndicators extends \Eva\EvaEngine\Mvc\Model
 {

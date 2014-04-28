@@ -1,7 +1,7 @@
 <?php
 
 
-use WscnGold\Entities\Techanalysis;
+namespace WscnGold\Entities\Techanalysis;
 
 class Summaries extends \Eva\EvaEngine\Mvc\Model
 {

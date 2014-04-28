@@ -1,6 +1,6 @@
 <?php
 
-use WscnGold\Entities\Techanalysis;
+namespace WscnGold\Entities\Techanalysis;
 
 class PivotPoints extends \Eva\EvaEngine\Mvc\Model
 {

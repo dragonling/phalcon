@@ -64,4 +64,36 @@ class Quotes extends \Eva\EvaEngine\Mvc\Model
         );
     }
 
+
+    public function initialize()
+    {
+        $this->hasMany(
+            'symbol',
+            'WscnGold\Entities\Techanalysis\Summaries',
+            'symbol',
+            array('alias' => 'Summaries')
+        );
+
+        $this->hasMany(
+            'symbol',
+            'WscnGold\Entities\Techanalysis\PivotPoints',
+            'symbol',
+            array('alias' => 'PivotPoints')
+        );
+
+        $this->hasMany(
+            'symbol',
+            'WscnGold\Entities\Techanalysis\MovingAverages',
+            'symbol',
+            array('alias' => 'MovingAverages')
+        );
+
+        $this->hasMany(
+            'symbol',
+            'WscnGold\Entities\Techanalysis\TechnicalIndicators',
+            'symbol',
+            array('alias' => 'TechnicalIndicators')
+        );
+    }
+
 }

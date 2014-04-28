@@ -14,14 +14,17 @@ class Model extends \Phalcon\Mvc\Model
         return $this->prefix . $this->tableName;
     }
 
-    public function dump(array $dataStructure)
+    public function dump(array $dataStructure = null)
     {
         $data = null;
+        if(!$dataStructure) {
+            return $data;
+        }
         foreach ($dataStructure as $key => $subdata) {
             if(is_numeric($key)) {
                 $data[$subdata] = $this->$subdata;
             } elseif (is_array($subdata)) {
-                if($this->$key) {
+                if(!empty($this->$key)) {
                     if($this->$key instanceof \Phalcon\Mvc\Model\Resultset\Simple) {
                         $subdatas = array();
                         foreach($this->$key as $child) {

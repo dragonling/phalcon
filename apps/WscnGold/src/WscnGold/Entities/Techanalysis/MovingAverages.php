@@ -1,6 +1,6 @@
 <?php
 
-use WscnGold\Entities\Techanalysis;
+namespace WscnGold\Entities\Techanalysis;
 
 class MovingAverages extends \Eva\EvaEngine\Mvc\Model
 {
