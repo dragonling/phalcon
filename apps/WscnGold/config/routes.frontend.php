@@ -40,5 +40,15 @@ return array(
         'controller' => 'index',
         'action' => 1 
     ), 
+    '/techanalysis' =>  array(
+        'module' => 'WscnGold',
+        'controller' => 'techanalysis',
+    ), 
+    '/techanalysis/:action(/(\d+))*' =>  array(
+        'module' => 'WscnGold',
+        'controller' => 'techanalysis',
+        'action' => 1,
+        'id' => 3,
+    ),
 );
 
