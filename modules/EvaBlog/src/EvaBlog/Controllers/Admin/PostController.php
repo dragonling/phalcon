@@ -23,7 +23,7 @@ class PostController extends ControllerBase
             'created_at' => 'createdAt ASC',
             '-created_at' => 'createdAt DESC',
         );
-        $order = $this->request->getQuery('order', array('alphanum', 'lower'), '-id');
+        $order = $this->request->getQuery('order', 'string', '-created_at');
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
             'status' => $this->request->getQuery('status', 'string'),
