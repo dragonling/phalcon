@@ -30,6 +30,10 @@ return array(
         'module' => 'WscnGold',
         'controller' => 'calendar',
     ),
+    '/market' =>  array(
+        'module' => 'WscnGold',
+        'controller' => 'market',
+    ),
     '/tutorial' =>  array(
         'module' => 'WscnGold',
         'controller' => 'index',

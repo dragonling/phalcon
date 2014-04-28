@@ -16,7 +16,7 @@ var mam = {
 
         var root = this;
 
-        $(document).on('click', '[data-ma-target][data-ma-symbol]', function(){
+        $(document).on('click', '[data-ma-target][data-ma-symbol]', function(e){
 
             var $this = $(this);
             var symbol = $this.attr('data-ma-symbol');
@@ -25,7 +25,7 @@ var mam = {
             root.showData(symbol, $target);
             $target.find('[data-ma-symbol].active').removeClass('active');
             $this.addClass('active');
-            return false;
+            e.preventDefault();
         });
     },
 

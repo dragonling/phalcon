@@ -137,7 +137,7 @@
         if (this.config.loadMoreEvent) {
             this.$more.on('click', function(e) {
                 root.nextDay();
-                return false;
+                e.preventDefault();
             });
         }
     };

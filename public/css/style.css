@@ -118,6 +118,15 @@ input {
   width: 1200px;
   margin: 0 auto;
 }
+.container > .row {
+  width: 1200px;
+}
+.container > .row > .span8 {
+  width: 800px;
+}
+.container > .row > .span4 {
+  width: 400px;
+}
 .container.s {
   width: 720px;
 }
@@ -322,9 +331,49 @@ input {
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#808080), to(#5a5a5a));
   background: -moz-linear-gradient(top, #808080, #5a5a5a);
 }
+.double.line {
+  display: block;
+  /*
+    &[data-position] {
+
+    }*/
+}
+.double.line.vr {
+  width: 0;
+  height: 100%;
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+.double.line.hr {
+  width: 100%;
+  height: 0;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+.double.line.bottom {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+}
+.double.line.top {
+  position: absolute;
+  left: 0;
+  top: -1px;
+}
+.double.line.left {
+  position: absolute;
+  left: -1px;
+  top: 0;
+}
+.double.line.right {
+  position: absolute;
+  right: -1px;
+  top: 0;
+}
 label.checkbox {
   cursor: pointer;
-  display: inline-block;
+  display: block;
+  float: left;
   position: relative;
   line-height: 20px;
   height: 20px;
@@ -343,6 +392,9 @@ label.checkbox > input[type=checkbox] {
   width: auto;
   height: 20px;
   vertical-align: middle;
+}
+label.checkbox.right {
+  float: right;
 }
 .toolbar:before,
 .titlebar:before {
@@ -832,6 +884,7 @@ label.checkbox > input[type=checkbox] {
   font-size: 13px;
   line-height: 20px;
   color: #969696;
+  margin-bottom: 30px;
 }
 .article.page .info:before {
   display: table;
@@ -855,7 +908,7 @@ label.checkbox > input[type=checkbox] {
 }
 .article.page .summary {
   background-color: #f0f0f0;
-  margin: 30px 0;
+  margin-bottom: 30px;
   padding: 12px 30px;
   font-size: 16px;
   line-height: 1.5em;
@@ -867,11 +920,12 @@ label.checkbox > input[type=checkbox] {
 }
 .article.page .content p {
   margin-bottom: 30px;
+  width: 100%;
 }
 .article.page .content img {
   max-width: 100%;
   height: auto;
-  margin: 0 auto 20px;
+  margin: 0 auto;
 }
 .article.page .state {
   background-color: #f0f0f0;
@@ -1499,7 +1553,6 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #finance-calendar > .head > .item.input {
   width: 320px;
-  width: 319px\0;
   cursor: default;
   padding: 10px 40px;
   height: 30px;
@@ -1589,8 +1642,8 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #finance-calendar > .toolbar .checkbox {
   height: 30px;
-  width: 55px;
-  margin-left: 30px;
+  width: 57px;
+  margin-left: 32px;
   padding: 5px 0;
 }
 #finance-calendar > .toolbar .checkbox.first-child,
@@ -1689,6 +1742,239 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #finance-calendar > .content .important .star {
   margin-right: 5px;
+}
+#market > .content {
+  position: relative;
+  padding-left: 150px;
+}
+#market .menu {
+  padding-top: 0;
+}
+#market .menu.first-item {
+  padding-top: 20px;
+}
+#market .menu .text {
+  display: block;
+  text-indent: 20px;
+}
+#market [data-quote] > [data-type] {
+  display: none;
+}
+#market [data-quote] > [data-type="fixing"] .head {
+  background-color: #505050;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+}
+#market [data-quote] > [data-type="fixing"] .head .line {
+  border-left-color: #141414;
+  border-right-color: #969696;
+}
+#market [data-quote] > [data-type="fixing"] .table {
+  width: 100%;
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: #323232;
+}
+#market [data-quote] > [data-type="fixing"] .table td,
+#market [data-quote] > [data-type="fixing"] .table th {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+}
+#market [data-quote] > [data-type="fixing"] .table tbody {
+  background-color: #e6e6e6;
+}
+#market [data-quote] > [data-type="fixing"] .table tbody td {
+  height: 60px;
+}
+#market [data-quote] > [data-type="fixing"] .table tbody .line {
+  border-left-color: #c8c8c8;
+  border-right-color: #fff;
+  border-top-color: #c8c8c8;
+  border-bottom-color: #fff;
+}
+#market [data-quote] > [data-type="fixing"] .table .cell1 {
+  width: 100px;
+}
+#market [data-quote] > [data-type="fixing"] .table .cell2 {
+  width: 300px;
+}
+#market [data-quote] > [data-type="fixing"] .table .label {
+  color: #787878;
+}
+#market [data-quote] > [data-type="fixing"] .table td .label {
+  font-size: 18px;
+  margin-right: 20px;
+}
+#market [data-quote] > [data-type="fixing"] .table .price {
+  font-size: 30px;
+  font-weight: bold;
+  color: #005178;
+}
+#market [data-quote] > [data-type="fixing"] .list {
+  text-align: center;
+  color: #000;
+  background-color: #e6e6e6;
+}
+#market [data-quote] > [data-type="fixing"] .list li:before {
+  display: table;
+  content: '';
+  clear: both;
+}
+#market [data-quote] > [data-type="fixing"] .list li:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+#market [data-quote] > [data-type="fixing"] .list li:nth-child(even) {
+  background-color: #f0f0f0;
+}
+#market [data-quote] > [data-type="fixing"] .list .cell1,
+#market [data-quote] > [data-type="fixing"] .list .cell2 {
+  display: block;
+  float: left;
+}
+#market [data-quote] > [data-type="fixing"] .list .cell1 {
+  width: 360px;
+  border-right: 1px solid #c8c8c8;
+}
+#market [data-quote] > [data-type="fixing"] .list .cell2 {
+  width: 228px;
+  border-left: 1px solid #fff;
+}
+#market [data-quote] > [data-type="fixing"] .list .head {
+  font-size: 14px;
+  line-height: 32px;
+}
+#market [data-quote] > [data-type="fixing"] .list .head .cell1 {
+  border-right-color: #141414;
+}
+#market [data-quote] > [data-type="fixing"] .list .head .cell2 {
+  border-right-color: #969696;
+}
+#market [data-quote] > [data-type="fixing"] .list .label {
+  color: #323232;
+  font-size: 14px;
+  line-height: 32px;
+}
+#market [data-quote] > [data-type="fixing"] .list .item {
+  line-height: 32px;
+  font-size: 12px;
+}
+#market [data-quote] > [data-type="fixing"] .list .pagingbar {
+  padding: 10px 27px;
+}
+#market [data-quote][data-active-item="etf"] > [data-type="etf"] {
+  display: block;
+}
+#market [data-quote][data-active-item="cftc"] > [data-type="cftc"] {
+  display: block;
+}
+#market [data-quote][data-active-item="fixing"] > [data-type="fixing"] {
+  display: block;
+}
+#market [data-info] {
+  background-color: #fff;
+  padding: 30px;
+  color: #323232;
+}
+#market [data-info] .title {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+#market [data-info] .price {
+  font-size: 18px;
+  margin-right: 20px;
+}
+#market [data-info] .diff {
+  font-size: 16px;
+  margin-right: 20px;
+}
+#market [data-info] .diff-pct {
+  font-size: 16px;
+}
+#market [data-info] .meta {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: #969696;
+  font-size: 12px;
+}
+#market [data-info] [data-price] {
+  font-size: 12px;
+}
+#market [data-info] [data-price] .label {
+  color: #505050;
+}
+#market [data-info] [data-price] .value {
+  color: #005178;
+  margin-right: 15px;
+}
+#market [data-info][data-trend=up] .diff,
+#market [data-info][data-trend=up] .diff-pct {
+  color: #ff3232;
+}
+#market [data-info][data-trend=down] .diff,
+#market [data-info][data-trend=down] .diff-pct {
+  color: #00cb32;
+}
+#market [data-chart] {
+  background-color: #ecf2f6;
+  padding: 15px 30px 30px;
+  border-bottom: 1px solid #b4b4b4;
+}
+#market [data-chart] .toolbar {
+  height: 30px;
+  margin-bottom: 15px;
+}
+#market [data-chart] .toolbar .button {
+  display: block;
+  float: left;
+  height: 28px;
+  width: 28px;
+  margin-left: 20px;
+  border: 1px solid #323232;
+  border-radius: 50%;
+  line-height: 28px;
+  color: #323232;
+}
+#market [data-chart] .toolbar .button:first-child {
+  margin-left: 0;
+}
+#market [data-chart] .toolbar .button.active {
+  color: #fff;
+  background-color: #323232;
+}
+#market [data-chart] .toolbar .button[data-efc-type] {
+  width: 50px;
+  border-radius: 8px;
+}
+#market [data-chart] .toolbar .line.vertical {
+  width: 0;
+  height: 20px;
+  display: block;
+  float: left;
+  margin-top: 5px;
+  margin-left: 17px;
+  margin-right: -3px;
+  border-left: 1px solid #c8c8c8;
+  border-right: 1px solid #fff;
+}
+#market [data-chart] .chart {
+  background-color: #000;
+}
+#market [data-quote] {
+  background-color: #ecf2f6;
+  padding: 30px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #b4b4b4;
+}
+#market [data-rank] {
+  background-color: #ecf2f6;
+  padding: 30px;
+  border-top: 1px solid #fff;
 }
 #main {
   background-color: #fff;
@@ -2295,6 +2581,8 @@ td.datepickerSpecial.datepickerSelected a {
   font-weight: bold;
 }
 #livenews {
+  position: relative;
+  box-shadow: -2px 0 3px 0 rgba(0, 0, 0, 0.3);
   width: 650px;
   margin-left: 150px;
   padding-bottom: 20px;

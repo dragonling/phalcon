@@ -47,7 +47,7 @@ $(function(){
             $active.removeClass('active');
             $this.addClass('active');
         }
-        return false;
+        e.preventDefault();
 
         /*var $parents = $this.parents('.item.active');
         var $menu = $this.parents('.menu');
@@ -58,7 +58,7 @@ $(function(){
                     var l = $parents.length - 1;
                     for (l; l>-1; l--) {
                         if (dom.innerHTML == $parents[l].innerHTML) {
-                            return false;
+                            e.preventDefault();
                         }
                     }
                     return true;
@@ -196,6 +196,7 @@ $(function(){
      * chart 图表
      */
     $(document).on('click', '[data-efc-target]', function(e) {
+        var $this = $(this);
         var $target = $(this.getAttribute('data-efc-target'));
         var frame = $target.find('iframe')[0];
         var symbol = this.getAttribute('data-efc-symbol');
@@ -203,16 +204,16 @@ $(function(){
         var type = this.getAttribute('data-efc-type');
         if (symbol) {
             frame.src = frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + symbol + '$1');
-            $target.find('[data-efc-symbol].active').removeClass('active');
-            $(this).addClass('active');
+            $this.parent().find('[data-efc-symbol].active').removeClass('active');
+            $this.addClass('active');
         } else if (interval) {
             frame.src = frame.src.replace(/interval=\w+(&)?/, 'interval=' + interval + '$1');
-            $target.find('[data-efc-interval].active').removeClass('active');
-            $(this).addClass('active');
+            $this.parent().find('[data-efc-interval].active').removeClass('active');
+            $this.addClass('active');
         } else if (type) {
             //todo
         }
-        return false;
+        e.preventDefault();
     });
 
     /*
