@@ -37,9 +37,44 @@ class PostController extends ControllerBase
      *         @SWG\Parameter(
      *           name="q",
      *           description="Keyword",
-     *           paramType="path",
-     *           required=true,
+     *           paramType="query",
+     *           required=false,
      *           type="string"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="status",
+     *           description="Status, allow value : pending | published | deleted | draft",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="uid",
+     *           description="User ID",
+     *           paramType="query",
+     *           required=false,
+     *           type="int"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="cid",
+     *           description="Category ID",
+     *           paramType="query",
+     *           required=false,
+     *           type="int"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="order",
+     *           description="Order, allow value : +-id, +-created_at, default is -created_at",
+     *           paramType="query",
+     *           required=false,
+     *           type="string"
+     *         ),
+     *         @SWG\Parameter(
+     *           name="limit",
+     *           description="Limit max:100 | min:3; default is 25",
+     *           paramType="query",
+     *           required=false,
+     *           type="int"
      *         )
      *       )
      *     )
@@ -50,7 +85,7 @@ class PostController extends ControllerBase
     {
         $limit = $this->request->getQuery('limit', 'int', 25);
         $limit = $limit > 100 ? 100 : $limit;
-        $limit = $limit < 10 ? 10 : $limit;
+        $limit = $limit < 3 ? 3 : $limit;
         $orderMapping = array(
             'id' => 'id ASC',
             '-id' => 'id DESC',
@@ -88,8 +123,10 @@ class PostController extends ControllerBase
                 $postArray[] = $post->dump(Models\Post::$defaultDump);
             }
         }
-        $this->response->setContentType('application/json', 'utf-8');
-        return $this->response->setJsonContent($postArray);
+        return $this->response->setJsonContent(array(
+            'paginator' => $this->getApiPaginator($paginator),
+            'results' => $postArray,
+        ));
     }
 
     /**
@@ -136,7 +173,6 @@ class PostController extends ControllerBase
         }
         $this->response->setContentType('application/json', 'utf-8');
         return $this->response->setJsonContent($post);
-        //$format = $this->dispatcher->getParam('format');
     }
 
 
@@ -201,7 +237,6 @@ class PostController extends ControllerBase
          try {
              $post->updatePost($data);
              $data = $post->dump(Models\Post::$defaultDump);
-             $this->response->setContentType('application/json', 'utf-8');
              return $this->response->setJsonContent($data);
          } catch(\Exception $e) {
              return $this->errorHandler($e, $post->getMessages());
@@ -262,7 +297,6 @@ class PostController extends ControllerBase
         try {
             $post->createPost($data);
             $data = $post->dump(Models\Post::$defaultDump);
-            $this->response->setContentType('application/json', 'utf-8');
             return $this->response->setJsonContent($data);
         } catch(\Exception $e) {
             return $this->errorHandler($e, $post->getMessages());
@@ -303,7 +337,6 @@ class PostController extends ControllerBase
          $postinfo = $post->dump(Models\Post::$defaultDump);
          try {
              $post->removePost($id);
-             $this->response->setContentType('application/json', 'utf-8');
              return $this->response->setJsonContent($postinfo);
          } catch(\Exception $e) {
              return $this->errorHandler($e, $post->getMessages());
