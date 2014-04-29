@@ -16,7 +16,7 @@
         this.id = this.$target.attr('id') || 'fcl' + FCL_INDEX ++;
         this.itemIndex = 1;
         this.$clock = this.$target.find('.clock');
-
+        this.config = {};
         this.config.autoScroll = options.autoScroll;
         this.config.datepicker = options.datepicker;
         if (this.config.datepicker) {
@@ -33,7 +33,7 @@
 
         this.init(options);
     };
-    Fcl.prototype.config = {};
+
     Fcl.prototype.init = function(options) {
         if (this.config.scrollable) {
             this.$target.nanoScroller({
@@ -314,9 +314,14 @@
                 var $content = $target.children('.content');
                 var template = $target.find('script[data-template]').html();
                 var data = root.parseData(results);
-                var html = _.template(template, {
-                    records : data
-                });
+                //todo 空数据
+                var html = '';
+                if (data.length) {
+                    html = _.template(template, {
+                        records : data
+                    });
+                }
+
                 if (arg === 'prev') {
                     $content.prepend(html);
                 } else if (arg === 'next') {
@@ -350,7 +355,7 @@
                 //6
                 $target.removeClass('loading');
             },
-            failure: function() {
+            error: function() {
                 console.log('do it again!')
                 root.getData(start, end, arg);
             }

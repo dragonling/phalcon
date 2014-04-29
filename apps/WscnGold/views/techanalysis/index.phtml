@@ -1,0 +1,234 @@
+<div class="row relative">
+    <div class="span8">
+        <div id="tech-analysis" class="min-height-1000">
+            <div class="titlebar">
+                <a class="nav active" href="" data-ma-target="#tech-analysis" data-symbol="XAUUSD" >黄金</a>
+                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="XAGUSD">白银</a>
+                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="USDollarIndex">美元指数</a>
+                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="US10Year">美债</a>
+                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="USOil">原油</a>
+                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="SPX500">美国标股500</a>
+                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="JPN225">日经</a>
+                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="UKOil">布油</a>
+                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="Copper">铜</a>
+            </div>
+            <script type="text/template" data-template-target="#tech-analysis .datum">
+                <div data-trend="<%= trend %>">
+                    <h3 class="title"><%= title %></h3>
+                    <span class="update-time"><%= updateTime %></span>
+                    <h4 class="row">
+                        <span class="price"><%= price %></span>
+                        <span class="diff"><%= diff %></span>
+                        <span class="diff-pct"><%= diffPercent %></span>
+                    </h4>
+                    <div class="info row">
+                        <span class="meta"></span>
+                        <span class="label">昨收：</span>
+                        <span class="value"><%= prevClose %></span>
+                        <span class="label">开盘：</span>
+                        <span class="value"><%= open %></span>
+                        <div class="right">
+                            <span class="label">每日幅度</span>
+                            <span class="value"></span>
+                        </div>
+                    </div>
+                </div>
+            </script>
+            <div class="datum">
+                <div data-trend="up">
+                    <h3 class="title">黄金 - Apr 14 (GCJ4)</h3>
+                    <h4 class="row">
+                        <span class="price">1,394.10</span>
+                        <span class="diff">2.55</span>
+                        <span class="diff-pct">1.23%</span>
+                    </h4>
+                    <div class="info row">
+                        <span class="meta">10:28:06 - 实时数据 CFD. USD 货币 ( 免责声明 )</span>
+                        <span class="label">昨收：</span>
+                        <span class="value">1,325.00</span>
+                        <span class="label">开盘：</span>
+                        <span class="value">1,255.00</span>
+                        <div class="right">
+                            <span class="label">每日幅度</span>
+                            <span class="value">1,355.30 - 1,360.10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabpanel">
+                <div class="tabbar">
+                    <a class="tab" href="">1分钟</a>
+                    <a class="tab" href="">5分钟</a>
+                    <a class="tab" href="">15分钟</a>
+                    <a class="tab" href="">30分钟</a>
+                    <a class="tab active" href="">每小时</a>
+                    <a class="tab" href="">5小时</a>
+                    <a class="tab" href="">每日</a>
+                    <a class="tab" href="">每月</a>
+                </div>
+                <ul class="content">
+                    <li class="panel"></li>
+                    <li class="panel"></li>
+                    <li class="panel"></li>
+                    <li class="panel"></li>
+                    <li class="panel active">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td class="text-bold">移动平均指数:</td>
+                                <td class="text-red">购买</td>
+                                <td>购买（7）</td>
+                                <td>出售（5）</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold">技术指标:</td>
+                                <td class="text-red">正面</td>
+                                <td>购买（7）</td>
+                                <td>出售（5）</td>
+                            </tr>
+                            <tr>
+                                <td class="text-bold">建议:</td>
+                                <td class="text-red">购买</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <h2 class="main-title">枢轴点</h2>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td class="text-blue" colspan="8">2014年3月19日 01:09 GMT</td>
+                            </tr>
+                            <tr>
+                                <th>名字</th>
+                                <th class="width-50 text-right">S1</th>
+                                <th class="width-50 text-right">S2</th>
+                                <th class="width-50 text-right">S3</th>
+                                <th class="width-50 text-right text-blue">轴点</th>
+                                <th class="width-50 text-right">R1</th>
+                                <th class="width-50 text-right">R2</th>
+                                <th class="width-50 text-right">R3</th>
+                            </tr>
+                            <tr>
+                                <td class="text-gray">经典</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right text-blue">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                            </tr>
+                            <tr>
+                                <td class="text-gray">斐波纳契</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right text-blue">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                            </tr>
+                            <tr>
+                                <td class="text-gray">卡玛利拉</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right text-blue">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                            </tr>
+                            <tr>
+                                <td class="text-gray">卡玛利拉</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right text-blue">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                            </tr>
+                            <tr>
+                                <td class="text-gray">丹麦</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right text-blue">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                                <td class="width-50 text-right">1354.56</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="span width-355">
+                                <h2 class="main-title">技术指标</h2>
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-blue" colspan="3">2014年3月19日 01:09 GMT</td>
+                                    </tr>
+                                    <tr>
+                                        <th>符号</th>
+                                        <th class="width-50 text-right">价值</th>
+                                        <th class="width-50 text-right">操作</th>
+                                    </tr>
+                                    <tr>
+                                        <td>RSI（14）</td>
+                                        <td class="width-50 text-right">54.06</td>
+                                        <td class="width-50 text-right">出售</td>
+                                    </tr>
+                                    <tr>
+                                        <td>RSI（14）</td>
+                                        <td class="width-50 text-right">54.06</td>
+                                        <td class="width-50 text-right">出售</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="span width-355 right">
+                                <h2 class="main-title">移动平均指数</h2>
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-blue" colspan="3">2014年3月19日 01:09 GMT</td>
+                                    </tr>
+                                    <tr>
+                                        <th>日期</th>
+                                        <th class="width-50 text-right">标准</th>
+                                        <th class="width-50 text-right">移动</th>
+                                    </tr>
+                                    <tr>
+                                        <td>MA5</td>
+                                        <td class="width-50 text-right">1360.06
+                                            <br/><span class="text-green">出售</span>
+                                        </td>
+                                        <td class="width-50 text-right">1360.87
+                                            <br/><span class="text-green">出售</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>MA10</td>
+                                        <td class="width-50 text-right">1360.06
+                                            <br/><span class="text-green">出售</span>
+                                        </td>
+                                        <td class="width-50 text-right">1360.87
+                                            <br/><span class="text-green">出售</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="panel"></li>
+                    <li class="panel"></li>
+                    <li class="panel"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <?$this->partial("partial/sidebar", array())?>
+</div>

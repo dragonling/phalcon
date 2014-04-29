@@ -219,7 +219,7 @@
                     if (root.lnlType === 'paging') {
                         day = moment().format('DDD');
                     } else {
-                        var $date = $content.children('.date:last');
+                        var $date = $content.find('.date:last');
                         if ($date.length) {
                             day = $date.attr('data-day');
                         }
@@ -246,7 +246,8 @@
                     callback();
                 }
             },
-            failure: function() {
+            error: function() {
+                console.log('load the livenews list again!!!!!');
                 root.loadPage(page, callback);
             }
         });
@@ -267,7 +268,7 @@
                     callback();
                 }
             },
-            failure: function() {
+            error: function() {
                 root.count(callback);
             }
         });
@@ -331,7 +332,7 @@
                     defaultPage: 1
                 });
             },
-            failure: function() {
+            error: function() {
                 root.paging();
             }
         });

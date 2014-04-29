@@ -46,7 +46,7 @@
             </div>
             <div data-chart>
                 <div class="toolbar">
-                    <div data-efc-target="#market [data-chart]" data-efc-type="k" class="button">K线图</div>
+                    <div data-efc-target="#market [data-chart]" data-efc-type="k" class="button active">K线图</div>
                     <div data-efc-target="#market [data-chart]" data-efc-type="t" class="button">分时图</div>
                     <div class="line vertical"></div>
                     <div data-efc-target="#market [data-chart]" data-efc-interval="1"  class="button">1</div>
@@ -63,20 +63,20 @@
                         src="http://markets.wallstreetcn.com/embed/chart?symbol=XAUUSD&theme=dark&width=590&height=270&rows=50&interval=30"></iframe>
             </div>
         </div>
-        <div class="content" >
+        <div class="content tabpanel">
             <ul class="menu" data-market>
-                <li class="tab item active" data-efc-symbol="" data-efc-target="">
+                <li data-toggle="tab" data-tab-index="1" class="tab item active">
                     <span class="text">ETF持仓</span>
                 </li>
-                <li class="tab item" data-efc-symbol="" data-efc-target="">
+                <li data-toggle="tab" data-tab-index="2" class="tab item" >
                     <span class="text">CFTC持仓</span>
                 </li>
-                <li class="tab item" data-efc-symbol="" data-efc-target="">
+                <li data-toggle="tab" data-tab-index="3" class="tab item" >
                     <span class="text">定盘价</span>
                 </li>
             </ul>
             <div data-quote>
-                <div class="active" data-type="etf">
+                <div data-tab-index="1" class="panel active" data-type="etf">
                     <div class="chart"></div>
                     <div class="line"></div>
                     <table class="table">
@@ -128,7 +128,7 @@
                         </thead>
                     </table>
                 </div>
-                <div data-type="cftc">
+                <div data-tab-index="2" class="panel" data-type="cftc">
                     <div class="chart"></div>
                     <div class="line"></div>
                     <table class="table">
@@ -180,7 +180,7 @@
                         </thead>
                     </table>
                 </div>
-                <div data-type="fixing">
+                <div data-tab-index="3" class="panel" data-type="fixing">
                     <table class="table">
                         <thead class="head">
                         <tr>

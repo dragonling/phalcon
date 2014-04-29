@@ -59,7 +59,7 @@ var mam = {
                     root.updateData(symbol, $target);
                 }, 1000*10);
             },
-            failure: function() {
+            error: function() {
                 root.showData(symbol, $target);
             }
         });

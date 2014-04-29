@@ -250,26 +250,8 @@ input {
 .row > .offset11 {
   margin-left: 91.66666667%;
 }
-.width-80 {
-  width: 80px;
-}
-.width-100 {
-  width: 100px;
-}
-.width-120 {
-  width: 120px;
-}
-.width-160 {
-  width: 160px;
-}
-.width-180 {
-  width: 180px;
-}
-.width-200 {
-  width: 200px;
-}
-.width-250 {
-  width: 250px;
+.min-height-1000 {
+  min-height: 1000px;
 }
 .left {
   float: left;
@@ -280,8 +262,38 @@ input {
 .text-left {
   text-align: left;
 }
+.text-center {
+  text-align: center;
+}
 .text-right {
   text-align: right;
+}
+.text-blue {
+  color: #005178;
+}
+.text-red {
+  color: #ff3232;
+}
+.text-green {
+  color: #00cb32;
+}
+.text-gray {
+  color: #505050;
+}
+.text-bold {
+  font-weight: bold;
+}
+.bg-red {
+  background-color: #ff3232;
+}
+.bg-green {
+  background-color: #00cb32;
+}
+.bg-gray {
+  background-color: #505050;
+}
+.width-50 {
+  width: 50px;
 }
 .nano > .nano-pane {
   top: 5px;
@@ -432,9 +444,6 @@ label.checkbox.right {
 .loading .loader {
   display: block;
 }
-.tabpanel {
-  width: 100%;
-}
 .tabpanel > .tabbar:before {
   display: table;
   content: '';
@@ -455,8 +464,6 @@ label.checkbox.right {
 }
 .tabpanel > .content > .panel {
   display: none;
-  width: 100%;
-  height: 100%;
 }
 .tabpanel > .content > .panel.active {
   display: block;
@@ -476,6 +483,19 @@ label.checkbox.right {
 }
 .tabpanel.type1 > .tabbar > .tab.active {
   color: #005178;
+  position: relative;
+}
+.tabpanel.type1 > .tabbar > .tab.active:after {
+  display: block;
+  position: absolute;
+  background: url(../img/icon/arrow_up.png) 0 0 no-repeat;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  content: "";
+  width: 11px;
+  height: 8px;
 }
 .tabpanel.type1 > .content {
   border: none;
@@ -1653,7 +1673,7 @@ td.datepickerSpecial.datepickerSelected a {
 #finance-calendar > .toolbar .checkbox [type=checkbox] {
   margin-top: 5px;
 }
-#finance-calendar > .toolbar .checkbox .flag {
+#finance-calendar > .toolbar .checkbox .custom-flag {
   width: 30px;
   height: 30px;
   float: right;
@@ -1675,14 +1695,6 @@ td.datepickerSpecial.datepickerSelected a {
   padding: 6px 0;
   vertical-align: middle;
   padding-right: 30px;
-  /*&.first-child,
-                &:first-child {
-                    padding-left: 30px;
-                }
-                &.last-child,
-                &:last-child {
-                    padding-right: 30px;
-                }*/
 }
 #finance-calendar > .content table th:first-child,
 #finance-calendar > .content table td:first-child {
@@ -1977,13 +1989,14 @@ td.datepickerSpecial.datepickerSelected a {
 #market [data-chart] .toolbar .button:first-child {
   margin-left: 0;
 }
+#market [data-chart] .toolbar .button:hover,
 #market [data-chart] .toolbar .button.active {
   color: #fff;
   background-color: #323232;
 }
 #market [data-chart] .toolbar .button[data-efc-type] {
   width: 50px;
-  border-radius: 8px;
+  border-radius: 0;
 }
 #market [data-chart] .toolbar .line.vertical {
   width: 0;
@@ -2009,6 +2022,156 @@ td.datepickerSpecial.datepickerSelected a {
   background-color: #ecf2f6;
   padding: 30px;
   border-top: 1px solid #fff;
+}
+#tech-analysis {
+  padding: 30px;
+  background-color: #fff;
+}
+#tech-analysis .width-355 {
+  width: 355px;
+}
+#tech-analysis .titlebar {
+  border-bottom: 1px solid #b4b4b4;
+  padding-left: 15px;
+  color: #000;
+}
+#tech-analysis .titlebar .nav {
+  display: block;
+  position: relative;
+  float: left;
+  font-size: 14px;
+  line-height: 14px;
+  padding: 0 15px;
+  margin-bottom: 15px;
+  border-left: 1px solid #b4b4b4;
+}
+#tech-analysis .titlebar .nav:first-child {
+  border-left: none;
+}
+#tech-analysis .titlebar .nav:hover,
+#tech-analysis .titlebar .nav.active {
+  color: #005178;
+}
+#tech-analysis .titlebar .nav.active:after {
+  display: block;
+  position: absolute;
+  background: url(../img/icon/arrow_up.png) 0 0 no-repeat;
+  bottom: -16px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  content: "";
+  width: 11px;
+  height: 8px;
+}
+#tech-analysis .main-title {
+  padding-left: 30px;
+  line-height: 32px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #fff;
+  background-color: #323232;
+}
+#tech-analysis .datum {
+  padding: 15px 30px;
+  height: 75px;
+  border-bottom: 1px solid #b4b4b4;
+}
+#tech-analysis .datum .title {
+  color: #505050;
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+#tech-analysis .datum .price {
+  font-size: 20px;
+  margin-right: 20px;
+}
+#tech-analysis .datum .diff,
+#tech-analysis .datum .diff-pct {
+  font-size: 16px;
+  margin-right: 10px;
+}
+#tech-analysis .datum .info {
+  font-size: 12px;
+  margin-top: 10px;
+}
+#tech-analysis .datum .info .meta {
+  color: #969696;
+}
+#tech-analysis .datum .info .label {
+  color: #323232;
+  margin-left: 20px;
+}
+#tech-analysis .datum .info .value {
+  color: #005178;
+}
+#tech-analysis .datum [data-trend="up"] .diff,
+#tech-analysis .datum [data-trend="up"] .diff-pct {
+  color: #ff3232;
+}
+#tech-analysis .datum [data-trend="down"] .diff,
+#tech-analysis .datum [data-trend="down"] .diff-pct {
+  color: #00cb32;
+}
+#tech-analysis .tabbar {
+  padding: 15px;
+}
+#tech-analysis .tabbar .tab {
+  font-size: 12px;
+  width: 50px;
+  height: 25px;
+  line-height: 25px;
+  margin-left: 15px;
+  border-radius: 5px;
+  text-align: center;
+  color: #000;
+}
+#tech-analysis .tabbar .tab:hover,
+#tech-analysis .tabbar .tab.active {
+  color: #fff;
+  background-color: #005178;
+}
+#tech-analysis .table {
+  width: 100%;
+  font-size: 12px;
+  line-height: 24px;
+  color: #000;
+  background-color: #e6e6e6;
+  margin-bottom: 30px;
+}
+#tech-analysis .table th,
+#tech-analysis .table td {
+  text-align: left;
+  padding: 6px 0;
+  vertical-align: middle;
+  padding-right: 30px;
+}
+#tech-analysis .table th:first-child,
+#tech-analysis .table td:first-child {
+  padding-left: 30px;
+}
+#tech-analysis .table .text-left {
+  text-align: left;
+}
+#tech-analysis .table .text-center {
+  text-align: center;
+}
+#tech-analysis .table .text-right {
+  text-align: right;
+}
+#tech-analysis .table tr.even-of-child {
+  background-color: #f2f2f2;
+}
+#tech-analysis .table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+#tech-analysis .table tr:hover {
+  background-color: #c8dce6;
+}
+#tech-analysis .table th {
+  color: #323232;
+  font-weight: bold;
 }
 #main {
   background-color: #fff;

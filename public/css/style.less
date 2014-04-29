@@ -1,3 +1,19 @@
+@black:#1e1e1e;
+@gray: #323232;
+@blue: #005178;
+@skyblue: #068cb5;
+@lightBlue: #07bae8;
+@borderColor: #ccc;
+@color1: #343434;
+@red: #ff3232;
+@green: #00cb32;
+
+@upColor: @red;
+@downColor: @green;
+
+@riseColor: @red;
+@fallColor: @green;
+
 //YUI css reset
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {padding: 0;margin: 0;}
 table {border-collapse: collapse;border-spacing: 0;}
@@ -194,26 +210,9 @@ button,select,input {
         margin-left: percentage(11/12);
     }
 }
-.width-80 {
-    width: 80px;
-}
-.width-100 {
-    width: 100px;
-}
-.width-120 {
-    width: 120px;
-}
-.width-160 {
-    width: 160px;
-}
-.width-180 {
-    width: 180px;
-}
-.width-200 {
-    width: 200px;
-}
-.width-250 {
-    width: 250px;
+
+.min-height-1000 {
+    min-height: 1000px;
 }
 
 .left {
@@ -225,24 +224,42 @@ button,select,input {
 .text-left {
     text-align: left;
 }
+.text-center {
+    text-align: center;
+}
 .text-right {
     text-align: right;
 }
 
-@black:#1e1e1e;
-@gray: #323232;
-@blue: #005178;
-@skyblue: #068cb5;
-@lightBlue: #07bae8;
-@borderColor: #ccc;
-@color1: #343434;
-@red: #ff3232;
 
-@upColor: #ff3232;
-@downColor: #00cb32;
+.text-blue {
+    color: @blue;
+}
+.text-red {
+    color: @red;
+}
+.text-green {
+    color: @green;
+}
+.text-gray {
+    color: #505050;
+}
+.text-bold {
+    font-weight: bold;
+}
+.bg-red {
+    background-color: @red;
+}
+.bg-green {
+    background-color: @green;
+}
+.bg-gray {
+    background-color: #505050;
+}
+.width-50 {
+    width: 50px;
+}
 
-@riseColor: #ff3232;
-@fallColor: #00cb32;
 //自定义 nano scroller
 .nano > .nano-pane {
     top: 5px;
@@ -410,8 +427,6 @@ label.checkbox {
 }
 
 .tabpanel {
-    @borderColor: #b4b4b4;
-    width: 100%;
     &>.tabbar {
         .clearfix;
         &>.tab {
@@ -426,8 +441,6 @@ label.checkbox {
     &>.content{
         &>.panel {
             display: none;
-            width: 100%;
-            height: 100%;
             &.active {
                 display: block;
             }
@@ -449,6 +462,19 @@ label.checkbox {
             margin-right: 50px;
             &.active {
                 color: @blue;
+                position: relative;
+                &:after {
+                    display: block;
+                    position: absolute;
+                    background: url(../img/icon/arrow_up.png) 0 0 no-repeat;
+                    bottom: -1px;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    content: "";
+                    width: 11px;
+                    height: 8px;
+                }
             }
         }
     }
@@ -1632,7 +1658,7 @@ td.datepickerSpecial.datepickerSelected a {
             [type=checkbox] {
                 margin-top: 5px;
             }
-            .flag {
+            .custom-flag {
                 width: 30px;
                 height: 30px;
                 float: right;
@@ -1666,14 +1692,6 @@ td.datepickerSpecial.datepickerSelected a {
                 &:first-child {
                     padding-left: 30px;
                 }
-                /*&.first-child,
-                &:first-child {
-                    padding-left: 30px;
-                }
-                &.last-child,
-                &:last-child {
-                    padding-right: 30px;
-                }*/
             }
             thead {
                 background-color: #e6e6e6;
@@ -1974,6 +1992,7 @@ td.datepickerSpecial.datepickerSelected a {
                 &:first-child {
                     margin-left: 0;
                 }
+                &:hover,
                 &.active {
                     color: #fff;
                     background-color: #323232;
@@ -1981,7 +2000,7 @@ td.datepickerSpecial.datepickerSelected a {
             }
             .button[data-efc-type] {
                 width: 50px;
-                border-radius: 8px;
+                border-radius: 0;
             }
             .line.vertical {
                 width: 0;
@@ -2009,6 +2028,173 @@ td.datepickerSpecial.datepickerSelected a {
         background-color: #ecf2f6;
         padding: 30px;
         border-top: 1px solid #fff;
+    }
+}
+
+#tech-analysis {
+    @borderColor: #b4b4b4;
+    padding: 30px;
+    background-color: #fff;
+
+    .width-355 {
+        width: 355px;
+    }
+    .titlebar {
+        border-bottom: 1px solid @borderColor;
+        padding-left: 15px;
+        color: #000;
+        .nav {
+            display: block;
+            position: relative;
+            float: left;
+            font-size: 14px;
+            line-height: 14px;
+            padding: 0 15px;
+            margin-bottom: 15px;
+            border-left: 1px solid @borderColor;
+            &:first-child {
+                border-left: none;
+            }
+            &:hover,
+            &.active {
+                color: @blue;
+            }
+            &.active:after {
+                display: block;
+                position: absolute;
+                background: url(../img/icon/arrow_up.png) 0 0 no-repeat;
+                bottom: -16px;
+                left: 0;
+                right: 0;
+                margin: auto;
+                content: "";
+                width: 11px;
+                height: 8px;
+            }
+        }
+    }
+    .main-title {
+        padding-left: 30px;
+        line-height: 32px;
+        font-size: 16px;
+        font-weight: normal;
+        color: #fff;
+        background-color: #323232;
+    }
+    .datum {
+        padding: 15px 30px;
+        height: 75px;
+        border-bottom: 1px solid @borderColor;
+        .title {
+            color: #505050;
+            font-size: 16px;
+            font-weight: normal;
+            margin-bottom: 8px;
+        }
+        .price {
+            font-size: 20px;
+            margin-right: 20px;
+        }
+        .diff,
+        .diff-pct {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .info {
+            font-size: 12px;
+            margin-top: 10px;
+            .meta {
+                color: #969696;
+            }
+            .label {
+                color: #323232;
+                margin-left: 20px;
+            }
+            .value {
+                color: @blue;
+            }
+        }
+        [data-trend="up"] {
+            .diff,
+            .diff-pct {
+                color: @upColor;
+            }
+        }
+        [data-trend="down"] {
+            .diff,
+            .diff-pct {
+                color: @downColor;
+            }
+        }
+    }
+    .tabbar {
+        padding: 15px;
+        .tab {
+            font-size: 12px;
+            width: 50px;
+            height: 25px;
+            line-height: 25px;
+            margin-left: 15px;
+            border-radius: 5px;
+            text-align: center;
+            color: #000;
+            &:hover,
+            &.active {
+                color: #fff;
+                background-color: @blue;
+            }
+        }
+    }
+    .table {
+        width: 100%;
+        font-size: 12px;
+        line-height: 24px;
+        color: #000;
+        background-color: #e6e6e6;
+        margin-bottom: 30px;
+
+        th,td {
+            text-align: left;
+            padding: 6px 0;
+            vertical-align: middle;
+            padding-right: 30px;
+            &:first-child {
+                padding-left: 30px;
+            }
+        }
+        .text-left {
+            text-align: left;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-right {
+            text-align: right;
+        }
+        tr.even-of-child {
+            //background-color: #e6e6e6;
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #c8dce6;
+        }
+        th {
+            color: #323232;
+            font-weight: bold;
+        }
+
+        .cell1 {
+
+        }
+        .cell2 {
+
+        }
+        .cell3 {
+
+        }
     }
 }
 
