@@ -48,11 +48,11 @@ return array(
         'module' => 'WscnGold',
         'controller' => 'techanalysis',
     ), 
-    '/techanalysis/:action(/(\d+))*' =>  array(
+    '/techanalysis/:action(/(\w+))*' =>  array(
         'module' => 'WscnGold',
         'controller' => 'techanalysis',
-        'action' => 1,
-        'id' => 3,
+        'symbol' => 1,
+        'period' => 3,
     ),
 );
 

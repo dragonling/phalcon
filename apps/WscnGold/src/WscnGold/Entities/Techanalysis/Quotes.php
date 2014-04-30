@@ -20,12 +20,6 @@ class Quotes extends \Eva\EvaEngine\Mvc\Model
      
     /**
      *
-     * @var integer
-     */
-    public $updateTime;
-     
-    /**
-     *
      * @var string
      */
     public $status;
@@ -49,6 +43,54 @@ class Quotes extends \Eva\EvaEngine\Mvc\Model
     public $tag;
      
     /**
+     *
+     * @var string
+     */
+    public $period1m;
+     
+    /**
+     *
+     * @var string
+     */
+    public $period5m;
+     
+    /**
+     *
+     * @var string
+     */
+    public $period15m;
+     
+    /**
+     *
+     * @var string
+     */
+    public $period30m;
+     
+    /**
+     *
+     * @var string
+     */
+    public $period1h;
+     
+    /**
+     *
+     * @var string
+     */
+    public $period5h;
+     
+    /**
+     *
+     * @var string
+     */
+    public $period1d;
+     
+    /**
+     *
+     * @var string
+     */
+    public $periodmn;
+     
+    /**
      * Independent Column Mapping.
      */
     public function columnMap()
@@ -56,14 +98,20 @@ class Quotes extends \Eva\EvaEngine\Mvc\Model
         return array(
             'id' => 'id', 
             'symbol' => 'symbol', 
-            'updateTime' => 'updateTime', 
             'status' => 'status', 
             'title' => 'title', 
             'type' => 'type', 
-            'tag' => 'tag'
+            'tag' => 'tag', 
+            'period1m' => 'period1m', 
+            'period5m' => 'period5m', 
+            'period15m' => 'period15m', 
+            'period30m' => 'period30m', 
+            'period1h' => 'period1h', 
+            'period5h' => 'period5h', 
+            'period1d' => 'period1d', 
+            'periodmn' => 'periodmn'
         );
     }
-
 
     public function initialize()
     {
