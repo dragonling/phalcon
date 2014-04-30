@@ -7,7 +7,7 @@
 @color1: #343434;
 @red: #ff3232;
 @green: #00cb32;
-
+@color-red: #ff3232;
 @upColor: @red;
 @downColor: @green;
 
@@ -221,6 +221,16 @@ button,select,input {
 .right {
     float: right;
 }
+.absolute.right {
+    right: 0;
+}
+.top {
+    top: 0;
+}
+.bottom {
+    bottom: 0;
+}
+
 .text-left {
     text-align: left;
 }
@@ -256,6 +266,17 @@ button,select,input {
 .bg-gray {
     background-color: #505050;
 }
+.border-red {
+    border-color: @red;
+}
+.border-green {
+    border-color: @green;
+}
+.border-gray {
+    border-color: #505050;
+}
+
+
 .width-50 {
     width: 50px;
 }
@@ -2039,6 +2060,29 @@ td.datepickerSpecial.datepickerSelected a {
     .width-355 {
         width: 355px;
     }
+    .indicator {
+        display: block;
+        float: left;
+        font-weight: bold;
+        border-bottom-style: solid;
+        border-bottom-width: 6px;
+    }
+    .indicator-info {
+        font-size: 12px;
+        height: 16px;
+        line-height: 16px;
+        margin-top: 10px;
+        .icon {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-bottom: 1px;
+        }
+        .text {
+            color: #808080;
+            margin: 0 10px;
+        }
+    }
     .titlebar {
         border-bottom: 1px solid @borderColor;
         padding-left: 15px;
@@ -2089,31 +2133,36 @@ td.datepickerSpecial.datepickerSelected a {
             color: #505050;
             font-size: 16px;
             font-weight: normal;
-            margin-bottom: 8px;
+        }
+        .meta {
+            font-size: 12px;
+            margin: 10px 0 6px;
+            color: #969696;
         }
         .price {
-            font-size: 20px;
-            margin-right: 20px;
-        }
-        .diff,
-        .diff-pct {
-            font-size: 16px;
-            margin-right: 10px;
-        }
-        .info {
-            font-size: 12px;
-            margin-top: 10px;
-            .meta {
-                color: #969696;
+            .current {
+                font-size: 20px;
+                margin-right: 20px;
+            }
+            .diff,
+            .diff-pct {
+                font-size: 16px;
+                margin-right: 10px;
             }
             .label {
                 color: #323232;
+                font-size: 12px;
                 margin-left: 20px;
             }
             .value {
+                font-size: 12px;
                 color: @blue;
             }
+            .bottom {
+                bottom: 5px;
+            }
         }
+
         [data-trend="up"] {
             .diff,
             .diff-pct {

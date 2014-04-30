@@ -1,54 +1,53 @@
 <div class="row relative">
     <div class="span8">
-        <div id="tech-analysis" class="min-height-1000">
+        <div id="tech-analysis" data-rtq data-rtq-option="update-time-format: HH:mm:ss; format-price: true; symbol-event: false;" class="min-height-1000">
             <div class="titlebar">
-                <a class="nav active" href="" data-ma-target="#tech-analysis" data-symbol="XAUUSD" >黄金</a>
-                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="XAGUSD">白银</a>
-                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="USDollarIndex">美元指数</a>
-                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="US10Year">美债</a>
-                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="USOil">原油</a>
-                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="SPX500">美国标股500</a>
-                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="JPN225">日经</a>
-                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="UKOil">布油</a>
-                <a class="nav" href="" data-ma-target="#tech-analysis" data-symbol="Copper">铜</a>
+                <a class="nav active" href=""  data-rtq-symbol="XAUUSD" >黄金</a>
+                <a class="nav" href=""  data-rtq-symbol="XAGUSD">白银</a>
+                <a class="nav" href=""  data-rtq-symbol="USDollarIndex">美元指数</a>
+                <a class="nav" href=""  data-rtq-symbol="US10Year">美债</a>
+                <a class="nav" href=""  data-rtq-symbol="USOil">原油</a>
+                <a class="nav" href=""  data-rtq-symbol="SPX500">美国标股500</a>
+                <a class="nav" href=""  data-rtq-symbol="JPN225">日经</a>
+                <a class="nav" href=""  data-rtq-symbol="UKOil">布油</a>
+                <a class="nav" href=""  data-rtq-symbol="Copper">铜</a>
             </div>
-            <script type="text/template" data-template-target="#tech-analysis .datum">
+            <script type="text/template" data-rtq-template>
                 <div data-trend="<%= trend %>">
                     <h3 class="title"><%= title %></h3>
-                    <span class="update-time"><%= updateTime %></span>
-                    <h4 class="row">
-                        <span class="price"><%= price %></span>
-                        <span class="diff"><%= diff %></span>
-                        <span class="diff-pct"><%= diffPercent %></span>
-                    </h4>
-                    <div class="info row">
-                        <span class="meta"></span>
-                        <span class="label">昨收：</span>
-                        <span class="value"><%= prevClose %></span>
-                        <span class="label">开盘：</span>
-                        <span class="value"><%= open %></span>
-                        <div class="right">
+                    <p class="meta"><%= updateTime %> - 实时数据 CFD. USD 货币 ( 免责声明 )</p>
+                    <div class="row relative price">
+                        <h4 class="left">
+                            <span class="current"><%= price %></span>
+                            <span class="diff"><%= diff %></span>
+                            <span class="diff-pct"><%= diffPercent %></span>
+                        </h4>
+                        <div class="absolute right bottom">
+                            <span class="label">昨收：</span>
+                            <span class="value"><%= prevClose %></span>
+                            <span class="label">开盘：</span>
+                            <span class="value"><%= open %></span>
                             <span class="label">每日幅度</span>
-                            <span class="value"></span>
+                            <span class="value"><%= low %> - <%= high %></span>
                         </div>
                     </div>
                 </div>
             </script>
-            <div class="datum">
+            <div class="datum" data-rtq-dom>
                 <div data-trend="up">
                     <h3 class="title">黄金 - Apr 14 (GCJ4)</h3>
-                    <h4 class="row">
-                        <span class="price">1,394.10</span>
-                        <span class="diff">2.55</span>
-                        <span class="diff-pct">1.23%</span>
-                    </h4>
-                    <div class="info row">
-                        <span class="meta">10:28:06 - 实时数据 CFD. USD 货币 ( 免责声明 )</span>
-                        <span class="label">昨收：</span>
-                        <span class="value">1,325.00</span>
-                        <span class="label">开盘：</span>
-                        <span class="value">1,255.00</span>
-                        <div class="right">
+                    <p class="meta">10:28:06 - 实时数据 CFD. USD 货币 ( 免责声明 )</p>
+                    <div class="row relative price">
+                        <h4 class="left">
+                            <span class="current">1,394.10</span>
+                            <span class="diff">2.55</span>
+                            <span class="diff-pct">1.23%</span>
+                        </h4>
+                        <div class="absolute right bottom">
+                            <span class="label">昨收：</span>
+                            <span class="value">1,325.00</span>
+                            <span class="label">开盘：</span>
+                            <span class="value">1,255.00</span>
                             <span class="label">每日幅度</span>
                             <span class="value">1,355.30 - 1,360.10</span>
                         </div>
@@ -185,6 +184,27 @@
                                         <td class="width-50 text-right">54.06</td>
                                         <td class="width-50 text-right">出售</td>
                                     </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="row">
+                                                <div class="indicator text-left border-green" style="width: 50%">5</div>
+                                                <div class="indicator text-center border-gray" style="width: 30%">3</div>
+                                                <div class="indicator text-right border-red" style="width: 20%">2</div>
+                                            </div>
+                                            <div class="indicator-info">
+                                                <span class="icon bg-green"></span>
+                                                <span class="text">出售</span>
+                                                <span class="icon bg-gray"></span>
+                                                <span class="text">中性</span>
+                                                <span class="icon bg-red"></span>
+                                                <span class="text">购买</span>
+                                                <div class="text-bold right">
+                                                    <span class="text-gray">建议：</span>
+                                                    <span class="text-green">出售</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -202,20 +222,45 @@
                                     </tr>
                                     <tr>
                                         <td>MA5</td>
-                                        <td class="width-50 text-right">1360.06
-                                            <br/><span class="text-green">出售</span>
+                                        <td class="width-50 text-right">
+                                            <div>1360.06</div>
+                                            <div class="text-green">出售</div>
                                         </td>
-                                        <td class="width-50 text-right">1360.87
-                                            <br/><span class="text-green">出售</span>
+                                        <td class="width-50 text-right">
+                                            <div>1360.87</div>
+                                            <div class="text-green">出售</div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>MA10</td>
-                                        <td class="width-50 text-right">1360.06
-                                            <br/><span class="text-green">出售</span>
+                                        <td class="width-50 text-right">
+                                            <div>1360.06</div>
+                                            <div class="text-green">出售</div>
                                         </td>
-                                        <td class="width-50 text-right">1360.87
-                                            <br/><span class="text-green">出售</span>
+                                        <td class="width-50 text-right">
+                                            <div>1360.87</div>
+                                            <div class="text-green">出售</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="row">
+                                                <div class="indicator text-left border-green" style="width: 45%">9</div>
+                                                <div class="indicator text-center border-gray" style="width: 30%">6</div>
+                                                <div class="indicator text-right border-red" style="width: 25%">5</div>
+                                            </div>
+                                            <div class="indicator-info">
+                                                <span class="icon bg-green"></span>
+                                                <span class="text">出售</span>
+                                                <span class="icon bg-gray"></span>
+                                                <span class="text">中性</span>
+                                                <span class="icon bg-red"></span>
+                                                <span class="text">购买</span>
+                                                <div class="text-bold right">
+                                                    <span class="text-gray">建议：</span>
+                                                    <span class="text-green">负面</span>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>

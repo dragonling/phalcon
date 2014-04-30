@@ -6,7 +6,10 @@
 
     function Lnl(options) {
         //todo 添加默认config 到 原型中，所有的配置放在config中
+        this.config = {};
         this.$target = options.$target;
+        this.$content = this.$target.children('.content');
+        this.$script = this.$target.find('script[data-template]');
 
         this.autoRefresh = options.autoRefresh === false ? false : true;
         this.scrollable = options.scrollable === false ? false : true;
@@ -24,7 +27,7 @@
         this.init(options);
 
     };
-    Lnl.prototype.config = {};
+
     Lnl.prototype.init = function(options) {
         this.initData();
         this.initEvent();
@@ -194,11 +197,13 @@
     Lnl.prototype.loadPage = function(page, callback) {
         var root = this;
         var $target = root.$target;
+        var $content = root.$content;
+        var $script = root.$script;
         if ($target.hasClass('loading')) {
             return;
         }
         $target.addClass('loading');
-        var $content = $target.children('.content');
+
         if (root.lnlType === 'paging') {
             $content.html('');
         }
@@ -224,7 +229,6 @@
                             day = $date.attr('data-day');
                         }
                     }
-                    var $script = $target.find('script[data-template]');
                     var html = _.template($script.html(), {
                         records: data,
                         day: day
@@ -390,11 +394,11 @@
         if (! this.length) {
             return;
         }
-        if (this.attr('data-lnl-init') === 'initialized') {
+        if (this.attr('data-lnl') === 'initialized') {
             return;
         }
         var $this = this;
-        $this.attr('data-lnl-init', 'initialized');
+        $this.attr('data-lnl', 'initialized');
         var options = {
             $target: $this
         };

@@ -500,11 +500,11 @@
         if (! this.length) {
             return;
         }
-        if (this.attr('data-fcl-init') === 'initialized') {
+        if (this.attr('data-fcl') === 'initialized') {
             return;
         }
         var $this = this;
-        $this.attr('data-fcl-init', 'initialized');
+        $this.attr('data-fcl', 'initialized');
         var options = {
             $target: $this
         };

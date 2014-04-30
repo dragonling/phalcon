@@ -78,19 +78,19 @@
             <div class="row">
                 <h2 class="main-title">技术分析</h2>
 
-                <div id="analysis" class="market-analysis">
+                <div id="analysis" data-rtq class="market-analysis">
                     <div class="titlebar">
-                        <a data-ma-target="#analysis" data-ma-symbol="XAUUSD" class="link active" href="">黄金</a>
-                        <a data-ma-target="#analysis" data-ma-symbol="XAGUSD" class="link" href="">白银</a>
-                        <a data-ma-target="#analysis" data-ma-symbol="USDollarIndex" class="link" href="">美元指数</a>
-                        <a data-ma-target="#analysis" data-ma-symbol="US10Year" class="link" href="">美债</a>
-                        <a data-ma-target="#analysis" data-ma-symbol="USOil" class="link" href="">原油</a>
-                        <a data-ma-target="#analysis" data-ma-symbol="SPX500" class="link" href="">美国标股500</a>
-                        <a data-ma-target="#analysis" data-ma-symbol="JPN225" class="link" href="">日经</a>
+                        <a  data-rtq-symbol="XAUUSD" class="link active" href="">黄金</a>
+                        <a  data-rtq-symbol="XAGUSD" class="link" href="">白银</a>
+                        <a  data-rtq-symbol="USDollarIndex" class="link" href="">美元指数</a>
+                        <a  data-rtq-symbol="US10Year" class="link" href="">美债</a>
+                        <a  data-rtq-symbol="USOil" class="link" href="">原油</a>
+                        <a  data-rtq-symbol="SPX500" class="link" href="">美国标股500</a>
+                        <a  data-rtq-symbol="JPN225" class="link" href="">日经</a>
                     </div>
                     <div class="content row">
 
-                        <script type="text/template" data-template-target="#analysis .datum">
+                        <script type="text/template" data-rtq-template>
                             <div data-trend="<%= trend %>">
                                 <span class="update-time"><%= updateTime %></span>
                                 <span class="close-price">昨收：<%= prevClose %></span>
@@ -99,7 +99,7 @@
                             </div>
                         </script>
 
-                        <div class="datum"></div>
+                        <div class="datum" data-rtq-dom></div>
 
                         <div class="span overview">
 
@@ -686,19 +686,18 @@
                     <h2 class="title">技术分析</h2>
                     <div class="button" data-toggle="hide" data-hide-target="#modal-analysis" data-expand-target="#stare-fcl"><i class="icon-custom"></i></div>
                 </div> <!--head end-->
-                <div id="modal-analysis" class="market-analysis">
+                <div id="modal-analysis" data-rtq class="market-analysis">
                     <div class="titlebar">
-                        <a data-ma-target="#modal-analysis" data-ma-symbol="XAUUSD" class="link active" href="">黄金</a>
-                        <a data-ma-target="#modal-analysis" data-ma-symbol="XAGUSD" class="link" href="">白银</a>
-                        <a data-ma-target="#modal-analysis" data-ma-symbol="USDollarIndex" class="link" href="">美元指数</a>
-                        <a data-ma-target="#modal-analysis" data-ma-symbol="US10Year" class="link" href="">美债</a>
-                        <a data-ma-target="#modal-analysis" data-ma-symbol="USOil" class="link" href="">原油</a>
-                        <a data-ma-target="#modal-analysis" data-ma-symbol="JPN225" class="link" href="">日经</a>
+                        <a  data-rtq-symbol="XAUUSD" class="link active" href="">黄金</a>
+                        <a  data-rtq-symbol="XAGUSD" class="link" href="">白银</a>
+                        <a  data-rtq-symbol="USDollarIndex" class="link" href="">美元指数</a>
+                        <a  data-rtq-symbol="US10Year" class="link" href="">美债</a>
+                        <a  data-rtq-symbol="USOil" class="link" href="">原油</a>
+                        <a  data-rtq-symbol="JPN225" class="link" href="">日经</a>
                     </div>
                     <div class="content">
 
-                        <script type="text/template" data-template-target="#modal-analysis .datum">
-
+                        <script type="text/template" data-rtq-template>
                             <div data-trend="<%= trend %>">
                                 <span class="update-time">更新时间：<%= updateTime %></span>
                                 <div class="row">
@@ -713,7 +712,7 @@
                             </div>
                         </script>
 
-                        <div class="datum"></div>
+                        <div class="datum" data-rtq-dom></div>
 
                         <div class="overview">
 

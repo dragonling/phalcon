@@ -191,7 +191,8 @@ $(function(){
     });
 
     //
-    mam.init();
+    //mam.init();
+    $('[data-rtq]').rtq();
     /**
      * chart 图表
      */
@@ -234,7 +235,7 @@ $(function(){
 
     function hideModal() {
         //todo
-        mam.initData();
+        //mam.initData();
         $modal.children('.panel.active').removeClass('active');
         $modal.hide();
     }
@@ -255,7 +256,7 @@ $(function(){
             }
         });
         //todo
-        mam.initData(true);
+        //mam.initData(true);
         $('#stare-livenews').lnl({
             heightChange: true
         });
