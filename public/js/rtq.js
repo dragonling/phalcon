@@ -10,6 +10,7 @@
         this.baseData = null;
         this.interval = null;
         this.config = {};
+        this.config.defaultSymbol = options.defaultSymbol;
         this.config.symbolEvent = options.symbolEvent === false ? false : true;
         this.config.formatPrice = options.formatPrice;
         this.config.updateTimeFormat = options.updateTimeFormat || 'YYYY年MM月DD日 HH:mm:ss';
@@ -17,33 +18,22 @@
         this.init();
     };
     Rtq.prototype.init = function() {
-        var $active = this.$target.find('[data-rtq-symbol].active');
-        var symbol = $active.attr('data-rtq-symbol');
-        this.showData(symbol);
+        this.initData();
+        this.initEvent();
     };
-    Rtq.prototype.initData = function(symbol) {
-        var root = this;
-        var $target = this.$target;
-        var $active = $target.find('[data-rtq-symbol].active');
-        $.ajax({
-            url: 'http://api.markets.wallstreetcn.com/v1/quote.json/' + symbol,
-            dataType: 'jsonp',
-            success: function(result) {
-                //清除之前的数据 并 取消 interval
-                root.clearData();
-                //
-                root.baseData = result['results'];
-                //显示数据
-                root.updateData(symbol);
-                //实时跟新数据
-                root.interval = setInterval(function(){
-                    root.updateData(symbol);
-                }, root.config.interval);
-            },
-            error: function() {
-                root.initData(symbol);
+    Rtq.prototype.initData = function() {
+        var $active = this.$target.find('[data-rtq-symbol].active');
+        if ($active.length) {
+            var symbol = $active.attr('data-rtq-symbol');
+        } else {
+            var symbol = this.config.defaultSymbol;
+            var match = location.href.match(/\/techanalysis\/\w+/);
+            if (match && match.length) {
+                symbol = match[0].substring('/techanalysis/'.length);
             }
-        });
+            this.$target.find('[data-rtq-symbol=' + symbol + ']').addClass('active');
+        }
+        this.showData(symbol);
     };
     Rtq.prototype.initEvent = function() {
         var root = this;
@@ -77,7 +67,7 @@
                 }, root.config.interval);
             },
             error: function() {
-                root.initData(symbol);
+                root.showData(symbol);
             }
         });
     };
@@ -169,21 +159,23 @@
         if (! this.length) {
             return;
         }
-        if (this.attr('data-rtq') === 'initialized') {
-            return;
+        for (var l = this.length - 1; l > -1; l --) {
+            var $this = $(this[l]);
+            if ($this.attr('data-rtq') === 'initialized') {
+                return;
+            }
+            $this.attr('data-rtq', 'initialized');
+            var options = {
+                $target: $this
+            };
+            var domOptions = {};
+            var str = $this.attr('data-rtq-option');
+            if (str) {
+                domOptions = tool.parseStringToObject(str);
+            }
+            $.extend(options, domOptions, inputOptions);
+            new Rtq(options);
         }
-        var $this = this;
-        $this.attr('data-rtq', 'initialized');
-        var options = {
-            $target: $this
-        };
-        var domOptions = {};
-        var str = $this.attr('data-rtq-option');
-        if (str) {
-            domOptions = tool.parseStringToObject(str);
-        }
-        $.extend(options, domOptions, inputOptions);
-        new Rtq(options);
     }
 
 })();

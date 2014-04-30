@@ -500,20 +500,22 @@
         if (! this.length) {
             return;
         }
-        if (this.attr('data-fcl') === 'initialized') {
-            return;
+        for (var l = this.length - 1; l > -1; l --) {
+            var $this = $(this[l]);
+            if ($this.attr('data-fcl') === 'initialized') {
+                return;
+            }
+            $this.attr('data-fcl', 'initialized');
+            var options = {
+                $target: $this
+            };
+            var domOptions = {};
+            var str = $this.attr('data-fcl-option');
+            if (str) {
+                domOptions = tool.parseStringToObject(str);
+            }
+            $.extend(options, domOptions, inputOptions);
+            new Fcl(options);
         }
-        var $this = this;
-        $this.attr('data-fcl', 'initialized');
-        var options = {
-            $target: $this
-        };
-        var domOptions = {};
-        var str = $this.attr('data-fcl-option');
-        if (str) {
-            domOptions = tool.parseStringToObject(str);
-        }
-        $.extend(options, domOptions, inputOptions);
-        new Fcl(options);
     };
 })();

@@ -389,26 +389,27 @@
 
     };
 
-
     $.fn.lnl = function(inputOptions) {
         if (! this.length) {
             return;
         }
-        if (this.attr('data-lnl') === 'initialized') {
-            return;
+        for (var l = this.length - 1; l > -1; l --) {
+            var $this = $(this[l]);
+            if ($this.attr('data-lnl') === 'initialized') {
+                return;
+            }
+            $this.attr('data-lnl', 'initialized');
+            var options = {
+                $target: $this
+            };
+            var domOptions = {};
+            var str = $this.attr('data-lnl-option');
+            if (str) {
+                domOptions = tool.parseStringToObject(str);
+            }
+            $.extend(options, domOptions, inputOptions);
+            new Lnl(options);
         }
-        var $this = this;
-        $this.attr('data-lnl', 'initialized');
-        var options = {
-            $target: $this
-        };
-        var domOptions = {};
-        var str = $this.attr('data-lnl-option');
-        if (str) {
-            domOptions = tool.parseStringToObject(str);
-        }
-        $.extend(options, domOptions, inputOptions);
-        new Lnl(options);
     }
 })();
 
