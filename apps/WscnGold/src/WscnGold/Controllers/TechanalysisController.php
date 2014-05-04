@@ -72,9 +72,11 @@ class TechanalysisController extends ControllerBase
         $this->view->setVar('quote', $quote);
         $periods = array('period1m', 'period5m', 'period15m', 'period30m', 'period1h', 'period5h', 'period1d', 'periodmn');
         foreach($periods as $periodkey) {
-        if(!empty($quote->$periodkey)) {
-            $data[$periodkey] = json_decode($quote->$periodkey, true);
-        }
+            if(!empty($quote->$periodkey)) {
+                $data[$periodkey] = json_decode($quote->$periodkey, true);
+            } else {
+                $data[$periodkey] = null;
+            }
         }
         $this->view->setVar('dataArray', $data);
         /*
