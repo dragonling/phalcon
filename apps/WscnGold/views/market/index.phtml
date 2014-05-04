@@ -1,47 +1,63 @@
 <div class="row relative">
-    <div id="market" class="span8">
+    <div id="market" class="span8" data-rtq data-rtq-option="update-time-format: HH:mm:ss; format-price: true;" >
         <div class="content">
             <ul class="menu first-item" data-market>
-                <li class="item active" data-efc-symbol="XAUUSD" data-efc-target="#market [data-chart]">
+                <li class="item active" data-rtq-symbol="XAUUSD" data-efc-symbol="XAUUSD" data-efc-target="#market [data-chart]">
                     <span class="text">黄金</span>
                 </li>
-                <li class="item" data-efc-symbol="XAGUSD" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="XAGUSD" data-efc-symbol="XAGUSD" data-efc-target="#market [data-chart]">
                     <span class="text">白银</span>
                 </li>
-                <li class="item" data-efc-symbol="USDollarIndex" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="USDollarIndex" data-efc-symbol="USDollarIndex" data-efc-target="#market [data-chart]">
                     <span class="text">美元指数</span>
                 </li>
-                <li class="item" data-efc-symbol="US10Year" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="US10Year" data-efc-symbol="US10Year" data-efc-target="#market [data-chart]">
                     <span class="text">美债</span>
                 </li>
-                <li class="item" data-efc-symbol="USOil" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="USOil" data-efc-symbol="USOil" data-efc-target="#market [data-chart]">
                     <span class="text">原油</span>
                 </li>
-                <li class="item" data-efc-symbol="SPX500" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="SPX500" data-efc-symbol="SPX500" data-efc-target="#market [data-chart]">
                     <span class="text">标普500</span>
                 </li>
-                <li class="item" data-efc-symbol="JPN225" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="JPN225" data-efc-symbol="JPN225" data-efc-target="#market [data-chart]">
                     <span class="text">日经</span>
                 </li>
-                <li class="item" data-efc-symbol="UKOil" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="UKOil" data-efc-symbol="UKOil" data-efc-target="#market [data-chart]">
                     <span class="text">布油</span>
                 </li>
-                <li class="item" data-efc-symbol="Copper" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="Copper" data-efc-symbol="Copper" data-efc-target="#market [data-chart]">
                     <span class="text">铜</span>
                 </li>
             </ul>
-            <div data-info>
-                <h2 class="title">黄金 - Apr 14 (GCJ4)</h2>
+            <script type="text/template" data-rtq-template>
+                <div data-trend="<%= trend %>">
+                    <h2 class="title"><%= title %></h2>
+                    <h3>
+                        <span class="price"><%= price %></span>
+                        <span class="diff"><%= diff %></span>
+                        <span class="diff-pct">(<%= diffPercent %>)</span>
+                    </h3>
+                    <div class="meta"><%= updateTime %> - 实时数据 CFD. USD 货币 ( 免责声明 )</div>
+                    <div data-price>
+                        <span class="label">昨收：</span><span class="value"><%= prevClose %></span>
+                        <span class="label">开盘：</span><span class="value"><%= open %></span>
+                        <span class="label">每日涨幅：</span><span class="value"><%= low %> - <%= high %></span>
+                    </div>
+                </div>
+            </script>
+            <div data-info data-rtq-dom>
+                <h2 class="title">N/A</h2>
                 <h3>
-                    <span class="price">1,327.19</span>
-                    <span class="diff">-4.01</span>
-                    <span class="diff-pct">(-0.35%)</span>
+                    <span class="price">N/A</span>
+                    <span class="diff">N/A</span>
+                    <span class="diff-pct">(N/A)</span>
                 </h3>
-                <div class="meta">10:28:06 - 实时数据 CFD. USD 货币 ( 免责声明 )</div>
+                <div class="meta">N/A ( 免责声明 )</div>
                 <div data-price>
-                    <span class="label">昨收：</span><span class="value">1,359.00</span>
-                    <span class="label">开盘：</span><span class="value">1,357.00</span>
-                    <span class="label">每日涨幅：</span><span class="value">1,355.30 - 1,360.10</span>
+                    <span class="label">昨收：</span><span class="value">N/A</span>
+                    <span class="label">开盘：</span><span class="value">N/A</span>
+                    <span class="label">每日涨幅：</span><span class="value">N/A - N/A</span>
                 </div>
             </div>
             <div data-chart>
