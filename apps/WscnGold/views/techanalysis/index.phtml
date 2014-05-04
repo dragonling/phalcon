@@ -72,6 +72,7 @@ function getSuggestClass($input) {
                 <ul class="content">
                     <?foreach($dataArray as $periodkey => $data):?>
                     <li class="panel <?=$periodkey == 'period1h' ? 'active' : ''?>">
+                    <?if($data):?>
                         <table class="table">
                             <tbody>
                             <tr>
@@ -218,6 +219,7 @@ function getSuggestClass($input) {
                                 </table>
                             </div>
                         </div>
+                    <?endif?>
                     </li>
                     <?endforeach?>
                 </ul>
