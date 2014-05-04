@@ -70,28 +70,25 @@ function getSuggestClass($input) {
                     <a class="tab" href="/techanalysis/<?=$quote->symbol?>/mn">每月</a>
                 </div>
                 <ul class="content">
-                    <li class="panel"></li>
-                    <li class="panel"></li>
-                    <li class="panel"></li>
-                    <li class="panel"></li>
-                    <li class="panel active">
+                    <?foreach($dataArray as $periodkey => $data):?>
+                    <li class="panel <?=$periodkey == 'period1h' ? 'active' : ''?>">
                         <table class="table">
                             <tbody>
                             <tr>
                                 <td class="text-bold">移动平均指数:</td>
-                                <td class="text-red"><?=getSuggest($data['summary']['datas']['MovingAverages']['action'])?></td>
+                                <td class="<?=getSuggestClass($data['summary']['datas']['MovingAverages']['action'])?>"><?=getSuggest($data['summary']['datas']['MovingAverages']['action'])?></td>
                                 <td>购买（<?=$data['summary']['datas']['MovingAverages']['buy']?>）</td>
                                 <td>出售（<?=$data['summary']['datas']['MovingAverages']['sell']?>）</td>
                             </tr>
                             <tr>
                                 <td class="text-bold">技术指标:</td>
-                                <td class="text-red"><?=getSuggest($data['summary']['datas']['TechnicalIndicators']['action'])?></td>
+                                <td class="<?=getSuggestClass($data['summary']['datas']['TechnicalIndicators']['action'])?>"><?=getSuggest($data['summary']['datas']['TechnicalIndicators']['action'])?></td>
                                 <td>购买（<?=$data['summary']['datas']['TechnicalIndicators']['buy']?>）</td>
                                 <td>出售（<?=$data['summary']['datas']['TechnicalIndicators']['sell']?>）</td>
                             </tr>
                             <tr>
                                 <td class="text-bold">建议:</td>
-                                <td class="text-red"><?=getSuggest($data['summary']['conclusion']['action'])?></td>
+                                <td class="<?=getSuggestClass($data['summary']['conclusion']['action'])?>"><?=getSuggest($data['summary']['conclusion']['action'])?></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -148,17 +145,13 @@ function getSuggestClass($input) {
                                     </tr>
                                     <?endforeach?>
                                     <tr>
-                                        <td  colspan="3">购买(<?=$data['technicalIndicators']['conclusion']['buy']?>) 出售(<?=$data['technicalIndicators']['conclusion']['sell']?>) 中性(<?=$data['technicalIndicators']['conclusion']['neutral']?>)</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">建议：<?=$data['technicalIndicators']['conclusion']['summary']?></td>
-                                    </tr>
-                                    <tr>
                                         <td colspan="3">
+                                            <?$buy = $data['technicalIndicators']['conclusion']['buy']; $sell = $data['technicalIndicators']['conclusion']['sell']; $nueutral = $data['technicalIndicators']['conclusion']['neutral']?>
+
                                             <div class="row">
-                                                <div class="indicator text-left border-green" style="width: 50%">5</div>
-                                                <div class="indicator text-center border-gray" style="width: 30%">3</div>
-                                                <div class="indicator text-right border-red" style="width: 20%">2</div>
+                                                <div class="indicator text-left border-green" style="width: <?=$buy / ($buy + $sell + $nueutral) * 100?>%"><?=$buy?></div>
+                                                <div class="indicator text-center border-gray" style="width: <?=$nueutral / ($buy + $sell + $nueutral) * 100?>%"><?=$nueutral?></div>
+                                                <div class="indicator text-right border-red" style="width: <?=$sell / ($buy + $sell + $nueutral) * 100?>%"><?=$sell?></div>
                                             </div>
                                             <div class="indicator-info">
                                                 <span class="icon bg-green"></span>
@@ -169,7 +162,7 @@ function getSuggestClass($input) {
                                                 <span class="text">购买</span>
                                                 <div class="text-bold right">
                                                     <span class="text-gray">建议：</span>
-                                                    <span class="text-green">出售</span>
+                                                    <span class="<?=getSuggestClass($data['technicalIndicators']['conclusion']['summary'])?>"><?=$data['technicalIndicators']['conclusion']['summary']?></span>
                                                 </div>
                                             </div>
                                         </td>
@@ -203,51 +196,30 @@ function getSuggestClass($input) {
                                     </tr>
                                     <?endforeach?>
                                     <tr>
-                                        <td>MA10</td>
-                                        <td class="width-50 text-right">
-                                            <div>1360.06</div>
-                                            <div class="text-green">出售</div>
-                                        </td>
-                                        <td class="width-50 text-right">
-                                            <div>1360.87</div>
-                                            <div class="text-green">出售</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
                                         <td colspan="3">
                                             <div class="row">
-                                                <div class="indicator text-left border-green" style="width: 45%">9</div>
-                                                <div class="indicator text-center border-gray" style="width: 30%">6</div>
-                                                <div class="indicator text-right border-red" style="width: 25%">5</div>
+                                                <?$buy = $data['movingAverages']['conclusion']['buy']; $sell = $data['movingAverages']['conclusion']['sell'];?>
+                                                <div class="indicator text-left border-green" style="width: <?=$buy / ($buy + $sell) * 100?>%"><?=$buy?></div>
+                                                <div class="indicator text-right border-red" style="width: <?=$sell / ($buy + $sell) * 100?>%"><?=$sell?></div>
                                             </div>
                                             <div class="indicator-info">
                                                 <span class="icon bg-green"></span>
-                                                <span class="text">出售</span>
-                                                <span class="icon bg-gray"></span>
-                                                <span class="text">中性</span>
-                                                <span class="icon bg-red"></span>
                                                 <span class="text">购买</span>
+                                                <span class="icon bg-red"></span>
+                                                <span class="text">出售</span>
                                                 <div class="text-bold right">
                                                     <span class="text-gray">建议：</span>
-                                                    <span class="text-green">负面</span>
+                                                    <span class="<?=getSuggestClass($data['movingAverages']['conclusion']['summary'])?>"><?=$data['movingAverages']['conclusion']['summary']?></span>
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td  colspan="3">购买(<?=$data['movingAverages']['conclusion']['buy']?>) 出售(<?=$data['movingAverages']['conclusion']['sell']?>) </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">建议：<?=$data['movingAverages']['conclusion']['summary']?></td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </li>
-                    <li class="panel"></li>
-                    <li class="panel"></li>
-                    <li class="panel"></li>
+                    <?endforeach?>
                 </ul>
             </div>
         </div>
