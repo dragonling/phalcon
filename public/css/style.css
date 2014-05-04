@@ -2008,12 +2008,7 @@ td.datepickerSpecial.datepickerSelected a {
 #market [data-chart] .toolbar .button {
   display: block;
   float: left;
-  height: 28px;
-  width: 28px;
   margin-left: 20px;
-  border: 1px solid #323232;
-  border-radius: 50%;
-  line-height: 28px;
   color: #323232;
 }
 #market [data-chart] .toolbar .button:first-child {
@@ -2024,9 +2019,17 @@ td.datepickerSpecial.datepickerSelected a {
   color: #fff;
   background-color: #323232;
 }
+#market [data-chart] .toolbar .button[data-efc-interval] {
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+}
 #market [data-chart] .toolbar .button[data-efc-type] {
   width: 50px;
-  border-radius: 0;
+  height: 28px;
+  line-height: 28px;
+  border: 1px solid #323232;
 }
 #market [data-chart] .toolbar .line.vertical {
   width: 0;
@@ -2442,131 +2445,6 @@ td.datepickerSpecial.datepickerSelected a {
 #main .market.chart > .content {
   height: 240px;
 }
-#main .market-analysis .datum {
-  position: absolute;
-  width: 270px;
-  top: 0;
-  left: 0;
-  padding: 0 15px;
-}
-#main .market-analysis .datum .update-time {
-  display: block;
-  font-size: 14px;
-  line-height: 34px;
-}
-#main .market-analysis .datum .open-price,
-#main .market-analysis .datum .close-price {
-  display: block;
-  color: #666;
-  font-size: 12px;
-  line-height: 22px;
-}
-#main .market-analysis .datum .title {
-  font-size: 18px;
-  line-height: 40px;
-  font-weight: normal;
-  height: auto;
-  border-bottom: none;
-  margin: 0;
-}
-#main .market-analysis .overview {
-  width: 270px;
-  padding: 118px 15px 10px;
-  border-right: 1px solid #b4b4b4;
-}
-#main .market-analysis .overview .advice {
-  font-size: 18px;
-  line-height: 30px;
-  font-weight: normal;
-}
-#main .market-analysis .overview .compare {
-  border-top: 1px dashed #b4b4b4;
-  margin-top: 10px;
-}
-#main .market-analysis .overview .compare .title {
-  font-size: 14px;
-  line-height: 40px;
-}
-#main .market-analysis .overview .compare .label,
-#main .market-analysis .overview .compare .value {
-  display: block;
-  font-size: 12px;
-  margin-bottom: 4px;
-}
-#main .market-analysis .overview .compare .indicator {
-  width: 100%;
-  height: 8px;
-}
-#main .market-analysis .overview .compare .indicator .bullish {
-  height: 100%;
-  background-color: #df6c6c;
-}
-#main .market-analysis .overview .compare .indicator .bearish {
-  height: 100%;
-  background-color: #4cac6d;
-}
-#main .market-analysis .realtime-data {
-  width: 507px;
-  padding: 0 15px 10px;
-}
-#main .market-analysis .realtime-data .dash-line {
-  margin-top: 15px;
-  width: 100%;
-  display: block;
-  height: 0;
-  border-bottom: 1px dashed #b4b4b4;
-}
-#main .market-analysis .realtime-data .table {
-  margin-top: 15px;
-  width: 100%;
-}
-#main .market-analysis .realtime-data .table th {
-  font-weight: normal;
-}
-#main .market-analysis .realtime-data .table th,
-#main .market-analysis .realtime-data .table td {
-  border: 1px solid #b4b4b4;
-  vertical-align: middle;
-  text-align: center;
-}
-#main .market-analysis .realtime-data .table th.cell1,
-#main .market-analysis .realtime-data .table td.cell1 {
-  width: 70px;
-  height: 35px;
-}
-#main .market-analysis .realtime-data .table th.cell2,
-#main .market-analysis .realtime-data .table td.cell2 {
-  width: 150px;
-  height: 45px;
-}
-#main .market-analysis .realtime-data .table th.pivot,
-#main .market-analysis .realtime-data .table td.pivot {
-  color: #005178;
-}
-#main .market-analysis .realtime-data .table th.label,
-#main .market-analysis .realtime-data .table td.label {
-  color: #005178;
-  text-align: left;
-  text-indent: 60px;
-  font-weight: bold;
-  font-size: 14px;
-}
-#main .market-analysis .realtime-data .table th .buy,
-#main .market-analysis .realtime-data .table td .buy {
-  color: #ff3232;
-}
-#main .market-analysis .realtime-data .table th .buy .value,
-#main .market-analysis .realtime-data .table td .buy .value {
-  color: #000;
-}
-#main .market-analysis .realtime-data .table th .sell,
-#main .market-analysis .realtime-data .table td .sell {
-  color: #00cb32;
-}
-#main .market-analysis .realtime-data .table th .sell .value,
-#main .market-analysis .realtime-data .table td .sell .value {
-  color: #000;
-}
 #main .economic-evaluation.tabpanel > .tabbar {
   margin-bottom: 5px;
 }
@@ -2637,6 +2515,182 @@ td.datepickerSpecial.datepickerSelected a {
 #main .investment-tutorial.list > .item .link .title {
   width: 183px;
   text-align: center;
+}
+#main-analysis > .content:before {
+  display: table;
+  content: '';
+  clear: both;
+}
+#main-analysis > .content:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+#main-analysis .datum {
+  float: left;
+  width: 270px;
+  padding: 0 15px;
+}
+#main-analysis .datum .update-time {
+  display: block;
+  font-size: 14px;
+  line-height: 34px;
+}
+#main-analysis .datum .open-price,
+#main-analysis .datum .close-price {
+  display: block;
+  color: #666;
+  font-size: 12px;
+  line-height: 22px;
+}
+#main-analysis .datum .title {
+  font-size: 18px;
+  line-height: 40px;
+  font-weight: normal;
+  height: auto;
+  border-bottom: none;
+  margin: 0;
+}
+#main-analysis .overview {
+  float: left;
+  width: 507px;
+  padding: 0 15px 10px;
+  border-left: 1px solid #b4b4b4;
+}
+#main-analysis .overview > .toolbar {
+  border-bottom: 1px solid #b4b4b4;
+  line-height: 34px;
+  color: #b4b4b4;
+}
+#main-analysis .overview > .toolbar > .label {
+  float: left;
+  display: block;
+  color: #000;
+  margin-right: 30px;
+}
+#main-analysis .overview > .toolbar > .nav {
+  float: left;
+  display: block;
+  margin-right: 50px;
+}
+#main-analysis .overview > .toolbar > .nav.active {
+  color: #005178;
+  position: relative;
+}
+#main-analysis .overview > .toolbar > .nav.active:after {
+  display: block;
+  position: absolute;
+  background: url(../img/icon/arrow_up.png) 0 0 no-repeat;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  content: "";
+  width: 11px;
+  height: 8px;
+}
+#main-analysis .overview > .content {
+  position: relative;
+  margin-top: 15px;
+  height: 197px;
+}
+#main-analysis .overview > .content [data-analysis-result] {
+  position: absolute;
+  left: -315px;
+  bottom: -10px;
+  width: 270px;
+  height: 129px;
+  padding: 0 15px 10px;
+}
+#main-analysis .advice {
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: normal;
+}
+#main-analysis .compare {
+  border-top: 1px dashed #b4b4b4;
+  margin-top: 10px;
+}
+#main-analysis .compare .title {
+  font-size: 14px;
+  line-height: 40px;
+}
+#main-analysis .compare .label,
+#main-analysis .compare .value {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+#main-analysis .compare .indicator {
+  width: 100%;
+  height: 8px;
+}
+#main-analysis .compare .indicator .bullish {
+  height: 100%;
+  background-color: #df6c6c;
+}
+#main-analysis .compare .indicator .bearish {
+  height: 100%;
+  background-color: #4cac6d;
+}
+#main-analysis .dash-line {
+  margin: 15px 0;
+  width: 100%;
+  display: block;
+  height: 0;
+  border-bottom: 1px dashed #b4b4b4;
+}
+#main-analysis .table {
+  width: 100%;
+}
+#main-analysis .table th {
+  font-weight: normal;
+}
+#main-analysis .table th,
+#main-analysis .table td {
+  border: 1px solid #b4b4b4;
+  vertical-align: middle;
+  text-align: center;
+}
+#main-analysis .table th.cell1,
+#main-analysis .table td.cell1 {
+  width: 70px;
+  height: 35px;
+}
+#main-analysis .table th.pivot,
+#main-analysis .table td.pivot {
+  color: #005178;
+}
+#main-analysis .table th.cell2,
+#main-analysis .table td.cell2 {
+  width: 95px;
+  padding-left: 50px;
+  height: 45px;
+  text-align: left;
+}
+#main-analysis .table th.label,
+#main-analysis .table td.label {
+  color: #005178;
+  text-align: left;
+  padding-left: 60px;
+  font-weight: bold;
+  font-size: 14px;
+}
+#main-analysis .table th .buy,
+#main-analysis .table td .buy {
+  color: #ff3232;
+}
+#main-analysis .table th .buy .value,
+#main-analysis .table td .buy .value {
+  color: #000;
+}
+#main-analysis .table th .sell,
+#main-analysis .table td .sell {
+  color: #00cb32;
+}
+#main-analysis .table th .sell .value,
+#main-analysis .table td .sell .value {
+  color: #000;
 }
 .menu {
   width: 120px;

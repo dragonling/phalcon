@@ -10,6 +10,11 @@
         this.baseData = null;
         this.interval = null;
         this.config = {};
+        this.config.overview = options.overview;
+        if (this.config.overview) {
+            this.$overviewDom = this.$target.find('[data-overview-dom]');
+            this.$overviewScript = this.$target.find('[data-overview-template]');
+        }
         this.config.defaultSymbol = options.defaultSymbol;
         this.config.symbolEvent = options.symbolEvent === false ? false : true;
         this.config.formatPrice = options.formatPrice;
@@ -48,9 +53,40 @@
                 e.preventDefault();
             });
         }
+        if (this.config.overview) {
+            $target.on('click', '[data-rtq-interval]', function(e){
+                var $this = $(this);
+                var interval = $this.attr('data-rtq-interval');
+                root.overview(interval);
+                $target.find('[data-rtq-interval].active').removeClass('active');
+                $this.addClass('active');
+                e.preventDefault();
+            });
+        }
+    };
+    Rtq.prototype.overview = function(interval) {
+        var root = this;
+        $.ajax({
+            url: 'http://www.goldtoutiao.com/data/techanalysis/' + root.symbol + '/' + interval,
+            dataType: 'json',
+            success: function(response) {
+                var html = '';
+                if (response.data) {
+                    html = _.template(root.$overviewScript.html(), {
+                        data: response.data
+                    });
+                    //console.log('');
+                }
+                root.$overviewDom.html(html);
+            },
+            error: function() {
+                //root.overview(interval);
+            }
+        });
     };
     Rtq.prototype.showData = function(symbol) {
         var root = this;
+        root.symbol = symbol;
         $.ajax({
             url: 'http://api.markets.wallstreetcn.com/v1/quote.json/' + symbol,
             dataType: 'jsonp',
@@ -61,6 +97,11 @@
                 root.baseData = result['results'];
                 //显示数据
                 root.updateData(symbol);
+                //是否显示 overview
+                if (root.config.overview) {
+                    var interval = root.$target.find('[data-rtq-interval].active').attr('data-rtq-interval');
+                    root.overview(interval);
+                }
                 //实时跟新数据
                 root.interval = setInterval(function(){
                     root.updateData(symbol);

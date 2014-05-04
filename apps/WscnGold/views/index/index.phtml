@@ -25,7 +25,7 @@
                             <a data-efc-target="#chart" data-efc-symbol="XAUUSD" class="link active" href="">黄金</a>
                             <a data-efc-target="#chart" data-efc-symbol="XAGUSD" class="link" href="">白银</a>
                             <a data-efc-target="#chart" data-efc-symbol="USDollarIndex" class="link" href="">美元指数</a>
-                            <a data-efc-target="#chart" data-efc-symbol="SPX500" class="link" href="">标普500</a>
+                            <a data-efc-target="#chart" data-efc-symbol="SPX500INDEX" class="link" href="">标普500</a>
                             <a data-efc-target="#chart" data-efc-symbol="UKOil" class="link" href="">石油</a>
 
                             <button class="button" data-toggle="stare-modal">盯盘模式</button>
@@ -77,19 +77,17 @@
 
             <div class="row">
                 <h2 class="main-title">技术分析</h2>
-
-                <div id="analysis" data-rtq class="market-analysis">
+                <div id="main-analysis" class="market-analysis" data-rtq data-rtq-option="overview: true;">
                     <div class="titlebar">
                         <a  data-rtq-symbol="XAUUSD" class="link active" href="">黄金</a>
                         <a  data-rtq-symbol="XAGUSD" class="link" href="">白银</a>
                         <a  data-rtq-symbol="USDollarIndex" class="link" href="">美元指数</a>
                         <a  data-rtq-symbol="US10Year" class="link" href="">美债</a>
                         <a  data-rtq-symbol="USOil" class="link" href="">原油</a>
-                        <a  data-rtq-symbol="SPX500" class="link" href="">美国标股500</a>
-                        <a  data-rtq-symbol="JPN225" class="link" href="">日经</a>
+                        <a  data-rtq-symbol="SPX500INDEX" class="link" href="">美国标股500</a>
+                        <a  data-rtq-symbol="JPN225INDEX" class="link" href="">日经</a>
                     </div>
-                    <div class="content row">
-
+                    <div class="content">
                         <script type="text/template" data-rtq-template>
                             <div data-trend="<%= trend %>">
                                 <span class="update-time"><%= updateTime %></span>
@@ -98,103 +96,156 @@
                                 <h3 class="title"><%= title %>：<span class="price"><%= price %></span></h3>
                             </div>
                         </script>
-
                         <div class="datum" data-rtq-dom></div>
-
-                        <div class="span overview">
-
-                            <h3 class="advice">建议：<span class="text">中性</span></h3>
-                            <div class="compare">
-                                <h3 class="title">多空对比</h3>
-                                <div class="row">
-                                    <div class="bearish span left text-left">
-                                        <span class="value">50%</span>
-                                        <span class="label">看空</span>
-                                    </div>
-                                    <div class="bullish span right text-right">
-                                        <span class="value">50%</span>
-                                        <span class="label">看多</span>
+                        <div class="overview">
+                            <div class="toolbar">
+                                <a class="label">时间范围：</a>
+                                <a class="nav" data-rtq-interval="5m" href="">5分钟</a>
+                                <a class="nav active" data-rtq-interval="15m" href="">15分钟</a>
+                                <a class="nav" data-rtq-interval="1h" href="">每小时</a>
+                                <a class="nav" data-rtq-interval="1d" href="">每日</a>
+                            </div>
+                            <script type="text/template" data-overview-template>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="cell1">S3</th>
+                                        <th class="cell1">S2</th>
+                                        <th class="cell1">S1</th>
+                                        <th class="pivot">枢轴点</th>
+                                        <th class="cell1">R1</th>
+                                        <th class="cell1">R2</th>
+                                        <th class="cell1">R3</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="cell1"><%= data.pivotPoints.datas.Classic.s3 %></td>
+                                        <td class="cell1"><%= data.pivotPoints.datas.Classic.s2 %></td>
+                                        <td class="cell1"><%= data.pivotPoints.datas.Classic.s1 %></td>
+                                        <td class="pivot"><%= data.pivotPoints.datas.Classic.pivotPoints %></td>
+                                        <td class="cell1"><%= data.pivotPoints.datas.Classic.r1 %></td>
+                                        <td class="cell1"><%= data.pivotPoints.datas.Classic.r2 %></td>
+                                        <td class="cell1"><%= data.pivotPoints.datas.Classic.r3 %></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <span class="dash-line"></span>
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <td class="label">移动平均指数：</td>
+                                        <td class="cell2">
+                                            <a class="link buy"  href="#">购买<span class="value">(<%= data.summary.datas.MovingAverages.buy %>)</span></a>
+                                        </td>
+                                        <td class="cell2">
+                                            <a class="link sell" href="#">出售<span class="value">(<%= data.summary.datas.MovingAverages.sell %>)</span></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">指标：</td>
+                                        <td class="cell2">
+                                            <a class="link buy"  href="#">购买<span class="value">(<%= data.summary.datas.TechnicalIndicators.buy %>)</span></a>
+                                        </td>
+                                        <td class="cell2">
+                                            <a class="link sell" href="#">出售<span class="value">(<%= data.summary.datas.TechnicalIndicators.sell %>)</span></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div data-analysis-result>
+                                    <h3 class="advice">建议：<span class="text"><%= data.summary.conclusion.action %></span></h3>
+                                    <div class="compare">
+                                        <h3 class="title">多空对比</h3>
+                                        <div class="row">
+                                            <div class="bearish span left text-left">
+                                                <span class="value">50%</span>
+                                                <span class="label">看空</span>
+                                            </div>
+                                            <div class="bullish span right text-right">
+                                                <span class="value">50%</span>
+                                                <span class="label">看多</span>
+                                            </div>
+                                        </div>
+                                        <div class="row indicator">
+                                            <span class="span bearish" style="width: 50%;"></span>
+                                            <span class="span bullish" style="width: 50%;"></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row indicator">
-                                    <span class="span bearish" style="width: 50%;"></span>
-                                    <span class="span bullish" style="width: 50%;"></span>
+                            </script>
+                            <div class="content" data-overview-dom>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="cell1">S3</th>
+                                        <th class="cell1">S2</th>
+                                        <th class="cell1">S1</th>
+                                        <th class="pivot">枢轴点</th>
+                                        <th class="cell1">R1</th>
+                                        <th class="cell1">R2</th>
+                                        <th class="cell1">R3</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="cell1">N/A</td>
+                                        <td class="cell1">N/A</td>
+                                        <td class="cell1">N/A</td>
+                                        <td class="pivot">N/A</td>
+                                        <td class="cell1">N/A</td>
+                                        <td class="cell1">N/A</td>
+                                        <td class="cell1">N/A</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <span class="dash-line"></span>
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <td class="label">移动平均指数：</td>
+                                        <td class="cell2">
+                                            <a class="link buy"  href="#">购买<span class="value">(N/A)</span></a>
+                                        </td>
+                                        <td class="cell2">
+                                            <a class="link sell" href="#">出售<span class="value">(N/A)</span></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">指标：</td>
+                                        <td class="cell2">
+                                            <a class="link buy"  href="#">购买<span class="value">(N/A)</span></a>
+                                        </td>
+                                        <td class="cell2">
+                                            <a class="link sell" href="#">出售<span class="value">(N/A)</span></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div data-analysis-result>
+                                    <h3 class="advice">建议：<span class="text">N/A</span></h3>
+                                    <div class="compare">
+                                        <h3 class="title">多空对比</h3>
+                                        <div class="row">
+                                            <div class="bearish span left text-left">
+                                                <span class="value">50%</span>
+                                                <span class="label">看空</span>
+                                            </div>
+                                            <div class="bullish span right text-right">
+                                                <span class="value">50%</span>
+                                                <span class="label">看多</span>
+                                            </div>
+                                        </div>
+                                        <div class="row indicator">
+                                            <span class="span bearish" style="width: 50%;"></span>
+                                            <span class="span bullish" style="width: 50%;"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                        </div>
-                        <div class="span realtime-data">
-                            <div class="tabpanel type1">
-                                <nav class="tabbar">
-                                    <a class="label">时间范围：</a>
-                                    <a class="tab" href="">5分钟</a>
-                                    <a class="tab active" href="">15分钟</a>
-                                    <a class="tab" href="">每小时</a>
-                                    <a class="tab" href="">每日</a>
-                                </nav>
-                                <ul class="content">
-                                    <li class="panel"></li>
-                                    <li class="panel active">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th class="cell1">S3</th>
-                                                <th class="cell1">S2</th>
-                                                <th class="cell1">S1</th>
-                                                <th class="pivot">枢轴点</th>
-                                                <th class="cell1">R1</th>
-                                                <th class="cell1">R2</th>
-                                                <th class="cell1">R3</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="cell1">22600.35</td>
-                                                <td class="cell1">22701.54</td>
-                                                <td class="cell1">22701.54</td>
-                                                <td class="pivot">22703.67</td>
-                                                <td class="cell1">23701.54</td>
-                                                <td class="cell1">23721.69</td>
-                                                <td class="cell1">23901.04</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <span class="dash-line"></span>
-
-                                        <table class="table">
-                                            <tbody>
-                                            <tr>
-                                                <td class="label">移动平均指数：</td>
-                                                <td class="cell2">
-                                                    <a class="link buy"  href="#">购买<span class="value">(6)</span></a>
-                                                </td>
-                                                <td class="cell2">
-                                                    <a class="link sell" href="#">出售<span class="value">(3)</span></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="label">指标：</td>
-                                                <td class="cell2">
-                                                    <a class="link buy"  href="#">购买<span class="value">(6)</span></a>
-                                                </td>
-                                                <td class="cell2">
-                                                    <a class="link sell" href="#">出售<span class="value">(3)</span></a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </li>
-                                    <li class="panel"></li>
-                                    <li class="panel"></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
+                            </div> <!-- data-overview-dom end -->
+                        </div>  <!-- main-analysis overview end-->
+                    </div> <!-- main-analysis content end-->
+                </div> <!-- main-analysis end-->
             </div><!-- row end -->
 
             <div class="row">
@@ -693,7 +744,7 @@
                         <a  data-rtq-symbol="USDollarIndex" class="link" href="">美元指数</a>
                         <a  data-rtq-symbol="US10Year" class="link" href="">美债</a>
                         <a  data-rtq-symbol="USOil" class="link" href="">原油</a>
-                        <a  data-rtq-symbol="JPN225" class="link" href="">日经</a>
+                        <a  data-rtq-symbol="JPN225INDEX" class="link" href="">日经</a>
                     </div>
                     <div class="content">
 
