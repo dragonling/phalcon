@@ -1,11 +1,14 @@
 <?
 function getSuggest($input) {
-    $input = strtolower($input);
-    return strpos($input, 'buy') === false ? '出售' : '购买';
+    return $input;
 };
 function getSuggestClass($input) {
     $input = strtolower($input);
-    return strpos($input, 'buy') === false ? 'text-red' : 'text-green';
+    if(strpos($input, '买') !== false) {
+        return 'text-green';
+    } elseif (strpos($input, '卖') !== false) {
+        return 'text-red';
+    }
 }
 ?>
 <div class="row relative">
@@ -146,7 +149,7 @@ function getSuggestClass($input) {
                                     <tr>
                                         <td><?=$point['symbol']?></td>
                                         <td class="width-50 text-right"><?=$point['value']?></td>
-                                        <td class="width-50 text-right"><?=$point['action']?></td>
+                                        <td class="width-50 text-right <?=getSuggestClass($point['action'])?>"><?=$point['action']?></td>
                                     </tr>
                                     <?endforeach?>
                                     <tr>
@@ -160,11 +163,11 @@ function getSuggestClass($input) {
                                             </div>
                                             <div class="indicator-info">
                                                 <span class="icon bg-green"></span>
-                                                <span class="text">购买</span>
+                                                <span class="text">买入</span>
                                                 <span class="icon bg-gray"></span>
                                                 <span class="text">中性</span>
                                                 <span class="icon bg-red"></span>
-                                                <span class="text">出售</span>
+                                                <span class="text">卖出</span>
                                                 <div class="text-bold right">
                                                     <span class="text-gray">建议：</span>
                                                     <span class="<?=getSuggestClass($data['technicalIndicators']['conclusion']['summary'])?>"><?=$data['technicalIndicators']['conclusion']['summary']?></span>
@@ -192,11 +195,11 @@ function getSuggestClass($input) {
                                         <td><?=$point['period']?></td>
                                         <td class="width-50 text-right">
                                             <div><?=$point['simpleValue']?></div>
-                                            <div class="text-green"><?=$point['simpleAction']?></div>
+                                            <div class="<?=getSuggestClass($point['simpleAction'])?>"><?=$point['simpleAction']?></div>
                                         </td>
                                         <td class="width-50 text-right">
                                             <div><?=$point['exponentialValue']?></div>
-                                            <div class="text-green"><?=$point['exponentialAction']?></div>
+                                            <div class="<?=getSuggestClass($point['exponentialAction'])?>"><?=$point['exponentialAction']?></div>
                                         </td>
                                     </tr>
                                     <?endforeach?>
@@ -209,9 +212,9 @@ function getSuggestClass($input) {
                                             </div>
                                             <div class="indicator-info">
                                                 <span class="icon bg-green"></span>
-                                                <span class="text">购买</span>
+                                                <span class="text">买入</span>
                                                 <span class="icon bg-red"></span>
-                                                <span class="text">出售</span>
+                                                <span class="text">卖出</span>
                                                 <div class="text-bold right">
                                                     <span class="text-gray">建议：</span>
                                                     <span class="<?=getSuggestClass($data['movingAverages']['conclusion']['summary'])?>"><?=$data['movingAverages']['conclusion']['summary']?></span>

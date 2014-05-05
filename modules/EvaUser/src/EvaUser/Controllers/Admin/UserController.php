@@ -50,4 +50,46 @@ class UserController extends AdminControllerBase
 
     }
 
+    public function createAction()
+    {
+        $user = new Models\User();
+        $userForm = new \Eva\EvaUser\Forms\UserForm();
+        $userForm->setModel($user);
+        $this->view->setVar('userForm', $userForm);
+        $this->view->setVar('item', $user);
+
+
+        $profileForm = new \Eva\EvaUser\Forms\ProfileForm();
+        $profileForm->setModel(new Models\Profile());
+        $profileForm->setPrefix('Profile');
+        $this->view->setVar('profileForm', $profileForm);
+
+        if(!$this->request->isPost()){
+            return false;
+        }
+        $data = $this->request->getPost();
+    }
+
+    public function editAction()
+    {
+        $this->view->changeRender('admin/user/create');
+        $user = Models\User::findFirst($this->dispatcher->getParam('id'));
+        $userForm = new \Eva\EvaUser\Forms\UserForm();
+        $userForm->setModel($user);
+        $this->view->setVar('userForm', $userForm);
+        $this->view->setVar('item', $user);
+
+
+        $profileForm = new \Eva\EvaUser\Forms\ProfileForm();
+        $profileForm->setModel(new Models\Profile());
+        $profileForm->setPrefix('Profile');
+        $this->view->setVar('profileForm', $profileForm);
+
+        if(!$this->request->isPost()){
+            return false;
+        }
+        $data = $this->request->getPost();
+    
+    }
+
 }
