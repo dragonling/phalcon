@@ -84,7 +84,6 @@ class PostController extends ControllerBase
     public function editAction()
     {
         $this->view->changeRender('admin/post/create');
-
         $post = Models\Post::findFirst($this->dispatcher->getParam('id'));
         $postForm = new \Eva\EvaBlog\Forms\PostForm();
         $postForm->setModel($post ? $post : new Models\Post());
