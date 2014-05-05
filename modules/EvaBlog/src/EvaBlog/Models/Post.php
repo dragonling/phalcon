@@ -310,7 +310,7 @@ class Post extends Entities\Posts
         if($this->image) {
             if(
                 \Phalcon\Text::startsWith($this->image, 'http://', false) ||
-                \Phalcon\Text::startsWith($this->image, 'http://', false)
+                \Phalcon\Text::startsWith($this->image, 'https://', false)
             ) {
                 return $this->image;
             }
