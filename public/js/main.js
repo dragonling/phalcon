@@ -214,8 +214,19 @@ $(function(){
         } else if (type) {
             //todo
         }
+        if ($this.is('[data-etf-target]')) {
+            var etf_frame  = $($this.attr('data-etf-target'))[0];
+            var etf_symbol = symbol + 'ETF';
+            etf_frame.src = etf_frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + etf_symbol + '$1');
+        }
+        if ($this.is('[data-cftc-target]')) {
+            var cftc_frame  = $($this.attr('data-cftc-target'))[0];
+            var cftc_symbol = symbol + 'CFTC';
+            cftc_frame.src = cftc_frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + cftc_symbol + '$1');
+        }
         e.preventDefault();
     });
+    /*
     $(document).on('click', '[data-etf-target]', function(e) {
         var $this = $(this);
         var frame = $($this.attr('data-etf-target'))[0];
@@ -228,7 +239,7 @@ $(function(){
         var symbol = $this.attr('data-efc-symbol') + 'CFTC';
         frame.src = frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + symbol + '$1');
     });
-
+    */
     /*
     $(document).on('click.spread', '[data-toggle=shrink]', function(e){
         $(this).parent().toggleClass('shrink');

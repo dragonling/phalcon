@@ -8,30 +8,52 @@
                     data-cftc-target="#market [data-type=cftc] iframe.chart" >
                     <span class="text">黄金</span>
                 </li>
-                <li class="item" data-rtq-symbol="XAGUSD" data-efc-symbol="XAGUSD" data-efc-target="#market [data-chart]"
-                    data-etf-symbol="XAGUSD" data-etf-target="#market [data-type=etf] iframe.chart"
-                    data-cftc-symbol="XAGUSD" data-etf-target="#market [data-type=cftc] iframe.chart" >
+                <li class="item" data-rtq-symbol="XAGUSD" data-efc-symbol="XAGUSD"
+                    data-efc-target="#market [data-chart]"
+                    data-etf-target="#market [data-type=etf] iframe.chart"
+                    data-cftc-target="#market [data-type=cftc] iframe.chart" >
                     <span class="text">白银</span>
                 </li>
-                <li class="item" data-rtq-symbol="USDollarIndex" data-efc-symbol="USDollarIndex" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="USDollarIndex" data-efc-symbol="USDollarIndex"
+                    data-efc-target="#market [data-chart]"
+                    data-etf-target="#market [data-type=etf] iframe.chart"
+                    data-cftc-target="#market [data-type=cftc] iframe.chart" >
                     <span class="text">美元指数</span>
                 </li>
-                <li class="item" data-rtq-symbol="US10Year" data-efc-symbol="US10Year" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="US10Year" data-efc-symbol="US10Year"
+                    data-etf-target="#market [data-type=etf] iframe.chart"
+                    data-cftc-target="#market [data-type=cftc] iframe.chart"
+                    data-efc-target="#market [data-chart]" >
                     <span class="text">美债</span>
                 </li>
-                <li class="item" data-rtq-symbol="USOil" data-efc-symbol="USOil" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="USOil" data-efc-symbol="USOil"
+                    data-etf-target="#market [data-type=etf] iframe.chart"
+                    data-cftc-target="#market [data-type=cftc] iframe.chart"
+                    data-efc-target="#market [data-chart]">
                     <span class="text">原油</span>
                 </li>
-                <li class="item" data-rtq-symbol="SPX500INDEX" data-efc-symbol="SPX500INDEX" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="SPX500INDEX" data-efc-symbol="SPX500INDEX"
+                    data-etf-target="#market [data-type=etf] iframe.chart"
+                    data-cftc-target="#market [data-type=cftc] iframe.chart"
+                    data-efc-target="#market [data-chart]">
                     <span class="text">标普500</span>
                 </li>
-                <li class="item" data-rtq-symbol="JPN225INDEX" data-efc-symbol="JPN225INDEX" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="JPN225INDEX" data-efc-symbol="JPN225INDEX"
+                    data-etf-target="#market [data-type=etf] iframe.chart"
+                    data-cftc-target="#market [data-type=cftc] iframe.chart"
+                    data-efc-target="#market [data-chart]">
                     <span class="text">日经</span>
                 </li>
-                <li class="item" data-rtq-symbol="UKOil" data-efc-symbol="UKOil" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="UKOil" data-efc-symbol="UKOil"
+                    data-etf-target="#market [data-type=etf] iframe.chart"
+                    data-cftc-target="#market [data-type=cftc] iframe.chart"
+                    data-efc-target="#market [data-chart]">
                     <span class="text">布油</span>
                 </li>
-                <li class="item" data-rtq-symbol="Copper" data-efc-symbol="Copper" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="Copper" data-efc-symbol="Copper"
+                    data-etf-target="#market [data-type=etf] iframe.chart"
+                    data-cftc-target="#market [data-type=cftc] iframe.chart"
+                    data-efc-target="#market [data-chart]">
                     <span class="text">铜</span>
                 </li>
             </ul>
@@ -98,7 +120,9 @@
             </ul>
             <div data-quote>
                 <div data-tab-index="1" class="panel active" data-type="etf">
-                    <div class="chart"></div>
+                    <iframe class="chart" frameborder="0" scrolling="no" width="560" height="180"
+                        src="http://markets.wallstreetcn.com/embed/chart?symbol=GOLDETF&width=560&height=180&rows=30&interval=1d&theme=dark" >
+                    </iframe>
                     <div class="line"></div>
                     <table class="table">
                         <thead>
@@ -150,7 +174,9 @@
                     </table>
                 </div>
                 <div data-tab-index="2" class="panel" data-type="cftc">
-                    <div class="chart"></div>
+                    <iframe class="chart" frameborder="0" scrolling="no" width="560" height="180"
+                        src="http://markets.wallstreetcn.com/embed/chart?symbol=GOLDCFTC&width=560&height=180&rows=30&interval=1d&theme=dark" >
+                    </iframe>
                     <div class="line"></div>
                     <table class="table">
                         <thead>

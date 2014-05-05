@@ -109,6 +109,9 @@
                                 <% var sum = parseInt(data.movingAverages.conclusion.sell) + parseInt(data.movingAverages.conclusion.buy); %>
                                 <% var buy = (data.movingAverages.conclusion.buy * 100 / sum).toFixed(2) + '%'; %>
                                 <% var sell = (data.movingAverages.conclusion.sell * 100 / sum).toFixed(2) + '%'; %>
+                                <% var advice = data.summary.conclusion.action; %>
+                                <% var adviceClass = '' ; %>
+                                <% if (advice.indexOf('买') > -1) {adviceClass = 'text-green';} else if (advice.indexOf('卖') > -1) {adviceClass = 'text-red';}%>
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -139,27 +142,27 @@
                                     <tr>
                                         <td class="label">移动平均指数：</td>
                                         <td class="cell2">
-                                            <a class="link buy"  href="#">购买<span class="value">(<%= data.summary.datas.MovingAverages.buy %>)</span></a>
+                                            <a class="link buy"  href="#">买入<span class="value">(<%= data.summary.datas.MovingAverages.buy %>)</span></a>
                                         </td>
                                         <td class="cell2">
-                                            <a class="link sell" href="#">出售<span class="value">(<%= data.summary.datas.MovingAverages.sell %>)</span></a>
+                                            <a class="link sell" href="#">卖出<span class="value">(<%= data.summary.datas.MovingAverages.sell %>)</span></a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="label">指标：</td>
                                         <td class="cell2">
-                                            <a class="link buy"  href="#">购买<span class="value">(<%= data.summary.datas.TechnicalIndicators.buy %>)</span></a>
+                                            <a class="link buy"  href="#">买入<span class="value">(<%= data.summary.datas.TechnicalIndicators.buy %>)</span></a>
                                         </td>
                                         <td class="cell2">
-                                            <a class="link sell" href="#">出售<span class="value">(<%= data.summary.datas.TechnicalIndicators.sell %>)</span></a>
+                                            <a class="link sell" href="#">卖出<span class="value">(<%= data.summary.datas.TechnicalIndicators.sell %>)</span></a>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 <div data-analysis-result>
-                                    <h3 class="advice">建议：<span class="text"><%= data.summary.conclusion.action %></span></h3>
+                                    <h3 class="advice">建议：<span class="text <%= adviceClass %>"><%= advice %></span></h3>
                                     <div class="compare">
-                                        <h3 class="title">均线多空对比</h3>
+                                        <h3 class="title">多空对比</h3>
                                         <div class="row">
                                             <div class="bullish span left text-left">
                                                 <span class="value">
@@ -212,19 +215,19 @@
                                     <tr>
                                         <td class="label">移动平均指数：</td>
                                         <td class="cell2">
-                                            <a class="link buy"  href="#">购买<span class="value">(N/A)</span></a>
+                                            <a class="link buy"  href="#">买入<span class="value">(N/A)</span></a>
                                         </td>
                                         <td class="cell2">
-                                            <a class="link sell" href="#">出售<span class="value">(N/A)</span></a>
+                                            <a class="link sell" href="#">卖出<span class="value">(N/A)</span></a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="label">指标：</td>
                                         <td class="cell2">
-                                            <a class="link buy"  href="#">购买<span class="value">(N/A)</span></a>
+                                            <a class="link buy"  href="#">买入<span class="value">(N/A)</span></a>
                                         </td>
                                         <td class="cell2">
-                                            <a class="link sell" href="#">出售<span class="value">(N/A)</span></a>
+                                            <a class="link sell" href="#">卖出<span class="value">(N/A)</span></a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -232,7 +235,7 @@
                                 <div data-analysis-result>
                                     <h3 class="advice">建议：<span class="text">N/A</span></h3>
                                     <div class="compare">
-                                        <h3 class="title">均线多空对比</h3>
+                                        <h3 class="title">多空对比</h3>
                                         <div class="row">
                                             <div class="bullish span left text-left">
                                                 <span class="value">N/A</span>
@@ -420,7 +423,7 @@
         <h2 class="title">黄金多空调查</h2>
         <div class="line type1"></div>
         <div id="gold-research">
-            <div id="gold-research-chart" class="chart type1" >
+            <div id="gold-research-chart">
                 <!--<img width="220" height="150" style="margin-left: 10px;" src="/img/grid03.png" />-->
             </div>
             <div class="row">
@@ -473,9 +476,8 @@
             </nav>
             <ul class="content">
                 <li class="panel active">
-                    <div class="chart type2">
-                        <img width="270" height="230" src="/img/grid01.png" />
-                    </div>
+                    <iframe class="chart type2" width="270" height="230" scrolling="no" frameborder="0"
+                        src="http://markets.wallstreetcn.com/embed/chart?symbol=GOLDETF&width=270&height=230&rows=30&interval=1d&theme=dark"></iframe>
                     <div class="line type1"></div>
                     <table class="table type2">
                         <thead>
@@ -505,9 +507,8 @@
                     </table>
                 </li>
                 <li class="panel">
-                    <div class="chart type2">
-                        <img width="270" height="230" src="/img/grid01.png" />
-                    </div>
+                    <iframe class="chart type2" width="270" height="230" scrolling="no" frameborder="0"
+                        src="http://markets.wallstreetcn.com/embed/chart?symbol=GOLDCFTC&width=270&height=230&rows=30&interval=1d&theme=dark"></iframe>
                     <div class="line type1"></div>
                     <table class="table type2">
                         <thead>
@@ -773,11 +774,14 @@
                             <% var sum = parseInt(data.movingAverages.conclusion.sell) + parseInt(data.movingAverages.conclusion.buy); %>
                             <% var buy = (data.movingAverages.conclusion.buy * 100 / sum).toFixed(2) + '%'; %>
                             <% var sell = (data.movingAverages.conclusion.sell * 100 / sum).toFixed(2) + '%'; %>
+                            <% var advice = data.summary.conclusion.action; %>
+                            <% var adviceClass = '' ; %>
+                            <% if (advice.indexOf('买') > -1) {adviceClass = 'text-green';} else if (advice.indexOf('卖') > -1) {adviceClass = 'text-red';}%>
                             <div class="line type1"></div>
                             <div class="row">
                                 <div class="span">
                                     <div class="compare">
-                                        <h3 class="title">均线多空对比</h3>
+                                        <h3 class="title">多空对比</h3>
                                         <div class="row">
                                             <div class="bullish span left text-left">
                                                 <span class="value"><%= buy %></span>
@@ -795,7 +799,7 @@
                                     </div>
                                 </div>
                                 <div class="span width-120">
-                                    <h3 class="advice">建议：<span class="text"><%= data.summary.conclusion.action %></span></h3>
+                                    <h3 class="advice">建议：<span class="text <%= adviceClass %>"><%= advice %></span></h3>
                                 </div>
                             </div>
                         </script>
