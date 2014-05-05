@@ -2014,12 +2014,7 @@ td.datepickerSpecial.datepickerSelected a {
             .button {
                 display: block;
                 float: left;
-                height: 28px;
-                width: 28px;
                 margin-left: 20px;
-                border: 1px solid #323232;
-                border-radius: 50%;
-                line-height: 28px;
                 color: #323232;
                 &:first-child {
                     margin-left: 0;
@@ -2030,9 +2025,18 @@ td.datepickerSpecial.datepickerSelected a {
                     background-color: #323232;
                 }
             }
+            .button[data-efc-interval] {
+                height: 30px;
+                width: 30px;
+                line-height: 30px;
+                border-radius: 50%;
+            }
             .button[data-efc-type] {
                 width: 50px;
-                border-radius: 0;
+                height: 28px;
+                line-height: 28px;
+                border: 1px solid #323232;
+                //border-radius: 0;
             }
             .line.vertical {
                 width: 0;
@@ -2469,161 +2473,7 @@ td.datepickerSpecial.datepickerSelected a {
         }
     }
 
-    .market-analysis {
 
-        @borderColor: #b4b4b4;
-
-        .datum {
-            position: absolute;
-            width: 270px;
-            top: 0;
-            left: 0;
-            padding: 0 15px;
-            .update-time {
-                display: block;
-                font-size: 14px;
-                line-height: 34px;
-            }
-            .open-price,
-            .close-price {
-                display: block;
-                color: #666;
-                font-size: 12px;
-                line-height: 22px;
-            }
-            .title {
-
-                font-size: 18px;
-                line-height: 40px;
-                font-weight: normal;
-                height: auto;
-                border-bottom: none;
-                margin: 0;
-
-                &>.price {
-
-                }
-
-            }
-        }
-
-        .overview {
-            //height: 100%;
-            width: 270px;
-            padding: 118px 15px 10px;
-            border-right: 1px solid @borderColor;
-
-            .advice {
-
-                font-size: 18px;
-                line-height: 30px;
-                font-weight: normal;
-
-                &>.text {
-
-                }
-            }
-            .compare {
-
-                border-top: 1px dashed @borderColor;
-                margin-top: 10px;
-
-                .title {
-                    font-size: 14px;
-                    line-height: 40px;
-                }
-
-                .label,
-                .value {
-                    display: block;
-                    font-size: 12px;
-                    margin-bottom: 4px;
-                }
-
-                .indicator {
-                    width: 100%;
-                    height: 8px;
-                    //看涨
-                    .bullish {
-                        height: 100%;
-                        background-color: #df6c6c;
-                    }
-                    //看跌
-                    .bearish {
-                        height: 100%;
-                        background-color: #4cac6d;
-                    }
-                }
-            }
-
-        }
-        .realtime-data {
-
-            width: 507px;
-            padding: 0 15px 10px;
-
-            .dash-line {
-                margin-top: 15px;
-                width: 100%;
-                display: block;
-                height: 0;
-                border-bottom: 1px dashed @borderColor;
-            }
-
-            .table {
-
-                margin-top: 15px;
-                width: 100%;
-
-                th {
-                    font-weight: normal;
-                }
-
-                th,td {
-                    border: 1px solid @borderColor;
-
-                    vertical-align: middle;
-                    text-align: center;
-
-                    &.cell1 {
-                        width: 70px;
-                        height: 35px;
-                    }
-                    &.cell2 {
-                        width: 150px;
-                        height: 45px;
-                    }
-                    &.pivot {
-                        color: @blue;
-                    }
-                    &.label {
-                        color: @blue;
-                        text-align: left;
-                        text-indent: 60px;
-                        font-weight: bold;
-                        font-size: 14px;
-                    }
-
-                    .buy {
-                        color: @upColor;
-
-                        .value {
-                            color: #000;
-                        }
-                    }
-                    .sell {
-                        color: @downColor;
-
-                        .value {
-                            color: #000;
-                        }
-                    }
-
-                }
-            }
-        }
-
-    }
 
     .economic-evaluation.tabpanel {
 
@@ -2712,6 +2562,179 @@ td.datepickerSpecial.datepickerSelected a {
         }
     }
 
+}
+
+#main-analysis {
+    @borderColor: #b4b4b4;
+    &>.content {
+        .clearfix;
+    }
+    .datum {
+        float: left;
+        width: 270px;
+        padding: 0 15px;
+        .update-time {
+            display: block;
+            font-size: 14px;
+            line-height: 34px;
+        }
+        .open-price,
+        .close-price {
+            display: block;
+            color: #666;
+            font-size: 12px;
+            line-height: 22px;
+        }
+        .title {
+            font-size: 18px;
+            line-height: 40px;
+            font-weight: normal;
+            height: auto;
+            border-bottom: none;
+            margin: 0;
+            &>.price {
+
+            }
+        }
+    }
+    .overview {
+        float: left;
+        width: 507px;
+        padding: 0 15px 10px;
+        border-left: 1px solid @borderColor;
+        &>.toolbar {
+            border-bottom: 1px solid @borderColor;
+            line-height: 34px;
+            color: @borderColor;
+            &>.label {
+                float: left;
+                display: block;
+                color: #000;
+                margin-right: 30px;
+            }
+            &>.nav {
+                float: left;
+                display: block;
+                margin-right: 50px;
+                &.active {
+                    color: @blue;
+                    position: relative;
+                    &:after {
+                        display: block;
+                        position: absolute;
+                        background: url(../img/icon/arrow_up.png) 0 0 no-repeat;
+                        bottom: -1px;
+                        left: 0;
+                        right: 0;
+                        margin: auto;
+                        content: "";
+                        width: 11px;
+                        height: 8px;
+                    }
+                }
+            }
+        }
+        &>.content {
+            position: relative;
+            margin-top: 15px;
+            height: 197px;
+            [data-analysis-result] {
+                position: absolute;
+                left: -315px;
+                bottom: -10px;
+                width: 270px;
+                height: 129px;
+                padding: 0 15px 10px;
+            }
+        }
+    }
+    .advice {
+        font-size: 18px;
+        line-height: 30px;
+        font-weight: normal;
+        &>.text {
+        }
+    }
+    .compare {
+        border-top: 1px dashed @borderColor;
+        margin-top: 10px;
+        .title {
+            font-size: 14px;
+            line-height: 40px;
+        }
+        .label,
+        .value {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+        .indicator {
+            width: 100%;
+            height: 8px;
+            //看涨
+            .bullish {
+                height: 100%;
+                background-color: #4cac6d;
+            }
+            //看跌
+            .bearish {
+                height: 100%;
+                background-color: #df6c6c;
+            }
+        }
+    }
+
+    .dash-line {
+        margin: 15px 0;
+        width: 100%;
+        display: block;
+        height: 0;
+        border-bottom: 1px dashed @borderColor;
+    }
+
+    .table {
+        width: 100%;
+        th {
+            font-weight: normal;
+        }
+        th,td {
+            border: 1px solid @borderColor;
+            vertical-align: middle;
+            text-align: center;
+            &.cell1 {
+                width: 70px;
+                height: 35px;
+            }
+            &.pivot {
+                color: @blue;
+            }
+            &.cell2 {
+                width: 95px;
+                padding-left: 50px;
+                height: 45px;
+                text-align: left;
+            }
+            &.label {
+                color: @blue;
+                text-align: left;
+                padding-left: 60px;
+                font-weight: bold;
+                font-size: 14px;
+            }
+            .buy {
+                color: @green;
+                .value {
+                    color: #000;
+                }
+            }
+            .sell {
+                color: @red;
+                .value {
+                    color: #000;
+                }
+            }
+        }
+    }
 }
 
 .menu {
@@ -2954,7 +2977,7 @@ td.datepickerSpecial.datepickerSelected a {
         }
     }
     &>.content {
-        min-height: 500px;
+        min-height: 800px;
         padding: 0 30px;
         &>.date {
             height: 40px;
@@ -3712,25 +3735,25 @@ td.datepickerSpecial.datepickerSelected a {
                     //看涨
                     .bullish {
                         height: 100%;
-                        background-color: #df6c6c;
+                        background-color: #4cac6d;
                     }
                     //看跌
                     .bearish {
                         height: 100%;
-                        background-color: #4cac6d;
+                        background-color: #df6c6c;
                     }
                 }
             }
 
             .advice {
-
                 font-size: 18px;
-                line-height: 67px;
+                font-weight: normal;
+                line-height: 30px;
                 padding-left: 8px;
-                //font-weight: normal;
-
                 &>.text {
-
+                    display: block;
+                    font-size: 14px;
+                    margin-top: 7px;
                 }
             }
 
