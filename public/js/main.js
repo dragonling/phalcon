@@ -216,6 +216,18 @@ $(function(){
         }
         e.preventDefault();
     });
+    $(document).on('click', '[data-etf-target]', function(e) {
+        var $this = $(this);
+        var frame = $($this.attr('data-etf-target'))[0];
+        var symbol = $this.attr('data-efc-symbol') + 'ETF';
+        frame.src = frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + symbol + '$1');
+    });
+    $(document).on('click', '[data-cftc-target]', function(e) {
+        var $this = $(this);
+        var frame = $($this.attr('data-cftc-target'))[0];
+        var symbol = $this.attr('data-efc-symbol') + 'CFTC';
+        frame.src = frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + symbol + '$1');
+    });
 
     /*
     $(document).on('click.spread', '[data-toggle=shrink]', function(e){

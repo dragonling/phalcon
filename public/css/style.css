@@ -2209,6 +2209,30 @@ td.datepickerSpecial.datepickerSelected a {
 #tech-analysis .table td:first-child {
   padding-left: 30px;
 }
+#tech-analysis .table .buy {
+  color: #fff;
+  border-radius: 5px;
+  padding: 0 5px;
+  background: #00cb32;
+}
+#tech-analysis .table .sell {
+  color: #fff;
+  border-radius: 5px;
+  padding: 0 5px;
+  background: #ff3232;
+}
+#tech-analysis .table .with-bg {
+  color: #fff;
+  border-radius: 5px;
+  padding: 2px 8px;
+  margin-left: -8px;
+}
+#tech-analysis .table .with-bg.text-red {
+  background: #ff3232;
+}
+#tech-analysis .table .with-bg.text-green {
+  background: #00cb32;
+}
 #tech-analysis .table .text-left {
   text-align: left;
 }
@@ -2374,6 +2398,8 @@ td.datepickerSpecial.datepickerSelected a {
 #main .recommend-news.list > .item > .link .title {
   position: absolute;
   bottom: 0;
+  left: 0;
+  right: 0;
   color: #fff;
   font-size: 14px;
   line-height: 20px;

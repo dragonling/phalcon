@@ -76,6 +76,16 @@ function getSuggestClass($input) {
                         <table class="table">
                             <tbody>
                             <tr>
+                                <td class="text-bold">建议:</td>
+                                <td>
+                                    <span class="<?=getSuggestClass($data['summary']['conclusion']['action'])?> with-bg">
+                                        <?=getSuggest($data['summary']['conclusion']['action'])?>
+                                    </span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
                                 <td class="text-bold">移动平均指数:</td>
                                 <td class="<?=getSuggestClass($data['summary']['datas']['MovingAverages']['action'])?>"><?=getSuggest($data['summary']['datas']['MovingAverages']['action'])?></td>
                                 <td>购买（<?=$data['summary']['datas']['MovingAverages']['buy']?>）</td>
@@ -86,12 +96,6 @@ function getSuggestClass($input) {
                                 <td class="<?=getSuggestClass($data['summary']['datas']['TechnicalIndicators']['action'])?>"><?=getSuggest($data['summary']['datas']['TechnicalIndicators']['action'])?></td>
                                 <td>购买（<?=$data['summary']['datas']['TechnicalIndicators']['buy']?>）</td>
                                 <td>出售（<?=$data['summary']['datas']['TechnicalIndicators']['sell']?>）</td>
-                            </tr>
-                            <tr>
-                                <td class="text-bold">建议:</td>
-                                <td class="<?=getSuggestClass($data['summary']['conclusion']['action'])?>"><?=getSuggest($data['summary']['conclusion']['action'])?></td>
-                                <td></td>
-                                <td></td>
                             </tr>
                             </tbody>
                         </table>

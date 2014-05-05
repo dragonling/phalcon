@@ -2,10 +2,15 @@
     <div id="market" class="span8" data-rtq data-rtq-option="update-time-format: HH:mm:ss; format-price: true;" >
         <div class="content">
             <ul class="menu first-item" data-market>
-                <li class="item active" data-rtq-symbol="XAUUSD" data-efc-symbol="XAUUSD" data-efc-target="#market [data-chart]">
+                <li class="item active" data-rtq-symbol="XAUUSD" data-efc-symbol="XAUUSD"
+                    data-efc-target="#market [data-chart]"
+                    data-etf-target="#market [data-type=etf] iframe.chart"
+                    data-cftc-target="#market [data-type=cftc] iframe.chart" >
                     <span class="text">黄金</span>
                 </li>
-                <li class="item" data-rtq-symbol="XAGUSD" data-efc-symbol="XAGUSD" data-efc-target="#market [data-chart]">
+                <li class="item" data-rtq-symbol="XAGUSD" data-efc-symbol="XAGUSD" data-efc-target="#market [data-chart]"
+                    data-etf-symbol="XAGUSD" data-etf-target="#market [data-type=etf] iframe.chart"
+                    data-cftc-symbol="XAGUSD" data-etf-target="#market [data-type=cftc] iframe.chart" >
                     <span class="text">白银</span>
                 </li>
                 <li class="item" data-rtq-symbol="USDollarIndex" data-efc-symbol="USDollarIndex" data-efc-target="#market [data-chart]">

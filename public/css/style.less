@@ -2226,6 +2226,31 @@ td.datepickerSpecial.datepickerSelected a {
                 padding-left: 30px;
             }
         }
+        .buy {
+            color: #fff;
+            border-radius: 5px;
+            padding: 0 5px;
+            background: @green;
+        }
+        .sell {
+            color: #fff;
+            border-radius: 5px;
+            padding: 0 5px;
+            background: @red;
+        }
+        .with-bg {
+            color: #fff;
+            border-radius: 5px;
+            padding: 2px 8px;
+            margin-left: -8px;
+            &.text-red {
+                background: @red;
+            }
+            &.text-green {
+                background: @green;
+            }
+        }
+
         .text-left {
             text-align: left;
         }
@@ -2397,6 +2422,8 @@ td.datepickerSpecial.datepickerSelected a {
                 .title {
                     position: absolute;
                     bottom: 0;
+                    left: 0;
+                    right: 0;
                     color: #fff;
                     font-size: 14px;
                     line-height: 20px;
