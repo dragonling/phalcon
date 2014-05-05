@@ -2674,12 +2674,12 @@ td.datepickerSpecial.datepickerSelected a {
             //看涨
             .bullish {
                 height: 100%;
-                background-color: #df6c6c;
+                background-color: #4cac6d;
             }
             //看跌
             .bearish {
                 height: 100%;
-                background-color: #4cac6d;
+                background-color: #df6c6c;
             }
         }
     }
@@ -2722,13 +2722,13 @@ td.datepickerSpecial.datepickerSelected a {
                 font-size: 14px;
             }
             .buy {
-                color: @upColor;
+                color: @green;
                 .value {
                     color: #000;
                 }
             }
             .sell {
-                color: @downColor;
+                color: @red;
                 .value {
                     color: #000;
                 }
@@ -2977,7 +2977,7 @@ td.datepickerSpecial.datepickerSelected a {
         }
     }
     &>.content {
-        min-height: 500px;
+        min-height: 800px;
         padding: 0 30px;
         &>.date {
             height: 40px;
@@ -3735,25 +3735,25 @@ td.datepickerSpecial.datepickerSelected a {
                     //看涨
                     .bullish {
                         height: 100%;
-                        background-color: #df6c6c;
+                        background-color: #4cac6d;
                     }
                     //看跌
                     .bearish {
                         height: 100%;
-                        background-color: #4cac6d;
+                        background-color: #df6c6c;
                     }
                 }
             }
 
             .advice {
-
                 font-size: 18px;
-                line-height: 67px;
+                font-weight: normal;
+                line-height: 30px;
                 padding-left: 8px;
-                //font-weight: normal;
-
                 &>.text {
-
+                    display: block;
+                    font-size: 14px;
+                    margin-top: 7px;
                 }
             }
 

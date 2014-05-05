@@ -2627,11 +2627,11 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #main-analysis .compare .indicator .bullish {
   height: 100%;
-  background-color: #df6c6c;
+  background-color: #4cac6d;
 }
 #main-analysis .compare .indicator .bearish {
   height: 100%;
-  background-color: #4cac6d;
+  background-color: #df6c6c;
 }
 #main-analysis .dash-line {
   margin: 15px 0;
@@ -2678,7 +2678,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #main-analysis .table th .buy,
 #main-analysis .table td .buy {
-  color: #ff3232;
+  color: #00cb32;
 }
 #main-analysis .table th .buy .value,
 #main-analysis .table td .buy .value {
@@ -2686,7 +2686,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #main-analysis .table th .sell,
 #main-analysis .table td .sell {
-  color: #00cb32;
+  color: #ff3232;
 }
 #main-analysis .table th .sell .value,
 #main-analysis .table td .sell .value {
@@ -2910,7 +2910,7 @@ td.datepickerSpecial.datepickerSelected a {
   margin-top: 5px;
 }
 #livenews > .content {
-  min-height: 500px;
+  min-height: 800px;
   padding: 0 30px;
 }
 #livenews > .content > .date {
@@ -3604,14 +3604,20 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #stare-modal.panel .market-analysis .overview .compare .indicator .bullish {
   height: 100%;
-  background-color: #df6c6c;
+  background-color: #4cac6d;
 }
 #stare-modal.panel .market-analysis .overview .compare .indicator .bearish {
   height: 100%;
-  background-color: #4cac6d;
+  background-color: #df6c6c;
 }
 #stare-modal.panel .market-analysis .overview .advice {
   font-size: 18px;
-  line-height: 67px;
+  font-weight: normal;
+  line-height: 30px;
   padding-left: 8px;
+}
+#stare-modal.panel .market-analysis .overview .advice > .text {
+  display: block;
+  font-size: 14px;
+  margin-top: 7px;
 }

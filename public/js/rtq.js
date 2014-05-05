@@ -11,6 +11,7 @@
         this.interval = null;
         this.config = {};
         this.config.overview = options.overview;
+        this.config.defaultInterval = options.defaultInterval;
         if (this.config.overview) {
             this.$overviewDom = this.$target.find('[data-overview-dom]');
             this.$overviewScript = this.$target.find('[data-overview-template]');
@@ -99,8 +100,13 @@
                 root.updateData(symbol);
                 //是否显示 overview
                 if (root.config.overview) {
-                    var interval = root.$target.find('[data-rtq-interval].active').attr('data-rtq-interval');
-                    root.overview(interval);
+                    var $interval = root.$target.find('[data-rtq-interval].active');
+                    if ($interval.length) {
+                        root.overview($interval.attr('data-rtq-interval'));
+                    } else {
+                        root.overview(root.config.defaultInterval);
+                    }
+
                 }
                 //实时跟新数据
                 root.interval = setInterval(function(){
