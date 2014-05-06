@@ -218,7 +218,7 @@
             var domOptions = {};
             var str = $this.attr('data-rtq-option');
             if (str) {
-                domOptions = tool.parseStringToObject(str);
+                domOptions = tool.parseDomData(str);
             }
             $.extend(options, domOptions, inputOptions);
             new Rtq(options);

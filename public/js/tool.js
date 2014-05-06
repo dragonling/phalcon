@@ -95,35 +95,43 @@ moment.lang('zh-cn', {
 moment.lang('zh-cn');
 
 var tool = {
-
-    parseStringToObject: function(str) {
-
-        if (str) {
-            var str = str.replace(/\s/g, '');
-            var array = str.split(';');
-            var obj = {};
-            for (var l=array.length-1; l>-1; l--) {
-                var item = array[l];
-                var index = item.indexOf(':');
-                if (index > -1 && (index < item.length - 1)) {
-                    var key = item.substring(0, index);
-                    key = key.replace(/-\w/g, function(word) {
-                        return word.charAt(1).toUpperCase();
-                    });
-                    var value = item.substring(index+1);
-                    //todo 类型转换？number
-                    switch (value) {
-                        case 'true':
-                            value = true;
-                            break;
-                        case 'false':
-                            value = false;
-                            break;
-                    }
-                    obj[key] = value;
-                }
-            }
-            return obj;
+    /**
+     * 转换dom上设置的data-?的值转换为js对象
+     * @param str
+     * @returns
+     */
+    parseDomData : function(str) {
+        if (typeof str !== 'string') {
+            return ;
         }
+        str = str.replace(/\s/g, '');
+        var array = str.split(';');
+        var obj = {};
+        for (var l=array.length-1; l>-1; l--) {
+            var item = array[l];
+            var index = item.indexOf(':');
+            if (index > -1 && (index < item.length - 1)) {
+                var key = item.substring(0, index);
+                key = key.replace(/-\w/g, function(word) {
+                    return word.charAt(1).toUpperCase();
+                });
+                var value = item.substring(index+1);
+                //类型转换 boolean
+                switch (value) {
+                    case 'true':
+                        value = true;
+                        break;
+                    case 'false':
+                        value = false;
+                        break;
+                }
+                //类型转换 number
+                if (/^\d/.test(value)) {
+                    value = + value;
+                }
+                obj[key] = value;
+            }
+        }
+        return obj;
     }
 };
