@@ -3,56 +3,38 @@
         <div class="content">
             <ul class="menu first-item" data-market>
                 <li class="item active" data-rtq-symbol="XAUUSD" data-efc-symbol="XAUUSD"
-                    data-efc-target="#market [data-chart]"
-                    data-etf-target="#market [data-type=etf] iframe.chart"
-                    data-cftc-target="#market [data-type=cftc] iframe.chart" >
+                    data-efc-target="#market [data-chart]">
                     <span class="text">黄金</span>
                 </li>
                 <li class="item" data-rtq-symbol="XAGUSD" data-efc-symbol="XAGUSD"
-                    data-efc-target="#market [data-chart]"
-                    data-etf-target="#market [data-type=etf] iframe.chart"
-                    data-cftc-target="#market [data-type=cftc] iframe.chart" >
+                    data-efc-target="#market [data-chart]">
                     <span class="text">白银</span>
                 </li>
                 <li class="item" data-rtq-symbol="USDollarIndex" data-efc-symbol="USDollarIndex"
-                    data-efc-target="#market [data-chart]"
-                    data-etf-target="#market [data-type=etf] iframe.chart"
-                    data-cftc-target="#market [data-type=cftc] iframe.chart" >
+                    data-efc-target="#market [data-chart]">
                     <span class="text">美元指数</span>
                 </li>
                 <li class="item" data-rtq-symbol="US10Year" data-efc-symbol="US10Year"
-                    data-etf-target="#market [data-type=etf] iframe.chart"
-                    data-cftc-target="#market [data-type=cftc] iframe.chart"
                     data-efc-target="#market [data-chart]" >
                     <span class="text">美债</span>
                 </li>
                 <li class="item" data-rtq-symbol="USOil" data-efc-symbol="USOil"
-                    data-etf-target="#market [data-type=etf] iframe.chart"
-                    data-cftc-target="#market [data-type=cftc] iframe.chart"
                     data-efc-target="#market [data-chart]">
                     <span class="text">原油</span>
                 </li>
                 <li class="item" data-rtq-symbol="SPX500INDEX" data-efc-symbol="SPX500INDEX"
-                    data-etf-target="#market [data-type=etf] iframe.chart"
-                    data-cftc-target="#market [data-type=cftc] iframe.chart"
                     data-efc-target="#market [data-chart]">
                     <span class="text">标普500</span>
                 </li>
                 <li class="item" data-rtq-symbol="JPN225INDEX" data-efc-symbol="JPN225INDEX"
-                    data-etf-target="#market [data-type=etf] iframe.chart"
-                    data-cftc-target="#market [data-type=cftc] iframe.chart"
                     data-efc-target="#market [data-chart]">
                     <span class="text">日经</span>
                 </li>
                 <li class="item" data-rtq-symbol="UKOil" data-efc-symbol="UKOil"
-                    data-etf-target="#market [data-type=etf] iframe.chart"
-                    data-cftc-target="#market [data-type=cftc] iframe.chart"
                     data-efc-target="#market [data-chart]">
                     <span class="text">布油</span>
                 </li>
                 <li class="item" data-rtq-symbol="Copper" data-efc-symbol="Copper"
-                    data-etf-target="#market [data-type=etf] iframe.chart"
-                    data-cftc-target="#market [data-type=cftc] iframe.chart"
                     data-efc-target="#market [data-chart]">
                     <span class="text">铜</span>
                 </li>
@@ -119,10 +101,19 @@
                 </li>
             </ul>
             <div data-quote>
-                <div data-tab-index="1" class="panel active" data-type="etf">
-                    <iframe class="chart" frameborder="0" scrolling="no" width="560" height="180"
-                        src="http://markets.wallstreetcn.com/embed/chart?symbol=GOLDETF&width=560&height=180&rows=30&interval=1d&theme=dark" >
-                    </iframe>
+                <div data-tab-index="1" class="panel active" data-type="etf" data-etf data-etf-option="symbol: GOLD; chart: true;">
+                    <div class="chart" data-etf-dom="chart"></div>
+                    <script type="text/template" data-etf-template="data">
+                        <% for (var i = 0, l = data.length; i < l; i++) { %>
+                        <tr>
+                            <td><%= data[i].date %></td>
+                            <td><%= data[i].etf_oz %></td>
+                            <td><%= data[i].etf_ton %></td>
+                            <td><%= data[i].price %></td>
+                            <td><%= data[i].change %></td>
+                        </tr>
+                        <% } %>
+                    </script>
                     <div class="line"></div>
                     <table class="table">
                         <thead>
@@ -133,50 +124,12 @@
                             <th>总价值（美元）</th>
                             <th>增减（吨）</th>
                         </tr>
-                        <tbody>
-                        <tr>
-                            <td>2014.03.25</td>
-                            <td>2654235.42</td>
-                            <td>819.67</td>
-                            <td>35656511252.15</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.25</td>
-                            <td>2654235.42</td>
-                            <td>819.67</td>
-                            <td>35656511252.15</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.25</td>
-                            <td>2654235.42</td>
-                            <td>819.67</td>
-                            <td>35656511252.15</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.25</td>
-                            <td>2654235.42</td>
-                            <td>819.67</td>
-                            <td>35656511252.15</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.25</td>
-                            <td>2654235.42</td>
-                            <td>819.67</td>
-                            <td>35656511252.15</td>
-                            <td>0.00</td>
-                        </tr>
-                        </tbody>
+                        <tbody data-etf-dom="data"></tbody>
                         </thead>
                     </table>
                 </div>
                 <div data-tab-index="2" class="panel" data-type="cftc">
-                    <iframe class="chart" frameborder="0" scrolling="no" width="560" height="180"
-                        src="http://markets.wallstreetcn.com/embed/chart?symbol=GOLDCFTC&width=560&height=180&rows=30&interval=1d&theme=dark" >
-                    </iframe>
+                    <div class="chart"></div>
                     <div class="line"></div>
                     <table class="table">
                         <thead>
@@ -187,7 +140,7 @@
                             <th>总价值（美元）</th>
                             <th>增减（吨）</th>
                         </tr>
-                        <tbody>
+                        <tbody >
                         <tr>
                             <td>2014.03.25</td>
                             <td>2654235.42</td>

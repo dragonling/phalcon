@@ -164,6 +164,7 @@ $(function(){
     });
 });
 
+
 $(function(){
 
     //
@@ -193,6 +194,8 @@ $(function(){
     //
     //mam.init();
     $('[data-rtq]').rtq();
+    //
+    $('[data-etf]').etf();
     /**
      * chart 图表
      */
@@ -214,6 +217,7 @@ $(function(){
         } else if (type) {
             //todo
         }
+        /*
         if ($this.is('[data-etf-target]')) {
             var etf_frame  = $($this.attr('data-etf-target'))[0];
             var etf_symbol = symbol + 'ETF';
@@ -224,8 +228,12 @@ $(function(){
             var cftc_symbol = symbol + 'CFTC';
             cftc_frame.src = cftc_frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + cftc_symbol + '$1');
         }
+        */
         e.preventDefault();
     });
+
+
+
     /*
     $(document).on('click', '[data-etf-target]', function(e) {
         var $this = $(this);
