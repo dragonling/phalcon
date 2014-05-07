@@ -78,7 +78,7 @@ class CategoryForm extends Form
      * @Type(Hidden)
      * @var integer
      */
-    public $image_id;
+    public $imageId;
      
     /**
      *

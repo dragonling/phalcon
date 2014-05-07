@@ -54,7 +54,7 @@ class Post extends Entities\Posts
     {
         $user = new LoginModel();
         if($userinfo = $user->isUserLoggedIn()) {
-            $this->user_id = $this->user_id ? $this->user_id : $userinfo['id'];
+            $this->userId = $this->userId ? $this->userId : $userinfo['id'];
             $this->username = $this->username ? $this->username : $userinfo['username'];
         }
 
@@ -67,7 +67,7 @@ class Post extends Entities\Posts
             $file = $files[0];
             $file = $upload->upload($file);
             if($file) {
-                $this->image_id = $file->id;
+                $this->imageId = $file->id;
                 $this->image = $file->getFullUrl();
             }
         }
@@ -77,7 +77,7 @@ class Post extends Entities\Posts
     {
         $user = new LoginModel();
         if($userinfo = $user->isUserLoggedIn()) {
-            $this->editor_id = $userinfo['id'];
+            $this->editorId = $userinfo['id'];
             $this->editor_name = $userinfo['username'];
         }
 
@@ -92,7 +92,7 @@ class Post extends Entities\Posts
             $file = $files[0];
             $file = $upload->upload($file);
             if($file) {
-                $this->image_id = $file->id;
+                $this->imageId = $file->id;
                 $this->image = $file->getLocalUrl();
             }
         }
@@ -122,12 +122,12 @@ class Post extends Entities\Posts
         }
 
         if(!empty($query['uid'])) {
-            $itemQuery->andWhere('user_id = :uid:', array('uid' => $query['uid']));
+            $itemQuery->andWhere('userId = :uid:', array('uid' => $query['uid']));
         }
 
         if(!empty($query['cid'])) {
-            $itemQuery->join('Eva\EvaBlog\Entities\CategoriesPosts', 'id = r.post_id', 'r')
-            ->andWhere('r.category_id = :cid:', array('cid' => $query['cid']));
+            $itemQuery->join('Eva\EvaBlog\Entities\CategoriesPosts', 'id = r.postId', 'r')
+            ->andWhere('r.categoryId = :cid:', array('cid' => $query['cid']));
         }
 
         $order = 'createdAt DESC';

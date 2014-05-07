@@ -40,7 +40,7 @@ class Login extends Entities\Users
         $token->sessionId = $sessionId;
         $token->token = md5(uniqid(rand(), true));
         $token->userHash = $this->getUserHash($userinfo);
-        $token->user_id = $userinfo->id;
+        $token->userId = $userinfo->id;
         $token->refreshAt = time();
         $token->expiredAt = time() + $this->tokenExpired;
         $token->save();
@@ -157,7 +157,7 @@ class Login extends Entities\Users
             return false;
         }
 
-        $this->id = $tokenInfo->user_id;
+        $this->id = $tokenInfo->userId;
         $userinfo = self::findFirst("id = '$this->id'");
 
         if(!$userinfo) {

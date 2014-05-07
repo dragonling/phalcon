@@ -38,7 +38,7 @@ class User extends Entities\Users
             $file = $files[0];
             $file = $upload->upload($file);
             if($file) {
-                $this->avatar_id = $file->id;
+                $this->avatarId = $file->id;
                 $this->avatar = $file->getFullUrl();
             }
         }

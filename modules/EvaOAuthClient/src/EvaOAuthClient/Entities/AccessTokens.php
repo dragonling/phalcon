@@ -98,7 +98,7 @@ class AccessTokens extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $user_id;
+    public $userId;
      
     /**
      * Independent Column Mapping.
@@ -121,7 +121,7 @@ class AccessTokens extends \Eva\EvaEngine\Mvc\Model
             'remoteEmail' => 'remoteEmail', 
             'remoteImageUrl' => 'remoteImageUrl', 
             'remoteExtra' => 'remoteExtra', 
-            'user_id' => 'user_id'
+            'userId' => 'userId'
         );
     }
 

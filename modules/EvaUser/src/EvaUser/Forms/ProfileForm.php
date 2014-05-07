@@ -9,7 +9,7 @@ class ProfileForm extends Form
      *
      * @var integer
      */
-    public $user_id;
+    public $userId;
      
     /**
      *

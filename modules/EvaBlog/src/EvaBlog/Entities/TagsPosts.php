@@ -12,13 +12,13 @@ class TagsPosts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $tag_id;
+    public $tagId;
      
     /**
      *
      * @var integer
      */
-    public $post_id;
+    public $postId;
      
     /**
      * Independent Column Mapping.
@@ -26,18 +26,18 @@ class TagsPosts extends \Eva\EvaEngine\Mvc\Model
     public function columnMap()
     {
         return array(
-            'tag_id' => 'tag_id', 
-            'post_id' => 'post_id'
+            'tagId' => 'tagId', 
+            'postId' => 'postId'
         );
     }
 
 
     public function initialize()
     {
-        $this->belongsTo('tag_id', 'Eva\EvaBlog\Entities\Tags', 'id', 
+        $this->belongsTo('tagId', 'Eva\EvaBlog\Entities\Tags', 'id', 
             array('alias' => 'Tag')
         );
-        $this->belongsTo('post_id', 'Eva\EvaBlog\Entities\Posts', 'id', 
+        $this->belongsTo('postId', 'Eva\EvaBlog\Entities\Posts', 'id', 
             array('alias' => 'Post')
         );
     }

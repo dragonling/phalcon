@@ -22,13 +22,13 @@ class Login extends UserEntity
                 'remoteUserId' => $accessToken['remoteUserId'],
             )
         ));
-        if(!$token || !$token->user_id) {
+        if(!$token || !$token->userId) {
             return false;
         }
         
         $userModel = new UserLogin();
         $userModel->assign(array(
-            'id' => $token->user_id
+            'id' => $token->userId
         ));
         return $userModel->loginWithId();
     }
@@ -58,7 +58,7 @@ class Login extends UserEntity
         $accessTokenEntity = new AccessTokens();
         $accessTokenEntity->assign($accessToken);
         $accessTokenEntity->tokenStatus = 'active';
-        $accessTokenEntity->user_id = $userinfo->id;
+        $accessTokenEntity->userId = $userinfo->id;
         //$this->sendVerificationEmail($userinfo->username);
         if(!$accessTokenEntity->save()) {
             throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_CREATE_FAILED');
@@ -82,7 +82,7 @@ class Login extends UserEntity
         $accessTokenEntity = new AccessTokens();
         $accessTokenEntity->assign($accessToken);
         $accessTokenEntity->tokenStatus = 'active';
-        $accessTokenEntity->user_id = $authIdentity['id'];
+        $accessTokenEntity->userId = $authIdentity['id'];
         if(!$accessTokenEntity->save()) {
             throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_CREATE_FAILED');
         }
@@ -134,7 +134,7 @@ class Login extends UserEntity
         $accessTokenEntity = new AccessTokens();
         $accessTokenEntity->assign($accessToken);
         $accessTokenEntity->tokenStatus = 'active';
-        $accessTokenEntity->user_id = $userinfo->id;
+        $accessTokenEntity->userId = $userinfo->id;
         //$this->sendVerificationEmail($userinfo->username);
         if(!$accessTokenEntity->save()) {
             throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_CREATE_FAILED');

@@ -12,13 +12,13 @@ class CategoriesPosts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $category_id;
+    public $categoryId;
      
     /**
      *
      * @var integer
      */
-    public $post_id;
+    public $postId;
      
     /**
      * Independent Column Mapping.
@@ -26,18 +26,18 @@ class CategoriesPosts extends \Eva\EvaEngine\Mvc\Model
     public function columnMap()
     {
         return array(
-            'category_id' => 'category_id', 
-            'post_id' => 'post_id'
+            'categoryId' => 'categoryId', 
+            'postId' => 'postId'
         );
     }
 
 
     public function initialize()
     {
-        $this->belongsTo('category_id', 'Eva\EvaBlog\Entities\Categories', 'id', 
+        $this->belongsTo('categoryId', 'Eva\EvaBlog\Entities\Categories', 'id', 
             array('alias' => 'Category')
         );
-        $this->belongsTo('post_id', 'Eva\EvaBlog\Entities\Posts', 'id', 
+        $this->belongsTo('postId', 'Eva\EvaBlog\Entities\Posts', 'id', 
             array('alias' => 'Post')
         );
     }

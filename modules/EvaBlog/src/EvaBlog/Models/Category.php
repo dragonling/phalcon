@@ -80,7 +80,7 @@ class Category extends Entities\Categories
             $file = $files[0];
             $file = $upload->upload($file);
             if($file) {
-                $this->image_id = $file->id;
+                $this->imageId = $file->id;
                 $this->image = $file->getFullUrl();
             }
         }
@@ -99,7 +99,7 @@ class Category extends Entities\Categories
             $file = $files[0];
             $file = $upload->upload($file);
             if($file) {
-                $this->image_id = $file->id;
+                $this->imageId = $file->id;
                 $this->image = $file->getFullUrl();
             }
         }

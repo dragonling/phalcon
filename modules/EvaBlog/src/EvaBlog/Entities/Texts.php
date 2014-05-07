@@ -11,7 +11,7 @@ class Texts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $post_id;
+    public $postId;
      
     /**
      *
@@ -43,7 +43,7 @@ class Texts extends \Eva\EvaEngine\Mvc\Model
     public function columnMap()
     {
         return array(
-            'post_id' => 'post_id', 
+            'postId' => 'postId', 
             'metaKeywords' => 'metaKeywords', 
             'metaDescription' => 'metaDescription', 
             'toc' => 'toc', 
@@ -55,7 +55,7 @@ class Texts extends \Eva\EvaEngine\Mvc\Model
 
     public function initialize()
     {
-        $this->belongsTo('post_id', 'Eva\EvaBlog\Entities\Posts', 'id', array(
+        $this->belongsTo('postId', 'Eva\EvaBlog\Entities\Posts', 'id', array(
             'alias' => 'Post'
         ));
         parent::initialize();

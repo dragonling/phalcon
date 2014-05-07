@@ -85,7 +85,7 @@ class Register extends Entities\Users
 
     /**
     * checks the email/verification code combination and set the user's activation status to active in the database
-    * @param int $user_id user id
+    * @param int $userId user id
     * @param string $user_activation_verification_code verification token
     * @return bool success status
     */

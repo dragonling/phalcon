@@ -92,7 +92,7 @@ class UserForm extends Form
      *
      * @var integer
      */
-    public $avatar_id;
+    public $avatarId;
      
     /**
      *

@@ -86,7 +86,7 @@ class PostForm extends Form
      * @Type(Hidden)
      * @var integer
      */
-    public $user_id;
+    public $userId;
      
     /**
      *
@@ -104,7 +104,7 @@ class PostForm extends Form
      *
      * @var integer
      */
-    public $editor_id;
+    public $editorId;
      
     /**
      *
@@ -141,7 +141,7 @@ class PostForm extends Form
      * @Type(Hidden)
      * @var integer
      */
-    public $image_id;
+    public $imageId;
      
     /**
      * @Type(Hidden)

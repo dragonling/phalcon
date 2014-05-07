@@ -194,7 +194,7 @@
                             <?endif?>
                             <div class="paste-uploader" data-upload-url="/admin/upload/encode" data-upload-allow-num="1" data-upload-allow-type="" data-upload-maxsize="" data-callback="">
                                 <?=$postForm->render('image', array())?>
-                                <?=$postForm->render('image_id', array())?>
+                                <?=$postForm->render('imageId', array())?>
                             </div>
                             <input name="upload" type="file" class="ace-file-input"  multiple="">
                         </div>
@@ -303,13 +303,13 @@
                                     <?=$postForm->render('username', array(
                                         'class' => 'form-control autocomplete',
                                         'data-autocomplete-source' => '/admin/user/suggestions?query=%QUERY',
-                                        'data-autocomplete-target' => 'input[name=user_id]',
+                                        'data-autocomplete-target' => 'input[name=userId]',
                                         'data-autocomplete-fill-name' => 'id',
                                         'data-autocomplete-display-key' => 'username',
                                         'data-autocomplete-clear-fill-when-nomatch' => '1',
                                         'placeholder' => 'Use current user with no fill',
                                     ))?>
-                                    <?=$postForm->render('user_id', array(
+                                    <?=$postForm->render('userId', array(
                                         'class' => 'form-control',
                                     ))?>
                                 </label>

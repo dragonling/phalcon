@@ -108,7 +108,7 @@
                             <td><?=$item->email?></td>
                             <td><?=$item->providerType?></td>
                             <td><?=$this->tag->datetime($item->createdAt)?></td>
-                            <td><?=$this->tag->datetime($item->loginAt)?></td>
+                            <td><?=$item->loginAt ? $this->tag->datetime($item->loginAt) : 'Never'?></td>
                             <td>
                                 <div class="btn-group">
                                     <button class="btn btn-xs btn-success ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/user/status/<?=$item->id?>" data-callback="window.location.reload();">

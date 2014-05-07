@@ -26,7 +26,7 @@ class Tokens extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $user_id;
+    public $userId;
      
     /**
      *
@@ -49,7 +49,7 @@ class Tokens extends \Eva\EvaEngine\Mvc\Model
             'sessionId' => 'sessionId', 
             'token' => 'token', 
             'userHash' => 'userHash', 
-            'user_id' => 'user_id', 
+            'userId' => 'userId', 
             'refreshAt' => 'refreshAt', 
             'expiredAt' => 'expiredAt'
         );

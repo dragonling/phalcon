@@ -106,7 +106,7 @@ class Files extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $user_id;
+    public $userId;
      
     /**
      *
@@ -142,7 +142,7 @@ class Files extends \Eva\EvaEngine\Mvc\Model
             'imageHeight' => 'imageHeight', 
             'description' => 'description', 
             'sortOrder' => 'sortOrder', 
-            'user_id' => 'user_id', 
+            'userId' => 'userId', 
             'username' => 'username', 
             'createdAt' => 'createdAt'
         );
@@ -189,7 +189,7 @@ class Files extends \Eva\EvaEngine\Mvc\Model
 
     public function initialize()
     {
-        $this->belongsTo('user_id', 'Eva\EvaUser\Entities\Users', 'id', array(
+        $this->belongsTo('userId', 'Eva\EvaUser\Entities\Users', 'id', array(
             'alias' => 'User'
         ));
     }

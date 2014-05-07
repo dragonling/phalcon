@@ -82,7 +82,7 @@ class Users extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $avatar_id;
+    public $avatarId;
      
     /**
      *
@@ -205,7 +205,7 @@ class Users extends \Eva\EvaEngine\Mvc\Model
             'password' => 'password', 
             'oldPassword' => 'oldPassword', 
             'gender' => 'gender', 
-            'avatar_id' => 'avatar_id', 
+            'avatarId' => 'avatarId', 
             'avatar' => 'avatar', 
             'timezone' => 'timezone', 
             'language' => 'language', 
@@ -227,7 +227,7 @@ class Users extends \Eva\EvaEngine\Mvc\Model
 
     public function initialize()
     {
-        $this->hasOne('id', 'Eva\EvaUser\Entities\Profiles', 'user_id', array(
+        $this->hasOne('id', 'Eva\EvaUser\Entities\Profiles', 'userId', array(
             'alias' => 'Profile'
         ));
 

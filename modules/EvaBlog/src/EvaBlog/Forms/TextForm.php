@@ -9,7 +9,7 @@ class TextForm extends Form
      *
      * @var integer
      */
-    public $post_id;
+    public $postId;
      
     /**
      *

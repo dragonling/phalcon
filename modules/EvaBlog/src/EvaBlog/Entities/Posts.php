@@ -76,7 +76,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $user_id;
+    public $userId;
      
     /**
      *
@@ -94,7 +94,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $editor_id;
+    public $editorId;
      
     /**
      *
@@ -130,7 +130,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $image_id;
+    public $imageId;
      
     /**
      *
@@ -173,16 +173,16 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'slug' => 'slug', 
             'sortOrder' => 'sortOrder', 
             'createdAt' => 'createdAt', 
-            'user_id' => 'user_id', 
+            'userId' => 'userId', 
             'username' => 'username', 
             'updatedAt' => 'updatedAt', 
-            'editor_id' => 'editor_id', 
+            'editorId' => 'editorId', 
             'editor_name' => 'editor_name', 
             'commentStatus' => 'commentStatus', 
             'commentType' => 'commentType', 
             'commentCount' => 'commentCount', 
             'count' => 'count', 
-            'image_id' => 'image_id', 
+            'imageId' => 'imageId', 
             'image' => 'image', 
             'summary' => 'summary',
             'sourceName' => 'sourceName',
@@ -194,26 +194,26 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
 
     public function initialize()
     {
-        $this->hasOne('id', 'Eva\EvaBlog\Entities\Texts', 'post_id', array(
+        $this->hasOne('id', 'Eva\EvaBlog\Entities\Texts', 'postId', array(
             'alias' => 'Text'
         ));
 
-        $this->belongsTo('user_id', 'Eva\EvaUser\Entities\Users', 'id', array(
+        $this->belongsTo('userId', 'Eva\EvaUser\Entities\Users', 'id', array(
             'alias' => 'User'
         ));
 
         $this->hasMany(
             'id',
             'Eva\EvaBlog\Entities\CategoriesPosts',
-            'post_id',
+            'postId',
             array('alias' => 'CategoriesPosts')
         );
 
         $this->hasManyToMany(
             'id',
             'Eva\EvaBlog\Entities\CategoriesPosts',
-            'post_id',
-            'category_id',
+            'postId',
+            'categoryId',
             'Eva\EvaBlog\Entities\Categories',
             'id',
             array('alias' => 'Categories')
@@ -222,15 +222,15 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
         $this->hasMany(
             'id',
             'Eva\EvaBlog\Entities\TagsPosts',
-            'post_id',
+            'postId',
             array('alias' => 'TagsPosts')
         );
 
         $this->hasManyToMany(
             'id',
             'Eva\EvaBlog\Entities\TagsPosts',
-            'post_id',
-            'tag_id',
+            'postId',
+            'tagId',
             'Eva\EvaBlog\Entities\Tags',
             'id',
             array('alias' => 'Tags')

@@ -12,7 +12,7 @@ class Upload extends Files
     {
         $user = new LoginModel();
         if($userinfo = $user->isUserLoggedIn()) {
-            $this->user_id = $userinfo['id'];
+            $this->userId = $userinfo['id'];
             $this->username = $userinfo['username'];
         }
     }

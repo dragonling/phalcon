@@ -78,7 +78,7 @@ class Categories extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $image_id;
+    public $imageId;
      
     /**
      *
@@ -103,7 +103,7 @@ class Categories extends \Eva\EvaEngine\Mvc\Model
             'count' => 'count', 
             'leftId' => 'leftId', 
             'rightId' => 'rightId', 
-            'image_id' => 'image_id', 
+            'imageId' => 'imageId', 
             'image' => 'image'
         );
     }
@@ -113,8 +113,8 @@ class Categories extends \Eva\EvaEngine\Mvc\Model
         $this->hasManyToMany(
             'id',
             'Eva\EvaBlog\Entities\CategoriesPosts',
-            'category_id',
-            'post_id',
+            'categoryId',
+            'postId',
             'Eva\EvaBlog\Entities\Posts',
             'id',
             array('alias' => 'Posts')

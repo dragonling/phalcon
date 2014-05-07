@@ -9,7 +9,7 @@ class Profiles extends \Eva\EvaEngine\Mvc\Model
      *
      * @var integer
      */
-    public $user_id;
+    public $userId;
      
     /**
      *
@@ -203,7 +203,7 @@ class Profiles extends \Eva\EvaEngine\Mvc\Model
     public function columnMap()
     {
         return array(
-            'user_id' => 'user_id', 
+            'userId' => 'userId', 
             'site' => 'site', 
             'photoDir' => 'photoDir', 
             'photoName' => 'photoName', 
