@@ -12,7 +12,6 @@ class UserForm extends Form
     public $id;
      
     /**
-     *
      * @var string
      */
     public $username;

@@ -22,4 +22,9 @@ class User extends Entities\Users
         return $userinfo ? $userinfo->id : false;
     }
 
+    public function createUser()
+    {
+    
+    }
+
 }

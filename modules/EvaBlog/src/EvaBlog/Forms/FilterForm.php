@@ -76,7 +76,7 @@ class FilterForm extends Form
 
     public function initialize($entity = null, $options = null)
     {
-        $this->initializeFromAnnotations();
+        $this->initializeFormAnnotations();
         $this->addCid();
     }
 

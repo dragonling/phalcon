@@ -30,6 +30,7 @@
     </div><!-- #nav-search -->
 </div>
 
+<?$profileForm = $form->getForm('Profile');?>
 <div class="page-content">
     <div class="page-header">
         <?if(empty($item->id)):?>
@@ -42,6 +43,7 @@
     <div class="row">
         <div class="col-xs-12">
 
+            <?if(!empty($item->id)):?>
             <div class="row">
                 <div class="col-xs-12 col-sm-3 center">
                     <span class="profile-picture">
@@ -50,36 +52,51 @@
 
                     <div class="space space-4"></div>
 
-                    <a class="btn btn-sm btn-block btn-primary" href="#">
+                    <a class="btn btn-sm btn-block" href="#">
                         <i class="icon-envelope-alt bigger-110"></i>
                         <span class="bigger-110">Resend Active Email</span>
                     </a>
 
-                    <a class="btn btn-sm btn-block btn-primary" href="<?=$item->email?>">
+                    <a class="btn btn-sm btn-block" href="<?=$item->email?>">
                         <i class="icon-envelope-alt bigger-110"></i>
-                        <span class="bigger-110">Send Email</span>
+                        <span class="bigger-110">Resend Reset Password Email</span>
+                    </a>
+
+                    <a class="btn btn-sm btn-block" href="<?=$item->email?>">
+                        <i class="icon-envelope-alt bigger-110"></i>
+                        <span class="bigger-110">Block This User</span>
                     </a>
                 </div><!-- /span -->
 
                 <div class="col-xs-12 col-sm-9">
-                    <h4 class="blue">
-                        <span class="middle"><?=$item->username?></span>
-
-                        <?$status = array(
-                            'inactive' => 'label-warning',
-                            'deleted' => 'label',
-                            'active' => 'label-success',
-                        )?>
-                        <span class="label label-sm <?=$status[$item->status]?>"><?=$item->status?></span>
-                        <span class="label label-sm <?=$status[$item->emailStatus]?>"><i class="icon-envelope"></i> <?=$item->emailStatus?></span>
-                    </h4>
-
+                    <?$status = array(
+                        'inactive' => 'label-warning',
+                        'deleted' => 'label',
+                        'active' => 'label-success',
+                    )?>
                     <div class="profile-user-info">
                         <div class="profile-info-row">
                             <div class="profile-info-name"> Username </div>
 
                             <div class="profile-info-value">
                                 <span><?=$item->username?></span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row clearfix">
+                            <div class="profile-info-name"> Screen Name</div>
+
+                            <div class="profile-info-value">
+                                <span><?=$item->screenName ? $item->screenName : 'Unknow'?></span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> Status </div>
+
+                            <div class="profile-info-value">
+                                <span class="label label-sm <?=$status[$item->status]?>"><?=$item->status?></span>
+                                <span class="label label-sm <?=$status[$item->emailStatus]?>"><i class="icon-envelope"></i> <?=$item->emailStatus?></span>
                             </div>
                         </div>
 
@@ -105,7 +122,7 @@
                             <div class="profile-info-name"> Joined </div>
 
                             <div class="profile-info-value">
-                                <span><?=$this->tag->datetime($item->createdAt)?></span>
+                                <span><?=$this->tag->datetime($item->createdAt)?></span> | Register source : <?=$item->providerType?>
                             </div>
                         </div>
 
@@ -121,7 +138,7 @@
 
                     <div class="profile-user-info">
                         <div class="profile-info-row">
-                            <div class="profile-info-name"> Website </div>
+                            <div class="profile-info-name"> Social</div>
 
                             <div class="profile-info-value">
                                 <a target="_blank" href="#">www.alexdoe.com</a>
@@ -150,6 +167,8 @@
                     </div>
                 </div><!-- /span -->
             </div>
+            <?endif?>
+
 
             <div class="tabbable">
                 <ul class="nav nav-tabs padding-16">
@@ -180,12 +199,13 @@
                 <div class="tab-content profile-edit-tab-content">
                     <div class="tab-pane in active" id="edit-basic">
                         <form id="" action="" class="form-horizontal" method="POST" enctype="multipart/form-data" novalidate="novalidate">
-                            <?=$userForm->render('id')?>
+                            <?=$form->render('id')?>
                             <h4 class="header blue bolder smaller">General</h4>
 
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4">
-                                    <input type="file">
+                                    <label>User Avatar</label>
+                                    <input type="file" name="upload" class="ace-file-input">
                                 </div>
 
                                 <div class="vspace-xs"></div>
@@ -195,7 +215,7 @@
                                         <label for="username" class="col-sm-4 control-label no-padding-right">Username</label>
 
                                         <div class="col-sm-8">
-                                            <?=$userForm->render('username', array(
+                                            <?=$form->render('username', array(
                                                 'placeholder' => 'Username',
                                                 'class' => 'col-xs-12 col-sm-10',
                                             ))?>
@@ -210,13 +230,13 @@
                                         <div class="col-sm-8">
                                             <div class="row">
                                                 <div class="col-xs-3">
-                                                    <?=$userForm->render('firstName', array(
+                                                    <?=$form->render('firstName', array(
                                                         'placeholder' => 'First Name',
                                                         'class' => 'form-control',
                                                     ))?>
                                                 </div>
                                                 <div class="col-xs-3">
-                                                    <?=$userForm->render('lastName', array(
+                                                    <?=$form->render('lastName', array(
                                                         'placeholder' => 'Last Name',
                                                         'class' => 'form-control',
                                                     ))?>
@@ -284,7 +304,7 @@
 
                                 <div class="col-sm-9">
                                     <span class="input-icon input-icon-right">
-                                        <?=$userForm->render('email', array(
+                                        <?=$form->render('email', array(
                                             'class' => '',
                                         ))?>
                                         <i class="icon-envelope"></i>
@@ -314,7 +334,7 @@
 
                                 <div class="col-sm-9">
                                     <span class="input-icon input-icon-right">
-                                        <?=$userForm->render('mobile', array(
+                                        <?=$form->render('mobile', array(
                                             'class' => '',
                                         ))?>
                                         <i class="icon-phone icon-flip-horizontal"></i>
@@ -435,6 +455,21 @@
 
                             <div class="col-sm-9">
                                 <input type="password" id="form-field-pass2">
+                            </div>
+                        </div>
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn btn-info">
+                                    <i class="icon-ok bigger-110"></i>
+                                    Save
+                                </button>
+
+                                &nbsp; &nbsp;
+                                <button type="reset" class="btn">
+                                    <i class="icon-undo bigger-110"></i>
+                                    Reset
+                                </button>
                             </div>
                         </div>
                     </div><!--tab pane end-->

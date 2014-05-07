@@ -55,19 +55,23 @@ class UserController extends AdminControllerBase
         $user = new Models\User();
         $userForm = new \Eva\EvaUser\Forms\UserForm();
         $userForm->setModel($user);
-        $this->view->setVar('userForm', $userForm);
+        $userForm->addForm('Profile', 'Eva\EvaUser\Forms\ProfileForm');
         $this->view->setVar('item', $user);
-
-
-        $profileForm = new \Eva\EvaUser\Forms\ProfileForm();
-        $profileForm->setModel(new Models\Profile());
-        $profileForm->setPrefix('Profile');
-        $this->view->setVar('profileForm', $profileForm);
+        $this->view->setVar('form', $userForm);
 
         if(!$this->request->isPost()){
             return false;
         }
         $data = $this->request->getPost();
+        if($userForm->isFullValid($data)) {
+            $model = $userForm->getModel();
+            p($model->Profile);
+            //p($userForm->getModel('Profile'));
+            exit;
+        } else {
+            p($userForm->getFullMessages());
+            exit;
+        }
     }
 
     public function editAction()
@@ -76,19 +80,25 @@ class UserController extends AdminControllerBase
         $user = Models\User::findFirst($this->dispatcher->getParam('id'));
         $userForm = new \Eva\EvaUser\Forms\UserForm();
         $userForm->setModel($user);
-        $this->view->setVar('userForm', $userForm);
+        $userForm->addForm('Profile', 'Eva\EvaUser\Forms\ProfileForm');
         $this->view->setVar('item', $user);
-
-
-        $profileForm = new \Eva\EvaUser\Forms\ProfileForm();
-        $profileForm->setModel(new Models\Profile());
-        $profileForm->setPrefix('Profile');
-        $this->view->setVar('profileForm', $profileForm);
+        $this->view->setVar('form', $userForm);
 
         if(!$this->request->isPost()){
             return false;
         }
         $data = $this->request->getPost();
+        if($userForm->isFullValid($data)) {
+            p($data);
+            $model = $userForm->getModel();
+            p($model->id);
+            p($model->Profile);
+            //p($userForm->getModel('Profile'));
+            exit;
+        } else {
+            p($userForm->getFullMessages());
+            exit;
+        }
     
     }
 

@@ -198,6 +198,8 @@ class ProfileForm extends Form
     public $updatedAt;
 
 
+    protected $defaultModelClass = 'Eva\EvaUser\Models\Profile';
+
     public function initialize($entity = null, $options = null)
     {
     }

@@ -224,4 +224,13 @@ class Users extends \Eva\EvaEngine\Mvc\Model
     }
 
     protected $tableName = 'user_users';
+
+    public function initialize()
+    {
+        $this->hasOne('id', 'Eva\EvaUser\Entities\Profiles', 'user_id', array(
+            'alias' => 'Profile'
+        ));
+
+        parent::initialize();
+    }
 }
