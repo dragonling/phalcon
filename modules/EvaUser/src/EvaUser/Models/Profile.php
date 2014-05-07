@@ -9,4 +9,10 @@ use Eva\EvaEngine\Exception;
 
 class Profile extends Entities\Profiles
 {
+    public function beforeSave()
+    {
+        if(!$this->birthday) {
+            $this->skipAttributes(array('birthday'));
+        }
+    }
 }

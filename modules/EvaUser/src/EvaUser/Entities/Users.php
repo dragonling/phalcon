@@ -34,13 +34,13 @@ class Users extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
-    public $status;
+    public $status = 'inactive';
      
     /**
      *
      * @var string
      */
-    public $accountType;
+    public $accountType = 'basic';
      
     /**
      *
@@ -106,7 +106,7 @@ class Users extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
-    public $emailStatus;
+    public $emailStatus = 'inactive';
      
     /**
      *
@@ -166,7 +166,7 @@ class Users extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
-    public $providerType;
+    public $providerType = 'DEFAULT';
      
     /**
      * Validations and business logic

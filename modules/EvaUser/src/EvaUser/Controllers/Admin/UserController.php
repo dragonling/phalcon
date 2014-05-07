@@ -64,10 +64,14 @@ class UserController extends AdminControllerBase
         }
         $data = $this->request->getPost();
         if($userForm->isFullValid($data)) {
-            $model = $userForm->getModel();
-            p($model->Profile);
-            //p($userForm->getModel('Profile'));
-            exit;
+            $user = $userForm->getModel();
+            $user->Profile = $userForm->getModel('Profile');
+            if($user->save()) {
+            
+            } else {
+                p($user->getMessages());
+                exit;
+            }
         } else {
             p($userForm->getFullMessages());
             exit;
@@ -89,12 +93,14 @@ class UserController extends AdminControllerBase
         }
         $data = $this->request->getPost();
         if($userForm->isFullValid($data)) {
-            p($data);
-            $model = $userForm->getModel();
-            p($model->id);
-            p($model->Profile);
-            //p($userForm->getModel('Profile'));
-            exit;
+            $user = $userForm->getModel();
+            $user->Profile = $userForm->getModel('Profile');
+            if($user->save()) {
+            
+            } else {
+                p($user->getMessages());
+                exit;
+            }
         } else {
             p($userForm->getFullMessages());
             exit;

@@ -385,6 +385,27 @@ class Form extends \Phalcon\Forms\Form
             $element = $addValidator($mergeProperty, $element, $this->validatorAlias);
         }
 
+        $addFilter = function($property, $element) {
+            foreach($property as $annotation) {
+                if($annotation->getName() != 'Filter') {
+                    continue;
+                }
+                $arguments = $annotation->getArguments();
+                if(!isset($arguments[0])) {
+                    continue;
+                }
+                $filterName = strtolower($arguments[0]);
+                $element->addFilter($filterName);
+            }        
+            return $element;
+        };
+        if($baseProperty->has('Filter')) {
+            $element = $addFilter($baseProperty, $element);
+        }
+        if($mergeProperty && $mergeProperty->has('Filter')) {
+            $element = $addFilter($mergeProperty, $element);
+        }
+
 
         $property = $mergeProperty && $mergeProperty->has('Options') ? $mergeProperty : $baseProperty;
         if($property->has('Options')) {

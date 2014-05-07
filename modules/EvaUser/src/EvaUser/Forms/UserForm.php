@@ -12,12 +12,15 @@ class UserForm extends Form
     public $id;
      
     /**
+     * @Filter(trim)
      * @var string
      */
     public $username;
      
     /**
      *
+     * @Type(Email)
+     * @Validator(Email)
      * @var string
      */
     public $email;
@@ -30,12 +33,20 @@ class UserForm extends Form
      
     /**
      *
+     * @Type(Select)
+     * @Option(inactive=Inactive)
+     * @Option(active=Active)
+     * @Option(deleted=Deleted)
      * @var string
      */
     public $status;
      
     /**
      *
+     * @Type(Select)
+     * @Option(basic=Basic)
+     * @Option(premium=Premium)
+     * @Option(etc=Etc)
      * @var string
      */
     public $accountType;
@@ -60,6 +71,7 @@ class UserForm extends Form
      
     /**
      *
+     * @Type(Password)
      * @var string
      */
     public $password;

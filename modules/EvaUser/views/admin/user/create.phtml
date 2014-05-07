@@ -47,7 +47,11 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-3 center">
                     <span class="profile-picture">
-                        <img src="<?=$this->tag->gravatar($item->email, 200)?>" id="" alt="" class="editable img-responsive">
+                        <?if($item->avatar):?>
+                        <img src="<?=$item->avatar?>" id="" alt="" class="img-responsive">
+                        <?else:?>
+                        <img src="<?=$this->tag->gravatar($item->email, 200)?>" id="" alt="" class="img-responsive">
+                        <?endif?>
                     </span>
 
                     <div class="space space-4"></div>
@@ -129,7 +133,7 @@
                         <div class="profile-info-row">
                             <div class="profile-info-name"> Last Login </div>
                             <div class="profile-info-value">
-                                <span><?=$this->tag->datetime($item->loginAt)?></span>
+                                <span><?=$item->loginAt ? $this->tag->datetime($item->loginAt) : 'Never'?></span>
                             </div>
                         </div>
                     </div>
@@ -200,53 +204,86 @@
                     <div class="tab-pane in active" id="edit-basic">
                         <form id="" action="" class="form-horizontal" method="POST" enctype="multipart/form-data" novalidate="novalidate">
                             <?=$form->render('id')?>
-                            <h4 class="header blue bolder smaller">General</h4>
+                            <h4 class="header blue bolder smaller">Avatar</h4>
+                            <div class="form-group">
+                                <label>User Avatar</label>
+                                <input type="file" name="upload" class="ace-file-input">
+                            </div><!--/col-->
 
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-4">
-                                    <label>User Avatar</label>
-                                    <input type="file" name="upload" class="ace-file-input">
+                            <h4 class="header blue bolder smaller">Basic</h4>
+
+                            <div class="form-group">
+                                <label for="username" class="col-sm-3 control-label no-padding-right">Username</label>
+                                <div class="col-sm-9">
+                                    <?=$form->render('username', array(
+                                        'placeholder' => 'Username',
+                                        'class' => 'col-xs-12 col-sm-6',
+                                        'required' => 'required',
+                                    ))?>
                                 </div>
+                            </div>
 
-                                <div class="vspace-xs"></div>
+                            <div class="form-group">
+                                <label for="screenName" class="col-sm-3 control-label no-padding-right">Screen Name</label>
+                                <div class="col-sm-9">
+                                    <?=$form->render('screenName', array(
+                                        'placeholder' => 'Screen Name',
+                                        'class' => 'col-xs-12 col-sm-6',
+                                    ))?>
+                                </div>
+                            </div>
 
-                                <div class="col-xs-12 col-sm-8">
-                                    <div class="form-group">
-                                        <label for="username" class="col-sm-4 control-label no-padding-right">Username</label>
+                            <div class="form-group">
+                                <label for="form-field-first" class="col-sm-3 control-label no-padding-right">Name</label>
 
-                                        <div class="col-sm-8">
-                                            <?=$form->render('username', array(
-                                                'placeholder' => 'Username',
-                                                'class' => 'col-xs-12 col-sm-10',
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <?=$form->render('firstName', array(
+                                                'placeholder' => 'First Name',
+                                                'class' => 'form-control',
+                                            ))?>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <?=$form->render('lastName', array(
+                                                'placeholder' => 'Last Name',
+                                                'class' => 'form-control',
                                             ))?>
                                         </div>
                                     </div>
 
-                                    <div class="space-4"></div>
-
-                                    <div class="form-group">
-                                        <label for="form-field-first" class="col-sm-4 control-label no-padding-right">Name</label>
-
-                                        <div class="col-sm-8">
-                                            <div class="row">
-                                                <div class="col-xs-3">
-                                                    <?=$form->render('firstName', array(
-                                                        'placeholder' => 'First Name',
-                                                        'class' => 'form-control',
-                                                    ))?>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <?=$form->render('lastName', array(
-                                                        'placeholder' => 'Last Name',
-                                                        'class' => 'form-control',
-                                                    ))?>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="email" class="col-sm-3 control-label no-padding-right">Email</label>
+
+                                <div class="col-sm-9">
+                                        <?=$form->render('email', array(
+                                            'class' => 'col-xs-12 col-sm-6',
+                                        ))?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="status" class="col-sm-3 control-label no-padding-right">Status</label>
+
+                                <div class="col-sm-9">
+                                        <?=$form->render('status', array(
+                                            'class' => '',
+                                        ))?>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="password" class="col-sm-3 control-label no-padding-right">Password</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="col-xs-12 col-sm-6" value="" name="password" id="password" autocomplete="off">
+                                </div>
+                            </div>
+
+
 
                             <hr>
                             <div class="form-group">
@@ -299,18 +336,7 @@
                             <div class="space"></div>
                             <h4 class="header blue bolder smaller">Contact</h4>
 
-                            <div class="form-group">
-                                <label for="email" class="col-sm-3 control-label no-padding-right">Email</label>
 
-                                <div class="col-sm-9">
-                                    <span class="input-icon input-icon-right">
-                                        <?=$form->render('email', array(
-                                            'class' => '',
-                                        ))?>
-                                        <i class="icon-envelope"></i>
-                                    </span>
-                                </div>
-                            </div>
 
                             <div class="space-4"></div>
 
