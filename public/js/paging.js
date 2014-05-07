@@ -97,7 +97,7 @@
             var domOptions = {};
             var str = this.attr('data-paging-option');
             if (str) {
-                domOptions = tool.parseStringToObject(str);
+                domOptions = tool.parseDomData(str);
             }
             $.extend(options, domOptions, inputOptions);
             var paging = new Paging(options);
