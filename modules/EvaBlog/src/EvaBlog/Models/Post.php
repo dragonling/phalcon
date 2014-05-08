@@ -14,7 +14,7 @@ class Post extends Entities\Posts
     public static $defaultDump = array(
         'id',
         'title',
-        'sourceCode',
+        'codeType',
         'createdAt',
         'summary',
         'summaryHtml' => 'getSummaryHtml',
@@ -78,7 +78,7 @@ class Post extends Entities\Posts
         $user = new LoginModel();
         if($userinfo = $user->isUserLoggedIn()) {
             $this->editorId = $userinfo['id'];
-            $this->editor_name = $userinfo['username'];
+            $this->editorName = $userinfo['username'];
         }
 
         $this->updatedAt = time();
@@ -274,7 +274,7 @@ class Post extends Entities\Posts
             return '';
         }
 
-        if ($this->sourceCode == 'markdown') {
+        if ($this->codeType == 'markdown') {
             $parsedown = new \Parsedown();
             return $parsedown->text($this->summary);
         } else {
@@ -287,7 +287,7 @@ class Post extends Entities\Posts
         if(!$this->Text) {
             return '';
         }
-        if($this->sourceCode == 'markdown') {
+        if($this->codeType == 'markdown') {
             $parsedown = new \Parsedown();
             return $parsedown->text($this->Text->content);
         }

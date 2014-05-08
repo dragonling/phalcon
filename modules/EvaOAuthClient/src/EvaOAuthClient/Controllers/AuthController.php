@@ -77,7 +77,7 @@ class AuthController extends ControllerBase
             $session->remove('request-token');
         } catch(\Exception $e) {
             $this->flashSession->error('ERR_OAUTH_AUTHORIZATION_FAILED');
-            $this->ignoreHandler($e);
+            $this->ignoreException($e);
             return $this->response->redirect($this->getDI()->get('config')->oauth->authFailedRedirectUri);
         }
 
@@ -89,7 +89,7 @@ class AuthController extends ControllerBase
                 return $this->response->redirect('/auth/register');
             }
         } catch(\Exception $e) {
-            $this->errorHandler($e, $user->getMessages());
+            $this->displayException($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
 
@@ -140,7 +140,7 @@ class AuthController extends ControllerBase
             $this->flashSession->success('SUCCESS_OAUTH_USER_REGISTERED');
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch(\Exception $e) {
-            $this->errorHandler($e, $user->getMessages());
+            $this->displayException($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
     }
@@ -197,7 +197,7 @@ class AuthController extends ControllerBase
             $session->remove('access-token');
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
         } catch(\Exception $e) {
-            $this->errorHandler($e, $user->getMessages());
+            $this->displayException($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginFailedRedirectUri);
         }
     }

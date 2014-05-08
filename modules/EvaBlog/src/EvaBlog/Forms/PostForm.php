@@ -48,7 +48,7 @@ class PostForm extends Form
      * @Type(Hidden)
      * @var string
      */
-    public $sourceCode;
+    public $codeType;
      
     /**
      *
@@ -110,7 +110,7 @@ class PostForm extends Form
      *
      * @var string
      */
-    public $editor_name;
+    public $editorName;
      
     /**
      *

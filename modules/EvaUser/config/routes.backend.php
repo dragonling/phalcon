@@ -13,6 +13,13 @@ return array(
         'id' => 3,
     ),
 
+    '/admin/user/process/:action(/(\d+))*' =>  array(
+        'module' => 'EvaUser',
+        'controller' => 'Admin\Process',
+        'action' => 1,
+        'id' => 3,
+    ),
+
     '/admin/register' => array(
         'module' => 'EvaUser',
         'controller' => 'Admin\Register',

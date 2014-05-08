@@ -75,7 +75,7 @@ class PostController extends ControllerBase
         try {
             $post->createPost($data);
         } catch(\Exception $e) {
-            return $this->errorHandler($e, $post->getMessages());
+            return $this->displayException($e, $post->getMessages());
         }
         $this->flashSession->success('SUCCESS_POST_CREATED');
         return $this->redirectHandler('/admin/post/edit/' . $post->id);
@@ -103,7 +103,7 @@ class PostController extends ControllerBase
         try {
             $post->updatePost($data);
         } catch(\Exception $e) {
-            return $this->errorHandler($e, $post->getMessages());
+            return $this->displayException($e, $post->getMessages());
         }
         $this->flashSession->success('SUCCESS_POST_UPDATED');
         return $this->redirectHandler('/admin/post/edit/' . $post->id);
@@ -130,7 +130,7 @@ class PostController extends ControllerBase
         try {
             $post->removePost($id);
         } catch(\Exception $e) {
-            return $this->jsonErrorHandler($e, $post->getMessages());
+            return $this->displayExceptionForJson($e, $post->getMessages());
         }
 
         $this->response->setContentType('application/json', 'utf-8');
@@ -158,7 +158,7 @@ class PostController extends ControllerBase
             $post->status = $this->request->getPut('status');
             $post->save();
         } catch(\Exception $e) {
-            return $this->jsonErrorHandler($e, $post->getMessages());
+            return $this->displayExceptionForJson($e, $post->getMessages());
         }
 
         $this->response->setContentType('application/json', 'utf-8');
@@ -198,7 +198,7 @@ class PostController extends ControllerBase
             }
 
         } catch(\Exception $e) {
-            return $this->jsonErrorHandler($e, $post->getMessages());
+            return $this->displayExceptionForJson($e, $post->getMessages());
         }
 
         $this->response->setContentType('application/json', 'utf-8');
