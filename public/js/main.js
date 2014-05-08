@@ -196,6 +196,69 @@ $(function(){
     $('[data-rtq]').rtq();
     //
     $('[data-etf]').etf();
+    //
+    $('[data-cftc]').cftc();
+    /**
+     * 定盘价
+     */
+    $.ajax({
+        url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=' + 'GOLD' + 'FIXPRICE&interval=1d&rows=50',
+        dataType: 'jsonp',
+        success: function(response) {
+            var goldData = response['results'];
+            var DAY = 86400;
+            var data = goldData;
+            $.ajax({
+                url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=' + 'SILVER' + 'FIXPRICE&interval=1d&rows=50',
+                dataType: 'jsonp',
+                success: function(response) {
+                    var silverData = response['results'];
+                    data.concat(silverData);
+                    data.sort(function(first, second){
+                        return second.first - first.start;
+                    });
+                    var i, l = data.length - 1;
+                    var results = [];
+                    for (i = 0; i < l;) {
+                        if (data[i].start == data[i + 1].start) {
+                            var item = {};
+                            if (data[i].close) {
+                                item.utm = data[i].start;
+                                item.date = moment.unix(item.utm);
+                                item.gold_am = data[i].open;
+                                item.gold_pm = data[i].close;
+                                item.silver = data[i+1].open;
+                            } else {
+                                item.utm = data[i].start;
+                                item.date = moment.unix(item.utm);
+                                item.gold_am = data[i+1].open;
+                                item.gold_pm = data[i+1].close;
+                                item.silver = data[i].open;
+                            }
+                            i += 2 ;
+                        } else {
+                            var item = {};
+                            if (data[i].close) {
+                                item.utm = data[i].start;
+                                item.date = moment.unix(item.utm);
+                                item.gold_am = data[i].open;
+                                item.gold_pm = data[i].close;
+                                item.silver = null;
+                            } else {
+                                item.utm = data[i].start;
+                                item.date = moment.unix(item.utm);
+                                item.gold_am = null;
+                                item.gold_pm = null;
+                                item.silver = data[i].open;
+                            }
+                            i ++ ;
+                        }
+                    }
+                }
+            });
+        }
+    });
+
     /**
      * chart 图表
      */

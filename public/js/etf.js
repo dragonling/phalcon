@@ -68,10 +68,7 @@
                     for (i = 0; i < l; i++) {
                         if (data[i][1] > max) {
                             max = data[i][1];
-                        }
-                    }
-                    for (i = 0; i < l; i++) {
-                        if (data[i][1] < min) {
+                        } else if (data[i][1] < min) {
                             min = data[i][1];
                         }
                     }
@@ -80,7 +77,7 @@
                         chart: {
                             type: 'area',
                             zoomType: 'x',
-                            spacing: 0,
+                            spacing: 1,
                             backgroundColor: '#000',
                             plotBorderWidth: 1,
                             plotBorderColor: '#323232'
@@ -99,9 +96,10 @@
                             },
                             minPadding: 0,
                             maxPadding: 0,
-                            lineColor: '#323232',
-                            tickColor: '#323232',
-                            tickLength: 1,
+                            lineWidth: 0,
+                            tickLength: 0,
+                            //lineColor: '#323232',
+                            //tickColor: '#323232',
                             gridLineColor: '#323232',
                             gridLineWidth: 1
                         },
@@ -124,7 +122,7 @@
                         },
                         tooltip: {
                             formatter: function() {
-                                return '日期：'+ Highcharts.dateFormat('%Y年%m月%d日 %H:%M:%S', this.x) +
+                                return Highcharts.dateFormat('%Y年%m月%d日 %H:%M:%S', this.x) +
                                     '<br/>ETF值：<b>'+ this.y +'</b>';
                             }
                         },

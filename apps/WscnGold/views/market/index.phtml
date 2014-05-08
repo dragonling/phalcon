@@ -116,68 +116,44 @@
                     </script>
                     <div class="line"></div>
                     <table class="table">
-                        <thead>
-                        <tr>
-                            <th>日期</th>
-                            <th>持仓量（盎司）</th>
-                            <th>持仓量（吨）</th>
-                            <th>总价值（美元）</th>
-                            <th>增减（吨）</th>
-                        </tr>
+                        <thead> <tr> <th>日期</th> <th>持仓量（盎司）</th> <th>持仓量（吨）</th> <th>总价值（美元）</th> <th>增减（吨）</th> </tr> </thead>
                         <tbody data-etf-dom="data"></tbody>
-                        </thead>
                     </table>
                 </div>
-                <div data-tab-index="2" class="panel" data-type="cftc">
-                    <div class="chart"></div>
+                <div data-tab-index="2" class="panel" data-type="cftc" data-cftc data-cftc-option="symbol: GOLD; chart: true; chart-width: 560; chart-height: 180;">
+                    <div class="chart" data-cftc-dom="chart"></div>
+                    <script type="text/template" data-cftc-template="data">
+                        <% for (var i = 0, l = data.length; i < l; i++) { %>
+                        <tr>
+                            <td><%= data[i].date %></td>
+                            <td><%= data[i].nc_high %></td>
+                            <td><%= data[i].nc_low %></td>
+                            <td><%= data[i].nc_diff %></td>
+                            <td><%= data[i].nc_change %></td>
+                            <td><%= data[i].c_high %></td>
+                            <td><%= data[i].c_low %></td>
+                            <td><%= data[i].op %></td>
+                            <td><%= data[i].op_change %></td>
+                        </tr>
+                        <% } %>
+                    </script>
                     <div class="line"></div>
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>日期</th>
-                            <th>持仓量（盎司）</th>
-                            <th>持仓量（吨）</th>
-                            <th>总价值（美元）</th>
-                            <th>增减（吨）</th>
-                        </tr>
-                        <tbody >
-                        <tr>
-                            <td>2014.03.25</td>
-                            <td>2654235.42</td>
-                            <td>819.67</td>
-                            <td>35656511252.15</td>
-                            <td>0.00</td>
+                            <th rowspan="2">日期</th>
+                            <th colspan="4">非商业性</th>
+                            <th colspan="2">商业性</th>
+                            <th rowspan="2">未平仓合约</th>
+                            <th rowspan="2">未平仓净变化（与上周比）</th>
                         </tr>
                         <tr>
-                            <td>2014.03.25</td>
-                            <td>2654235.42</td>
-                            <td>819.67</td>
-                            <td>35656511252.15</td>
-                            <td>0.00</td>
+                            <th>多头持仓</th><th>空头持仓</th><th>多空净持仓</th><th>净持仓变化（与上周比）</th>
+                            <th>多头持仓</th><th>空头持仓</th>
                         </tr>
-                        <tr>
-                            <td>2014.03.25</td>
-                            <td>2654235.42</td>
-                            <td>819.67</td>
-                            <td>35656511252.15</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.25</td>
-                            <td>2654235.42</td>
-                            <td>819.67</td>
-                            <td>35656511252.15</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.25</td>
-                            <td>2654235.42</td>
-                            <td>819.67</td>
-                            <td>35656511252.15</td>
-                            <td>0.00</td>
-                        </tr>
-                        </tbody>
+
                         </thead>
+                        <tbody data-cftc-dom="data"></tbody>
                     </table>
                 </div>
                 <div data-tab-index="3" class="panel" data-type="fixing">

@@ -43,7 +43,7 @@
                                 <div data-efc-target="#chart" data-efc-interval="MN" class="button">1M</div>
                             </div>
                             <div class="chart">
-                                <iframe width="440" height="206" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/chart?symbol=XAUUSD&theme=dark&width=440&height=206&rows=50&interval=30"></iframe>
+                                <iframe width="440" height="206" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&theme=dark&width=440&height=206&rows=50&interval=30"></iframe>
                             </div>
                         </div>
                     </div><!-- market chart end -->
@@ -475,66 +475,38 @@
                 <a class="tab" href="">定盘价</a>
             </nav>
             <ul class="content">
-                <li class="panel active">
-                    <iframe class="chart type2" width="270" height="230" scrolling="no" frameborder="0"
-                        src="http://markets.wallstreetcn.com/embed/chart?symbol=GOLDETF&width=270&height=230&rows=30&interval=1d&theme=dark"></iframe>
+                <li class="panel active" data-etf data-etf-option="symbol: GOLD; chart: true; size: 3">
+                    <div class="chart type2" data-etf-dom="chart"></div>
+                    <script type="text/template" data-etf-template="data">
+                        <% for (var i = 0, l = data.length; i < l; i++) { %>
+                        <tr>
+                            <td><%= data[i].date %></td>
+                            <td><%= data[i].etf_ton %></td>
+                            <td><%= data[i].change %></td>
+                        </tr>
+                        <% } %>
+                    </script>
                     <div class="line type1"></div>
                     <table class="table type2">
-                        <thead>
-                        <tr>
-                            <th>时间</th>
-                            <th>增仓量(吨)</th>
-                            <th>增减(吨)</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>2014.03.04</td>
-                            <td>803.70398</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.03</td>
-                            <td>804.00120</td>
-                            <td>0.03</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.02</td>
-                            <td>803.70398</td>
-                            <td>0.10</td>
-                        </tr>
-                        </tbody>
+                        <thead> <tr> <th>时间</th> <th>增仓量(吨)</th> <th>增减(吨)</th> </tr> </thead>
+                        <tbody data-etf-dom="data"></tbody>
                     </table>
                 </li>
-                <li class="panel">
-                    <iframe class="chart type2" width="270" height="230" scrolling="no" frameborder="0"
-                        src="http://markets.wallstreetcn.com/embed/chart?symbol=GOLDCFTC&width=270&height=230&rows=30&interval=1d&theme=dark"></iframe>
+                <li class="panel" data-cftc data-cftc-option="symbol: GOLD; chart: true; size: 3; chart-width: 270; chart-height: 240;">
+                    <div class="chart type2" data-cftc-dom="chart"></div>
+                    <script type="text/template" data-cftc-template="data">
+                        <% for (var i = 0, l = data.length; i < l; i++) { %>
+                        <tr>
+                            <td><%= data[i].date %></td>
+                            <td><%= data[i].nc_high %></td>
+                            <td><%= data[i].nc_low %></td>
+                        </tr>
+                        <% } %>
+                    </script>
                     <div class="line type1"></div>
                     <table class="table type2">
-                        <thead>
-                        <tr>
-                            <th>时间</th>
-                            <th>增仓量(吨)</th>
-                            <th>增减(吨)</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>2014.03.04</td>
-                            <td>803.70398</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.03</td>
-                            <td>804.00120</td>
-                            <td>0.03</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.02</td>
-                            <td>803.70398</td>
-                            <td>0.10</td>
-                        </tr>
-                        </tbody>
+                        <thead> <tr> <th>时间</th> <th>非商业性多头持仓</th> <th>非商业性空头持仓</th> </tr> </thead>
+                        <tbody data-cftc-dom="data"></tbody>
                     </table>
                 </li>
                 <li class="panel">
@@ -607,7 +579,7 @@
                             <div class="line vertical"></div>
                         </div>
                         <div class="chart">
-                            <iframe width="672" height="195" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/chart?symbol=XAUUSD&theme=dark&width=672&height=195&rows=50&interval=30"></iframe>
+                            <iframe width="672" height="195" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&theme=dark&width=672&height=195&rows=50&interval=30"></iframe>
                         </div>
                     </div>
                 </div><!-- market chart end -->
