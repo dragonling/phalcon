@@ -138,7 +138,7 @@
                             <td><?=$this->tag->datetime($item->createdAt)?></td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-xs btn-success ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/status/<?=$item->id?>" data-callback="window.location.reload();">
+                                    <button class="btn btn-xs btn-success ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/process/status/<?=$item->id?>" data-callback="window.location.reload();">
                                         <input type="hidden" data-name="status" value="published" >
                                         <i class="icon-ok bigger-120"></i>
                                     </button>
@@ -147,12 +147,12 @@
                                         <i class="icon-edit bigger-120"></i>
                                     </a>
 
-                                    <button class="btn btn-xs ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/status/<?=$item->id?>" data-callback="window.location.reload();">
+                                    <button class="btn btn-xs ajax-form-sumbit" data-ajax-form="1" date-method="put" data-form-action="/admin/post/process/status/<?=$item->id?>" data-callback="window.location.reload();">
                                         <input type="hidden" data-name="status" value="deleted" >
                                         <i class="icon-eye-close bigger-120"></i>
                                     </button>
 
-                                    <button class="btn btn-xs btn-danger ajax-form-sumbit" data-ajax-form="1" date-method="delete" data-form-action="/admin/post/delete/<?=$item->id?>" data-confirm="1" data-confirm-message="<?=sprintf('Item %s will be deleted, are you sure?', $item->title)?>" data-callback="form.closest('tr').hide();">
+                                    <button class="btn btn-xs btn-danger ajax-form-sumbit" data-ajax-form="1" date-method="delete" data-form-action="/admin/post/process/delete/<?=$item->id?>" data-confirm="1" data-confirm-message="<?=sprintf('Item %s will be deleted, are you sure?', $item->title)?>" data-callback="form.closest('tr').hide();">
                                         <i class="icon-trash bigger-120"></i>
                                     </button>
                                 </div>
@@ -165,12 +165,12 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="btn-group">
-                            <button class="btn btn-xs btn-success ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/post/batch" data-callback="window.location.reload();">
+                            <button class="btn btn-xs btn-success ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/post/process/batch" data-callback="window.location.reload();">
                                 <input type="hidden" data-name="status" value="published" >
                                 <i class="icon-ok bigger-120"></i>
                             </button>
 
-                            <button class="btn btn-xs ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/post/batch" data-callback="window.location.reload();">
+                            <button class="btn btn-xs ajax-form-sumbit" data-batch-form="1" data-source-name="id" data-source-selectors="#post-grid input[data-batch-source]" date-method="put" data-form-action="/admin/post/process/batch" data-callback="window.location.reload();">
                                 <input type="hidden" data-name="status" value="deleted" >
                                 <i class="icon-eye-close bigger-120"></i>
                             </button>

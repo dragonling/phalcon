@@ -3,6 +3,7 @@
 namespace Eva\EvaEngine\Mvc\Controller;
 
 use Phalcon\Mvc\Controller;
+use Eva\EvaEngine\Exception;
 
 class ControllerBase extends Controller
 {
@@ -200,9 +201,21 @@ class ControllerBase extends Controller
     
     }
 
-    public function displayJsonErrorResponse()
+    public function displayJsonErrorResponse($code, $message)
     {
-    
+        if(!isset($this->recommendedReasonPhrases[$code])) {
+            throw new Exception\InvalidArgumentException(sprintf('No http response code %s supported', $code));
+        }
+
+        $this->response->setStatusCode($code, $this->recommendedReasonPhrases[$code]);
+        return $this->response->setJsonContent(array(
+            'errors' => array(
+                array(
+                    'code' => $code,
+                    'message' => $message
+                )
+            ),
+        ));
     }
 }
 

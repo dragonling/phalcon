@@ -4,6 +4,7 @@ namespace Eva\EvaUser\Controllers\Admin;
 
 use Eva\EvaUser\Models;
 use Eva\EvaEngine\Mvc\Controller\JsonControllerInterface;
+use Eva\EvaEngine\Exception;
 
 class ProcessController extends ControllerBase implements JsonControllerInterface
 {
@@ -27,27 +28,41 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
     public function statusAction()
     {
         if(!$this->request->isPut()){
-            $this->response->setStatusCode('405', 'Method Not Allowed');
-            return $this->response->setJsonContent(array(
-                'errors' => array(
-                    array(
-                        'code' => 405,
-                        'message' => 'ERR_POST_REQUEST_METHOD_NOT_ALLOW'
-                    )
-                ),
-            ));
+            throw new Exception\ResourceNotFoundException('ERR_USER_REQUEST_USER_NOT_FOUND');
+            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $id = $this->dispatcher->getParam('id');
-        $post =  Models\Post::findFirst($id); 
-        try {
-            $post->status = $this->request->getPut('status');
-            $post->save();
-        } catch(\Exception $e) {
-            return $this->displayExceptionForJson($e, $post->getMessages());
+        $user =  Models\User::findFirst($id); 
+        if(!$user) {
+            return $this->displayJsonErrorResponse(404, 'ERR_USER_NOT_FOUND');
         }
 
-        $this->response->setContentType('application/json', 'utf-8');
-        return $this->response->setJsonContent($post);
+        try {
+            $user->status = $this->request->getPut('status');
+            $user->save();
+        } catch(\Exception $e) {
+            return $this->displayExceptionForJson($e, $user->getMessages());
+        }
+        return $this->response->setJsonContent($user);
     }
+
+    public function deleteAction()
+    {
+        if(!$this->request->isDelete()){
+            return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
+        }
+
+        $id = $this->dispatcher->getParam('id');
+        $user =  Models\User::findFirst($id);
+        try {
+            if($user) {
+                $user->delete();
+            }
+        } catch(\Exception $e) {
+            return $this->displayExceptionForJson($e, $user>getMessages());
+        }
+        return $this->response->setJsonContent($user);
+    }
+
 }
