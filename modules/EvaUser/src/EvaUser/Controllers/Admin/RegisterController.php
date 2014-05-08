@@ -15,7 +15,7 @@ class RegisterController extends ControllerBase
 
         $form = new Forms\RegisterForm();
         if ($form->isValid($this->request->getPost()) === false) {
-            $this->validHandler($form);
+            $this->displayInvalidMessages($form);
             return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
         $user = new Models\Register();
@@ -27,7 +27,7 @@ class RegisterController extends ControllerBase
         try {
             $user->register();
         } catch(\Exception $e) {
-            $this->errorHandler($e, $user->getMessages());
+            $this->displayException($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT');

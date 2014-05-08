@@ -21,5 +21,11 @@ return array(
         'action' => 1,
         'id' => 3,
     ),
+    '/admin/post/process/:action(/(\d+))*' =>  array(
+        'module' => 'EvaBlog',
+        'controller' => 'Admin\Process',
+        'action' => 1,
+        'id' => 3,
+    ),
 );
 

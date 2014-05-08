@@ -39,7 +39,7 @@ class UploadController extends ControllerBase
                  $fileinfo['localUrl'] = $file->getLocalUrl();
              }
          } catch(\Exception $e) {
-             return $this->jsonErrorHandler($e, $upload->getMessages());
+             return $this->displayExceptionForJson($e, $upload->getMessages());
          }
 
          $this->response->setContentType('application/json', 'utf-8');
@@ -76,7 +76,7 @@ class UploadController extends ControllerBase
                  $fileinfo['localUrl'] = $file->getLocalUrl();
              }
          } catch(\Exception $e) {
-             return $this->jsonErrorHandler($e, $upload->getMessages());
+             return $this->displayExceptionForJson($e, $upload->getMessages());
          }
 
          $this->response->setContentType('application/json', 'utf-8');

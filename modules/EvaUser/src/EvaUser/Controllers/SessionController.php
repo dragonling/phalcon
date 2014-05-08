@@ -18,7 +18,7 @@ class SessionController extends ControllerBase
         try {
             $user->verifyNewUser($username, $code);
         } catch(\Exception $e) {
-            $this->errorHandler($e, $user->getMessages());
+            $this->displayException($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->user->activeFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_USER_ACTIVED');
@@ -44,7 +44,7 @@ class SessionController extends ControllerBase
             $user->requestResetPassword();
             $this->flashSession->success('SUCCESS_USER_RESET_MAIL_SENT');
         } catch(\Exception $e) {
-            $this->errorHandler($e, $user->getMessages());
+            $this->displayException($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
         return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);
@@ -52,13 +52,14 @@ class SessionController extends ControllerBase
 
     public function resetAction()
     {
+        $this->view->changeRender('admin/session/reset');
         $code = $this->dispatcher->getParam('code');
         $username = $this->dispatcher->getParam('username');
         $user = new Models\ResetPassword();
         try {
             $user->verifyPasswordReset($username, $code);
         } catch(\Exception $e) {
-            $this->errorHandler($e, $user->getMessages());
+            $this->displayException($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
 
@@ -68,7 +69,7 @@ class SessionController extends ControllerBase
 
         $form = new Forms\ResetPasswordForm();
         if ($form->isValid($this->request->getPost()) === false) {
-            $this->validHandler($form);
+            $this->displayInvalidMessages($form);
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
 
@@ -80,7 +81,7 @@ class SessionController extends ControllerBase
             $user->resetPassword();
             $this->flashSession->success('SUCCESS_USER_PASSWORD_RESET');
         } catch(\Exception $e) {
-            $this->errorHandler($e, $user->getMessages());
+            $this->displayException($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
         return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);

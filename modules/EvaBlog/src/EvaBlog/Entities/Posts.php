@@ -40,7 +40,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
-    public $sourceCode = 'html';
+    public $codeType = 'markdown';
      
     /**
      *
@@ -100,7 +100,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
-    public $editor_name;
+    public $editorName;
      
     /**
      *
@@ -167,7 +167,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'status' => 'status', 
             'flag' => 'flag', 
             'visibility' => 'visibility', 
-            'sourceCode' => 'sourceCode', 
+            'codeType' => 'codeType', 
             'language' => 'language', 
             'parentId' => 'parentId', 
             'slug' => 'slug', 
@@ -177,7 +177,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'username' => 'username', 
             'updatedAt' => 'updatedAt', 
             'editorId' => 'editorId', 
-            'editor_name' => 'editor_name', 
+            'editorName' => 'editorName', 
             'commentStatus' => 'commentStatus', 
             'commentType' => 'commentType', 
             'commentCount' => 'commentCount', 

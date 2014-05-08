@@ -48,13 +48,13 @@ class CategoryController extends ControllerBase
 
         $form->bind($this->request->getPost(), $category);
         if(!$form->isValid()){
-            return $this->validHandler($form);
+            return $this->displayInvalidMessages($form);
         }
         $category = $form->getEntity();
         try {
             $category->createCategory();
         } catch(\Exception $e) {
-            return $this->errorHandler($e, $category->getMessages());
+            return $this->displayException($e, $category->getMessages());
             //return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_CREATED');
@@ -76,14 +76,14 @@ class CategoryController extends ControllerBase
 
         $form->bind($this->request->getPost(), $category);
         if(!$form->isValid()){
-            return $this->validHandler($form);
+            return $this->displayInvalidMessages($form);
         }
         $category = $form->getEntity();
         $category->assign($this->request->getPost());
         try {
             $category->updateCategory();
         } catch(\Exception $e) {
-            return $this->errorHandler($e, $category->getMessages());
+            return $this->displayException($e, $category->getMessages());
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_UPDATED');
         return $this->redirectHandler('/admin/category/edit/' . $category->id);
@@ -109,7 +109,7 @@ class CategoryController extends ControllerBase
         try {
             $category->delete();
         } catch(\Exception $e) {
-            return $this->jsonErrorHandler($e, $category->getMessages());
+            return $this->displayExceptionForJson($e, $category->getMessages());
         }
 
         $this->response->setContentType('application/json', 'utf-8');

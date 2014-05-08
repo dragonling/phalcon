@@ -69,7 +69,7 @@
         var root = this;
         $.ajax({
             url: 'http://www.goldtoutiao.com/data/techanalysis/' + root.symbol + '/' + interval,
-            dataType: 'json',
+            dataType: 'jsonp',
             success: function(response) {
                 var html = '';
                 if (response.data) {

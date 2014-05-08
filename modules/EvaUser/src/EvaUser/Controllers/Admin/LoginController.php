@@ -17,7 +17,7 @@ class LoginController extends ControllerBase
 
         $form = new Forms\LoginForm();
         if ($form->isValid($this->request->getPost()) === false) {
-            $this->validHandler($form);
+            $this->displayInvalidMessages($form);
             return $this->response->redirect($this->getDI()->get('config')->user->loginFailedRedirectUri);
         }
 
@@ -47,7 +47,7 @@ class LoginController extends ControllerBase
             $this->flashSession->success('SUCCESS_USER_LOGGED_IN');
             return $this->response->redirect($this->getDI()->get('config')->user->loginSuccessRedirectUri);
         } catch(\Exception $e) {
-            $this->errorHandler($e, $user->getMessages());
+            $this->displayException($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->user->loginFailedRedirectUri);
         }
     }
@@ -65,7 +65,7 @@ class LoginController extends ControllerBase
             $this->flashSession->success('SUCCESS_USER_ACTIVE_MAIL_SENT');
             return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);
         } catch(\Exception $e) {
-            $this->errorHandler($e, $user->getMessages());
+            $this->displayException($e, $user->getMessages());
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
     }
