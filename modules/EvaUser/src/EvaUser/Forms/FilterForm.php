@@ -26,7 +26,7 @@ class FilterForm extends Form
     * @Option("100":"100")
     * @var string
     */
-    public $per_page;
+    public $limit;
 
     /**
     *

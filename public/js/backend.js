@@ -405,6 +405,37 @@ $(document).ready(function(){
 
 });
 
+$('.table-sortable').each(function(){
+    var sortableTable = $(this),
+        sortUri = new Uri(window.location),
+        links = sortableTable.find('.sortable-link'),
+        sortKey = sortableTable.attr('data-sortable-key'),
+        defaultSort = sortableTable.attr('data-sortable-default'),
+        currentSort = sortUri.getQueryParamValue(sortKey),
+        currentSort = currentSort ? currentSort : defaultSort,
+        isCurrentSortAsc = currentSort.substring(0, 1) === '-' ? false : true;
+    if(!links[0]) {
+        return false;
+    }
+
+    links.each(function(){
+        var link = $(this),
+            linkUri = new Uri(link.attr('href')),
+            //linkSort = linkUri.getQueryParamValue(sortKey);
+            linkSort = link.attr('data-sortable-value');
+        if(currentSort == linkSort || currentSort == '-' + linkSort) {
+            link.addClass('active');
+            link.append(isCurrentSortAsc ? ' <i class="icon-caret-up"></i>' : ' <i class="icon-caret-down"></i>');
+            linkUri.replaceQueryParam(sortKey, isCurrentSortAsc ? '-' + linkSort : linkSort);
+        } else {
+            linkUri.replaceQueryParam(sortKey, link.attr('data-sortable-default') ? link.attr('data-sortable-default') : '-' + linkSort);
+        }
+
+        linkUri.replaceQueryParam('page', 1);
+        link.attr('href', linkUri.toString());
+    });
+});
+
 
 $('.form-submiter').on('click', function(){
     var submiter = $(this);

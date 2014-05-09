@@ -67,6 +67,8 @@ class User extends Entities\Users
             '-id' => 'id DESC',
             'created_at' => 'createdAt ASC',
             '-created_at' => 'createdAt DESC',
+            'username' => 'username ASC',
+            '-username' => 'username DESC',
         );
 
         if(!empty($query['username'])) {

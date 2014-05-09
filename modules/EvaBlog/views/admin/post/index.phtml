@@ -75,12 +75,6 @@
                                     'class' => 'form-control input-sm'
                                 ))?>
                             </div>
-                            <!--
-                            <button class="btn btn-sm form-control" type="reset">
-                                <i class="icon-refresh bigger-110"></i>
-                                Reset
-                            </button>
-                            -->
                             <button class="btn btn-info btn-sm form-control" type="submit">
                                 <i class="icon-search bigger-110"></i>
                                 Filter 
@@ -89,7 +83,7 @@
 
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover dataTable" id="post-grid">
+                <table class="table table-striped table-bordered table-hover dataTable  table-sortable" id="post-grid"  data-sortable-key="order" data-sortable-default="-id">
                     <thead>
                         <tr>
                             <th class="center">
@@ -98,13 +92,17 @@
                                     <span class="lbl"></span>
                                 </label>
                             </th>
-                            <th class="hidden-480">ID</th>
+                            <th class="hidden-480">
+                                <a href="<?=$this->tag->uri('/admin/post', $pager->query)?>" class="sortable-link" data-sortable-value="id">ID</a>
+                            </th>
                             <th>Title</th>
                             <th class="hidden-480">Status</th>
                             <th>User</th>
                             <th>
-                                <i class="icon-time bigger-110 hidden-480"></i>
-                                Update
+                                <a href="<?=$this->tag->uri('/admin/post', $pager->query)?>" class="sortable-link" data-sortable-value="created_at" data-sortable-default="-created_at">
+                                    <i class="icon-time bigger-110"></i>
+                                    Created At
+                                </a>
                             </th>
                             <th></th>
                         </tr>
