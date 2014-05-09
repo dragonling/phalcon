@@ -57,6 +57,40 @@ class User extends Entities\Users
         return $userinfo ? $userinfo->id : false;
     }
 
+
+    public function findUsers(array $query = array())
+    {
+        $itemQuery = $this->query();
+
+        $orderMapping = array(
+            'id' => 'id ASC',
+            '-id' => 'id DESC',
+            'created_at' => 'createdAt ASC',
+            '-created_at' => 'createdAt DESC',
+        );
+
+        if(!empty($query['username'])) {
+            $itemQuery->andWhere('username LIKE :username:', array('username' => "%{$query['username']}%"));
+        }
+
+        if(!empty($query['status'])) {
+            $itemQuery->andWhere('status = :status:', array('status' => $query['status']));
+        }
+
+        if(!empty($query['uid'])) {
+            $itemQuery->andWhere('id = :uid:', array('uid' => $query['uid']));
+        }
+
+        $order = 'id DESC';
+        if(!empty($query['order'])) {
+            $order = empty($orderMapping[$query['order']]) ? $order : $orderMapping[$query['order']];
+        }
+        $itemQuery->orderBy($order);
+
+        $items = $itemQuery->execute();
+        return $items;
+    }
+
     public function createUser($data)
     {
     

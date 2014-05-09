@@ -7,7 +7,6 @@ use Phalcon\Forms\Element\Select;
 class FilterForm extends Form
 {
     /**
-    * @Type(Hidden)
     * @var integer
     */
     public $uid;
