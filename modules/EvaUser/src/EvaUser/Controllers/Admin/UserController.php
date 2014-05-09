@@ -32,79 +32,64 @@ class UserController extends AdminControllerBase
         $this->view->setVar('pager', $pager);
     }
 
-    public function suggestionsAction()
-    {
-        $query = $this->request->get('query');
-        if($query) {
-            $users = Models\User::find(array(
-                "columns" => array('id', 'username', 'status'),
-                "conditions" => "username like '%$query%'",
-                "limit" => 10,
-            ));
-            $users = $users ? $users->toArray() : array();
-        } else {
-            $users = array();
-        }
-
-        return $this->response->setJsonContent($users);
-
-    }
-
     public function createAction()
     {
         $user = new Models\User();
-        $userForm = new \Eva\EvaUser\Forms\UserForm();
-        $userForm->setModel($user);
-        $userForm->addForm('Profile', 'Eva\EvaUser\Forms\ProfileForm');
+        $form = new \Eva\EvaUser\Forms\UserForm();
+        $form->setModel($user);
+        $form->addForm('Profile', 'Eva\EvaUser\Forms\ProfileForm');
         $this->view->setVar('item', $user);
-        $this->view->setVar('form', $userForm);
+        $this->view->setVar('form', $form);
+
 
         if(!$this->request->isPost()){
             return false;
         }
+
         $data = $this->request->getPost();
-        if($userForm->isFullValid($data)) {
-            $user = $userForm->getModel();
-            $user->Profile = $userForm->getModel('Profile');
-            if($user->save()) {
-            
-            } else {
-                p($user->getMessages());
-                exit;
-            }
-        } else {
-            p($userForm->getFullMessages());
-            exit;
+        if(!$form->isFullValid($data)) {
+            return $this->displayInvalidMessages($form);
         }
+
+        try {
+            $form->save();
+        } catch(\Exception $e) {
+            return $this->displayException($e, $form->getModel()->getMessages());
+        }
+        $this->flashSession->success('SUCCESS_USER_CREATED');
+        return $this->redirectHandler('/admin/user/edit/' . $form->getModel()->id);
     }
 
     public function editAction()
     {
         $this->view->changeRender('admin/user/create');
         $user = Models\User::findFirst($this->dispatcher->getParam('id'));
-        $userForm = new \Eva\EvaUser\Forms\UserForm();
-        $userForm->setModel($user);
-        $userForm->addForm('Profile', 'Eva\EvaUser\Forms\ProfileForm');
+        if(!$user) {
+            
+        }
+
+        $form = new \Eva\EvaUser\Forms\UserForm();
+        $form->setModel($user);
+        $form->addForm('Profile', 'Eva\EvaUser\Forms\ProfileForm');
         $this->view->setVar('item', $user);
-        $this->view->setVar('form', $userForm);
+        $this->view->setVar('form', $form);
 
         if(!$this->request->isPost()){
             return false;
         }
+
         $data = $this->request->getPost();
-        if($userForm->isFullValid($data)) {
-            $user = $userForm->getModel();
-            $user->Profile = $userForm->getModel('Profile');
-            if($user->save()) {
-            
-            } else {
-                p($user->getMessages());
-                exit;
-            }
-        } else {
-            p($userForm->getFullMessages());
-            exit;
+        if(!$form->isFullValid($data)) {
+            return $this->displayInvalidMessages($form);
         }
+
+        try {
+            $form->save();
+        } catch(\Exception $e) {
+            return $this->displayException($e, $form->getModel()->getMessages());
+        }
+        $this->flashSession->success('SUCCESS_USER_UPDATED');
+        return $this->redirectHandler('/admin/user/edit/' . $user->id);
     
     }
 

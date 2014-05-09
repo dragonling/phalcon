@@ -57,20 +57,6 @@ class Post extends Entities\Posts
             $this->userId = $this->userId ? $this->userId : $userinfo['id'];
             $this->username = $this->username ? $this->username : $userinfo['username'];
         }
-
-        if($this->getDI()->getRequest()->hasFiles()) {
-            $upload = new UploadModel();
-            $files = $this->getDI()->getRequest()->getUploadedFiles();
-            if(!$files) {
-                return;
-            }
-            $file = $files[0];
-            $file = $upload->upload($file);
-            if($file) {
-                $this->imageId = $file->id;
-                $this->image = $file->getFullUrl();
-            }
-        }
     }
 
     public function beforeUpdate()
@@ -82,7 +68,10 @@ class Post extends Entities\Posts
         }
 
         $this->updatedAt = time();
+    }
 
+    public function beforeSave()
+    {
         if($this->getDI()->getRequest()->hasFiles()) {
             $upload = new UploadModel();
             $files = $this->getDI()->getRequest()->getUploadedFiles();

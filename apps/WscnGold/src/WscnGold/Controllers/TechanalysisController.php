@@ -69,7 +69,8 @@ class TechanalysisController extends ControllerBase
         $this->response->setContentType('application/json', 'utf-8');
         $callback = $this->request->getQuery('callback');
         if($callback) {
-            $this->response->setContent($callback . '(' . $this->response->getContent() . ')');
+            $this->response->setJsonContent($quote);
+            return $this->response->setContent($callback . '(' . $this->response->getContent() . ')');
         }
         return $this->response->setJsonContent($quote);
     }

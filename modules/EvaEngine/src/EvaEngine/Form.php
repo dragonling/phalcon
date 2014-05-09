@@ -25,6 +25,7 @@ class Form extends \Phalcon\Forms\Form
 
     protected $initializedWithModel = false;
 
+    protected $rawPostData = array();
 
     protected $elementAlias = array(
         'check' => 'Phalcon\Forms\Element\Check',
@@ -86,6 +87,17 @@ class Form extends \Phalcon\Forms\Form
     public function getParentForm()
     {
         return $this->parentForm;
+    }
+
+    public function getRawPostData()
+    {
+        return $this->rawPostData;
+    }
+
+    public function setRawPostData($data)
+    {
+        $this->rawPostData = $data;
+        return $this;
     }
 
     public function getValues()
@@ -205,6 +217,8 @@ class Form extends \Phalcon\Forms\Form
             return $this->isValid($data, $entity);
         }
 
+        $this->setRawPostData($data);
+
         $formCount = count($this->formset);
         $validResult = 0;
         foreach($this->formset as $key => $subForm) {
@@ -222,6 +236,29 @@ class Form extends \Phalcon\Forms\Form
         }
 
         return $validResult === $formCount + 1 ? true : false;
+    }
+
+    public function save($modelSaveMethod = 'save')
+    {
+        if(!$model = $this->model) {
+            return $this;
+        }
+
+        if($this->formset) {
+            foreach($this->formset as $relationKey => $subForm) {
+                $relationModel = $this->getModel($relationKey);
+                if($model) {
+                    $model->$relationKey = $relationModel;
+                }
+            }
+        }
+
+        $model->setModelForm($this);
+        if($modelSaveMethod == 'save') {
+            return $model->save();
+        } else {
+            return $model->$modelSaveMethod($this->getRawPostData());
+        }
     }
 
     public function initializeFormAnnotations()

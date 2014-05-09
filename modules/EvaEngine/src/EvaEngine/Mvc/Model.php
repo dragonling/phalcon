@@ -10,6 +10,19 @@ class Model extends \Phalcon\Mvc\Model
 
     protected $useMasterSlave = true;
 
+    protected $modelForm;
+
+    public function setModelForm($form)
+    {
+        $this->modelForm = $form;
+        return $this;
+    }
+
+    public function getModelForm()
+    {
+        return $this->modelForm;
+    }
+
     public function getSource() {
         return $this->prefix . $this->tableName;
     }
