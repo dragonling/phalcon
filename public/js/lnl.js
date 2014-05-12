@@ -89,9 +89,7 @@
         });
         //
         $target.on('click', '[data-toggle=shrink]', function(){
-
             var $this = $(this);
-
             if ($this.hasClass('active')) {
                 $this.parent().nextUntil('.date').removeClass('hidden');
                 $this.removeClass('active');
@@ -103,6 +101,12 @@
             if (root.scrollable) {
                 $target.nanoScroller();
             }
+        });
+        $target.on('click', '.link', function(e){
+            e.preventDefault();
+            var $dom = $(this);
+            var nid = $dom.attr('data-nid');
+            root.detail($dom, nid);
         });
     };
     Lnl.prototype.updateData = function() {
@@ -341,6 +345,42 @@
             }
         });
     };
+    Lnl.prototype.detail = function($dom, nid) {
+        if ($dom.hasClass('active')) {
+            return;
+        }
+        var root = this;
+        $dom.addClass('loading');
+        $.ajax({
+            url : 'http://api.wallstreetcn.com/apiv1/node/' + nid + '.jsonp',
+            dataType: 'jsonp',
+            success: function(result) {
+                var detail = '';
+                if (result.body && result.body['und'] && result.body['und'].length) {
+                    detail = result.body['und'][0]['safe_value'];
+                    //过滤样式表
+                    detail = detail.replace(/style="[^"]*"/g, '');
+                }
+                if (result['upload'] && result['upload']['und'] && result['upload']['und'].length) {
+                    var images = result['upload']['und'];
+                    for (var j=0; j<images.length; j++) {
+                        // 截取 public://
+                        var imgRui = 'http://img.wallstreetcn.com/sites/default/files/' + images[j]['uri'].substring(9);
+                        detail += '<img src="' + imgRui + '" />';
+                    }
+                }
+                $dom.removeClass('loading');
+                $dom.addClass('active');
+                $dom.html(detail);
+                if (root.scrollable) {
+                    root.$target.nanoScroller();
+                }
+            },
+            error: function() {
+
+            }
+        });
+    }
     Lnl.prototype.convertRecord = function(record) {
 
         var item = {}

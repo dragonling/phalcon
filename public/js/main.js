@@ -14,6 +14,17 @@ $(function(){
         }
     });
     /**
+     * gold 头条 自定义 事件
+     *
+     * @type {{}}
+     */
+    var GTT_ACTION = {
+        //todo
+        cftc: function() {
+            $('[data-cftc]').cftc();
+        }
+    };
+    /**
      * tabpanel
      */
     $(document).on('click.tab', '.tab', function(e){
@@ -31,6 +42,10 @@ $(function(){
         $activePanel.removeClass('active');
         $tab.addClass('active');
         $panel.addClass('active');
+        var action = $tab.attr('data-tab-action');
+        if (action && typeof GTT_ACTION[action] === 'function') {
+            GTT_ACTION[action]();
+        }
         e.preventDefault();
     });
     /**
@@ -163,6 +178,139 @@ $(function(){
         //chart.circleChart(75, 75, 72, 42, data, "#fff");
     });
 });
+/**
+ * 定盘价
+ */
+(function(){
+
+    var $target = $('[data-fix-price]');
+    if (! $target.length) {
+        return;
+    }
+    var option = tool.parseDomData($target.attr('data-fix-price-option'));
+    var config = {};
+    config.today = option.today;
+    config.withSilver = option.withSilver === false ? false : true;
+    var $dom = $target.find('[data-fix-price-dom]');
+    var template = $target.find('[data-fix-price-template]').html();
+    /**
+     * 合并 goldData 和 【silverData】。
+     * @param arg1
+     * @param arg2
+     * @returns {{}}
+     */
+    var mergeData = function() {
+        if (arguments.length == 0) {
+            return null;
+        } else if (arguments.length == 1) {
+            var arg1 = arguments[0];
+            var arg2 = null;
+        } else if (arguments.length == 2) {
+            var arg1 = arguments[0];
+            var arg2 = arguments[1];
+        }
+        var item = {};
+        item.utm = arg1.start;
+        item.date = moment.unix(arg1.start).format('YYYY-MM-DD');
+        if (arg1.silver) {
+            item.gold_am = null;
+            item.gold_pm = null;
+            item.silver = arg1.open;
+            if (arg2) {
+                item.gold_am = arg2.open;
+                item.gold_pm = arg2.close;
+            }
+        } else {
+            item.gold_am = arg1.open;
+            item.gold_pm = arg1.close;
+            item.silver = null;
+            if (arg2) {
+                item.silver = arg1.open;
+            }
+        }
+        return item;
+    }
+
+    $.ajax({
+        url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=GOLDFIXPRICE&interval=1d&rows=50',
+        dataType: 'jsonp',
+        success: function(response) {
+            var goldData = response['results'];
+            var data = goldData;
+            if (config.withSilver) {
+                $.ajax({
+                    url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=SILVERFIXPRICE&interval=1d&rows=50',
+                    dataType: 'jsonp',
+                    success: function(response) {
+                        var silverData = response['results'];
+                        var i, l = silverData.length;
+                        var results = [];
+                        for (i = 0; i < l; i++) {
+                            silverData[i].silver = true;
+                        }
+                        data = data.concat(silverData);
+                        data.sort(function(first, second){
+                            return second.start - first.start;
+                        });
+                        //
+                        i = 0;
+                        l = data.length - 1;
+                        //
+                        while(i < l) {
+                            if (data[i].start == data[i + 1].start) {
+                                var item = mergeData(data[i], data[i+1]);
+                                results.push(item);
+                                i += 2 ;
+                            } else {
+                                var item = mergeData(data[i]);
+                                results.push(item);
+                                i ++ ;
+                                if (i == l) {
+                                    var item = mergeData(data[i]);
+                                    results.push(item);
+                                }
+                            }
+                        }
+                        //转化为html
+                        var html = _.template(template, {
+                            data : results
+                        });
+                        $dom.html(html);
+                        if (config.today) {
+                            if (results[0].date !== moment().format('YYYY-MM-DD')) {
+                                var today_am_gold = results[0].gold_am;
+                                var today_pm_gold = results[0].gold_pm;
+                                var today_silver  = results[0].silver;
+                            } else {
+                                var today_am_gold = '- -';
+                                var today_pm_gold = '- -';
+                                var today_silver  = '- -';
+                            }
+                            $target.find('[data-fix-price-value=today-am-gold]').text(today_am_gold);
+                            $target.find('[data-fix-price-value=today-pm-gold]').text(today_pm_gold);
+                            $target.find('[data-fix-price-value=today-silver]').text(today_silver);
+                        }
+                    } // silver success function
+                }); // silver ajax
+            } else {
+                var results = [];
+                var i , l = data.length;
+                for (i = 0; i < l; i++) {
+                    var item = {};
+                    item.date = moment.unix(data[i].start).format('YYYY-MM-DD');
+                    item.gold_am = data[i].open;
+                    item.gold_pm = data[i].close;
+                    results.push(item);
+                }
+                var html = _.template(template, {
+                    data : results
+                });
+                $dom.html(html);
+            }
+        } //gold success function
+    });//gold ajax
+
+})();
 
 
 $(function(){
@@ -196,68 +344,6 @@ $(function(){
     $('[data-rtq]').rtq();
     //
     $('[data-etf]').etf();
-    //
-    $('[data-cftc]').cftc();
-    /**
-     * 定盘价
-     */
-    $.ajax({
-        url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=' + 'GOLD' + 'FIXPRICE&interval=1d&rows=50',
-        dataType: 'jsonp',
-        success: function(response) {
-            var goldData = response['results'];
-            var DAY = 86400;
-            var data = goldData;
-            $.ajax({
-                url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=' + 'SILVER' + 'FIXPRICE&interval=1d&rows=50',
-                dataType: 'jsonp',
-                success: function(response) {
-                    var silverData = response['results'];
-                    data.concat(silverData);
-                    data.sort(function(first, second){
-                        return second.first - first.start;
-                    });
-                    var i, l = data.length - 1;
-                    var results = [];
-                    for (i = 0; i < l;) {
-                        if (data[i].start == data[i + 1].start) {
-                            var item = {};
-                            if (data[i].close) {
-                                item.utm = data[i].start;
-                                item.date = moment.unix(item.utm);
-                                item.gold_am = data[i].open;
-                                item.gold_pm = data[i].close;
-                                item.silver = data[i+1].open;
-                            } else {
-                                item.utm = data[i].start;
-                                item.date = moment.unix(item.utm);
-                                item.gold_am = data[i+1].open;
-                                item.gold_pm = data[i+1].close;
-                                item.silver = data[i].open;
-                            }
-                            i += 2 ;
-                        } else {
-                            var item = {};
-                            if (data[i].close) {
-                                item.utm = data[i].start;
-                                item.date = moment.unix(item.utm);
-                                item.gold_am = data[i].open;
-                                item.gold_pm = data[i].close;
-                                item.silver = null;
-                            } else {
-                                item.utm = data[i].start;
-                                item.date = moment.unix(item.utm);
-                                item.gold_am = null;
-                                item.gold_pm = null;
-                                item.silver = data[i].open;
-                            }
-                            i ++ ;
-                        }
-                    }
-                }
-            });
-        }
-    });
 
     /**
      * chart 图表
@@ -270,11 +356,13 @@ $(function(){
         var interval = this.getAttribute('data-efc-interval');
         var type = this.getAttribute('data-efc-type');
         if (symbol) {
-            frame.src = frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + symbol + '$1');
+            //frame.src = frame.src.replace(/symbol=\w+(&)?/, 'symbol=' + symbol + '$1');
+            frame.src = frame.src.replace(/symbol=\w+/, 'symbol=' + symbol);
             $this.parent().find('[data-efc-symbol].active').removeClass('active');
             $this.addClass('active');
         } else if (interval) {
-            frame.src = frame.src.replace(/interval=\w+(&)?/, 'interval=' + interval + '$1');
+            //frame.src = frame.src.replace(/interval=\w+(&)?/, 'interval=' + interval + '$1');
+            frame.src = frame.src.replace(/interval=\w+/, 'interval=' + interval);
             $this.parent().find('[data-efc-interval].active').removeClass('active');
             $this.addClass('active');
         } else if (type) {

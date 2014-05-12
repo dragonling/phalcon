@@ -67,7 +67,7 @@
                                 <li class="item <%= record.format %> <%= record.color %>" data-nid="<%= record.nid %>" data-timestamp="<%= record.timestamp %>" data-date="<%= record.date %>" data-day="<%= record.day %>">
                                     <span class="icon" data-type="<%= record.icon %>"></span>
                                     <span class="time"><%= record.time %></span>
-                                    <a class="link" href=""><%= record.title %></a>
+                                    <a class="link" href="" data-nid="<%= record.nid %>"><%= record.title %></a>
                                 </li>
                             <% } %>
                         </script>
@@ -106,9 +106,11 @@
                                 <a class="nav" data-rtq-interval="1d" href="">每日</a>
                             </div>
                             <script type="text/template" data-overview-template>
-                                <% var sum = parseInt(data.movingAverages.conclusion.sell) + parseInt(data.movingAverages.conclusion.buy); %>
-                                <% var buy = (data.movingAverages.conclusion.buy * 100 / sum).toFixed(2) + '%'; %>
-                                <% var sell = (data.movingAverages.conclusion.sell * 100 / sum).toFixed(2) + '%'; %>
+                                <% var buy = parseInt(data.movingAverages.conclusion.buy) + parseInt(data.summary.datas.TechnicalIndicators.buy); %>
+                                <% var sell= parseInt(data.movingAverages.conclusion.sell) + parseInt(data.summary.datas.TechnicalIndicators.sell); %>
+                                <% var sum = buy + sell; %>
+                                <% buy = (buy * 100 / sum).toFixed(2) + '%'; %>
+                                <% sell = (sell * 100 / sum).toFixed(2) + '%'; %>
                                 <% var advice = data.summary.conclusion.action; %>
                                 <% var adviceClass = '' ; %>
                                 <% if (advice.indexOf('买') > -1) {adviceClass = 'text-green';} else if (advice.indexOf('卖') > -1) {adviceClass = 'text-red';}%>
@@ -471,7 +473,7 @@
         <div class="tabpanel type3">
             <nav class="tabbar">
                 <a class="tab active" href="">ETF持仓</a>
-                <a class="tab" href="">CFTC持仓</a>
+                <a class="tab" data-tab-action="cftc" href="">CFTC持仓</a>
                 <a class="tab" href="">定盘价</a>
             </nav>
             <ul class="content">
@@ -492,7 +494,8 @@
                         <tbody data-etf-dom="data"></tbody>
                     </table>
                 </li>
-                <li class="panel" data-cftc data-cftc-option="symbol: GOLD; chart: true; size: 3; chart-width: 270; chart-height: 240;">
+                <!--chart-width: 270; chart-height: 240;-->
+                <li class="panel" data-cftc data-cftc-option="symbol: GOLD; chart: true; size: 3;">
                     <div class="chart type2" data-cftc-dom="chart"></div>
                     <script type="text/template" data-cftc-template="data">
                         <% for (var i = 0, l = data.length; i < l; i++) { %>
@@ -660,7 +663,7 @@
                                 <li class="item <%= record.format %> <%= record.color %>" data-nid="<%= record.nid %>" data-timestamp="<%= record.timestamp %>" data-date="<%= record.date %>" data-day="<%= record.day %>">
                                     <span class="icon" data-type="<%= record.icon %>"></span>
                                     <span class="time"><%= record.time %></span>
-                                    <a class="link" href=""><%= record.title %></a>
+                                    <a class="link" href="" data-nid="<%= record.nid %>"><%= record.title %></a>
                                 </li>
                             <% } %>
                         </script>
@@ -743,9 +746,11 @@
                             </div>
                         </script>
                         <script type="text/template" data-overview-template>
-                            <% var sum = parseInt(data.movingAverages.conclusion.sell) + parseInt(data.movingAverages.conclusion.buy); %>
-                            <% var buy = (data.movingAverages.conclusion.buy * 100 / sum).toFixed(2) + '%'; %>
-                            <% var sell = (data.movingAverages.conclusion.sell * 100 / sum).toFixed(2) + '%'; %>
+                            <% var buy = parseInt(data.movingAverages.conclusion.buy) + parseInt(data.summary.datas.TechnicalIndicators.buy); %>
+                            <% var sell= parseInt(data.movingAverages.conclusion.sell) + parseInt(data.summary.datas.TechnicalIndicators.sell); %>
+                            <% var sum = buy + sell; %>
+                            <% buy = (buy * 100 / sum).toFixed(2) + '%'; %>
+                            <% sell = (sell * 100 / sum).toFixed(2) + '%'; %>
                             <% var advice = data.summary.conclusion.action; %>
                             <% var adviceClass = '' ; %>
                             <% if (advice.indexOf('买') > -1) {adviceClass = 'text-green';} else if (advice.indexOf('卖') > -1) {adviceClass = 'text-red';}%>

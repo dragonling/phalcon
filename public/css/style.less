@@ -1847,7 +1847,12 @@ td.datepickerSpecial.datepickerSelected a {
             }
         }
         &>[data-type="fixing"] {
-
+            .line {
+                border-left-color: #c8c8c8;
+                border-right-color: #fff;
+                border-top-color: #c8c8c8;
+                border-bottom-color: #fff;
+            }
             .head {
                 background-color: #505050;
                 line-height: 40px;
@@ -1875,12 +1880,6 @@ td.datepickerSpecial.datepickerSelected a {
                     td {
                         height: 60px;
                     }
-                    .line {
-                        border-left-color: #c8c8c8;
-                        border-right-color: #fff;
-                        border-top-color: #c8c8c8;
-                        border-bottom-color: #fff;
-                    }
                 }
                 .cell1 {
                     width: 100px;
@@ -1904,38 +1903,28 @@ td.datepickerSpecial.datepickerSelected a {
                 }
 
             }
-            .list {
-                text-align: center;
+            table.list {
+                width: 100%;
                 color: #000;
                 background-color: #e6e6e6;
-                li {
-                    .clearfix;
-                }
-                li:nth-child(even) {
+                tr:nth-child(even) {
                     background-color: #f0f0f0;
                 }
-                .cell1,
-                .cell2 {
-                    display: block;
-                    float: left;
-                }
                 .cell1 {
-                    width: 360px;
-                    border-right: 1px solid #c8c8c8;
+                    width: 120px;
                 }
                 .cell2 {
-                    width: 228px;
-                    border-left: 1px solid #fff;
+                    position: relative;
+                }
+                th {
+                    font-weight: normal;
+                }
+                td,th {
+                    text-align: center;
                 }
                 .head {
                     font-size: 14px;
                     line-height: 32px;
-                    .cell1 {
-                        border-right-color: #141414;
-                    }
-                    .cell2 {
-                        border-right-color: #969696;
-                    }
                 }
                 .label {
                     color: #323232;
@@ -2981,6 +2970,34 @@ td.datepickerSpecial.datepickerSelected a {
         &.bold {
             font-weight: bold;
         }
+        img {
+            max-width: 100%;
+            //height: auto;
+        }
+        .link.loading {
+            position: relative;
+            &:before,
+            &:after {
+                display: block;
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+            &:before {
+                //background-color: rgba(0,0,0,.3);
+            }
+            &:after {
+                margin: auto;
+                //width: 100px;
+                //height: 20px;
+                width: 128px;
+                height: 15px;
+                background: url(../img/loading-bar3.gif);
+            }
+        }
     }
 }
 #livenews {
@@ -3038,6 +3055,9 @@ td.datepickerSpecial.datepickerSelected a {
                 p,img {
                     margin-bottom: 20px;
                 }
+            }
+            .link {
+                display: block;
             }
             .date {
 

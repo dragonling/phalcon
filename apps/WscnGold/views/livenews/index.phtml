@@ -56,7 +56,9 @@
                             <span class="time left"><%= record.time %></span>
                             <span class="icon right" data-type="<%= record.icon %>"></span>
                         </div>
-                        <p class="details"><%= record.title %></p>
+                        <p class="details" >
+                            <a class="link" href="" data-nid="<%= record.nid %>"><%= record.title %></a>
+                        </p>
                     </li>
                 <% } %>
             </script>

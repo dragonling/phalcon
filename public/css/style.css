@@ -1845,6 +1845,12 @@ td.datepickerSpecial.datepickerSelected a {
 #market [data-quote] > [data-type="cftc"] .table td {
   color: #e6e6e6;
 }
+#market [data-quote] > [data-type="fixing"] .line {
+  border-left-color: #c8c8c8;
+  border-right-color: #fff;
+  border-top-color: #c8c8c8;
+  border-bottom-color: #fff;
+}
 #market [data-quote] > [data-type="fixing"] .head {
   background-color: #505050;
   line-height: 40px;
@@ -1873,12 +1879,6 @@ td.datepickerSpecial.datepickerSelected a {
 #market [data-quote] > [data-type="fixing"] .table tbody td {
   height: 60px;
 }
-#market [data-quote] > [data-type="fixing"] .table tbody .line {
-  border-left-color: #c8c8c8;
-  border-right-color: #fff;
-  border-top-color: #c8c8c8;
-  border-bottom-color: #fff;
-}
 #market [data-quote] > [data-type="fixing"] .table .cell1 {
   width: 100px;
 }
@@ -1897,57 +1897,41 @@ td.datepickerSpecial.datepickerSelected a {
   font-weight: bold;
   color: #005178;
 }
-#market [data-quote] > [data-type="fixing"] .list {
-  text-align: center;
+#market [data-quote] > [data-type="fixing"] table.list {
+  width: 100%;
   color: #000;
   background-color: #e6e6e6;
 }
-#market [data-quote] > [data-type="fixing"] .list li:before {
-  display: table;
-  content: '';
-  clear: both;
-}
-#market [data-quote] > [data-type="fixing"] .list li:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-#market [data-quote] > [data-type="fixing"] .list li:nth-child(even) {
+#market [data-quote] > [data-type="fixing"] table.list tr:nth-child(even) {
   background-color: #f0f0f0;
 }
-#market [data-quote] > [data-type="fixing"] .list .cell1,
-#market [data-quote] > [data-type="fixing"] .list .cell2 {
-  display: block;
-  float: left;
+#market [data-quote] > [data-type="fixing"] table.list .cell1 {
+  width: 120px;
 }
-#market [data-quote] > [data-type="fixing"] .list .cell1 {
-  width: 360px;
-  border-right: 1px solid #c8c8c8;
+#market [data-quote] > [data-type="fixing"] table.list .cell2 {
+  position: relative;
 }
-#market [data-quote] > [data-type="fixing"] .list .cell2 {
-  width: 228px;
-  border-left: 1px solid #fff;
+#market [data-quote] > [data-type="fixing"] table.list th {
+  font-weight: normal;
 }
-#market [data-quote] > [data-type="fixing"] .list .head {
+#market [data-quote] > [data-type="fixing"] table.list td,
+#market [data-quote] > [data-type="fixing"] table.list th {
+  text-align: center;
+}
+#market [data-quote] > [data-type="fixing"] table.list .head {
   font-size: 14px;
   line-height: 32px;
 }
-#market [data-quote] > [data-type="fixing"] .list .head .cell1 {
-  border-right-color: #141414;
-}
-#market [data-quote] > [data-type="fixing"] .list .head .cell2 {
-  border-right-color: #969696;
-}
-#market [data-quote] > [data-type="fixing"] .list .label {
+#market [data-quote] > [data-type="fixing"] table.list .label {
   color: #323232;
   font-size: 14px;
   line-height: 32px;
 }
-#market [data-quote] > [data-type="fixing"] .list .item {
+#market [data-quote] > [data-type="fixing"] table.list .item {
   line-height: 32px;
   font-size: 12px;
 }
-#market [data-quote] > [data-type="fixing"] .list .pagingbar {
+#market [data-quote] > [data-type="fixing"] table.list .pagingbar {
   padding: 10px 27px;
 }
 #market [data-info] {
@@ -2914,6 +2898,28 @@ td.datepickerSpecial.datepickerSelected a {
 .livenews .item.bold {
   font-weight: bold;
 }
+.livenews .item img {
+  max-width: 100%;
+}
+.livenews .item .link.loading {
+  position: relative;
+}
+.livenews .item .link.loading:before,
+.livenews .item .link.loading:after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.livenews .item .link.loading:after {
+  margin: auto;
+  width: 128px;
+  height: 15px;
+  background: url(../img/loading-bar3.gif);
+}
 #livenews {
   position: relative;
   box-shadow: -2px 0 3px 0 rgba(0, 0, 0, 0.3);
@@ -2969,6 +2975,9 @@ td.datepickerSpecial.datepickerSelected a {
 #livenews > .content > .item .details p,
 #livenews > .content > .item .details img {
   margin-bottom: 20px;
+}
+#livenews > .content > .item .link {
+  display: block;
 }
 #livenews > .content > .item [data-action=comment] {
   cursor: pointer;

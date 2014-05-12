@@ -126,7 +126,7 @@ var tool = {
                         break;
                 }
                 //类型转换 number
-                if (/^\d/.test(value)) {
+                if (/^(-?\d+)(\.\d+)?$/.test(value)) {
                     value = + value;
                 }
                 obj[key] = value;

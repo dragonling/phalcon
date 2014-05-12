@@ -77,6 +77,18 @@
                 min = data[i][1];
             }
         }
+        var digit = (parseInt(min) + '').length - 1;
+        var unit;
+        switch (digit) {
+            case 3 :
+                unit = 'k';
+                break;
+            case 4 :
+                unit = 'w';
+                break;
+            default :
+                unit = false;
+        }
         /*
          for (i = 0; i < l; i++) {
          if (data[i][1] < min) {
@@ -91,9 +103,9 @@
                 spacing: 1,
                 backgroundColor: '#000',
                 plotBorderWidth: 1,
-                plotBorderColor: '#323232',
-                width: this.config.chartWidth,
-                height: this.config.chartHeight
+                plotBorderColor: '#323232'
+                //width: this.config.chartWidth,
+                //height: this.config.chartHeight
             },
             title: false,
             subtitle: false,
@@ -122,9 +134,13 @@
                 max: max,
                 maxPadding: 0.02,
                 labels: {
-                    formatter: function() {
-                        return this.value;
-                    }
+                    /*formatter: function() {
+                        if (unit) {
+                            return (parseInt(this.value) + '').slice(0 , -digit) + unit;
+                        } else {
+                            return this.value;
+                        }
+                    }*/
                 },
                 allowDecimals: true,
                 opposite: true,
@@ -135,8 +151,8 @@
             },
             tooltip: {
                 formatter: function() {
-                    return '日期：'+ Highcharts.dateFormat('%Y年%m月%d日 %H:%M:%S', this.x) +
-                        '<br/>ETF值：<b>'+ this.y +'</b>';
+                    return Highcharts.dateFormat('%Y年%m月%d日 %H:%M:%S', this.x) +
+                        '<br/>CFTC：<b>'+ this.y +'</b>';
                 }
             },
             plotOptions: {

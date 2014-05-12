@@ -93,7 +93,7 @@
                 <li data-toggle="tab" data-tab-index="1" class="tab item active">
                     <span class="text">ETF持仓</span>
                 </li>
-                <li data-toggle="tab" data-tab-index="2" class="tab item" >
+                <li data-toggle="tab" data-tab-index="2" data-tab-action="cftc" class="tab item" >
                     <span class="text">CFTC持仓</span>
                 </li>
                 <li data-toggle="tab" data-tab-index="3" class="tab item" >
@@ -120,7 +120,8 @@
                         <tbody data-etf-dom="data"></tbody>
                     </table>
                 </div>
-                <div data-tab-index="2" class="panel" data-type="cftc" data-cftc data-cftc-option="symbol: GOLD; chart: true; chart-width: 560; chart-height: 180;">
+                <!--chart-width: 560; chart-height: 180;-->
+                <div data-tab-index="2" class="panel" data-type="cftc" data-cftc data-cftc-option="symbol: GOLD; chart: true; ">
                     <div class="chart" data-cftc-dom="chart"></div>
                     <script type="text/template" data-cftc-template="data">
                         <% for (var i = 0, l = data.length; i < l; i++) { %>
@@ -156,7 +157,7 @@
                         <tbody data-cftc-dom="data"></tbody>
                     </table>
                 </div>
-                <div data-tab-index="3" class="panel" data-type="fixing">
+                <div data-tab-index="3" class="panel" data-type="fixing" data-fix-price data-fix-price-option="today: true;">
                     <table class="table">
                         <thead class="head">
                         <tr>
@@ -181,89 +182,48 @@
                             </th>
                             <td class="cell2">
                                 <span class="label">上午定价</span>
-                                <span class="price">1294.00</span>
+                                <span class="price" data-fix-price-value="today-am-gold">- -</span>
                             </td>
                             <td class="cell3" rowspan="2">
                                 <div class="line double vr left"></div>
-                                <span class="price">19.9700</span>
+                                <span class="price" data-fix-price-value="today-silver">- -</span>
                             </td>
                         </tr>
                         <tr>
                             <td class="cell2">
                                 <div class="line double hr top"></div>
                                 <span class="label">下午定价</span>
-                                <span class="price">1291.75</span>
+                                <span class="price" data-fix-price-value="today-pm-gold">- -</span>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-
-                    <ul class="list">
-                        <li class="head">
-                            <div class="cell1">黄金伦敦历史定盘价(美元/盎司）</div>
-                            <div class="cell2">白银伦敦历史定盘价(美元/盎司）</div>
-                        </li>
-                        <li class="label">
-                            <div class="cell1">
-                                <div class="row">
-                                    <div class="span4">日期</div>
-                                    <div class="span4">上午定价</div>
-                                    <div class="span4">下午定价</div>
-                                </div>
-                            </div>
-                            <div class="cell2">
-                                定价
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="cell1">
-                                <div class="row">
-                                    <div class="span4">2014-04-25</div>
-                                    <div class="span4">1294.00</div>
-                                    <div class="span4">1291.75</div>
-                                </div>
-                            </div>
-                            <div class="cell2">
-                                19.9700
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="cell1">
-                                <div class="row">
-                                    <div class="span4">2014-04-25</div>
-                                    <div class="span4">1294.00</div>
-                                    <div class="span4">1291.75</div>
-                                </div>
-                            </div>
-                            <div class="cell2">
-                                19.9700
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="cell1">
-                                <div class="row">
-                                    <div class="span4">2014-04-25</div>
-                                    <div class="span4">1294.00</div>
-                                    <div class="span4">1291.75</div>
-                                </div>
-                            </div>
-                            <div class="cell2">
-                                19.9700
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="cell1">
-                                <div class="row">
-                                    <div class="span4">2014-04-25</div>
-                                    <div class="span4">1294.00</div>
-                                    <div class="span4">1291.75</div>
-                                </div>
-                            </div>
-                            <div class="cell2">
-                                19.9700
-                            </div>
-                        </li>
-                        <li class="pagingbar">
+                    <script type="text/template" data-fix-price-template>
+                        <% var i, l = data.length; %>
+                        <% for (i = 0; i < l; i ++) { %>
+                        <tr class="item">
+                            <td class="cell1"><%= data[i].date %></td>
+                            <td class="cell1"><%= data[i].gold_am %></td>
+                            <td class="cell1"><%= data[i].gold_pm %></td>
+                            <td class="cell2"><div class="line double vr left"></div><%= data[i].silver %></td>
+                        </tr>
+                        <% } %>
+                    </script>
+                    <table class="list">
+                        <thead>
+                        <tr class="head">
+                            <th colspan="3">黄金伦敦历史定盘价(美元/盎司）</th>
+                            <th class="cell2"><div class="line double vr left"></div>白银伦敦历史定盘价(美元/盎司）</th>
+                        </tr>
+                        <tr class="label">
+                            <th>日期</th>
+                            <th>上午定价</th>
+                            <th>下午定价</th>
+                            <th class="cell2"><div class="line double vr left"></div>定价</th>
+                        </tr>
+                        </thead>
+                        <tbody data-fix-price-dom></tbody>
+                        <!--<li class="pagingbar">
                             <div class="button active">1</div>
                             <div class="button">2</div>
                             <div class="button">3</div>
@@ -275,8 +235,8 @@
                             <div class="button">9</div>
                             <div class="button">10</div>
                             <div class="button" data-action="next-page">下一页 <i class="icon-caret-right"></i></div>
-                        </li>
-                    </ul>
+                        </li>-->
+                    </table>
                 </div>
             </div>
         </div>
