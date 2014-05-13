@@ -3,6 +3,7 @@
 namespace Eva\EvaEngine\Error;
 
 use Phalcon\DI;
+use Phalcon\Logger\Adapter\File as FileLogger;
 
 class ErrorHandler implements ErrorHandlerInterface
 {
@@ -15,6 +16,8 @@ class ErrorHandler implements ErrorHandlerInterface
     protected static $errorLayout;
 
     protected static $errorTemplate;
+
+    protected static $logger = false;
 
     //protected static $errorLevel
 
@@ -88,23 +91,46 @@ class ErrorHandler implements ErrorHandlerInterface
 
     public static function setErrorLayout()
     {
-
-    
     }
 
     public static function setErrorTemplate()
     {
     }
 
+    public static function getLogger()
+    {
+        if(self::$logger !== false) {
+            return self::$logger;
+        }
+
+
+        $di = DI::getDefault();
+        $config = $di->get('config');
+
+        if(!isset($config->error->disableLog) || 
+            (isset($config->error->disableLog) && $config->error->disableLog) ||
+            empty($config->error->logPath)
+        ) {
+            return self::$logger = null;
+        }
+
+        self::$logger = new FileLogger($config->error->logPath . '/' . 'system_error_' . date('Ymd') . '.log');
+        return self::$logger;
+    }
+
+    protected static function logError(Error $error)
+    {
+        $logger = self::getLogger();
+        if(!$logger) {
+            return;
+        }
+        return $logger->log($error);
+    }
+
     protected static function errorProcess(Error $error)
     {
-        $di = DI::getDefault();
-        $config = $di->getShared('config');
-        $type = $error->errorType();
-        $message = "$type: {$error->message()} in {$error->file()} on line {$error->line()}";
-
+        self::logError($error);
         $useErrorController = false;
-        //$config->error->logger->log($message);
 
         if($error->isException()) {
             $useErrorController = true;
@@ -130,6 +156,7 @@ class ErrorHandler implements ErrorHandlerInterface
             return;
         }
 
+        $di = DI::getDefault();
         $dispatcher = $di->getShared('dispatcher');
         $view = $di->getShared('view');
         $response = $di->getShared('response');
@@ -142,7 +169,6 @@ class ErrorHandler implements ErrorHandlerInterface
 
         $view->start();
         $dispatcher->dispatch();
-        //$view->render($config->error->controller, $config->error->action, $dispatcher->getParams());
         $view->render();
         $view->finish();
 

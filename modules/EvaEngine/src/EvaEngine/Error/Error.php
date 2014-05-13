@@ -123,6 +123,11 @@ class Error
         if($options['isException'] && $exception instanceof ExceptionInterface) {
             $options['statusCode'] = $exception->getStatusCode();
         }
+
+        if($options['isException']) {
+            $options['message'] = $exception->getMessage();
+        }
+
         $options['statusMessage'] = isset($this->recommendedReasonPhrases[$options['statusCode']]) ? $this->recommendedReasonPhrases[$options['statusCode']] : 'Internal Server Error';
 
         foreach ($options as $option => $value) {
@@ -189,5 +194,17 @@ class Error
     }
 
 
+    public function __toString()
+    {
+        $errorOrException = $this->isException() ? 'EXCEPTION' : 'ERROR';
+        return sprintf("[%s][%s][%s][%s][%s][%s]",
+                        $errorOrException,
+                        $this->errorType(),
+                        $this->type(),
+                        $this->message(),
+                        $this->file(),
+                        $this->line()
+                    );
+    }
 
 }
