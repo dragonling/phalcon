@@ -36,6 +36,7 @@
                     l = l > size ? size : l;
                     for (i = 0; i < l; i ++) {
                         var item = {};
+                        item.utm = results[i].start;
                         item.date = moment.unix(results[i].start).format('YYYY.MM.DD');
                         item.etf_oz = results[i].open;
                         item.etf_ton = results[i].close;
@@ -72,6 +73,11 @@
                             min = data[i][1];
                         }
                     }
+                    /*
+                    data.sort(function(arg1, arg2){
+                        return arg1[0] - arg2[0];
+                    });
+                    */
                     console.log('max is : ' + max + '; min is : ' + min);
                     root.$chartDom.highcharts({
                         chart: {

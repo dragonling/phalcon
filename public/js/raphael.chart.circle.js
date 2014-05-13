@@ -88,7 +88,7 @@
             var pathAngle = 360 * value / total;
             var textAngle = angle + pathAngle / 2;
             var path = this.path(this.cx, this.cy, this.or, this.ir, angle, angle + pathAngle);
-            this.paper.path(path).attr({fill: this.colors[l], stroke: '#fff', "stroke-width": 1});
+            this.paper.path(path).attr({fill: this.colors[l], stroke: 'none'});//stroke: '#fff', "stroke-width": 1
             this.paper.text(
                 this.cx + (this.ir + 15) * Math.cos(-textAngle * this.rad),
                 this.cy + (this.ir + 15) * Math.sin(-textAngle * this.rad),

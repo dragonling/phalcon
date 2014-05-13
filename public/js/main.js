@@ -312,6 +312,16 @@ $(function(){
 
 })();
 
+window.jplayer = $('<div id="jplayer"></div>').appendTo('body');
+jplayer.jPlayer({
+    ready: function () {
+        $(this).jPlayer("setMedia", {
+            mp3 : "/js/vendor/notification.mp3"
+        });
+    },
+    swfPath: "/js/vendor/Jplayer.swf",
+    supplied: "mp3"
+});
 
 $(function(){
 
@@ -327,6 +337,29 @@ $(function(){
         paging: true,
         clock: true
     });
+    //
+
+    //
+    $('[data-action=livenews-alert]').on('click', function(e){
+        var $this = $(this);
+        var $target = $($this.attr('data-target'));
+        if (this.checked) {
+            $target.trigger('on_alert');
+        } else {
+            $target.trigger('off_alert');
+        }
+    });
+    //
+    $('[data-action=livenews-all-shrink]').on('click', function(e){
+        var $this = $(this);
+        var $target = $($this.attr('data-target'));
+        if (this.checked) {
+            $target.trigger('shrink_all');
+        } else {
+            $target.trigger('spread_all');
+        }
+    });
+
     //
     $('#side-fcl').fcl();
     //
@@ -366,7 +399,9 @@ $(function(){
             $this.parent().find('[data-efc-interval].active').removeClass('active');
             $this.addClass('active');
         } else if (type) {
-            //todo
+            frame.src = frame.src.replace(/type=\w+/, 'type=' + type);
+            $this.parent().find('[data-efc-type].active').removeClass('active');
+            $this.addClass('active');
         }
         /*
         if ($this.is('[data-etf-target]')) {

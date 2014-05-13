@@ -10,7 +10,8 @@
         this.$target = options.$target;
         this.$content = this.$target.children('.content');
         this.$script = this.$target.find('script[data-template]');
-
+        this.config.alert = options.alert === false ? false : true;
+        //todo
         this.autoRefresh = options.autoRefresh === false ? false : true;
         this.scrollable = options.scrollable === false ? false : true;
         this.updateUrl = options.updateUrl || 'http://api.wallstreetcn.com/apiv1/livenews.jsonp';
@@ -86,6 +87,32 @@
         $target.bind('scrollend', function(e) {
             console.log('scrollend~~');
             root.nextPage();
+        });
+        //绑定 全部收起事件
+        $target.bind('shrink_all', function(e){
+            console.log('------------------------------------');
+            console.log('livenews list shrink_all !!!!!!');
+            $target.find('.item').addClass('hidden');
+            $target.find('[data-toggle=shrink]').addClass('active');
+        });
+        //绑定 全部展开事件
+        $target.bind('spread_all', function(e){
+            console.log('------------------------------------');
+            console.log('livenews list spread_all !!!!!!');
+            $target.find('.item').removeClass('hidden');
+            $target.find('[data-toggle=shrink]').removeClass('active');
+        });
+        //绑定 声音提醒事件
+        $target.bind('on_alert', function(e){
+            console.log('------------------------------------');
+            console.log('livenews list on alert !!!!!!');
+            root.config.alert = true;
+        });
+        //绑定 关闭声音提醒事件
+        $target.bind('off_alert', function(e){
+            console.log('------------------------------------');
+            console.log('livenews list off alert !!!!!!');
+            root.config.alert = false;
         });
         //
         $target.on('click', '[data-toggle=shrink]', function(){
@@ -181,7 +208,9 @@
                             });
                             $date.replaceWith(html);
                         }
-
+                        if (root.config.alert) {
+                            jplayer.jPlayer('play');
+                        }
                         if (root.scrollable) {
                             //
                             $target.nanoScroller();

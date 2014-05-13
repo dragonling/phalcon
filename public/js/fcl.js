@@ -17,6 +17,8 @@
         this.itemIndex = 1;
         this.$clock = this.$target.find('.clock');
         this.config = {};
+        this.config.timeFormat = options.timeFormat || 'HH:mm';
+        this.config.dateFormat = options.dateFormat || 'YYYY年MM月DD日 dddd';
         this.config.autoScroll = options.autoScroll;
         this.config.datepicker = options.datepicker;
         if (this.config.datepicker) {
@@ -362,6 +364,7 @@
         });
     };
     Fcl.prototype.parseData = function(results) {
+        var root = this;
         var data = [];
         if (this.config.sort) {
             data[0] = []; //fd 财经日历
@@ -380,9 +383,9 @@
         for (i=0; i<l; i++) {
             result = results[i];
             result.id   = this.id + '-item' + this.itemIndex ++;
-            result.time = result['localDateTime'].substring(11, 16);
             var mt = moment(result['localDateTime'], 'YYYY-MM-DD hh:mm:ss');
-            result.date = mt.format('YYYY年MM月DD日 dddd');
+            result.time = mt.format(root.config.timeFormat);
+            result.date = mt.format(root.config.dateFormat);
             result.utm  = mt.unix();
             result.trend = '';
             if (result['actual'] && result['forecast']) {
@@ -400,19 +403,13 @@
             //.icon.star
             switch (parseInt(result['importance'])) {
                 case 1:
-                    result['stars'] = '<img class="icon star" src="/img/icon/star_blue.png"/>' +
-                        '<img class="icon star" src="/img/icon/star_grey.png"/>' +
-                        '<img class="icon star" src="/img/icon/star_grey.png"/>'
+                    result['stars'] = '<div class="icon star active"></div><div class="icon star"></div><div class="icon star"></div>';
                     break;
                 case 2:
-                    result['stars'] = '<img class="icon star" src="/img/icon/star_blue.png"/>' +
-                        '<img class="icon star" src="/img/icon/star_blue.png"/>' +
-                        '<img class="icon star" src="/img/icon/star_grey.png"/>'
+                    result['stars'] = '<div class="icon star active"></div><div class="icon star active"></div><div class="icon star"></div>';
                     break;
                 case 3:
-                    result['stars'] = '<img class="icon star" src="/img/icon/star_blue.png"/>' +
-                        '<img class="icon star" src="/img/icon/star_blue.png"/>' +
-                        '<img class="icon star" src="/img/icon/star_blue.png"/>'
+                    result['stars'] = '<div class="icon star active"></div><div class="icon star active"></div><div class="icon star active"></div>';
                     break;
             }
             //

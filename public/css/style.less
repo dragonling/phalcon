@@ -265,18 +265,13 @@ button,select,input {
 .text-gray {
     color: #505050;
 }
+.text-white {
+    color: #fff;
+}
 .text-bold {
     font-weight: bold;
 }
-.bg-red {
-    background-color: @red;
-}
-.bg-green {
-    background-color: @green;
-}
-.bg-gray {
-    background-color: #505050;
-}
+
 .border-red {
     border-color: @red;
 }
@@ -286,6 +281,36 @@ button,select,input {
 .border-gray {
     border-color: #505050;
 }
+//bg : background
+.bg-red {
+    background-color: @red;
+}
+.bg-blue {
+    background-color: @blue;
+}
+.bg-green {
+    background-color: @green;
+}
+.bg-gray {
+    background-color: #505050;
+}
+.bg-white {
+    background-color: #fff;
+}
+//br : border-radios
+.br-5 {
+    border-radius: 5px;
+}
+.br-left-5 {
+    border-radius: 5px 0 0 5px;
+}
+.br-right-5 {
+    border-radius: 0 5px 5px 0;
+}
+//bs : box-shadow
+/*.bs {
+
+}*/
 
 
 .width-50 {
@@ -951,7 +976,7 @@ label.checkbox {
         color: #323232;
     }
     .content {
-        font-size: 18px;
+        font-size: 17px;
         line-height: 1.5em;
         p {
             margin-bottom: 30px;
@@ -1411,6 +1436,22 @@ label.checkbox {
 
 }
 
+.finance-calendar {
+    .important {
+        .star {
+            height: 100%;
+            float: left;
+            width: 13px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-image: url(../img/icon/star_grey.png);
+            &.active {
+                background-image: url(../img/icon/star_blue.png);
+            }
+        }
+    }
+}
+
 .finance-calendar.list {
     overflow: hidden;
     [data-trend=up] {
@@ -1426,11 +1467,6 @@ label.checkbox {
     .date {
         color: #8C8C8C;
         font-weight: bold;
-    }
-    .important {
-        .star {
-            margin-right: 3px;
-        }
     }
     .more {
         display: block;
@@ -1699,6 +1735,7 @@ td.datepickerSpecial.datepickerSelected a {
     }
     &>.content {
         margin-top: 30px;
+        min-height: 800px;
         table {
             width: 100%;
             font-size: 12px;
@@ -1783,6 +1820,7 @@ td.datepickerSpecial.datepickerSelected a {
 
         .important {
             .star {
+                height: 12px;
                 margin-right: 5px;
             }
         }
@@ -2285,8 +2323,8 @@ td.datepickerSpecial.datepickerSelected a {
     .main-title {
         font-size: 16px;
         line-height: 16px;
-        height: 27px;
-        border-bottom: 3px solid @blue;
+        height: 26px;
+        border-bottom: 4px solid @blue;
         margin-top: 30px;
         margin-bottom: 15px;
         width: 100%;
@@ -2590,6 +2628,7 @@ td.datepickerSpecial.datepickerSelected a {
     .datum {
         float: left;
         width: 270px;
+        height: 118px;
         padding: 0 15px;
         .update-time {
             display: block;
@@ -3481,6 +3520,16 @@ td.datepickerSpecial.datepickerSelected a {
                 content: '\f078';
             }
         }
+        &.dir-up {
+            &>.icon-custom:before {
+                content: '\f078';
+            }
+            &.active {
+                &>.icon-custom:before {
+                    content: '\f077';
+                }
+            }
+        }
     }
 
     .market.chart {
@@ -3661,31 +3710,55 @@ td.datepickerSpecial.datepickerSelected a {
             padding: 8px 15px;
         }
         .item {
-            .clearfix;
-            padding: 8px 15px;
-            border-top: 1px solid #fff;
-            border-bottom: 1px solid #bebebe;
-            color: #000;
+            line-height: 1.5em;
+            width: 360px;
+            padding: 6px 10px;
+            border-radius: 5px;
+            margin: 12px 25px 8px 15px;
+            background-color: #fff;
+            box-shadow: 1px 1px 2px 0 rgba(0,0,0,.35);
+            position: relative;
+            &:before {
+                position: absolute;
+                display: block;
+                content: '';
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 80px;
+                background-color: @blue;
+                z-index: 0;
+                border-radius: 5px 0 0 5px;
+            }
             .time {
-                width: 75px;
+                width: 60px;
+                margin-right: 25px;
                 font-weight: bold;
-                line-height: 1.5em;
             }
             .important {
-                width: 105px;
+                width: 60px;
+                margin-right: 25px;
                 height: 1.5em;
+                .star {
+                    margin-right: 6px;
+                    &.active {
+                        background-image: url(../img/icon/star_white.png);
+                    }
+                }
             }
             .title {
-                width: 210px;
-                font-weight: bold;
-                line-height: 1.5em;
+                width: 180px;
                 margin-bottom: 5px;
             }
-            .profit {
+            /*.profit {
                 width: 75px;
+            }*/
+            .country {
+                width: 90px;
             }
             .price {
-                width: 105px;
+                .ellipsis;
+                width: 90px;
             }
             .label {
                 color: #666;

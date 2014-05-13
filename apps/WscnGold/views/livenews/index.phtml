@@ -23,11 +23,11 @@
                 <span class="icon" data-type="warning"></span>重磅消息
             </li>
         </ul>
-        <div id="livenews" class="livenews list type0" data-lnl-option="scrollable:false; date-format:YYYY年M月D日，dddd; time-format:LT;">
+        <div id="livenews" class="livenews list type0" data-lnl-option="scrollable:false; date-format:YYYY年M月D日，dddd;">
             <div class="head">
                 <span class="text left">直播中 <i class="icon-refresh"></i></span>
                 <span class="clock"></span>
-                <label class="checkbox right" for="livenews-voice-alert"><i class="icon-volume-up"></i> 声音提醒 <input id="livenews-voice-alert" type="checkbox" value="true"></label>
+                <label class="checkbox right" for="livenews-voice-alert"><i class="icon-volume-up"></i> 声音提醒 <input id="livenews-voice-alert" checked="checked" data-action="livenews-alert" data-target="#livenews" type="checkbox"></label>
             </div>
             <ul class="content"></ul>
             <script type="text/template" data-date-template>
