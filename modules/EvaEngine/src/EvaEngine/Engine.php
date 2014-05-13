@@ -15,6 +15,7 @@ use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Logger\Adapter\File as FileLogger;
 use Phalcon\Mvc\Dispatcher;
 
+
 use Eva\EvaEngine\ModuleManager;
 
 class Engine
@@ -157,9 +158,10 @@ class Engine
             return $cookies;
         });
 
-        $di->set('view', function () {
+        $di->set('view', function () use ($di){
             $view = new View();
             $view->setViewsDir(__DIR__ . '/views/');
+            $view->setEventsManager($di->get('eventsManager'));
             return $view;
         });
 
@@ -267,6 +269,14 @@ class Engine
             return $dbAdapter;
         });
         */
+
+        $di->set('dispatcher', function() use ($di){
+            $eventsManager = $di->get('eventsManager');
+            $dispatcher = new Dispatcher();
+            $dispatcher->setEventsManager($eventsManager);
+            return $dispatcher;
+        }, true);
+
 
         $di->set('dbMaster', function () use ($di) {
             $config = $di->get('config');
