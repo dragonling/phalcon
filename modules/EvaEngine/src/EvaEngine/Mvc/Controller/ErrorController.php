@@ -131,6 +131,7 @@ EOF;
 
     public function indexAction()
     {
+        $this->view->disable();
         $error = $this->dispatcher->getParam('error');
         $methodName = 'contentCode' . $error->statusCode();
         $content = isset($this->$methodName) ? $this->$methodName : $this->contentDefault;

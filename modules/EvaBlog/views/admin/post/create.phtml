@@ -29,7 +29,7 @@
         </form>
     </div><!-- #nav-search -->
 </div>
-
+<?$textForm = $form->getForm('Text')?>
 <form id="" action="" method="POST" enctype="multipart/form-data" novalidate="novalidate">
     <div class="page-content">
         <div class="page-header">
@@ -46,7 +46,7 @@
 
                 <div class="form-group">
                     <label class="block clearfix">
-                        <?=$postForm->render('title', array(
+                        <?=$form->render('title', array(
                             'class' => 'form-control input-lg',
                             'placeholder' => 'Title',
                             'required' => 'required',
@@ -58,7 +58,7 @@
                         <span class="input-group-addon input-sm">
                             <i class="icon-link"></i>  http://www.goldtoutiao.com/post/
                         </span>
-                        <?=$postForm->render('slug', array(
+                        <?=$form->render('slug', array(
                             'class' => 'form-control input-sm',
                             'placeholder' => 'Url, No fill will generate a random url',
                         ))?>
@@ -103,7 +103,7 @@
                                 'rows' => 12,
                                 'required' => 'required',
                             ))?>
-                            <?=$postForm->render('codeType', array(
+                            <?=$form->render('codeType', array(
                             ))?>
                         </div>
                         <!--
@@ -116,7 +116,7 @@
                     <label class="block clearfix">
                         <h5 class="lighter">Summary</h5>
                         <div class="markdown-editor">
-                            <?=$postForm->render('summary', array(
+                            <?=$form->render('summary', array(
                                 'class' => 'form-control editor editor-summary',
                                 'rows' => 3,
                             ))?>
@@ -157,7 +157,7 @@
                                 <label for="status">
                                     Status
                                 </label>
-                                <?=$postForm->render('status', array(
+                                <?=$form->render('status', array(
                                     'class' => 'form-control',
                                 ))?>
                             </fieldset>
@@ -193,8 +193,8 @@
                             <img src="<?=$this->tag->thumb($item->image, 'w_300')?>" alt="" width="100%" />
                             <?endif?>
                             <div class="paste-uploader" data-upload-url="/admin/upload/encode" data-upload-allow-num="1" data-upload-allow-type="" data-upload-maxsize="" data-callback="">
-                                <?=$postForm->render('image', array())?>
-                                <?=$postForm->render('imageId', array())?>
+                                <?=$form->render('image', array())?>
+                                <?=$form->render('imageId', array())?>
                             </div>
                             <input name="upload" type="file" class="ace-file-input"  multiple="">
                         </div>
@@ -214,7 +214,7 @@
                     <div class="widget-body">
                         <div class="widget-main">
                             <div class="control-group">
-                                <?$categories = $postForm->getCategories()?>
+                                <?$categories = $form->getCategories()?>
                                 <?if($categories):?>
                                 <?foreach($categories as $key => $category):?>
                                 <div class="checkbox">
@@ -248,7 +248,7 @@
                     <div class="widget-body">
                         <div class="widget-main">
                             <div class="form-group">
-                                <input type="text" placeholder="Enter Tags ..." value="<?=$item->getTagString()?>" name="Tags" class="tag-input form-control">
+                                <input type="text" placeholder="Enter Tags ..." value="<?=$item ? $item->getTagString() : ''?>" name="Tags" class="tag-input form-control">
                             </div>
                         </div>
                     </div>
@@ -278,7 +278,7 @@
                                 <span class="input-group-addon">
                                     <i class="icon-time bigger-110"></i>
                                 </span>
-                                <?=$postForm->render('createdAt', array(
+                                <?=$form->render('createdAt', array(
                                 ))?>
                             </div>
                         </div>
@@ -300,7 +300,7 @@
                         <div class="widget-main">
                             <div class="control-group">
                                 <label class="block clearfix">
-                                    <?=$postForm->render('username', array(
+                                    <?=$form->render('username', array(
                                         'class' => 'form-control autocomplete',
                                         'data-autocomplete-source' => '/admin/user/suggestions?query=%QUERY',
                                         'data-autocomplete-target' => 'input[name=userId]',
@@ -309,7 +309,7 @@
                                         'data-autocomplete-clear-fill-when-nomatch' => '1',
                                         'placeholder' => 'Use current user with no fill',
                                     ))?>
-                                    <?=$postForm->render('userId', array(
+                                    <?=$form->render('userId', array(
                                         'class' => 'form-control',
                                     ))?>
                                 </label>
@@ -334,7 +334,7 @@
                             <div class="control-group">
                                 <label class="block clearfix">
                                     Source Name
-                                    <?=$postForm->render('sourceName', array(
+                                    <?=$form->render('sourceName', array(
                                         'class' => 'form-control',
                                     ))?>
                                 </label>
@@ -342,7 +342,7 @@
                             <div class="control-group">
                                 <label class="block clearfix">
                                     Source Url 
-                                    <?=$postForm->render('sourceUrl', array(
+                                    <?=$form->render('sourceUrl', array(
                                         'class' => 'form-control',
                                     ))?>
                                 </label>

@@ -5,6 +5,7 @@ namespace Eva\EvaBlog\Controllers\Admin;
 use Eva\EvaBlog\Models;
 use Eva\EvaBlog\Models\Post;
 use Eva\EvaBlog\Forms;
+use Eva\EvaEngine\Exception;
 
 class PostController extends ControllerBase
 {
@@ -55,43 +56,42 @@ class PostController extends ControllerBase
 
     public function createAction()
     {
-        $post = new Models\Post();
-        $postForm = new \Eva\EvaBlog\Forms\PostForm();
-        $postForm->setModel($post);
-        $this->view->setVar('postForm', $postForm);
+        $form = new Forms\PostForm();
+        $form->setModel(new Models\Post());
+        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+        $this->view->setVar('form', $form);
         $this->view->setVar('item', $post);
-
-        $textForm = new \Eva\EvaBlog\Forms\TextForm();
-        $textForm->setModel(new Models\Text());
-        $textForm->setPrefix('Text');
-        $this->view->setVar('textForm', $textForm);
 
         if(!$this->request->isPost()){
             return false;
         }
+
         $data = $this->request->getPost();
+        if(!$form->isFullValid($data)) {
+            return $this->displayInvalidMessages($form);
+        }
 
         try {
-            $post->createPost($data);
+            $form->save('createPost');
         } catch(\Exception $e) {
-            return $this->displayException($e, $post->getMessages());
+            return $this->displayException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_POST_CREATED');
-        return $this->redirectHandler('/admin/post/edit/' . $post->id);
+        return $this->redirectHandler('/admin/post/edit/' . $form->getModel()->id);
     }
 
     public function editAction()
     {
         $this->view->changeRender('admin/post/create');
         $post = Models\Post::findFirst($this->dispatcher->getParam('id'));
-        $postForm = new \Eva\EvaBlog\Forms\PostForm();
-        $postForm->setModel($post ? $post : new Models\Post());
-        $this->view->setVar('postForm', $postForm);
+        if(!$post) {
+            throw new Exception\ResourceNotFoundException('ERR_BLOG_POST_NOT_FOUND');
+        }
 
-        $textForm = new \Eva\EvaBlog\Forms\TextForm();
-        $textForm->setModel($post->Text ? $post->Text : new Models\Text());
-        $textForm->setPrefix('Text');
-        $this->view->setVar('textForm', $textForm);
+        $form = new Forms\PostForm();
+        $form->setModel($post);
+        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+        $this->view->setVar('form', $form);
         $this->view->setVar('item', $post);
 
         if(!$this->request->isPost()){
@@ -99,10 +99,14 @@ class PostController extends ControllerBase
         }
         $data = $this->request->getPost();
 
+        if(!$form->isFullValid($data)) {
+            return $this->displayInvalidMessages($form);
+        }
+
         try {
-            $post->updatePost($data);
+            $form->save('updatePost');
         } catch(\Exception $e) {
-            return $this->displayException($e, $post->getMessages());
+            return $this->displayException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_POST_UPDATED');
         return $this->redirectHandler('/admin/post/edit/' . $post->id);
