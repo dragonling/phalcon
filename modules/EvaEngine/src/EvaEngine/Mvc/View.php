@@ -102,10 +102,10 @@ class View extends \Phalcon\Mvc\View
         return $this;
     }
 
-    public function render($controllerName, $actionName, $params = null)
+    public function render($controllerName = null, $actionName = null, $params = null)
     {
         //fixed render view name not match under linux
-        if(false !== strpos($controllerName, '\\')) {
+        if($controllerName && false !== strpos($controllerName, '\\')) {
             $controllerName = strtolower(str_replace('\\', '/', $controllerName));
         }
         return parent::render($controllerName, $actionName, $params);

@@ -43,7 +43,7 @@
                                 <div data-efc-target="#chart" data-efc-interval="MN" class="button">1M</div>
                             </div>
                             <div class="chart">
-                                <iframe width="440" height="206" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&theme=dark&width=440&height=206&rows=50&interval=5"></iframe>
+                                <iframe width="440" height="206" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&theme=dark&width=440&height=206&rows=50&interval=5"></iframe>
                             </div>
                         </div>
                     </div><!-- market chart end -->
@@ -578,7 +578,7 @@
                     <div class="content">
                         <div class="toolbar row">
                             <div data-efc-target="#modal-chart" data-efc-type="candlestick" class="button">K线图</div>
-                            <div data-efc-target="#modal-chart" data-efc-type="line" class="button active">分时图</div>
+                            <div data-efc-target="#modal-chart" data-efc-type="area" class="button active">分时图</div>
                             <div class="line vertical"></div>
                             <div data-efc-target="#modal-chart" data-efc-interval="1"  class="button">1</div>
                             <div data-efc-target="#modal-chart" data-efc-interval="5"  class="button active">5</div>
@@ -592,7 +592,7 @@
                             <div class="line vertical"></div>
                         </div>
                         <div class="chart">
-                            <iframe width="672" height="195" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&type=line&theme=dark&width=672&height=195&rows=50&interval=5"></iframe>
+                            <iframe width="672" height="195" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&theme=dark&width=672&height=195&rows=50&interval=5"></iframe>
                         </div>
                     </div>
                 </div><!-- market chart end -->
@@ -605,6 +605,7 @@
                     </div>
                 </div>
                 <div id="stare-livenews" class="nano scrollable livenews list">
+<<<<<<< HEAD
                     <ul class="nano-content content"></ul>
                     <script type="text/template" data-template>
                         <% for(var i=0; i<records.length; i++) { %>
@@ -627,6 +628,32 @@
                         </li>
                         <% } %>
                     </script>
+=======
+                    <ul class="nano-content content">
+                        <script type="text/template" data-template>
+                            <% for(var i=0; i<records.length; i++) { %>
+                                <% var record = records[i]; %>
+                                <% if (i == 0 && record.day != day) { %>
+                                    <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                                        <h3 class="label"><%= record.date %></h3>
+                                        <i data-toggle="shrink" class="icon-custom-toggle"></i>
+                                    </li>
+                                <% } else if (i > 0 && record.day != records[i-1].day) { %>
+                                    <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                                        <h3 class="label"><%= record.date %></h3>
+                                        <i data-toggle="shrink" class="icon-custom-toggle"></i>
+                                    </li>
+                                <% } %>
+                                <li class="item <%= record.format %> <%= record.color %>" data-nid="<%= record.nid %>" data-timestamp="<%= record.timestamp %>" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                                    <span class="icon" data-type="<%= record.icon %>"></span>
+                                    <span class="time"><%= record.time %></span>
+                                    <a class="link" href="" data-nid="<%= record.nid %>"><%= record.title %></a>
+                                </li>
+                            <% } %>
+                        </script>
+
+                    </ul>
+>>>>>>> 3d1ce6a4b1f1850964f7fd2f28ff0ec265a38693
                 </div><!--livenews list end-->
             </div> <!-- span end -->
             <div class="span right">

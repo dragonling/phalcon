@@ -20,6 +20,7 @@ class UserForm extends Form
     /**
      *
      * @Type(Email)
+     * @Validator(PresenceOf)
      * @Validator(Email)
      * @var string
      */

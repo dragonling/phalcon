@@ -35,4 +35,6 @@ class TextForm extends Form
      * @var string
      */
     public $content;
+
+    protected $defaultModelClass = 'Eva\EvaBlog\Models\Text';
 }
