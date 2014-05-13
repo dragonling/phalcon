@@ -44,33 +44,13 @@ class Engine
         return $this->configPath = $this->appRoot . '/config';
     }
 
-    public function initErrorHandler()
+    public function initErrorHandler(Error\ErrorHandlerInterface $errorHandler)
     {
-        $di = $this->getDI();
-        $eventsManager = $di->getShared('eventsManager');
-        $eventsManager->attach('dispatch:beforeException',  function($event, $dispatcher, $exception) {
-            switch ($exception->getCode()) {
-                case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-                case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-                $dispatcher->forward(
-                    array(
-                        'controller' => 'error',
-                        'action' => 'notFound',
-                    )
-                );
-                return false;
-                break; // for checkstyle
-                default:
-                $dispatcher->forward(
-                    array(
-                        'controller' => 'error',
-                        'action' => 'uncaughtException',
-                    )
-                );
-                return false;
-                break; // for checkstyle
-            }
-        });
+        $errorClass = get_class($errorHandler);
+        set_error_handler("$errorClass::errorHandler");
+        set_exception_handler("$errorClass::exceptionHandler");
+        register_shutdown_function("$errorClass::shutdownHandler");
+        return $this;
     }
 
     public function getApplication()
@@ -449,12 +429,9 @@ class Engine
 
     public function bootstrap()
     {
-        $configPath = $this->getConfigPath();
-        $application = $this->getApplication();
-        $application->setDI($this->getDI());
-
+        $this->getApplication()->setDI($this->getDI());
         //Error Handler must run before router start
-        $this->initErrorHandler();
+        $this->initErrorHandler(new Error\ErrorHandler);
         return $this;
     }
 
@@ -514,7 +491,8 @@ class Engine
         $debug = $di->get('config')->debug;
         if($debug) {
             $debugger = new \Phalcon\Debug();
-            $debugger->listen();
+            $debugger->debugVar($this->getApplication()->getModules(), 'modules');
+            $debugger->listen(true, true);
         }
 
         $response = $this->getApplication()->handle();

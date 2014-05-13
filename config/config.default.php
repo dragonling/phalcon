@@ -1,7 +1,17 @@
 <?php
 
 return array(
-    'debug' => 0,
+    'debug' => 1,
+    'error' => array(
+        'disableLog' => 0,
+        'logPath' => __DIR__ . '/../logs/',
+        'controllerNamespace' => '',
+        'controller' => 'error',
+        'action' => 'index',
+        'viewpath' => '',
+
+    ),
+
     'baseUri' => '/',
 
     'thumbnail' => array(
