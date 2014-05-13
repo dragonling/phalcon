@@ -600,12 +600,11 @@
                     <h2 class="title">实时新闻</h2>
                     <div class="toolbar">
                         <!--<label class="checkbox " for="livenews-auto-refresh"><i class="icon-refresh"></i> 自动刷新 <input id="livenews-auto-refresh" type="checkbox" value="true"></label>-->
-                        <label class="checkbox " for="livenews-voice-alert"><i class="icon-volume-up"></i> 声音提醒 <input id="livenews-voice-alert" checked="checked" data-action="livenews-alert" data-target="#stare-livenews" type="checkbox" value="true"></label>
+                        <label class="checkbox " for="livenews-voice-alert"><i class="icon-volume-up"></i> 声音提醒 <input id="livenews-voice-alert" data-action="livenews-alert" data-target="#stare-livenews" type="checkbox" value="true"></label>
                         <label class="checkbox " for="livenews-all-shrink"><i class="icon-double-angle-up"></i> 全部收起 <input id="livenews-all-shrink" data-action="livenews-all-shrink" data-target="#stare-livenews" type="checkbox" value="true"></label>
                     </div>
                 </div>
                 <div id="stare-livenews" class="nano scrollable livenews list">
-<<<<<<< HEAD
                     <ul class="nano-content content"></ul>
                     <script type="text/template" data-template>
                         <% for(var i=0; i<records.length; i++) { %>
@@ -628,32 +627,6 @@
                         </li>
                         <% } %>
                     </script>
-=======
-                    <ul class="nano-content content">
-                        <script type="text/template" data-template>
-                            <% for(var i=0; i<records.length; i++) { %>
-                                <% var record = records[i]; %>
-                                <% if (i == 0 && record.day != day) { %>
-                                    <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
-                                        <h3 class="label"><%= record.date %></h3>
-                                        <i data-toggle="shrink" class="icon-custom-toggle"></i>
-                                    </li>
-                                <% } else if (i > 0 && record.day != records[i-1].day) { %>
-                                    <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
-                                        <h3 class="label"><%= record.date %></h3>
-                                        <i data-toggle="shrink" class="icon-custom-toggle"></i>
-                                    </li>
-                                <% } %>
-                                <li class="item <%= record.format %> <%= record.color %>" data-nid="<%= record.nid %>" data-timestamp="<%= record.timestamp %>" data-date="<%= record.date %>" data-day="<%= record.day %>">
-                                    <span class="icon" data-type="<%= record.icon %>"></span>
-                                    <span class="time"><%= record.time %></span>
-                                    <a class="link" href="" data-nid="<%= record.nid %>"><%= record.title %></a>
-                                </li>
-                            <% } %>
-                        </script>
-
-                    </ul>
->>>>>>> 3d1ce6a4b1f1850964f7fd2f28ff0ec265a38693
                 </div><!--livenews list end-->
             </div> <!-- span end -->
             <div class="span right">
