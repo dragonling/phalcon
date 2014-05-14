@@ -70,8 +70,8 @@ acronym {
 }
 body {
   color: #000;
-  background: #f5f5f5;
-  font-family: Verdana Tahoma "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  background-color: #f5f5f5;
+  font-family: Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-size: 12px;
 }
 a {
@@ -88,7 +88,7 @@ a:active {
 button,
 select,
 input {
-  font-family: Verdana Tahoma "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-family: Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   border: 0;
   padding: 0;
 }
@@ -3589,14 +3589,15 @@ td.datepickerSpecial.datepickerSelected a {
   z-index: 0;
   border-radius: 5px 0 0 5px;
 }
+#stare-modal.panel .finance-calendar.scrollable.list .item .time,
+#stare-modal.panel .finance-calendar.scrollable.list .item .important {
+  width: 65px;
+  margin-right: 20px;
+}
 #stare-modal.panel .finance-calendar.scrollable.list .item .time {
-  width: 60px;
-  margin-right: 25px;
   font-weight: bold;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item .important {
-  width: 60px;
-  margin-right: 25px;
   height: 1.5em;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item .important .star {

@@ -71,6 +71,9 @@
                                 </li>
                             <% } %>
                         </script>
+                        <div class="loader">
+                            <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+                        </div>
                     </div> <!--livenews list end-->
                 </div><!--span end -->
             </div><!-- row end -->
@@ -392,9 +395,6 @@
     <div id="sidebar" class="span3" >
         <h2 class="title">财经日历</h2>
         <div id="side-fcl" class="nano finance-calendar scrollable list">
-            <div class="loader">
-                <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
-            </div>
             <ul class="nano-content content">
                 <li class="more"></li>
             </ul>
@@ -430,6 +430,9 @@
                     </li>
                 <% } %>
             </script>
+            <div class="loader">
+                <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+            </div>
         </div><!-- finance-calendar list end -->
         <div class="line type1"></div>
         <h2 class="title">黄金多空调查</h2>
@@ -522,36 +525,29 @@
                         <tbody data-cftc-dom="data"></tbody>
                     </table>
                 </li>
-                <li class="panel">
-                    <div class="chart type2">
-                        <img width="270" height="230" src="/img/grid01.png" />
-                    </div>
-                    <div class="line type1"></div>
+                <li class="panel" data-fix-price data-fix-price-option="size: 9; withSilver:false;">
+                    <script type="text/template" data-fix-price-template>
+                        <% var i, l = data.length; %>
+                        <% for (i = 0; i < l; i ++) { %>
+                        <tr class="item">
+                            <td class="cell1"><%= data[i].date %></td>
+                            <td class="cell1"><%= data[i].gold_am %></td>
+                            <td class="cell1"><%= data[i].gold_pm %></td>
+                        </tr>
+                        <% } %>
+                    </script>
                     <table class="table type2">
                         <thead>
-                        <tr>
-                            <th>时间</th>
-                            <th>增仓量(吨)</th>
-                            <th>增减(吨)</th>
+                        <tr class="head">
+                            <th colspan="3">黄金伦敦历史定盘价(美元/盎司）</th>
+                        </tr>
+                        <tr class="label">
+                            <th>日期</th>
+                            <th>上午定价</th>
+                            <th>下午定价</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>2014.03.04</td>
-                            <td>803.70398</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.03</td>
-                            <td>804.00120</td>
-                            <td>0.03</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.02</td>
-                            <td>803.70398</td>
-                            <td>0.10</td>
-                        </tr>
-                        </tbody>
+                        <tbody data-fix-price-dom></tbody>
                     </table>
                 </li>
             </ul>
@@ -600,8 +596,14 @@
                     <h2 class="title">实时新闻</h2>
                     <div class="toolbar">
                         <!--<label class="checkbox " for="livenews-auto-refresh"><i class="icon-refresh"></i> 自动刷新 <input id="livenews-auto-refresh" type="checkbox" value="true"></label>-->
-                        <label class="checkbox " for="livenews-voice-alert"><i class="icon-volume-up"></i> 声音提醒 <input id="livenews-voice-alert" data-action="livenews-alert" data-target="#stare-livenews" type="checkbox" value="true"></label>
-                        <label class="checkbox " for="livenews-all-shrink"><i class="icon-double-angle-up"></i> 全部收起 <input id="livenews-all-shrink" data-action="livenews-all-shrink" data-target="#stare-livenews" type="checkbox" value="true"></label>
+                        <label class="checkbox " for="livenews-voice-alert">
+                            <i class="icon-volume-up"></i> 声音提醒
+                            <input id="livenews-voice-alert" data-action="livenews-alert" data-target="#stare-livenews" type="checkbox" checked>
+                        </label>
+                        <label class="checkbox " for="livenews-all-shrink">
+                            <i class="icon-double-angle-up"></i> 全部收起
+                            <input id="livenews-all-shrink" data-action="livenews-all-shrink" data-target="#stare-livenews" type="checkbox">
+                        </label>
                     </div>
                 </div>
                 <div id="stare-livenews" class="nano scrollable livenews list">
@@ -627,6 +629,9 @@
                         </li>
                         <% } %>
                     </script>
+                    <div class="loader">
+                        <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+                    </div>
                 </div><!--livenews list end-->
             </div> <!-- span end -->
             <div class="span right">
@@ -674,6 +679,9 @@
                             </li>
                         <% } %>
                     </script>
+                    <div class="loader">
+                        <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+                    </div>
                 </div> <!--finance-calendar scrollable list end-->
                 <div class="head type5 ">
                     <h2 class="title">技术分析</h2>

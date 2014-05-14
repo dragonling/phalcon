@@ -190,6 +190,7 @@ $(function(){
     var option = tool.parseDomData($target.attr('data-fix-price-option'));
     var config = {};
     config.today = option.today;
+    config.size  = option.size || 10;
     config.withSilver = option.withSilver === false ? false : true;
     var $dom = $target.find('[data-fix-price-dom]');
     var template = $target.find('[data-fix-price-template]').html();
@@ -232,14 +233,14 @@ $(function(){
     }
 
     $.ajax({
-        url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=GOLDFIXPRICE&interval=1d&rows=50',
+        url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=GOLDFIXPRICE&interval=1d&rows=' + config.size,
         dataType: 'jsonp',
         success: function(response) {
             var goldData = response['results'];
             var data = goldData;
             if (config.withSilver) {
                 $.ajax({
-                    url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=SILVERFIXPRICE&interval=1d&rows=50',
+                    url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=SILVERFIXPRICE&interval=1d&rows=' + config.size,
                     dataType: 'jsonp',
                     success: function(response) {
                         var silverData = response['results'];
