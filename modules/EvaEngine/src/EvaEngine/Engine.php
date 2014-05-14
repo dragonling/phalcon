@@ -152,7 +152,7 @@ class Engine
         $di->set('session', function () {
             $session = new SessionAdapter();
             if (!$session->isStarted()) {
-                @$session->start();
+                $session->start();
             }
 
             return $session;

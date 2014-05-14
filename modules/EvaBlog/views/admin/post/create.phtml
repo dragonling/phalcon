@@ -47,7 +47,8 @@
                 <div class="form-group">
                     <label class="block clearfix">
                         <?=$form->render('title', array(
-                            'class' => 'form-control input-lg',
+                            'class' => 'form-control input-lg  slug-generator',
+                            'data-slug-target' => '#slug',
                             'placeholder' => 'Title',
                             'required' => 'required',
                         ))?>
@@ -61,6 +62,10 @@
                         <?=$form->render('slug', array(
                             'class' => 'form-control input-sm',
                             'placeholder' => 'Url, No fill will generate a random url',
+                            'data-parsley-trigger' => "blur change",
+                            'data-parsley-remote' => "/admin/post/process/slug",
+                            'data-parsley-remote-options' => empty($item->id) ? '{ method: "GET", dataType: "json"}' : '{ "method": "GET", "dataType": "json", "data": { "exclude" : "' . $item->id . '"} }',
+                            'data-parsley-remote-message' => "This url has been taken",
                         ))?>
                     </div>
                 </div>

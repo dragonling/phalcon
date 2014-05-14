@@ -37,7 +37,13 @@ return array(
     '/tutorial' =>  array(
         'module' => 'WscnGold',
         'controller' => 'index',
-        'action' => 'tutorial'
+        'action' => 'tutorial',
+    ),
+    '/tutorial/(\w+)' =>  array(
+        'module' => 'WscnGold',
+        'controller' => 'index',
+        'action' => 'tutorial',
+        'id' => 1
     ),
     '/gold/:action' =>  array(
         'module' => 'WscnGold',
