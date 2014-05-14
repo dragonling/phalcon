@@ -316,7 +316,7 @@ $(document).ready(function(){
            var uri = new Uri(window.location);
            var anchor = uri.anchor();
            var sourceCode = 'format-html';
-           var sourceCodeValue = $('input[name=sourceCode]').val();
+           var sourceCodeValue = $('input[name=codeType]').val();
            if(sourceCodeValue) {
                sourceCode = sourceCodeValue == 'html' ? 'format-html' : 'format-markdown';
            }
@@ -327,11 +327,11 @@ $(document).ready(function(){
 
            if(sourceCode == 'format-markdown') {
                this.initMarkdownEditor();
-               $('input[name=sourceCode]').val('markdown');
+               $('input[name=codeType]').val('markdown');
            } else {
                this.initHtmlEditor();
                this.initHtmlEditorUploader();
-               $('input[name=sourceCode]').val('html');
+               $('input[name=codeType]').val('html');
            }
 
            //this.switcher = switcher;

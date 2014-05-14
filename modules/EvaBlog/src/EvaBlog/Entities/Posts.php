@@ -40,7 +40,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      *
      * @var string
      */
-    public $codeType = 'markdown';
+    public $codeType = 'html';
 
     /**
      *
