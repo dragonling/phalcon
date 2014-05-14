@@ -6,6 +6,8 @@ use Eva\EvaBlog\Entities;
 use Eva\EvaUser\Models\Login as LoginModel;
 use Eva\EvaFileSystem\Models\Upload as UploadModel;
 use Eva\EvaEngine\Exception;
+use Eva\EvaEngine\Mvc\Model\Validator\Uniqueness;
+
 
 class Post extends Entities\Posts
 {
@@ -45,7 +47,23 @@ class Post extends Entities\Posts
         if (!$this->slug) {
             $this->slug = \Phalcon\Text::random(\Phalcon\Text::RANDOM_ALNUM, 8);
         }
+
+        $this->validate(new Uniqueness(array(
+            'field' => 'slug'
+        )));
     }
+
+    public function beforeValidationOnUpdate()
+    {
+        $this->validate(new Uniqueness(array(
+            'field' => 'slug',
+            'conditions' => 'id != :id:',
+            'bind' => array(
+                'id' => $this->id
+            ),
+        )));
+    }
+
 
     public function beforeCreate()
     {
@@ -81,6 +99,13 @@ class Post extends Entities\Posts
                 $this->imageId = $file->id;
                 $this->image = $file->getLocalUrl();
             }
+        }
+    }
+
+    public function validation()
+    {
+        if ($this->validationHasFailed() == true) {
+            return false;
         }
     }
 
