@@ -519,8 +519,37 @@ $('*[data-batch-form]').each(function(){
         })
     });
 
-
-
 });
 
+$(".slug-generator").each(function(){
+    var generator = $(this),
+        target = $($(this).attr('data-slug-target')),
+        slugFlag = false;
 
+    var getSlugText = function(input){
+        var res = pinyin(input, {
+            style: pinyin.STYLE_NORMAL,
+            heteronym: true
+        });
+        res = jQuery.map( res, function( n, i ) {
+            return n[0];
+        });
+        res = res.join('');
+        return res.toLowerCase()
+        .replace(/ /g,'-')
+        .replace(/[^\w-]+/g,'');
+    }
+    generator.on('focus', function(){
+        if(target.val() == '') {
+            slugFlag = true;
+        } else {
+            slugFlag = false;
+        }
+    });
+
+    generator.on('keyup', function(){
+        if(slugFlag) {
+            target.val(getSlugText(generator.val()));
+        }
+    });
+});

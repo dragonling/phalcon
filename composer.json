@@ -17,6 +17,7 @@
 	"knplabs/gaufrette" : "dev-master",
 	"allovince/evaoauth": "dev-master",
 	"allovince/evathumber": "dev-master",
+	"allovince/evapinyin": "dev-master",
 	"imagine/imagine": "dev-master",
 	"swiftmailer/swiftmailer" : "dev-master",
 	"ircmaxell/random-lib": "dev-master",

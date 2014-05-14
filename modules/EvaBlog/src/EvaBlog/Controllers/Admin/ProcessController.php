@@ -73,4 +73,36 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         return $this->response->setJsonContent($posts);
     }
 
+
+    public function slugAction()
+    {
+        $slug = $this->request->get('slug');
+        $exclude = $this->request->get('exclude');
+        if ($slug) {
+            $conditions = array(
+                "columns" => array('id'),
+                "conditions" => 'slug = :slug:',
+                "bind" => array(
+                    'slug' => $slug
+                )
+            );
+            if($exclude) {
+                $conditions['conditions'] .= ' AND id != :id:';
+                $conditions['bind']['id'] = $exclude;
+            }
+            $post = Models\Post::findFirst($conditions);
+        } else {
+            $post = array();
+        }
+
+        if ($post) {
+            $this->response->setStatusCode('409', 'Post Already Exists');
+        }
+
+        return $this->response->setJsonContent(array(
+            'exist' => $post ? true : false,
+            'id' => $post ? $post->id : 0,
+        ));
+    }
+
 }
