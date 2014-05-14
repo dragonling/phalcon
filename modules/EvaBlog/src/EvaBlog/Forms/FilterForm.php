@@ -48,12 +48,11 @@ class FilterForm extends Form
     */
     public $username;
 
-
     protected $cid;
 
     public function addCid()
     {
-        if($this->cid) {
+        if ($this->cid) {
             return $this->cid;
         }
 
@@ -63,14 +62,15 @@ class FilterForm extends Form
             "limit" => 100
         ));
 
-        if($categories) {
+        if ($categories) {
             $options = array('All Categories');
-            foreach($categories as $categoryitem) {
+            foreach ($categories as $categoryitem) {
                 $options[$categoryitem->id] = $categoryitem->categoryName;
             }
             $element = new Select('cid', $options);
         }
         $this->add($element);
+
         return $this->cid = $element;
     }
 

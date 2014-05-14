@@ -11,9 +11,9 @@ class IndexController extends \Eva\EvaEngine\Mvc\Controller\AdminControllerBase
     public function indexAction()
     {
         $this->view->disable();
+
         return $this->response->redirect('/admin/login');
     }
-
 
     public function dashboardAction()
     {
@@ -22,7 +22,7 @@ class IndexController extends \Eva\EvaEngine\Mvc\Controller\AdminControllerBase
         $this->view->setModulePartialsDir('EvaCore', '/views');
 
         $user = new \Eva\EvaUser\Models\Login();
-        if($user->isUserLoggedIn()) {
+        if ($user->isUserLoggedIn()) {
             $view->authIdentity = $user->getAuthIdentity();
         }
     }

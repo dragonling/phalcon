@@ -75,13 +75,12 @@ class ControllerBase extends Controller
         511 => 'Network Authentication Required',
     );
 
-
     public function afterExecuteRoute($dispatcher)
     {
-        if($this instanceof JsonControllerInterface) {
+        if ($this instanceof JsonControllerInterface) {
             $this->response->setContentType('application/json', 'utf-8');
             $callback = $this->request->getQuery('callback');
-            if($callback) {
+            if ($callback) {
                 $this->response->setContent($callback . '(' . $this->response->getContent() . ')');
             }
         }
@@ -90,18 +89,18 @@ class ControllerBase extends Controller
     public function redirectHandler($defaultRedirect = null, $securityCheck = false)
     {
         $formRedirect = $this->request->getPost('__redirect');
-        if($formRedirect) {
+        if ($formRedirect) {
             return $this->response->redirect($formRedirect);
         }
+
         return $this->response->redirect($defaultRedirect);
     }
-
 
     public function ignoreException($exception, $messages = null, $messageType = 'debug')
     {
         $messageArray = array();
-        if($messages) {
-            foreach($messages as $message) {
+        if ($messages) {
+            foreach ($messages as $message) {
                 $messageArray[] = $message->getMessage();
             }
         }
@@ -117,15 +116,14 @@ class ControllerBase extends Controller
             $exception->getTraceAsString()
         );
         */
-    
-    }
 
+    }
 
     public function displayException($exception, $messages = null, $messageType = 'error')
     {
         $messageArray = array();
-        if($messages) {
-            foreach($messages as $message) {
+        if ($messages) {
+            foreach ($messages as $message) {
                 $this->flashSession->$messageType($message->getMessage());
                 $messageArray[] = $message->getMessage();
             }
@@ -141,7 +139,7 @@ class ControllerBase extends Controller
         );
 
         //Not eva exception, keep throw
-        if(!($exception instanceof \Eva\EvaEngine\Exception\ExceptionInterface)){
+        if (!($exception instanceof \Eva\EvaEngine\Exception\ExceptionInterface)) {
             throw $exception;
         }
 
@@ -154,20 +152,21 @@ class ControllerBase extends Controller
     public function displayInvalidMessages(\Phalcon\Forms\Form $form, $messageType = 'warning')
     {
         $messages = $form->getMessages();
-        if($messages) {
-            foreach($messages as $message) {
+        if ($messages) {
+            foreach ($messages as $message) {
                 $this->flashSession->$messageType($message->getMessage());
             }
         }
+
         return $this;
     }
-
 
     public function displayExceptionForJson($exception, $messages = null)
     {
         $this->response->setContentType('application/json', 'utf-8');
-        if(!($exception instanceof \Eva\EvaEngine\Exception\ExceptionInterface)){
+        if (!($exception instanceof \Eva\EvaEngine\Exception\ExceptionInterface)) {
             $this->response->setStatusCode('500', 'System Runtime Exception');
+
             return $this->response->setJsonContent(array(
                 'errors' => array(
                     array(
@@ -179,8 +178,8 @@ class ControllerBase extends Controller
         }
         $this->response->setStatusCode($exception->getStatusCode(), $exception->getMessage());
         $errors = array();
-        if($messages) {
-            foreach($messages as $message) {
+        if ($messages) {
+            foreach ($messages as $message) {
                 $errors[] = array(
                     'code' => 0,
                     'message' => $message,
@@ -191,6 +190,7 @@ class ControllerBase extends Controller
             'code' => $exception->getCode(),
             'message' => $exception->getMessage(),
         );
+
         return $this->response->setJsonContent(array(
             'errors' => $errors
         ));
@@ -198,16 +198,17 @@ class ControllerBase extends Controller
 
     public function displayJsonResponse()
     {
-    
+
     }
 
     public function displayJsonErrorResponse($code, $message)
     {
-        if(!isset($this->recommendedReasonPhrases[$code])) {
+        if (!isset($this->recommendedReasonPhrases[$code])) {
             throw new Exception\InvalidArgumentException(sprintf('No http response code %s supported', $code));
         }
 
         $this->response->setStatusCode($code, $this->recommendedReasonPhrases[$code]);
+
         return $this->response->setJsonContent(array(
             'errors' => array(
                 array(
@@ -218,4 +219,3 @@ class ControllerBase extends Controller
         ));
     }
 }
-

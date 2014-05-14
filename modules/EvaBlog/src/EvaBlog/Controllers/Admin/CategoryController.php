@@ -32,7 +32,7 @@ class CategoryController extends ControllerBase
 
     public function treeAction()
     {
-    
+
     }
 
     public function createAction()
@@ -42,22 +42,23 @@ class CategoryController extends ControllerBase
         $form->setModel($category);
         $this->view->setVar('form', $form);
 
-        if(!$this->request->isPost()){
+        if (!$this->request->isPost()) {
             return false;
         }
 
         $form->bind($this->request->getPost(), $category);
-        if(!$form->isValid()){
+        if (!$form->isValid()) {
             return $this->displayInvalidMessages($form);
         }
         $category = $form->getEntity();
         try {
             $category->createCategory();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->displayException($e, $category->getMessages());
             //return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_CREATED');
+
         return $this->redirectHandler('/admin/category/edit/' . $category->id);
     }
 
@@ -70,30 +71,32 @@ class CategoryController extends ControllerBase
         $form->setModel($category ? $category : new Models\Category());
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $category);
-        if(!$this->request->isPost()){
+        if (!$this->request->isPost()) {
             return false;
         }
 
         $form->bind($this->request->getPost(), $category);
-        if(!$form->isValid()){
+        if (!$form->isValid()) {
             return $this->displayInvalidMessages($form);
         }
         $category = $form->getEntity();
         $category->assign($this->request->getPost());
         try {
             $category->updateCategory();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->displayException($e, $category->getMessages());
         }
         $this->flashSession->success('SUCCESS_BLOG_CATEGORY_UPDATED');
+
         return $this->redirectHandler('/admin/category/edit/' . $category->id);
     }
 
     public function deleteAction()
     {
-        if(!$this->request->isDelete()){
+        if (!$this->request->isDelete()) {
             $this->response->setStatusCode('405', 'Method Not Allowed');
             $this->response->setContentType('application/json', 'utf-8');
+
             return $this->response->setJsonContent(array(
                 'errors' => array(
                     array(
@@ -105,14 +108,15 @@ class CategoryController extends ControllerBase
         }
 
         $id = $this->dispatcher->getParam('id');
-        $category =  Models\Category::findFirst($id); 
+        $category =  Models\Category::findFirst($id);
         try {
             $category->delete();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->displayExceptionForJson($e, $category->getMessages());
         }
 
         $this->response->setContentType('application/json', 'utf-8');
+
         return $this->response->setJsonContent($category);
     }
 }

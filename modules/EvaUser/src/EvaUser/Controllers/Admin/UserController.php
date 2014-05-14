@@ -53,22 +53,22 @@ class UserController extends AdminControllerBase
         $this->view->setVar('item', $user);
         $this->view->setVar('form', $form);
 
-
-        if(!$this->request->isPost()){
+        if (!$this->request->isPost()) {
             return false;
         }
 
         $data = $this->request->getPost();
-        if(!$form->isFullValid($data)) {
+        if (!$form->isFullValid($data)) {
             return $this->displayInvalidMessages($form);
         }
 
         try {
             $form->save();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->displayException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_USER_CREATED');
+
         return $this->redirectHandler('/admin/user/edit/' . $form->getModel()->id);
     }
 
@@ -76,8 +76,8 @@ class UserController extends AdminControllerBase
     {
         $this->view->changeRender('admin/user/create');
         $user = Models\User::findFirst($this->dispatcher->getParam('id'));
-        if(!$user) {
-            
+        if (!$user) {
+
         }
 
         $form = new \Eva\EvaUser\Forms\UserForm();
@@ -86,23 +86,24 @@ class UserController extends AdminControllerBase
         $this->view->setVar('item', $user);
         $this->view->setVar('form', $form);
 
-        if(!$this->request->isPost()){
+        if (!$this->request->isPost()) {
             return false;
         }
 
         $data = $this->request->getPost();
-        if(!$form->isFullValid($data)) {
+        if (!$form->isFullValid($data)) {
             return $this->displayInvalidMessages($form);
         }
 
         try {
             $form->save();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->displayException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_USER_UPDATED');
+
         return $this->redirectHandler('/admin/user/edit/' . $user->id);
-    
+
     }
 
 }

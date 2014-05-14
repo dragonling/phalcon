@@ -3,9 +3,7 @@
 namespace WscnApiVer2;
 
 use Phalcon\Loader;
-use Phalcon\Mvc\View;
 use Phalcon\Mvc\ModuleDefinitionInterface;
-
 
 class Module implements ModuleDefinitionInterface
 {
@@ -30,11 +28,12 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
-		$di['dispatcher'] = function() {
-			$dispatcher = new \Phalcon\Mvc\Dispatcher();
+        $di['dispatcher'] = function () {
+            $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace('WscnApiVer2\Controllers');
-			return $dispatcher;
-		};
+
+            return $dispatcher;
+        };
     }
 
 }

@@ -106,7 +106,7 @@ class Error
         $options['errorType'] = $this->getErrorType($options['type']);
         $exception = $options['exception'];
 
-        if($options['isException'] && $exception instanceof DispatcherException) {
+        if ($options['isException'] && $exception instanceof DispatcherException) {
             switch ($exception->getCode()) {
                 case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                 case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
@@ -120,11 +120,11 @@ class Error
             }
         }
 
-        if($options['isException'] && $exception instanceof ExceptionInterface) {
+        if ($options['isException'] && $exception instanceof ExceptionInterface) {
             $options['statusCode'] = $exception->getStatusCode();
         }
 
-        if($options['isException']) {
+        if ($options['isException']) {
             $options['message'] = $exception->getMessage();
         }
 
@@ -193,10 +193,10 @@ class Error
         return $code;
     }
 
-
     public function __toString()
     {
         $errorOrException = $this->isException() ? 'EXCEPTION' : 'ERROR';
+
         return sprintf("[%s][%s][%s][%s][%s][%s]",
                         $errorOrException,
                         $this->errorType(),

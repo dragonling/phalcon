@@ -4,8 +4,6 @@ namespace Eva\EvaBlog\Controllers;
 
 use Eva\EvaBlog\Models;
 use Eva\EvaBlog\Models\Post;
-use Eva\EvaBlog\Forms;
-
 
 class PostController extends \Phalcon\Mvc\Controller
 {
@@ -33,6 +31,7 @@ class PostController extends \Phalcon\Mvc\Controller
         ));
         $paginator->setQuery($query);
         $pager = $paginator->getPaginate();
+
         return $pager;
     }
 }

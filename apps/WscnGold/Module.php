@@ -6,7 +6,6 @@ use Phalcon\Loader;
 use Eva\EvaEngine\Mvc\View;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 
-
 class Module implements ModuleDefinitionInterface
 {
     public static function registerGlobalAutoloaders()
@@ -30,11 +29,12 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
-		$di['dispatcher'] = function() {
-			$dispatcher = new \Phalcon\Mvc\Dispatcher();
+        $di['dispatcher'] = function () {
+            $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace('WscnGold\Controllers');
-			return $dispatcher;
-		};
+
+            return $dispatcher;
+        };
 
         View::registerComponent('post', 'Eva\EvaBlog\Components\Post');
     }

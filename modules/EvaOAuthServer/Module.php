@@ -6,7 +6,6 @@ use Phalcon\Loader;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 
-
 class Module implements ModuleDefinitionInterface
 {
     public static function registerGlobalAutoloaders()
@@ -37,11 +36,12 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
-		$di['dispatcher'] = function() {
-			$dispatcher = new \Phalcon\Mvc\Dispatcher();
+        $di['dispatcher'] = function () {
+            $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace('Eva\EvaOAuthServer\Controllers');
-			return $dispatcher;
-		};
+
+            return $dispatcher;
+        };
 
         /**
          * Setting up the view component
@@ -49,6 +49,7 @@ class Module implements ModuleDefinitionInterface
         $di['view'] = function () {
             $view = new View();
             $view->setViewsDir(__DIR__ . '/views/');
+
             return $view;
         };
     }

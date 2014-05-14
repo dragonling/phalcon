@@ -2,7 +2,6 @@
 
 namespace WscnGold\Controllers;
 
-
 use WscnGold\Entities\Techanalysis\Quotes;
 
 class TechanalysisController extends ControllerBase
@@ -21,6 +20,7 @@ class TechanalysisController extends ControllerBase
             'less volatility' => '低波动',
             'high volatility' => '高波动',
         );
+
         return isset($mapping[$input]) ? $mapping[$input] : $input;
     }
 
@@ -30,17 +30,18 @@ class TechanalysisController extends ControllerBase
         $data['summary']['datas']['MovingAverages']['action'] = $this->getSuggestion($data['summary']['datas']['MovingAverages']['action']);
         $data['summary']['datas']['TechnicalIndicators']['action'] = $this->getSuggestion($data['summary']['datas']['TechnicalIndicators']['action']);
         $data['summary']['conclusion']['action'] = $this->getSuggestion($data['summary']['conclusion']['action']);
-        foreach($data['technicalIndicators']['datas'] as $key => $value) {
+        foreach ($data['technicalIndicators']['datas'] as $key => $value) {
             $data['technicalIndicators']['datas'][$key]['action'] = $this->getSuggestion($data['technicalIndicators']['datas'][$key]['action']);
         }
 
-        foreach($data['movingAverages']['datas'] as $key => $value) {
+        foreach ($data['movingAverages']['datas'] as $key => $value) {
             $data['movingAverages']['datas'][$key]['simpleAction'] = $this->getSuggestion($data['movingAverages']['datas'][$key]['simpleAction']);
             $data['movingAverages']['datas'][$key]['exponentialAction'] = $this->getSuggestion($data['movingAverages']['datas'][$key]['exponentialAction']);
         }
 
         $data['technicalIndicators']['conclusion']['summary'] = $this->getSuggestion($data['technicalIndicators']['conclusion']['summary']);
         $data['movingAverages']['conclusion']['summary'] = $this->getSuggestion($data['movingAverages']['conclusion']['summary']);
+
         return $data;
     }
 
@@ -62,19 +63,20 @@ class TechanalysisController extends ControllerBase
             "conditions" => "symbol = :symbol:",
             "bind"       => array('symbol' => $symbol)
         ));
-        if(!empty($quote->$periodkey)) {
+        if (!empty($quote->$periodkey)) {
             $quote->data = $this->getData($quote->$periodkey);
             unset($quote->$periodkey);
         }
         $this->response->setContentType('application/json', 'utf-8');
         $callback = $this->request->getQuery('callback');
-        if($callback) {
+        if ($callback) {
             $this->response->setJsonContent($quote);
+
             return $this->response->setContent($callback . '(' . $this->response->getContent() . ')');
         }
+
         return $this->response->setJsonContent($quote);
     }
-
 
     public function indexAction()
     {
@@ -109,8 +111,8 @@ class TechanalysisController extends ControllerBase
         $data = array();
         $this->view->setVar('quote', $quote);
         $periods = array('period1m', 'period5m', 'period15m', 'period30m', 'period1h', 'period5h', 'period1d', 'periodmn');
-        foreach($periods as $periodkey) {
-            if(!empty($quote->$periodkey)) {
+        foreach ($periods as $periodkey) {
+            if (!empty($quote->$periodkey)) {
                 $data[$periodkey] = $this->getData($quote->$periodkey);
             } else {
                 $data[$periodkey] = null;
@@ -144,11 +146,12 @@ class TechanalysisController extends ControllerBase
                 'tiAction',
             ),
         ));
-        $reGroup = function($data, $groupBy = 'period') {
+        $reGroup = function ($data, $groupBy = 'period') {
             $newData = array();
-            foreach($data as $key => $value) {
+            foreach ($data as $key => $value) {
                 $newData[$value[$groupBy]][] = $value;
             }
+
             return $newData;
         };
         $data['Summaries'] = $reGroup($data['Summaries']);

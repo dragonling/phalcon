@@ -11,179 +11,179 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
      * @var integer
      */
     public $id;
-     
+
     /**
      *
      * @var string
      */
     public $title;
-     
+
     /**
      *
      * @var string
      */
     public $status = 'pending';
-     
+
     /**
      *
      * @var string
      */
     public $flag;
-     
+
     /**
      *
      * @var string
      */
     public $visibility = 'public';
-     
+
     /**
      *
      * @var string
      */
     public $codeType = 'markdown';
-     
+
     /**
      *
      * @var string
      */
     public $language;
-     
+
     /**
      *
      * @var integer
      */
     public $parentId;
-     
+
     /**
      *
      * @var string
      */
     public $slug;
-     
+
     /**
      *
      * @var integer
      */
     public $sortOrder;
-     
+
     /**
      *
      * @var integer
      */
     public $createdAt;
-     
+
     /**
      *
      * @var integer
      */
     public $userId;
-     
+
     /**
      *
      * @var string
      */
     public $username;
-     
+
     /**
      *
      * @var integer
      */
     public $updatedAt;
-     
+
     /**
      *
      * @var integer
      */
     public $editorId;
-     
+
     /**
      *
      * @var string
      */
     public $editorName;
-     
+
     /**
      *
      * @var string
      */
     public $commentStatus;
-     
+
     /**
      *
      * @var string
      */
     public $commentType;
-     
+
     /**
      *
      * @var integer
      */
     public $commentCount;
-     
+
     /**
      *
      * @var integer
      */
     public $count;
-     
+
     /**
      *
      * @var integer
      */
     public $imageId;
-     
+
     /**
      *
      * @var string
      */
     public $image;
-     
+
     /**
      *
      * @var string
      */
     public $summary;
-     
+
     /**
      *
      * @var string
      */
     public $sourceName;
-     
+
     /**
      *
      * @var string
      */
     public $sourceUrl;
-     
+
     /**
      * Independent Column Mapping.
      */
     public function columnMap()
     {
         return array(
-            'id' => 'id', 
-            'title' => 'title', 
-            'status' => 'status', 
-            'flag' => 'flag', 
-            'visibility' => 'visibility', 
-            'codeType' => 'codeType', 
-            'language' => 'language', 
-            'parentId' => 'parentId', 
-            'slug' => 'slug', 
-            'sortOrder' => 'sortOrder', 
-            'createdAt' => 'createdAt', 
-            'userId' => 'userId', 
-            'username' => 'username', 
-            'updatedAt' => 'updatedAt', 
-            'editorId' => 'editorId', 
-            'editorName' => 'editorName', 
-            'commentStatus' => 'commentStatus', 
-            'commentType' => 'commentType', 
-            'commentCount' => 'commentCount', 
-            'count' => 'count', 
-            'imageId' => 'imageId', 
-            'image' => 'image', 
+            'id' => 'id',
+            'title' => 'title',
+            'status' => 'status',
+            'flag' => 'flag',
+            'visibility' => 'visibility',
+            'codeType' => 'codeType',
+            'language' => 'language',
+            'parentId' => 'parentId',
+            'slug' => 'slug',
+            'sortOrder' => 'sortOrder',
+            'createdAt' => 'createdAt',
+            'userId' => 'userId',
+            'username' => 'username',
+            'updatedAt' => 'updatedAt',
+            'editorId' => 'editorId',
+            'editorName' => 'editorName',
+            'commentStatus' => 'commentStatus',
+            'commentType' => 'commentType',
+            'commentCount' => 'commentCount',
+            'count' => 'count',
+            'imageId' => 'imageId',
+            'image' => 'image',
             'summary' => 'summary',
             'sourceName' => 'sourceName',
             'sourceUrl' => 'sourceUrl',

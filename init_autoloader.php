@@ -8,10 +8,9 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 
 $loader->addPsr4('Eva\\EvaEngine\\', __DIR__ . '/modules/EvaEngine/src/EvaEngine/');
 
-
 function p($r)
 {
-    if(function_exists('xdebug_var_dump')) {
+    if (function_exists('xdebug_var_dump')) {
         echo '<pre>';
         xdebug_var_dump($r);
         echo '</pre>';

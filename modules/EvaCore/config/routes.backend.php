@@ -12,4 +12,3 @@ return array(
         'action' => 'dashboard'
     ),
 );
-

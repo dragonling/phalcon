@@ -3,7 +3,6 @@
 namespace Eva\EvaEngine\Mvc\Controller;
 
 use Phalcon\Mvc\Controller;
-use Eva\EvaEngine\Exception;
 
 class JsonErrorController extends Controller
 {
@@ -20,7 +19,7 @@ class JsonErrorController extends Controller
             ),
         ));
         $callback = $this->request->getQuery('callback');
-        if($callback) {
+        if ($callback) {
             $this->response->setContent($callback . '(' . $this->response->getContent() . ')');
         }
     }

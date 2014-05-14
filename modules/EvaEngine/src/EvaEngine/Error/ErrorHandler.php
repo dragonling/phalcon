@@ -99,15 +99,14 @@ class ErrorHandler implements ErrorHandlerInterface
 
     public static function getLogger()
     {
-        if(self::$logger !== false) {
+        if (self::$logger !== false) {
             return self::$logger;
         }
-
 
         $di = DI::getDefault();
         $config = $di->get('config');
 
-        if(!isset($config->error->disableLog) || 
+        if(!isset($config->error->disableLog) ||
             (isset($config->error->disableLog) && $config->error->disableLog) ||
             empty($config->error->logPath)
         ) {
@@ -115,15 +114,17 @@ class ErrorHandler implements ErrorHandlerInterface
         }
 
         self::$logger = new FileLogger($config->error->logPath . '/' . 'system_error_' . date('Ymd') . '.log');
+
         return self::$logger;
     }
 
     protected static function logError(Error $error)
     {
         $logger = self::getLogger();
-        if(!$logger) {
+        if (!$logger) {
             return;
         }
+
         return $logger->log($error);
     }
 
@@ -132,7 +133,7 @@ class ErrorHandler implements ErrorHandlerInterface
         self::logError($error);
         $useErrorController = false;
 
-        if($error->isException()) {
+        if ($error->isException()) {
             $useErrorController = true;
         } else {
             switch ($error->type()) {
@@ -152,7 +153,7 @@ class ErrorHandler implements ErrorHandlerInterface
             }
         }
 
-        if(!$useErrorController) {
+        if (!$useErrorController) {
             return;
         }
 

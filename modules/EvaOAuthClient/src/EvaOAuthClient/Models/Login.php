@@ -22,33 +22,34 @@ class Login extends UserEntity
                 'remoteUserId' => $accessToken['remoteUserId'],
             )
         ));
-        if(!$token || !$token->userId) {
+        if (!$token || !$token->userId) {
             return false;
         }
-        
+
         $userModel = new UserLogin();
         $userModel->assign(array(
             'id' => $token->userId
         ));
+
         return $userModel->loginWithId();
     }
 
     public function connectWithExistEmail(array $accessToken)
     {
-        if(!$accessToken) {
+        if (!$accessToken) {
             throw new Exception\ResourceConflictException('ERR_OAUTH_NO_ACCESS_TOKEN');
         }
 
         $userinfo = self::findFirst("email = '$this->email'");
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if($userinfo->status == 'deleted') {
+        if ($userinfo->status == 'deleted') {
             throw new Exception\OperationNotPermitedException('ERR_USER_BE_BANNED');
         }
 
-        if($userinfo->status == 'inactive') {
+        if ($userinfo->status == 'inactive') {
             $userinfo->status = 'active';
             if (!$userinfo->save()) {
                 throw new Exception\RuntimeException('ERR_USER_SAVE_FAILED');
@@ -60,12 +61,13 @@ class Login extends UserEntity
         $accessTokenEntity->tokenStatus = 'active';
         $accessTokenEntity->userId = $userinfo->id;
         //$this->sendVerificationEmail($userinfo->username);
-        if(!$accessTokenEntity->save()) {
+        if (!$accessTokenEntity->save()) {
             throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_CREATE_FAILED');
         }
 
-        $userModel = new UserLogin(); 
+        $userModel = new UserLogin();
         $authIdentity = $userModel->saveUserToSession($userinfo);
+
         return $authIdentity;
     }
 
@@ -83,28 +85,29 @@ class Login extends UserEntity
         $accessTokenEntity->assign($accessToken);
         $accessTokenEntity->tokenStatus = 'active';
         $accessTokenEntity->userId = $authIdentity['id'];
-        if(!$accessTokenEntity->save()) {
+        if (!$accessTokenEntity->save()) {
             throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_CREATE_FAILED');
         }
+
         return $authIdentity;
     }
 
     public function register()
     {
         $userinfo = self::findFirst("username = '$this->username'");
-        if($userinfo) {
+        if ($userinfo) {
             throw new Exception\ResourceConflictException('ERR_USER_USERNAME_ALREADY_TAKEN');
         }
 
         $userinfo = self::findFirst("email = '$this->email'");
-        if($userinfo) {
+        if ($userinfo) {
             throw new Exception\ResourceConflictException('ERR_USER_EMAIL_ALREADY_TAKEN');
         }
 
         $session = $this->getDI()->getSession('session');
         $accessToken = $session->get('access-token');
 
-        if(!$accessToken) {
+        if (!$accessToken) {
             throw new Exception\ResourceConflictException('ERR_OAUTH_NO_ACCESS_TOKEN');
         }
 
@@ -127,7 +130,7 @@ class Login extends UserEntity
         }
 
         $userinfo = self::findFirst("username = '$this->username'");
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\RuntimeException('ERR_USER_CREATE_FAILED');
         }
 
@@ -136,24 +139,24 @@ class Login extends UserEntity
         $accessTokenEntity->tokenStatus = 'active';
         $accessTokenEntity->userId = $userinfo->id;
         //$this->sendVerificationEmail($userinfo->username);
-        if(!$accessTokenEntity->save()) {
+        if (!$accessTokenEntity->save()) {
             throw new Exception\RuntimeException('ERR_OAUTH_TOKEN_CREATE_FAILED');
         }
 
-        $userModel = new UserLogin(); 
+        $userModel = new UserLogin();
         $authIdentity = $userModel->saveUserToSession($userinfo);
+
         return $authIdentity;
     }
-
 
     public function sendConfirmEmail($username)
     {
         $userinfo = self::findFirst("username = '$username'");
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if($userinfo->status == 'deleted') {
+        if ($userinfo->status == 'deleted') {
             throw new Exception\OperationNotPermitedException('ERR_USER_BE_BANNED');
         }
 

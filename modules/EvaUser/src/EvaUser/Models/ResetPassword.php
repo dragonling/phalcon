@@ -2,7 +2,6 @@
 
 namespace Eva\EvaUser\Models;
 
-
 use Eva\EvaUser\Entities;
 use \Phalcon\Mvc\Model\Message as Message;
 use Eva\EvaEngine\Exception;
@@ -14,18 +13,18 @@ class ResetPassword extends Entities\Users
     public function requestResetPassword()
     {
         $userinfo = array();
-        if($this->username) {
+        if ($this->username) {
             $userinfo = self::findFirst("username = '$this->username'");
-        } elseif($this->email) {
+        } elseif ($this->email) {
             $userinfo = self::findFirst("email = '$this->email'");
         }
 
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
         //status tranfer only allow inactive => active
-        if($userinfo->status != 'active') {
+        if ($userinfo->status != 'active') {
             throw new Exception\OperationNotPermitedException('ERR_USER_NOT_ACTIVED');
         }
 
@@ -35,23 +34,25 @@ class ResetPassword extends Entities\Users
         $userinfo->save();
 
         $this->sendPasswordResetMail($userinfo->email);
+
         return true;
     }
 
     public function sendPasswordResetMail($email, $forceSend = false)
     {
-        if(false === $forceSend && $this->getDI()->get('config')->mailer->async) {
+        if (false === $forceSend && $this->getDI()->get('config')->mailer->async) {
             $queue = $this->getDI()->get('queue');
             $result = $queue->doBackground('sendmailAsync', json_encode(array(
                 'class' => __CLASS__,
                 'method' => __FUNCTION__,
                 'parameters' => array($email, true)
             )));
+
             return true;
         }
 
         $userinfo = self::findFirst("email= '$email'");
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
@@ -78,37 +79,39 @@ class ResetPassword extends Entities\Users
     public function verifyPasswordReset($username, $verificationCode)
     {
         $userinfo = self::findFirst("username = '$username'");
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if($userinfo->status != 'active') {
+        if ($userinfo->status != 'active') {
             throw new Exception\OperationNotPermitedException('ERR_USER_NOT_ACTIVED');
         }
 
-        if($userinfo->passwordResetHash != $verificationCode) {
+        if ($userinfo->passwordResetHash != $verificationCode) {
             throw new Exception\VerifyFailedException('ERR_USER_RESET_CODE_NOT_MATCH');
         }
 
-        if($userinfo->passwordResetAt < time() - $this->resetPasswordHashExpired) {
+        if ($userinfo->passwordResetAt < time() - $this->resetPasswordHashExpired) {
             throw new Exception\ResourceExpiredException('ERR_USER_RESET_CODE_EXPIRED');
         }
+
         return true;
     }
 
     public function resetPassword()
     {
-        if(!$this->password) {
+        if (!$this->password) {
             throw new Exception\InvalidArgumentException('ERR_USER_NO_NEW_PASSWORD_INPUT');
         }
 
         $userinfo = self::findFirst("username = '$this->username'");
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
         $userinfo->password = password_hash($this->password, PASSWORD_DEFAULT, array('cost' => 10));
         $userinfo->save();
+
         return true;
     }
 }

@@ -3,7 +3,6 @@
 namespace Eva\EvaEngine\Mvc\Controller;
 
 use Phalcon\Mvc\Controller;
-use Eva\EvaEngine\Exception;
 
 class ErrorController extends Controller
 {

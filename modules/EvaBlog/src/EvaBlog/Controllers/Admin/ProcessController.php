@@ -10,7 +10,7 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
 {
     public function deleteAction()
     {
-        if(!$this->request->isDelete()){
+        if (!$this->request->isDelete()) {
             return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
@@ -18,24 +18,25 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         $post =  new Models\Post();
         try {
             $post->removePost($id);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->displayExceptionForJson($e, $post->getMessages());
         }
+
         return $this->response->setJsonContent($post);
     }
 
     public function statusAction()
     {
-        if(!$this->request->isPut()){
+        if (!$this->request->isPut()) {
             return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $id = $this->dispatcher->getParam('id');
-        $post =  Models\Post::findFirst($id); 
+        $post =  Models\Post::findFirst($id);
         try {
             $post->status = $this->request->getPut('status');
             $post->save();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->displayExceptionForJson($e, $post->getMessages());
         }
 
@@ -44,12 +45,12 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
 
     public function batchAction()
     {
-        if(!$this->request->isPut()){
+        if (!$this->request->isPut()) {
             return $this->displayJsonErrorResponse(405, 'ERR_REQUEST_METHOD_NOT_ALLOW');
         }
 
         $idArray = $this->request->getPut('id');
-        if(!is_array($idArray) || count($idArray) < 1) {
+        if (!is_array($idArray) || count($idArray) < 1) {
             return $this->displayJsonErrorResponse(401, 'ERR_REQUEST_PARAMS_INCORRECT');
         }
 
@@ -57,17 +58,18 @@ class ProcessController extends ControllerBase implements JsonControllerInterfac
         $posts = array();
 
         try {
-            foreach($idArray as $id) {
+            foreach ($idArray as $id) {
                 $post =  Models\Post::findFirst($id);
-                if($post) {
+                if ($post) {
                     $post->status = $status;
                     $post->save();
                     $posts[] = $post;
                 }
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->displayExceptionForJson($e, $post->getMessages());
         }
+
         return $this->response->setJsonContent($posts);
     }
 

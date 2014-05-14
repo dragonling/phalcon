@@ -14,5 +14,5 @@ return array(
         'resetFailedRedirectUri' => '/admin/login',
         'resetMailTemplate' => __DIR__ . '/../views/mails/reset.phtml',
         'cookieTokenExpired' => 500000,
-    ),   
+    ),
 );

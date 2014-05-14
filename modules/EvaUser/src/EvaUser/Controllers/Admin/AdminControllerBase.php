@@ -2,8 +2,6 @@
 
 namespace Eva\EvaUser\Controllers\Admin;
 
-use Phalcon\Mvc\Controller;
-
 class AdminControllerBase extends ControllerBase
 {
     public function initialize()

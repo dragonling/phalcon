@@ -28,7 +28,7 @@ return array(
     '/admin/register/:action' => array(
         'module' => 'EvaUser',
         'controller' => 'Admin\Register',
-        'action' => 1, 
+        'action' => 1,
     ),
 
     '/admin/login' => array(
@@ -39,7 +39,7 @@ return array(
     '/admin/login/:action([\w/]*)' => array(
         'module' => 'EvaUser',
         'controller' => 'Admin\Login',
-        'action' => 1, 
+        'action' => 1,
     ),
 
     '/admin/logout' => array(
@@ -66,7 +66,6 @@ return array(
     '/admin/session/:action' => array(
         'module' => 'EvaUser',
         'controller' => 'Admin\Session',
-        'action' => 1, 
+        'action' => 1,
     ),
 );
-

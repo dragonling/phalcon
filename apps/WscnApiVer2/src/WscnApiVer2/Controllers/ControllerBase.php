@@ -8,7 +8,7 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase
     {
         $this->response->setContentType('application/json', 'utf-8');
         $callback = $this->request->getQuery('callback');
-        if($callback) {
+        if ($callback) {
             $this->response->setContent($callback . '(' . $this->response->getContent() . ')');
         }
     }
@@ -19,16 +19,18 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase
         $url = clone $this->url;
         $url->setBaseUri($this->getDI()->get('config')->apiUri);
         $params = is_array($paramsOrUrl) ? $paramsOrUrl : $params;
+
         return $url->get($path, $params);
     }
 
     public function getApiPaginator(\Phalcon\Paginator\AdapterInterface $paginator)
     {
         $pager = $paginator->getPaginate();
-        if($pager->total_pages <= 1) {
+        if ($pager->total_pages <= 1) {
             return array();
         }
         $query = $pager->query;
+
         return array(
             'total' => $pager->total_items,
             'previous' => $this->toFullUrl(array_merge($query, array('page' => $pager->before))),
@@ -36,7 +38,6 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase
             'last' => $this->toFullUrl(array_merge($query, array('page' => $pager->last))),
         );
     }
-
 
     public function initialize()
     {
