@@ -1,16 +1,16 @@
+
 $(function(){
     /**
      * 导航栏高亮
      */
     var fullPathUrl = window.location.pathname + window.location.search;
-    $('#header .navbar .link').each(function(){
-        var item = $(this);
-        var pattern = item.attr("data-active-url");
-        if (pattern) {
-            var reg = new RegExp(pattern);
-            if(reg.test(fullPathUrl)) {
-                item.addClass("active");
-            }
+    $('#header .navbar .link[data-active-url]').each(function(){
+        var $item = $(this);
+        var reg = new RegExp($item.attr("data-active-url"));
+        if(reg.test(fullPathUrl)) {
+            $item.addClass("active");
+            //跳出循环
+            return false;
         }
     });
     /**
@@ -62,7 +62,7 @@ $(function(){
             $active.removeClass('active');
             $this.addClass('active');
         }
-        e.preventDefault();
+        //e.preventDefault();
 
         /*var $parents = $this.parents('.item.active');
         var $menu = $this.parents('.menu');
@@ -87,6 +87,7 @@ $(function(){
         }*/
 
     });
+
     /**
      * 汇率计算器
      */
