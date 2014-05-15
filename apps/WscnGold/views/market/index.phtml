@@ -85,7 +85,7 @@
                     <div data-efc-target="#market [data-chart]" data-efc-interval="MN" class="button">1M</div>
                 </div>
                 <iframe class="chart" width="590" height="270" scrolling="no" frameborder="0"
-                    src="http://markets.wallstreetcn.com/embed/hs?newsUrl=http://api.goldtoutiao.com/v2/post&symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=590&height=270&rows=50&interval=5"></iframe>
+                    src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=590&height=270&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
             </div>
         </div>
         <div class="content tabpanel">
