@@ -7,7 +7,7 @@
                 <ul class="topnews carousel type1 left">
                     <li class="item">
                         <a class="link" href="/post/<?=$post->slug?>">
-                            <img class="img" src="/img/img01.png" alt=""/>
+                            <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_356,w_400') : '/img/article.jpg'?>" alt=""/>
                             <h3 class="title"><?=$post->title?></h3>
                         </a>
                     </li>
@@ -26,7 +26,7 @@
                     <?foreach($posts as $post):?>
                     <li class="item">
                     <a class="link" href="/post/<?=$post->slug?>">
-                        <img class="img" src="/img/img01.png" alt=""/>
+                        <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_150,w_230') : '/img/article.jpg'?>" alt=""/>
                         <h3 class="title"><?=$post->title?></h3>
                         </a>
                         <p class="info">by <?=$post->username ? $post->username : '黄金头条'?> <?=$this->tag->datetime($post->createdAt)?></p>

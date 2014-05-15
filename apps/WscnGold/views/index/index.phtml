@@ -8,7 +8,7 @@
                     <ul class="topnews carousel">
                         <li class="item">
                         <a class="link" href="/post/<?=$post->slug?>">
-                            <img class="img" src="/img/img01.png" alt=""/>
+                            <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_250,w_340') : '/img/article.jpg'?>" alt=""/>
                             <h3 class="title"><?=$post->title?></h3>
                         </a>
                         </li>
@@ -43,7 +43,7 @@
                                 <div data-efc-target="#chart" data-efc-interval="MN" class="button">1M</div>
                             </div>
                             <div class="chart">
-                                <iframe width="440" height="206" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=440&height=206&rows=50&interval=5"></iframe>
+                                <iframe width="440" height="206" scrolling="no" frameborder="0" src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=440&height=206&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
                             </div>
                         </div>
                     </div><!-- market chart end -->
@@ -344,43 +344,43 @@
                     <h2 class="main-title">投资教程</h2>
                     <ul class="investment-tutorial list">
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial">
                                 <span class="span index">1</span>
                                 <span class="span title">基础知识</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial/huangjinbiaojiafangfa">
                                 <span class="span index">2</span>
                                 <span class="span title">投资介绍</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial/jinkuangkaicai">
                                 <span class="span index">3</span>
                                 <span class="span title">基本分析</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial/daoqiongsililun">
                                 <span class="span index">4</span>
                                 <span class="span title">技术分析</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial/fengxianguanli">
                                 <span class="span index">5</span>
                                 <span class="span title">风险技巧</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial">
                                 <span class="span index">6</span>
                                 <span class="span title">开户交易</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial">
                                 <span class="span index">7</span>
                                 <span class="span title">规章制度</span>
                             </a>
@@ -588,7 +588,7 @@
                             <div class="line vertical"></div>
                         </div>
                         <div class="chart">
-                            <iframe width="672" height="195" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=672&height=195&rows=50&interval=5"></iframe>
+                            <iframe width="672" height="195" scrolling="no" frameborder="0" src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=672&height=195&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
                         </div>
                     </div>
                 </div><!-- market chart end -->

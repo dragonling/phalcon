@@ -13,8 +13,8 @@ class JsonErrorController extends Controller
         $this->response->setJsonContent(array(
             'errors' => array(
                 array(
-                    'code' => $error->getCode(),
-                    'message' => $error->getMessage()
+                    'code' => $error->type(),
+                    'message' => $error->message()
                 )
             ),
         ));
@@ -22,5 +22,6 @@ class JsonErrorController extends Controller
         if ($callback) {
             $this->response->setContent($callback . '(' . $this->response->getContent() . ')');
         }
+        echo $this->response->getContent();
     }
 }

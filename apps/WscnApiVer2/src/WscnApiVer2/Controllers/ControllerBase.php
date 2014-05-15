@@ -2,17 +2,10 @@
 
 namespace WscnApiVer2\Controllers;
 
-class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase
-{
-    public function afterExecuteRoute($dispatcher)
-    {
-        $this->response->setContentType('application/json', 'utf-8');
-        $callback = $this->request->getQuery('callback');
-        if ($callback) {
-            $this->response->setContent($callback . '(' . $this->response->getContent() . ')');
-        }
-    }
+use Eva\EvaEngine\Mvc\Controller\JsonControllerInterface;
 
+class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase implements JsonControllerInterface
+{
     public function toFullUrl($paramsOrUrl, $params = null)
     {
         $path = is_array($paramsOrUrl) ? $this->router->getRewriteUri() : $paramsOrUrl;
@@ -38,12 +31,4 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase
             'last' => $this->toFullUrl(array_merge($query, array('page' => $pager->last))),
         );
     }
-
-    public function initialize()
-    {
-        $this->view->setModuleLayout('WscnApiVer2', '/views/layouts/default');
-        $this->view->setModuleViewsDir('WscnApiVer2', '/views');
-        $this->view->setModulePartialsDir('WscnApiVer2', '/views');
-    }
-
 }

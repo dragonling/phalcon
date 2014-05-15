@@ -4,6 +4,23 @@ namespace Eva\EvaEngine;
 
 class Tag extends \Phalcon\Tag
 {
+    public static function config()
+    {
+        $config = self::getDI()->get('config');
+        if(!$args = func_get_args()) {
+            return $config;
+        }
+
+        $res = $config;
+        foreach($args as $arg) {
+            if(!isset($res->$arg)) {
+                return '';
+            }
+            $res = $res->$arg;
+        }
+        return $res;
+    }
+
     public static function component($componentName, array $params = array())
     {
         return Mvc\View::getComponent($componentName, $params);

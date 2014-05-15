@@ -157,8 +157,23 @@ class ControllerBase extends Controller
                 $this->flashSession->$messageType($message->getMessage());
             }
         }
-
         return $this;
+    }
+
+    public function displayJsonInvalidMessages(\Phalcon\Forms\Form $form, $messageType = 'warning')
+    {
+        $messages = $form->getMessages();
+        $content = array();
+        foreach($messages as $message) {
+            $content[] = array(
+                'code' => 10001,
+                'message' => $message->getMessage(),
+            );
+        }
+        $this->response->setStatusCode(400, $this->recommendedReasonPhrases[400]);
+        return $this->response->setJsonContent(array(
+            'errors' => $content
+        ));
     }
 
     public function displayExceptionForJson($exception, $messages = null)
@@ -182,7 +197,7 @@ class ControllerBase extends Controller
             foreach ($messages as $message) {
                 $errors[] = array(
                     'code' => 0,
-                    'message' => $message,
+                    'message' => $message->getMessage(),
                 );
             }
         }

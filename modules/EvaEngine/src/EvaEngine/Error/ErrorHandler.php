@@ -4,6 +4,7 @@ namespace Eva\EvaEngine\Error;
 
 use Phalcon\DI;
 use Phalcon\Logger\Adapter\File as FileLogger;
+use Phalcon\Logger\AdapterInterface as LoggerInterface;
 
 class ErrorHandler implements ErrorHandlerInterface
 {
@@ -116,6 +117,12 @@ class ErrorHandler implements ErrorHandlerInterface
         self::$logger = new FileLogger($config->error->logPath . '/' . 'system_error_' . date('Ymd') . '.log');
 
         return self::$logger;
+    }
+
+    public static function setLogger(LoggerInterface $logger)
+    {
+        self::$logger = $logger;
+        return self;
     }
 
     protected static function logError(Error $error)
