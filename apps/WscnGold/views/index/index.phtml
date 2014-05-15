@@ -8,7 +8,7 @@
                     <ul class="topnews carousel">
                         <li class="item">
                         <a class="link" href="/post/<?=$post->slug?>">
-                            <img class="img" src="/img/img01.png" alt=""/>
+                            <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_250,w_340') : '/img/article.jpg'?>" alt=""/>
                             <h3 class="title"><?=$post->title?></h3>
                         </a>
                         </li>
