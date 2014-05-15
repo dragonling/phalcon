@@ -4,6 +4,7 @@ namespace WscnApiVer2;
 
 use Phalcon\Loader;
 use Phalcon\Mvc\ModuleDefinitionInterface;
+use Eva\EvaEngine\Error\ErrorHandler;
 
 class Module implements ModuleDefinitionInterface
 {
@@ -34,6 +35,8 @@ class Module implements ModuleDefinitionInterface
 
             return $dispatcher;
         };
+
+        ErrorHandler::setErrorController('JsonError');
     }
 
 }

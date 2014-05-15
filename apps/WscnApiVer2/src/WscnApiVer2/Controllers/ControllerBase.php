@@ -31,14 +31,4 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase implem
             'last' => $this->toFullUrl(array_merge($query, array('page' => $pager->last))),
         );
     }
-
-    /*
-    public function initialize()
-    {
-        $this->view->setModuleLayout('WscnApiVer2', '/views/layouts/default');
-        $this->view->setModuleViewsDir('WscnApiVer2', '/views');
-        $this->view->setModulePartialsDir('WscnApiVer2', '/views');
-    }
-    */
-
 }
