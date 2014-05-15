@@ -279,7 +279,7 @@ $(function(){
                         });
                         $dom.html(html);
                         if (config.today) {
-                            if (results[0].date !== moment().format('YYYY-MM-DD')) {
+                            if (results[0].date == moment().format('YYYY-MM-DD')) {
                                 var today_am_gold = results[0].gold_am;
                                 var today_pm_gold = results[0].gold_pm;
                                 var today_silver  = results[0].silver;

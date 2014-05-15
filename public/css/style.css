@@ -265,6 +265,9 @@ input {
 .width-250 {
   width: 250px;
 }
+.width-355 {
+  width: 355px;
+}
 .left {
   float: left;
 }
@@ -740,23 +743,24 @@ label.checkbox.right {
   height: 140px;
   position: relative;
 }
-#header .title {
-  height: 100px;
+#header .title,
+#header .ad {
   color: #1e1e1e;
+  height: 100px;
+  overflow: hidden;
   position: relative;
 }
-#header .title .logo,
-#header .title .ad {
+#header .logo {
   position: absolute;
   top: 0;
   bottom: 0;
+  left: 20px;
   margin: auto 0;
 }
-#header .title .logo {
-  left: 20px;
-}
-#header .title .ad {
-  right: 0;
+#header .ad > div {
+  height: 90px;
+  float: right;
+  margin-top: 5px;
 }
 #header .toolbar {
   height: 39px;
@@ -814,9 +818,15 @@ label.checkbox.right {
   background-color: #fff;
 }
 #header form.search button[type=submit] {
-  line-height: 38px;
   width: 40px;
+  line-height: 38px;
+  text-align: center;
+  font-size: 15px;
+  color: #fff;
   background-color: #333;
+}
+#header form.search button[type=submit]:hover {
+  color: #068cb5;
 }
 #content {
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.4);
@@ -2075,9 +2085,6 @@ td.datepickerSpecial.datepickerSelected a {
   padding: 30px;
   background-color: #fff;
 }
-#tech-analysis .width-355 {
-  width: 355px;
-}
 #tech-analysis .indicator {
   display: block;
   float: left;
@@ -2145,7 +2152,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #tech-analysis .datum {
   padding: 15px 30px;
-  height: 75px;
+  height: 82px;
   border-bottom: 1px solid #b4b4b4;
 }
 #tech-analysis .datum .title {
@@ -2177,7 +2184,7 @@ td.datepickerSpecial.datepickerSelected a {
   color: #005178;
 }
 #tech-analysis .datum .price .bottom {
-  bottom: 5px;
+  bottom: 2px;
 }
 #tech-analysis .datum [data-trend="up"] .diff,
 #tech-analysis .datum [data-trend="up"] .diff-pct {

@@ -226,6 +226,9 @@ button,select,input {
 .width-250 {
     width: 250px;
 }
+.width-355 {
+    width: 355px;
+}
 .left {
     float: left;
 }
@@ -770,25 +773,24 @@ label.checkbox {
     height: 140px;
     position: relative;
 
-    .title {
-        height: 100px;
+    .title,
+    .ad {
         color: @black;
+        height: 100px;
+        overflow: hidden;
         position: relative;
-
-        .logo,
-        .ad {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            margin: auto 0;
-        }
-        .logo {
-            left: 20px;
-        }
-        .ad {
-            right: 0;
-        }
-
+    }
+    .logo {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 20px;
+        margin: auto 0;
+    }
+    .ad > div {
+        height: 90px;
+        float: right;
+        margin-top: 5px;
     }
 
     .toolbar {
@@ -850,9 +852,15 @@ label.checkbox {
             background-color: #fff;
         }
         button[type=submit] {
-            line-height: 38px;
             width: 40px;
+            line-height: 38px;
+            text-align: center;
+            font-size: 15px;
+            color: #fff;
             background-color: #333;
+            &:hover {
+                color: @skyblue;
+            }
         }
     }
 
@@ -2099,9 +2107,6 @@ td.datepickerSpecial.datepickerSelected a {
     padding: 30px;
     background-color: #fff;
 
-    .width-355 {
-        width: 355px;
-    }
     .indicator {
         display: block;
         float: left;
@@ -2169,7 +2174,7 @@ td.datepickerSpecial.datepickerSelected a {
     }
     .datum {
         padding: 15px 30px;
-        height: 75px;
+        height: 82px;
         border-bottom: 1px solid @borderColor;
         .title {
             color: #505050;
@@ -2201,7 +2206,7 @@ td.datepickerSpecial.datepickerSelected a {
                 color: @blue;
             }
             .bottom {
-                bottom: 5px;
+                bottom: 2px;
             }
         }
 
