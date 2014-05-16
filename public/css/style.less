@@ -48,9 +48,15 @@ button,select,input {
     border: 0;
     padding: 0;
 }
+iframe {
+    border: none;
+    overflow: hidden;
+}
+
 [data-toggle] {
     cursor: pointer;
 }
+
 
 //公用类
 .clearfix {
@@ -2378,6 +2384,7 @@ td.datepickerSpecial.datepickerSelected a {
         //overflow-y: hidden;
         &>.item {
             width: 100%;
+            font-size: 14px;
             &>.link {
                 .ellipsis;
                 display: block;
@@ -2545,7 +2552,7 @@ td.datepickerSpecial.datepickerSelected a {
         .economic-evaluation.list {
 
             &>.item {
-
+                font-size: 14px;
                 .link {
                     line-height: 34px;
                     color: #666;
@@ -3408,6 +3415,7 @@ td.datepickerSpecial.datepickerSelected a {
     width: 100%;
     padding-top: 30px;
     padding-bottom: 40px;
+    color: #cbcbcb;
     background-color: #1e1e1e;
 
     .logo {
