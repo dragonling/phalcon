@@ -10,7 +10,7 @@
 namespace Eva\EvaEngine\View\Helper\Placeholder;
 
 use ArrayObject;
-use Zend\View\Exception;
+use Eva\EvaEngine\Exception;
 
 /**
  * Abstract class representing container for placeholder values
