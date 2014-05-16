@@ -241,6 +241,10 @@ class Engine
             return new \Eva\EvaEngine\Tag();
         });
 
+        $di->set('placeholder', function(){
+            return new \Eva\EvaEngine\View\Helper\Placeholder();
+        }, true);
+
         $di->set('logException', function () use ($di) {
             $config = $di->get('config');
 
@@ -369,6 +373,8 @@ class Engine
 
             return $dbAdapter;
         });
+
+
 
         /*
         $di->set('fileSystem', function () use ($di) {

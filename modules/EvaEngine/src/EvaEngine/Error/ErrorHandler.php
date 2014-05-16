@@ -36,7 +36,7 @@ class ErrorHandler implements ErrorHandlerInterface
             'isError' => true,
         );
 
-        self::errorProcess(new Error($options));
+        static::errorProcess(new Error($options));
     }
 
     public static function exceptionHandler(\Exception $e)
@@ -50,44 +50,44 @@ class ErrorHandler implements ErrorHandlerInterface
             'exception' => $e,
         );
 
-        self::errorProcess(new Error($options));
+        static::errorProcess(new Error($options));
     }
 
     public static function shutdownHandler()
     {
         if (!is_null($options = error_get_last())) {
-            self::errorProcess(new Error($options));
+            static::errorProcess(new Error($options));
         }
     }
 
     public static function setErrorController($controller)
     {
-        self::$errorController = $controller;
+        static::$errorController = $controller;
     }
 
     public static function getErrorController()
     {
-        return self::$errorController;
+        return static::$errorController;
     }
 
     public static function setErrorControllerNamespace($controllerNamespace)
     {
-        self::$errorControllerNamespace = $controllerNamespace;
+        static::$errorControllerNamespace = $controllerNamespace;
     }
 
     public static function getErrorControllerNamespace()
     {
-        return self::$errorControllerNamespace;
+        return static::$errorControllerNamespace;
     }
 
     public static function setErrorControllerAction($action)
     {
-        self::$errorControllerAction = $action;
+        static::$errorControllerAction = $action;
     }
 
     public static function getErrorControllerAction()
     {
-        return self::$errorControllerAction;
+        return static::$errorControllerAction;
     }
 
     public static function setErrorLayout()
@@ -100,8 +100,8 @@ class ErrorHandler implements ErrorHandlerInterface
 
     public static function getLogger()
     {
-        if (self::$logger !== false) {
-            return self::$logger;
+        if (static::$logger !== false) {
+            return static::$logger;
         }
 
         $di = DI::getDefault();
@@ -111,23 +111,23 @@ class ErrorHandler implements ErrorHandlerInterface
             (isset($config->error->disableLog) && $config->error->disableLog) ||
             empty($config->error->logPath)
         ) {
-            return self::$logger = null;
+            return static::$logger = null;
         }
 
-        self::$logger = new FileLogger($config->error->logPath . '/' . 'system_error_' . date('Ymd') . '.log');
+        static::$logger = new FileLogger($config->error->logPath . '/' . 'system_error_' . date('Ymd') . '.log');
 
-        return self::$logger;
+        return static::$logger;
     }
 
     public static function setLogger(LoggerInterface $logger)
     {
-        self::$logger = $logger;
+        static::$logger = $logger;
         return self;
     }
 
     protected static function logError(Error $error)
     {
-        $logger = self::getLogger();
+        $logger = static::getLogger();
         if (!$logger) {
             return;
         }
@@ -137,7 +137,7 @@ class ErrorHandler implements ErrorHandlerInterface
 
     protected static function errorProcess(Error $error)
     {
-        self::logError($error);
+        static::logError($error);
         $useErrorController = false;
 
         if ($error->isException()) {
@@ -170,9 +170,9 @@ class ErrorHandler implements ErrorHandlerInterface
         $response = $di->getShared('response');
         $response->setStatusCode($error->statusCode(), $error->statusMessage());
 
-        $dispatcher->setNamespaceName(self::getErrorControllerNamespace());
-        $dispatcher->setControllerName(self::getErrorController());
-        $dispatcher->setActionName(self::getErrorControllerAction());
+        $dispatcher->setNamespaceName(static::getErrorControllerNamespace());
+        $dispatcher->setControllerName(static::getErrorController());
+        $dispatcher->setActionName(static::getErrorControllerAction());
         $dispatcher->setParams(array('error' => $error));
 
         $view->start();
