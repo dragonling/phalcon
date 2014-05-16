@@ -2,12 +2,9 @@
 
 namespace WscnGold\Controllers;
 
-
 use WscnGold\Models;
-use WscnGold\Forms;
 use Eva\EvaBlog\Models\Post;
 use Eva\EvaBlog\Models\Category;
-
 
 class NewsController extends ControllerBase
 {
@@ -32,7 +29,7 @@ class NewsController extends ControllerBase
             'page' => $this->request->getQuery('page', 'int', 1),
         );
 
-        if($query['cid']) {
+        if ($query['cid']) {
             $this->view->setVar('category', Category::findFirst($query['cid']));
         }
 

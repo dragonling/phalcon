@@ -7,7 +7,6 @@ use Phalcon\Mvc\View;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 
-
 class Module implements ModuleDefinitionInterface
 {
 
@@ -40,11 +39,12 @@ class Module implements ModuleDefinitionInterface
          */
         $config = include __DIR__ . "/config/config.php";
 
-		$di['dispatcher'] = function() {
-			$dispatcher = new \Phalcon\Mvc\Dispatcher();
+        $di['dispatcher'] = function () {
+            $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace('Eva\Frontend\Controllers');
-			return $dispatcher;
-		};
+
+            return $dispatcher;
+        };
 
         /**
          * Setting up the view component

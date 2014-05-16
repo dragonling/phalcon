@@ -316,7 +316,7 @@ $(document).ready(function(){
            var uri = new Uri(window.location);
            var anchor = uri.anchor();
            var sourceCode = 'format-html';
-           var sourceCodeValue = $('input[name=sourceCode]').val();
+           var sourceCodeValue = $('input[name=codeType]').val();
            if(sourceCodeValue) {
                sourceCode = sourceCodeValue == 'html' ? 'format-html' : 'format-markdown';
            }
@@ -327,11 +327,11 @@ $(document).ready(function(){
 
            if(sourceCode == 'format-markdown') {
                this.initMarkdownEditor();
-               $('input[name=sourceCode]').val('markdown');
+               $('input[name=codeType]').val('markdown');
            } else {
                this.initHtmlEditor();
                this.initHtmlEditorUploader();
-               $('input[name=sourceCode]').val('html');
+               $('input[name=codeType]').val('html');
            }
 
            //this.switcher = switcher;
@@ -519,8 +519,37 @@ $('*[data-batch-form]').each(function(){
         })
     });
 
-
-
 });
 
+$(".slug-generator").each(function(){
+    var generator = $(this),
+        target = $($(this).attr('data-slug-target')),
+        slugFlag = false;
 
+    var getSlugText = function(input){
+        var res = pinyin(input, {
+            style: pinyin.STYLE_NORMAL,
+            heteronym: true
+        });
+        res = jQuery.map( res, function( n, i ) {
+            return n[0];
+        });
+        res = res.join('');
+        return res.toLowerCase()
+        .replace(/ /g,'-')
+        .replace(/[^\w-]+/g,'');
+    }
+    generator.on('focus', function(){
+        if(target.val() == '') {
+            slugFlag = true;
+        } else {
+            slugFlag = false;
+        }
+    });
+
+    generator.on('keyup', function(){
+        if(slugFlag) {
+            target.val(getSlugText(generator.val()));
+        }
+    });
+});

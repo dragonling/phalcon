@@ -15,6 +15,7 @@ class Model extends \Phalcon\Mvc\Model
     public function setModelForm($form)
     {
         $this->modelForm = $form;
+
         return $this;
     }
 
@@ -23,24 +24,25 @@ class Model extends \Phalcon\Mvc\Model
         return $this->modelForm;
     }
 
-    public function getSource() {
+    public function getSource()
+    {
         return $this->prefix . $this->tableName;
     }
 
     public function dump(array $dataStructure = null)
     {
         $data = null;
-        if(!$dataStructure) {
+        if (!$dataStructure) {
             return $data;
         }
         foreach ($dataStructure as $key => $subdata) {
-            if(is_numeric($key)) {
+            if (is_numeric($key)) {
                 $data[$subdata] = $this->$subdata;
             } elseif (is_array($subdata)) {
-                if(!empty($this->$key)) {
-                    if($this->$key instanceof \Phalcon\Mvc\Model\Resultset\Simple) {
+                if (!empty($this->$key)) {
+                    if ($this->$key instanceof \Phalcon\Mvc\Model\Resultset\Simple) {
                         $subdatas = array();
-                        foreach($this->$key as $child) {
+                        foreach ($this->$key as $child) {
                             $subdatas[] = $child->dump($subdata);
                         }
                         $data[$key] = $subdatas;
@@ -55,12 +57,13 @@ class Model extends \Phalcon\Mvc\Model
                 $data[$key] = $this->$subdata();
             }
         }
+
         return $data;
     }
 
     public function initialize()
     {
-        if(true === $this->useMasterSlave) {
+        if (true === $this->useMasterSlave) {
             $this->setWriteConnectionService('dbMaster');
             $this->setReadConnectionService('dbSlave');
         }

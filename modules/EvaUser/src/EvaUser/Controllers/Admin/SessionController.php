@@ -2,10 +2,8 @@
 
 namespace Eva\EvaUser\Controllers\Admin;
 
-
 use Eva\EvaUser\Models;
 use Eva\EvaUser\Forms;
-use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class SessionController extends ControllerBase
 {
@@ -17,11 +15,13 @@ class SessionController extends ControllerBase
 
         try {
             $user->verifyNewUser($username, $code);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
+
             return $this->response->redirect($this->getDI()->get('config')->user->activeFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_USER_ACTIVED');
+
         return $this->response->redirect($this->getDI()->get('config')->user->activeSuccessRedirectUri);
     }
 
@@ -32,7 +32,7 @@ class SessionController extends ControllerBase
         }
 
         $email = $this->request->getPost('email');
-        if(!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
 
@@ -43,10 +43,12 @@ class SessionController extends ControllerBase
         try {
             $user->requestResetPassword();
             $this->flashSession->success('SUCCESS_USER_RESET_MAIL_SENT');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
+
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
+
         return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);
     }
 
@@ -57,8 +59,9 @@ class SessionController extends ControllerBase
         $user = new Models\ResetPassword();
         try {
             $user->verifyPasswordReset($username, $code);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
+
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
 
@@ -69,6 +72,7 @@ class SessionController extends ControllerBase
         $form = new Forms\ResetPasswordForm();
         if ($form->isValid($this->request->getPost()) === false) {
             $this->displayInvalidMessages($form);
+
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
 
@@ -79,10 +83,12 @@ class SessionController extends ControllerBase
         try {
             $user->resetPassword();
             $this->flashSession->success('SUCCESS_USER_PASSWORD_RESET');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
+
             return $this->response->redirect($this->getDI()->get('config')->user->resetFailedRedirectUri);
         }
+
         return $this->response->redirect($this->getDI()->get('config')->user->resetSuccessRedirectUri);
     }
 
@@ -90,8 +96,8 @@ class SessionController extends ControllerBase
     {
         $user = new Models\Login();
         $authIdentity = $user->getAuthIdentity();
-        if(!$authIdentity && ($tokenString = $this->cookies->get('realm')->getValue())) {
-            if($user->loginWithCookie($tokenString)) {
+        if (!$authIdentity && ($tokenString = $this->cookies->get('realm')->getValue())) {
+            if ($user->loginWithCookie($tokenString)) {
             } else {
                 $this->cookies->delete('realm');
             }

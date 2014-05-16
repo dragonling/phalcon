@@ -8,7 +8,7 @@
                     <ul class="topnews carousel">
                         <li class="item">
                         <a class="link" href="/post/<?=$post->slug?>">
-                            <img class="img" src="/img/img01.png" alt=""/>
+                            <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_250,w_340') : '/img/article.jpg'?>" alt=""/>
                             <h3 class="title"><?=$post->title?></h3>
                         </a>
                         </li>
@@ -43,7 +43,7 @@
                                 <div data-efc-target="#chart" data-efc-interval="MN" class="button">1M</div>
                             </div>
                             <div class="chart">
-                                <iframe width="440" height="206" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&theme=dark&width=440&height=206&rows=50&interval=5"></iframe>
+                                <iframe width="440" height="206" scrolling="no" frameborder="0" src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=440&height=206&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
                             </div>
                         </div>
                     </div><!-- market chart end -->
@@ -71,6 +71,9 @@
                                 </li>
                             <% } %>
                         </script>
+                        <div class="loader">
+                            <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+                        </div>
                     </div> <!--livenews list end-->
                 </div><!--span end -->
             </div><!-- row end -->
@@ -96,7 +99,14 @@
                                 <h3 class="title"><%= title %>：<span class="price"><%= price %></span></h3>
                             </div>
                         </script>
-                        <div class="datum" data-rtq-dom></div>
+                        <div class="datum" data-rtq-dom>
+                            <div data-trend="">
+                                <span class="update-time">N/A</span>
+                                <span class="close-price">昨收：N/A</span>
+                                <span class="open-price">今开：N/A</span>
+                                <h3 class="title">N/A：<span class="price">N/A</span></h3>
+                            </div>
+                        </div>
                         <div class="overview">
                             <div class="toolbar">
                                 <a class="label">时间范围：</a>
@@ -334,43 +344,43 @@
                     <h2 class="main-title">投资教程</h2>
                     <ul class="investment-tutorial list">
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial">
                                 <span class="span index">1</span>
                                 <span class="span title">基础知识</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial/huangjinbiaojiafangfa">
                                 <span class="span index">2</span>
                                 <span class="span title">投资介绍</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial/jinkuangkaicai">
                                 <span class="span index">3</span>
                                 <span class="span title">基本分析</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial/daoqiongsililun">
                                 <span class="span index">4</span>
                                 <span class="span title">技术分析</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial/fengxianguanli">
                                 <span class="span index">5</span>
                                 <span class="span title">风险技巧</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial">
                                 <span class="span index">6</span>
                                 <span class="span title">开户交易</span>
                             </a>
                         </li>
                         <li class="item">
-                            <a class="link row" href="">
+                            <a class="link row" href="/tutorial">
                                 <span class="span index">7</span>
                                 <span class="span title">规章制度</span>
                             </a>
@@ -420,6 +430,9 @@
                     </li>
                 <% } %>
             </script>
+            <div class="loader">
+                <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+            </div>
         </div><!-- finance-calendar list end -->
         <div class="line type1"></div>
         <h2 class="title">黄金多空调查</h2>
@@ -512,36 +525,29 @@
                         <tbody data-cftc-dom="data"></tbody>
                     </table>
                 </li>
-                <li class="panel">
-                    <div class="chart type2">
-                        <img width="270" height="230" src="/img/grid01.png" />
-                    </div>
-                    <div class="line type1"></div>
+                <li class="panel" data-fix-price data-fix-price-option="size: 9; withSilver:false;">
+                    <script type="text/template" data-fix-price-template>
+                        <% var i, l = data.length; %>
+                        <% for (i = 0; i < l; i ++) { %>
+                        <tr class="item">
+                            <td class="cell1"><%= data[i].date %></td>
+                            <td class="cell1"><%= data[i].gold_am %></td>
+                            <td class="cell1"><%= data[i].gold_pm %></td>
+                        </tr>
+                        <% } %>
+                    </script>
                     <table class="table type2">
                         <thead>
-                        <tr>
-                            <th>时间</th>
-                            <th>增仓量(吨)</th>
-                            <th>增减(吨)</th>
+                        <tr class="head">
+                            <th colspan="3">黄金伦敦历史定盘价(美元/盎司）</th>
+                        </tr>
+                        <tr class="label">
+                            <th>日期</th>
+                            <th>上午定价</th>
+                            <th>下午定价</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>2014.03.04</td>
-                            <td>803.70398</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.03</td>
-                            <td>804.00120</td>
-                            <td>0.03</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.02</td>
-                            <td>803.70398</td>
-                            <td>0.10</td>
-                        </tr>
-                        </tbody>
+                        <tbody data-fix-price-dom></tbody>
                     </table>
                 </li>
             </ul>
@@ -567,8 +573,8 @@
                     </div>
                     <div class="content">
                         <div class="toolbar row">
-                            <div data-efc-target="#modal-chart" data-efc-type="k" class="button">K线图</div>
-                            <div data-efc-target="#modal-chart" data-efc-type="t" class="button">分时图</div>
+                            <div data-efc-target="#modal-chart" data-efc-type="candlestick" class="button">K线图</div>
+                            <div data-efc-target="#modal-chart" data-efc-type="area" class="button active">分时图</div>
                             <div class="line vertical"></div>
                             <div data-efc-target="#modal-chart" data-efc-interval="1"  class="button">1</div>
                             <div data-efc-target="#modal-chart" data-efc-interval="5"  class="button active">5</div>
@@ -582,7 +588,7 @@
                             <div class="line vertical"></div>
                         </div>
                         <div class="chart">
-                            <iframe width="672" height="195" scrolling="no" frameborder="0" src="http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&theme=dark&width=672&height=195&rows=50&interval=5"></iframe>
+                            <iframe width="672" height="195" scrolling="no" frameborder="0" src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=672&height=195&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
                         </div>
                     </div>
                 </div><!-- market chart end -->
@@ -590,35 +596,42 @@
                     <h2 class="title">实时新闻</h2>
                     <div class="toolbar">
                         <!--<label class="checkbox " for="livenews-auto-refresh"><i class="icon-refresh"></i> 自动刷新 <input id="livenews-auto-refresh" type="checkbox" value="true"></label>-->
-                        <label class="checkbox " for="livenews-voice-alert"><i class="icon-volume-up"></i> 声音提醒 <input id="livenews-voice-alert" type="checkbox" value="true"></label>
-                        <label class="checkbox " for="livenews-all-shrink"><i class="icon-double-angle-up"></i> 全部收起 <input id="livenews-all-shrink" type="checkbox" value="true"></label>
+                        <label class="checkbox " for="livenews-voice-alert">
+                            <i class="icon-volume-up"></i> 声音提醒
+                            <input id="livenews-voice-alert" data-action="livenews-alert" data-target="#stare-livenews" type="checkbox">
+                        </label>
+                        <label class="checkbox " for="livenews-all-shrink">
+                            <i class="icon-double-angle-up"></i> 全部收起
+                            <input id="livenews-all-shrink" data-action="livenews-all-shrink" data-target="#stare-livenews" type="checkbox">
+                        </label>
                     </div>
                 </div>
                 <div id="stare-livenews" class="nano scrollable livenews list">
-                    <ul class="nano-content content">
-                        <script type="text/template" data-template>
-                            <% for(var i=0; i<records.length; i++) { %>
-                                <% var record = records[i]; %>
-                                <% if (i == 0 && record.day != day) { %>
-                                    <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
-                                        <h3 class="label"><%= record.date %></h3>
-                                        <i data-toggle="shrink" class="icon-custom-toggle"></i>
-                                    </li>
-                                <% } else if (i > 0 && record.day != records[i-1].day) { %>
-                                    <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
-                                        <h3 class="label"><%= record.date %></h3>
-                                        <i data-toggle="shrink" class="icon-custom-toggle"></i>
-                                    </li>
-                                <% } %>
-                                <li class="item <%= record.format %> <%= record.color %>" data-nid="<%= record.nid %>" data-timestamp="<%= record.timestamp %>" data-date="<%= record.date %>" data-day="<%= record.day %>">
-                                    <span class="icon" data-type="<%= record.icon %>"></span>
-                                    <span class="time"><%= record.time %></span>
-                                    <a class="link" href="" data-nid="<%= record.nid %>"><%= record.title %></a>
-                                </li>
-                            <% } %>
-                        </script>
-
-                    </ul>
+                    <ul class="nano-content content"></ul>
+                    <script type="text/template" data-template>
+                        <% for(var i=0; i<records.length; i++) { %>
+                        <% var record = records[i]; %>
+                        <% if (i == 0 && record.day != day) { %>
+                        <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                            <h3 class="label"><%= record.date %></h3>
+                            <i data-toggle="shrink" class="icon-custom-toggle"></i>
+                        </li>
+                        <% } else if (i > 0 && record.day != records[i-1].day) { %>
+                        <li class="date" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                            <h3 class="label"><%= record.date %></h3>
+                            <i data-toggle="shrink" class="icon-custom-toggle"></i>
+                        </li>
+                        <% } %>
+                        <li class="item <%= record.format %> <%= record.color %>" data-nid="<%= record.nid %>" data-timestamp="<%= record.timestamp %>" data-date="<%= record.date %>" data-day="<%= record.day %>">
+                            <span class="icon" data-type="<%= record.icon %>"></span>
+                            <span class="time"><%= record.time %></span>
+                            <a class="link" href="" data-nid="<%= record.nid %>"><%= record.title %></a>
+                        </li>
+                        <% } %>
+                    </script>
+                    <div class="loader">
+                        <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+                    </div>
                 </div><!--livenews list end-->
             </div> <!-- span end -->
             <div class="span right">
@@ -628,7 +641,7 @@
                         <label class="checkbox " for="finance-calendar-auto-scroll">自动滚动 <input id="finance-calendar-auto-scroll" type="checkbox" checked value="true"></label>
                     </div>
                 </div> <!--head end-->
-                <div id="stare-fcl" class="nano finance-calendar scrollable list">
+                <div id="stare-fcl" class="nano finance-calendar scrollable list" data-fcl-option="time-format: HH:mm a">
                     <div class="titlebar">
                         据下次数据公布时间还有：<span class="clock"></span>
                     </div>
@@ -642,13 +655,13 @@
                                 <li class="date" data-date="<%= record.date %>"><%= record.date %></li>
                             <% } %>
                             <li id="<%= record.id %>" class="item" data-trend="<%= record.trend %>" data-utm="<%= record.utm %>">
-                                <div class="row">
-                                    <span class="span time"><%= record.time %></span>
-                                    <span class="span important" data-value="<%= record.importance %>"><%= record.stars %></span>
+                                <div class="row relative">
+                                    <div class="span time text-white"><%= record.time %></div>
+                                    <div class="span country"><%= record.country %></div>
                                     <a class="span title link" href=""><%= record.title %></a>
                                 </div>
-                                <div class="row">
-                                    <span class="span profit good"></span>
+                                <div class="row relative">
+                                    <div class="span important" data-value="<%= record.importance %>"><%= record.stars %></div>
                                     <div class="span price actual">
                                         <span class="label">今值：</span>
                                         <span class="value"><%= record.actual %></span>
@@ -662,13 +675,17 @@
                                         <span class="value"><%= record.previous %></span>
                                     </div>
                                 </div>
+                                <div class="decorate"></div>
                             </li>
                         <% } %>
                     </script>
+                    <div class="loader">
+                        <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
+                    </div>
                 </div> <!--finance-calendar scrollable list end-->
                 <div class="head type5 ">
                     <h2 class="title">技术分析</h2>
-                    <div class="button" data-toggle="hide" data-hide-target="#modal-analysis" data-expand-target="#stare-fcl"><i class="icon-custom"></i></div>
+                    <div class="button dir-up" data-toggle="hide" data-hide-target="#modal-analysis" data-expand-target="#stare-fcl"><i class="icon-custom"></i></div>
                 </div> <!--head end-->
                 <div id="modal-analysis" class="market-analysis" data-rtq data-rtq-option="overview: true; default-interval: 1h;">
                     <div class="titlebar">
@@ -731,7 +748,20 @@
                             </div>
                         </script>
 
-                        <div class="datum" data-rtq-dom></div>
+                        <div class="datum" data-rtq-dom>
+                            <div data-trend="">
+                                <span class="update-time">更新时间：N/A</span>
+                                <div class="row">
+                                    <div class="span width-250">
+                                        <h3 class="title">N/A：<span class="price">N/A</span></h3>
+                                    </div>
+                                    <div class="span width-120">
+                                        <span class="close-price">昨收：N/A</span>
+                                        <span class="open-price">今开：N/A</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="overview" data-overview-dom>
 

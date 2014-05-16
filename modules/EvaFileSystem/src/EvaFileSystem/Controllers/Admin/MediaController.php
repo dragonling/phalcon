@@ -2,9 +2,7 @@
 
 namespace Eva\EvaFileSystem\Controllers\Admin;
 
-
 use Eva\EvaFileSystem\Models;
-use Eva\EvaUser\Models as UserModels;
 
 class MediaController extends ControllerBase
 {

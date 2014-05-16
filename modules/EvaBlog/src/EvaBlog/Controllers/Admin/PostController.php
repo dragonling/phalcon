@@ -53,7 +53,6 @@ class PostController extends ControllerBase
         return $paginator;
     }
 
-
     public function createAction()
     {
         $form = new Forms\PostForm();
@@ -62,21 +61,22 @@ class PostController extends ControllerBase
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $post);
 
-        if(!$this->request->isPost()){
+        if (!$this->request->isPost()) {
             return false;
         }
 
         $data = $this->request->getPost();
-        if(!$form->isFullValid($data)) {
+        if (!$form->isFullValid($data)) {
             return $this->displayInvalidMessages($form);
         }
 
         try {
             $form->save('createPost');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->displayException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_POST_CREATED');
+
         return $this->redirectHandler('/admin/post/edit/' . $form->getModel()->id);
     }
 
@@ -84,7 +84,7 @@ class PostController extends ControllerBase
     {
         $this->view->changeRender('admin/post/create');
         $post = Models\Post::findFirst($this->dispatcher->getParam('id'));
-        if(!$post) {
+        if (!$post) {
             throw new Exception\ResourceNotFoundException('ERR_BLOG_POST_NOT_FOUND');
         }
 
@@ -94,21 +94,22 @@ class PostController extends ControllerBase
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $post);
 
-        if(!$this->request->isPost()){
+        if (!$this->request->isPost()) {
             return false;
         }
         $data = $this->request->getPost();
 
-        if(!$form->isFullValid($data)) {
+        if (!$form->isFullValid($data)) {
             return $this->displayInvalidMessages($form);
         }
 
         try {
             $form->save('updatePost');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->displayException($e, $form->getModel()->getMessages());
         }
         $this->flashSession->success('SUCCESS_POST_UPDATED');
+
         return $this->redirectHandler('/admin/post/edit/' . $post->id);
     }
 }

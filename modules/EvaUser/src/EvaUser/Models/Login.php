@@ -2,7 +2,6 @@
 
 namespace Eva\EvaUser\Models;
 
-
 use Eva\EvaUser\Entities;
 use \Phalcon\Mvc\Model\Message as Message;
 use Eva\EvaEngine\Exception;
@@ -22,18 +21,21 @@ class Login extends Entities\Users
 
     public function getRememberMeToken()
     {
-        if(!$this->username) {
+        if (!$this->username) {
             $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_NO_USER_INPUT'));
+
             return false;
         }
         $sessionId = $this->getDI()->get('session')->getId();
-        if(!$sessionId) {
+        if (!$sessionId) {
             $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_NO_SESSION'));
+
             return false;
         }
         $userinfo = self::findFirst("username = '$this->username'");
-        if(!$userinfo) {
+        if (!$userinfo) {
             $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_USER_NOT_FOUND'));
+
             return false;
         }
         $token = new Entities\Tokens();
@@ -45,19 +47,21 @@ class Login extends Entities\Users
         $token->expiredAt = time() + $this->tokenExpired;
         $token->save();
         $tokenString = $sessionId . '|' . $token->token . '|' . $token->userHash;
+
         return $tokenString;
     }
 
     public function getUserHash(Entities\Users $userinfo)
     {
-        //If user password or status changed, all user token will be unavailable 
-        return md5($this->tokenSalt . $userinfo->status .  $userinfo->password); 
+        //If user password or status changed, all user token will be unavailable
+        return md5($this->tokenSalt . $userinfo->status .  $userinfo->password);
     }
 
     public function saveUserToSession(Entities\Users $userinfo)
     {
         $authIdentity = $this->userToAuthIdentity($userinfo);
         $this->getDI()->get('session')->set('auth-identity', $authIdentity);
+
         return $authIdentity;
     }
 
@@ -70,28 +74,27 @@ class Login extends Entities\Users
         );
     }
 
-
     public function login()
     {
         $userinfo = array();
-        if($this->username) {
+        if ($this->username) {
             $userinfo = self::findFirst("username = '$this->username'");
-        } elseif($this->email) {
+        } elseif ($this->email) {
             $userinfo = self::findFirst("email = '$this->email'");
         } else {
             throw new Exception\InvalidArgumentException('ERR_USER_NO_USERNAME_OR_EMAIL_INPUT');
         }
 
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if($userinfo->failedLogins >= $this->maxLoginRetry && $userinfo->loginFailedAt > (time() - 30)) {
+        if ($userinfo->failedLogins >= $this->maxLoginRetry && $userinfo->loginFailedAt > (time() - 30)) {
             throw new Exception\RuntimeException('ERR_USER_PASSWORD_WRONG_MAX_TIMES');
         }
 
         // check if hash of provided password matches the hash in the database
-        if(!password_verify($this->password, $userinfo->password)) {
+        if (!password_verify($this->password, $userinfo->password)) {
             //MUST be string type here
             $userinfo->failedLogins = (string) ($userinfo->failedLogins + 1);
             $userinfo->loginFailedAt = time();
@@ -99,7 +102,7 @@ class Login extends Entities\Users
             throw new Exception\VerifyFailedException('ERR_USER_PASSWORD_WRONG');
         }
 
-        if($userinfo->status != 'active') {
+        if ($userinfo->status != 'active') {
             throw new Exception\UnauthorizedException('ERR_USER_NOT_ACTIVATED');
         }
 
@@ -108,20 +111,21 @@ class Login extends Entities\Users
         $userinfo->save();
 
         $authIdentity = $this->saveUserToSession($userinfo);
+
         return $authIdentity;
     }
 
     public function loginWithId()
     {
         $userinfo = array();
-        if($this->id) {
+        if ($this->id) {
             $userinfo = self::findFirst("id = '$this->id'");
         }
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if($userinfo->status != 'active') {
+        if ($userinfo->status != 'active') {
             throw new Exception\UnauthorizedException('ERR_USER_NOT_ACTIVATED');
         }
 
@@ -129,15 +133,16 @@ class Login extends Entities\Users
         $userinfo->loginFailedAt = time();
         $userinfo->save();
         $authIdentity = $this->saveUserToSession($userinfo);
+
         return $authIdentity;
     }
-
 
     public function loginWithCookie($tokenString)
     {
         $tokenArray = explode('|', $tokenString);
-        if(!$tokenArray || count($tokenArray) < 3) {
+        if (!$tokenArray || count($tokenArray) < 3) {
             $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_FORMAT_INCORRECT'));
+
             return false;
         }
         $token = new Entities\Tokens();
@@ -147,26 +152,30 @@ class Login extends Entities\Users
             'userHash' => $tokenArray[2],
         ));
         $tokenInfo = $token::findFirst();
-        if(!$tokenInfo) {
+        if (!$tokenInfo) {
             $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_NOT_FOUND'));
+
             return false;
         }
 
-        if($tokenInfo->expiredAt < time()) {
+        if ($tokenInfo->expiredAt < time()) {
             $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_EXPIRED'));
+
             return false;
         }
 
         $this->id = $tokenInfo->userId;
         $userinfo = self::findFirst("id = '$this->id'");
 
-        if(!$userinfo) {
+        if (!$userinfo) {
             $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_USER_NOT_FOUND'));
+
             return false;
         }
 
-        if($userinfo->status != 'active') {
+        if ($userinfo->status != 'active') {
             $this->appendMessage(new Message('ERR_USER_REMEMBER_TOKEN_USER_NOT_ACTIVATED'));
+
             return false;
         }
 
@@ -175,15 +184,17 @@ class Login extends Entities\Users
         $userinfo->save();
 
         $this->saveUserToSession($userinfo);
+
         return true;
     }
 
     public function getAuthIdentity()
     {
         $authIdentity = $this->getDI()->get('session')->get('auth-identity');
-        if($authIdentity) {
+        if ($authIdentity) {
             return $authIdentity;
         }
+
         return false;
     }
 

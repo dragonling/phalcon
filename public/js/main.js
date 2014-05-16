@@ -1,16 +1,16 @@
+
 $(function(){
     /**
      * 导航栏高亮
      */
     var fullPathUrl = window.location.pathname + window.location.search;
-    $('#header .navbar .link').each(function(){
-        var item = $(this);
-        var pattern = item.attr("data-active-url");
-        if (pattern) {
-            var reg = new RegExp(pattern);
-            if(reg.test(fullPathUrl)) {
-                item.addClass("active");
-            }
+    $('#header .navbar .link[data-active-url]').each(function(){
+        var $item = $(this);
+        var reg = new RegExp($item.attr("data-active-url"));
+        if(reg.test(fullPathUrl)) {
+            $item.addClass("active");
+            //跳出循环
+            return false;
         }
     });
     /**
@@ -62,7 +62,7 @@ $(function(){
             $active.removeClass('active');
             $this.addClass('active');
         }
-        e.preventDefault();
+        //e.preventDefault();
 
         /*var $parents = $this.parents('.item.active');
         var $menu = $this.parents('.menu');
@@ -87,6 +87,7 @@ $(function(){
         }*/
 
     });
+
     /**
      * 汇率计算器
      */
@@ -190,6 +191,7 @@ $(function(){
     var option = tool.parseDomData($target.attr('data-fix-price-option'));
     var config = {};
     config.today = option.today;
+    config.size  = option.size || 10;
     config.withSilver = option.withSilver === false ? false : true;
     var $dom = $target.find('[data-fix-price-dom]');
     var template = $target.find('[data-fix-price-template]').html();
@@ -232,14 +234,14 @@ $(function(){
     }
 
     $.ajax({
-        url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=GOLDFIXPRICE&interval=1d&rows=50',
+        url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=GOLDFIXPRICE&interval=1d&rows=' + config.size,
         dataType: 'jsonp',
         success: function(response) {
             var goldData = response['results'];
             var data = goldData;
             if (config.withSilver) {
                 $.ajax({
-                    url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=SILVERFIXPRICE&interval=1d&rows=50',
+                    url: 'http://api.markets.wallstreetcn.com/v1/chart.json?symbol=SILVERFIXPRICE&interval=1d&rows=' + config.size,
                     dataType: 'jsonp',
                     success: function(response) {
                         var silverData = response['results'];
@@ -277,7 +279,7 @@ $(function(){
                         });
                         $dom.html(html);
                         if (config.today) {
-                            if (results[0].date !== moment().format('YYYY-MM-DD')) {
+                            if (results[0].date == moment().format('YYYY-MM-DD')) {
                                 var today_am_gold = results[0].gold_am;
                                 var today_pm_gold = results[0].gold_pm;
                                 var today_silver  = results[0].silver;
@@ -312,6 +314,16 @@ $(function(){
 
 })();
 
+window.jplayer = $('<div id="jplayer"></div>').appendTo('body');
+jplayer.jPlayer({
+    ready: function () {
+        $(this).jPlayer("setMedia", {
+            mp3 : "/js/vendor/notification.mp3"
+        });
+    },
+    swfPath: "/js/vendor/Jplayer.swf",
+    supplied: "mp3"
+});
 
 $(function(){
 
@@ -327,6 +339,29 @@ $(function(){
         paging: true,
         clock: true
     });
+    //
+
+    //
+    $('[data-action=livenews-alert]').on('click', function(e){
+        var $this = $(this);
+        var $target = $($this.attr('data-target'));
+        if (this.checked) {
+            $target.trigger('on_alert');
+        } else {
+            $target.trigger('off_alert');
+        }
+    });
+    //
+    $('[data-action=livenews-all-shrink]').on('click', function(e){
+        var $this = $(this);
+        var $target = $($this.attr('data-target'));
+        if (this.checked) {
+            $target.trigger('shrink_all');
+        } else {
+            $target.trigger('spread_all');
+        }
+    });
+
     //
     $('#side-fcl').fcl();
     //
@@ -366,7 +401,9 @@ $(function(){
             $this.parent().find('[data-efc-interval].active').removeClass('active');
             $this.addClass('active');
         } else if (type) {
-            //todo
+            frame.src = frame.src.replace(/type=\w+/, 'type=' + type);
+            $this.parent().find('[data-efc-type].active').removeClass('active');
+            $this.addClass('active');
         }
         /*
         if ($this.is('[data-etf-target]')) {

@@ -3,10 +3,7 @@
 namespace Eva\EvaBlog;
 
 use Phalcon\Loader;
-use Phalcon\Mvc\View;
-use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\ModuleDefinitionInterface;
-
 
 class Module implements ModuleDefinitionInterface
 {
@@ -31,9 +28,10 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices($di)
     {
-        $di->set('dispatcher', function() {
+        $di->set('dispatcher', function () {
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace('Eva\EvaBlog\Controllers');
+
             return $dispatcher;
         });
 

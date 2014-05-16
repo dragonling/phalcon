@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Eva\EvaBlog\Entities;
-
 
 class Tags extends \Eva\EvaEngine\Mvc\Model
 {
@@ -13,48 +11,48 @@ class Tags extends \Eva\EvaEngine\Mvc\Model
      * @var integer
      */
     public $id;
-     
+
     /**
      *
      * @var string
      */
     public $tagName;
-     
+
     /**
      *
      * @var integer
      */
     public $parentId = 0;
-     
+
     /**
      *
      * @var integer
      */
     public $rootId = 0;
-     
+
     /**
      *
      * @var integer
      */
     public $sortOrder = 0;
-     
+
     /**
      *
      * @var integer
      */
      public $count = 0;
-     
+
     /**
      * Independent Column Mapping.
      */
     public function columnMap()
     {
         return array(
-            'id' => 'id', 
-            'tagName' => 'tagName', 
-            'parentId' => 'parentId', 
-            'rootId' => 'rootId', 
-            'sortOrder' => 'sortOrder', 
+            'id' => 'id',
+            'tagName' => 'tagName',
+            'parentId' => 'parentId',
+            'rootId' => 'rootId',
+            'sortOrder' => 'sortOrder',
             'count' => 'count'
         );
     }

@@ -12,4 +12,3 @@ class IndexController extends ControllerBase
     }
 
 }
-

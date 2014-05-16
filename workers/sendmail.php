@@ -34,7 +34,7 @@ function sendmailAsync($job)
     echo sprintf("Start sending mail by %s \n", $jobString);
     try {
         $work = json_decode($jobString, true);
-        if($work) {
+        if ($work) {
             $class = new $work['class'];
             call_user_func_array(array($class, $work['method']), $work['parameters']);
             $logger->info(sprintf("Mail sent to %s", $jobString));
@@ -43,7 +43,7 @@ function sendmailAsync($job)
             $logger->error(sprintf("Mail sent parameters error by %s \n", $jobString));
             echo sprintf("Mail sent error %s \n", $jobString);
         }
-    } catch(\Exception $e) {
+    } catch (\Exception $e) {
         echo sprintf("Exception catched %s, see log for details \n", $jobString);
         $logger->debug($e);
     }

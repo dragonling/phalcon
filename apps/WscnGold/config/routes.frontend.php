@@ -5,11 +5,11 @@ return array(
         'module' => 'WscnGold',
         'controller' => 'index',
         'action' => 'index'
-    ),    
+    ),
     '/news' =>  array(
         'module' => 'WscnGold',
         'controller' => 'news',
-    ), 
+    ),
     '/news/:action(/(\d+))*' =>  array(
         'module' => 'WscnGold',
         'controller' => 'news',
@@ -37,24 +37,30 @@ return array(
     '/tutorial' =>  array(
         'module' => 'WscnGold',
         'controller' => 'index',
-        'action' => 'tutorial' 
-    ), 
+        'action' => 'tutorial',
+    ),
+    '/tutorial/(\w+)' =>  array(
+        'module' => 'WscnGold',
+        'controller' => 'index',
+        'action' => 'tutorial',
+        'id' => 1
+    ),
     '/gold/:action' =>  array(
         'module' => 'WscnGold',
         'controller' => 'index',
-        'action' => 1 
-    ), 
+        'action' => 1
+    ),
     '/techanalysis' =>  array(
         'module' => 'WscnGold',
         'controller' => 'techanalysis',
-    ), 
+    ),
     '/data/techanalysis/(\w+)/(\w+)' =>  array(
         'module' => 'WscnGold',
         'controller' => 'techanalysis',
         'action' => 'quote',
         'symbol' => 1,
         'period' => 2,
-    ), 
+    ),
     '/techanalysis/:action(/(\w+))*' =>  array(
         'module' => 'WscnGold',
         'controller' => 'techanalysis',
@@ -62,4 +68,3 @@ return array(
         'period' => 3,
     ),
 );
-

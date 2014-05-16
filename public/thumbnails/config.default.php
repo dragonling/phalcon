@@ -19,7 +19,7 @@ return array(
             'max_height' => 2000,
             'quality' => 100,
             'blending_layer' => __DIR__ . '/upload/blend.png',
-            'redirect_referer' => true, 
+            'redirect_referer' => true,
             'face_detect' => array(
                 'enable' => 0,
                 'draw_border' => 1,
@@ -34,7 +34,7 @@ return array(
                 ),
             ),
             'allow_extensions' => array(
-            
+
             ),
             'allow_sizes' => array(
                 //Suggest keep empty here to be overwrite

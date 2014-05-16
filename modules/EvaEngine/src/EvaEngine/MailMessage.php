@@ -41,34 +41,39 @@ class MailMessage implements \Phalcon\DI\InjectionAwareInterface
     public function inlineSubject($inlineSubject = true)
     {
         $this->inlineSubject = $inlineSubject;
+
         return $this;
     }
 
     public function htmlFormat($htmlFormat = true)
     {
         $this->htmlFormat = $htmlFormat;
+
         return $this;
     }
 
     public function setFrom($from)
     {
         $this->from = $from;
+
         return $this;
     }
 
     public function getFrom()
     {
-        if($this->from){
+        if ($this->from) {
             return $this->from;
         }
- 
+
         $this->from = $this->getDI()->get('config')->mailer->defaultFrom;
+
         return $this->from;
     }
 
     public function setTo($to)
     {
         $this->to = $to;
+
         return $this;
     }
 
@@ -80,6 +85,7 @@ class MailMessage implements \Phalcon\DI\InjectionAwareInterface
     public function setTemplate($template)
     {
         $this->template = $template;
+
         return $this;
     }
 
@@ -96,6 +102,7 @@ class MailMessage implements \Phalcon\DI\InjectionAwareInterface
     public function assign(array $parameters = array())
     {
         $this->parameters = $parameters;
+
         return $this;
     }
 
@@ -108,6 +115,7 @@ class MailMessage implements \Phalcon\DI\InjectionAwareInterface
         $file = explode('.', $filename);
         array_pop($file);
         $file = implode('.', $file);
+
         return $view->render($file, $this->getParameters());
     }
 
@@ -115,24 +123,25 @@ class MailMessage implements \Phalcon\DI\InjectionAwareInterface
     {
         $message = \Swift_Message::newInstance();
         $message->setFrom($this->getFrom());
-        if($this->template) {
+        if ($this->template) {
             $template = $this->render();
-            if($this->inlineSubject) {
+            if ($this->inlineSubject) {
                 $subject = strtok($template, "\n");
                 $message->setSubject($subject);
                 $count = 1;
                 $template = trim(str_replace($subject, '', $template, $count), "\n\r\t");
             }
 
-            if($this->htmlFormat) {
+            if ($this->htmlFormat) {
                 $message->setContentType('text/html');
             }
             $message->setBody($template);
         }
-        if($this->to) {
+        if ($this->to) {
             $message->setTo($this->to);
         }
         $this->message = $message;
+
         return $this;
     }
 
@@ -149,6 +158,7 @@ class MailMessage implements \Phalcon\DI\InjectionAwareInterface
     public function getMessage()
     {
         $this->initialize();
+
         return $this->message;
     }
 

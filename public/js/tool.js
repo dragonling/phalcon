@@ -104,18 +104,18 @@ var tool = {
         if (typeof str !== 'string') {
             return ;
         }
-        str = str.replace(/\s/g, '');
+        //str = str.replace(/\s/g, '');
         var array = str.split(';');
         var obj = {};
         for (var l=array.length-1; l>-1; l--) {
             var item = array[l];
             var index = item.indexOf(':');
             if (index > -1 && (index < item.length - 1)) {
-                var key = item.substring(0, index);
+                var key = item.substring(0, index).trim();
                 key = key.replace(/-\w/g, function(word) {
                     return word.charAt(1).toUpperCase();
                 });
-                var value = item.substring(index+1);
+                var value = item.substring(index+1).trim();
                 //类型转换 boolean
                 switch (value) {
                     case 'true':

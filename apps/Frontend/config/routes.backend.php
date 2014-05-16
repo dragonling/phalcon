@@ -7,4 +7,3 @@ return array(
         'action' => 'index'
     ),
 );
-

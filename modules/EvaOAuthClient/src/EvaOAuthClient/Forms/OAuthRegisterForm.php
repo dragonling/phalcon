@@ -13,7 +13,7 @@ use Phalcon\Validation\Validator\Identical;
 use Phalcon\Validation\Validator\StringLength;
 use Phalcon\Validation\Validator\Confirmation;
 
-class RegisterForm extends Form
+class OAuthRegisterForm extends Form
 {
 
     public function initialize($entity = null, $options = null)

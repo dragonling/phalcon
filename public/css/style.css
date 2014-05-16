@@ -70,8 +70,8 @@ acronym {
 }
 body {
   color: #000;
-  background: #f5f5f5;
-  font-family: Verdana Tahoma "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  background-color: #f5f5f5;
+  font-family: Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-size: 12px;
 }
 a {
@@ -88,7 +88,7 @@ a:active {
 button,
 select,
 input {
-  font-family: Verdana Tahoma "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-family: Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   border: 0;
   padding: 0;
 }
@@ -265,6 +265,9 @@ input {
 .width-250 {
   width: 250px;
 }
+.width-355 {
+  width: 355px;
+}
 .left {
   float: left;
 }
@@ -301,17 +304,11 @@ input {
 .text-gray {
   color: #505050;
 }
+.text-white {
+  color: #fff;
+}
 .text-bold {
   font-weight: bold;
-}
-.bg-red {
-  background-color: #ff3232;
-}
-.bg-green {
-  background-color: #00cb32;
-}
-.bg-gray {
-  background-color: #505050;
 }
 .border-red {
   border-color: #ff3232;
@@ -322,6 +319,33 @@ input {
 .border-gray {
   border-color: #505050;
 }
+.bg-red {
+  background-color: #ff3232;
+}
+.bg-blue {
+  background-color: #005178;
+}
+.bg-green {
+  background-color: #00cb32;
+}
+.bg-gray {
+  background-color: #505050;
+}
+.bg-white {
+  background-color: #fff;
+}
+.br-5 {
+  border-radius: 5px;
+}
+.br-left-5 {
+  border-radius: 5px 0 0 5px;
+}
+.br-right-5 {
+  border-radius: 0 5px 5px 0;
+}
+/*.bs {
+
+}*/
 .width-50 {
   width: 50px;
 }
@@ -719,23 +743,24 @@ label.checkbox.right {
   height: 140px;
   position: relative;
 }
-#header .title {
-  height: 100px;
+#header .title,
+#header .ad {
   color: #1e1e1e;
+  height: 100px;
+  overflow: hidden;
   position: relative;
 }
-#header .title .logo,
-#header .title .ad {
+#header .logo {
   position: absolute;
   top: 0;
   bottom: 0;
+  left: 20px;
   margin: auto 0;
 }
-#header .title .logo {
-  left: 20px;
-}
-#header .title .ad {
-  right: 0;
+#header .ad > div {
+  height: 90px;
+  float: right;
+  margin-top: 5px;
 }
 #header .toolbar {
   height: 39px;
@@ -793,9 +818,15 @@ label.checkbox.right {
   background-color: #fff;
 }
 #header form.search button[type=submit] {
-  line-height: 38px;
   width: 40px;
+  line-height: 38px;
+  text-align: center;
+  font-size: 15px;
+  color: #fff;
   background-color: #333;
+}
+#header form.search button[type=submit]:hover {
+  color: #068cb5;
 }
 #content {
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.4);
@@ -965,7 +996,7 @@ label.checkbox.right {
   color: #323232;
 }
 .article.page .content {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.5em;
 }
 .article.page .content p {
@@ -1427,6 +1458,17 @@ label.checkbox.right {
   line-height: 22px;
   width: 370px;
 }
+.finance-calendar .important .star {
+  height: 100%;
+  float: left;
+  width: 13px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url(../img/icon/star_grey.png);
+}
+.finance-calendar .important .star.active {
+  background-image: url(../img/icon/star_blue.png);
+}
 .finance-calendar.list {
   overflow: hidden;
 }
@@ -1439,9 +1481,6 @@ label.checkbox.right {
 .finance-calendar.list .date {
   color: #8C8C8C;
   font-weight: bold;
-}
-.finance-calendar.list .important .star {
-  margin-right: 3px;
 }
 .finance-calendar.list .more {
   display: block;
@@ -1710,6 +1749,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #finance-calendar > .content {
   margin-top: 30px;
+  min-height: 800px;
 }
 #finance-calendar > .content table {
   width: 100%;
@@ -1783,6 +1823,7 @@ td.datepickerSpecial.datepickerSelected a {
   color: #fff;
 }
 #finance-calendar > .content .important .star {
+  height: 12px;
   margin-right: 5px;
 }
 #market > .content {
@@ -2044,9 +2085,6 @@ td.datepickerSpecial.datepickerSelected a {
   padding: 30px;
   background-color: #fff;
 }
-#tech-analysis .width-355 {
-  width: 355px;
-}
 #tech-analysis .indicator {
   display: block;
   float: left;
@@ -2114,7 +2152,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #tech-analysis .datum {
   padding: 15px 30px;
-  height: 75px;
+  height: 82px;
   border-bottom: 1px solid #b4b4b4;
 }
 #tech-analysis .datum .title {
@@ -2146,7 +2184,7 @@ td.datepickerSpecial.datepickerSelected a {
   color: #005178;
 }
 #tech-analysis .datum .price .bottom {
-  bottom: 5px;
+  bottom: 2px;
 }
 #tech-analysis .datum [data-trend="up"] .diff,
 #tech-analysis .datum [data-trend="up"] .diff-pct {
@@ -2247,8 +2285,8 @@ td.datepickerSpecial.datepickerSelected a {
 #main .main-title {
   font-size: 16px;
   line-height: 16px;
-  height: 27px;
-  border-bottom: 3px solid #005178;
+  height: 26px;
+  border-bottom: 4px solid #005178;
   margin-top: 30px;
   margin-bottom: 15px;
   width: 100%;
@@ -2541,6 +2579,7 @@ td.datepickerSpecial.datepickerSelected a {
 #main-analysis .datum {
   float: left;
   width: 270px;
+  height: 118px;
   padding: 0 15px;
 }
 #main-analysis .datum .update-time {
@@ -2713,6 +2752,7 @@ td.datepickerSpecial.datepickerSelected a {
   bottom: 0;
   left: 0;
   font-size: 14px;
+  overflow-y: auto;
 }
 .menu .item {
   display: block;
@@ -2728,7 +2768,8 @@ td.datepickerSpecial.datepickerSelected a {
   position: absolute;
   top: -2px;
   content: '';
-  width: 100%;
+  left: 0;
+  right: 0;
   height: 0;
   border-top: 1px solid #c8c8c8;
   border-bottom: 1px solid #fff;
@@ -2740,20 +2781,31 @@ td.datepickerSpecial.datepickerSelected a {
 }
 .menu .item:hover,
 .menu .item.active {
-  background-color: #005178;
-  color: #fff;
-  /*margin: -1px -15px;
-            padding: 11px 15px;*/
   margin-left: -15px;
   margin-right: -15px;
   padding-left: 15px;
   padding-right: 15px;
 }
-.menu .item:hover:before,
+.menu .item:hover {
+  color: #005178;
+}
+.menu .item:hover .text {
+  color: #005178;
+}
+.menu .item:hover:before {
+  left: 15px;
+  right: 15px;
+}
+.menu .item.active {
+  background-color: #005178;
+  color: #fff;
+}
+.menu .item.active .text {
+  color: #fff;
+}
 .menu .item.active:before {
   display: none;
 }
-.menu .item:hover + .item:before,
 .menu .item.active + .item:before {
   display: none;
 }
@@ -2812,6 +2864,16 @@ td.datepickerSpecial.datepickerSelected a {
 .menu[data-tree] .sub-menu .text {
   font-size: 12px;
   padding-left: 15px;
+}
+.menu[data-tree] .sub-menu .sub-menu .text {
+  padding-left: 25px;
+  position: relative;
+}
+.menu[data-tree] .sub-menu .sub-menu .text:before {
+  display: block;
+  position: absolute;
+  left: 15px;
+  content: '-';
 }
 .menu[data-tree] .item[data-toggle=sub-menu] .icon-custom-toggle:before {
   content: "\f107";
@@ -3356,6 +3418,12 @@ td.datepickerSpecial.datepickerSelected a {
 #stare-modal.panel .button[data-toggle=hide].active > .icon-custom:before {
   content: '\f078';
 }
+#stare-modal.panel .button[data-toggle=hide].dir-up > .icon-custom:before {
+  content: '\f078';
+}
+#stare-modal.panel .button[data-toggle=hide].dir-up.active > .icon-custom:before {
+  content: '\f077';
+}
 #stare-modal.panel .market.chart {
   width: 702px;
   margin-bottom: 20px;
@@ -3527,41 +3595,59 @@ td.datepickerSpecial.datepickerSelected a {
   padding: 8px 15px;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item {
-  padding: 8px 15px;
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #bebebe;
-  color: #000;
+  line-height: 1.5em;
+  width: 360px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  margin: 12px 25px 8px 15px;
+  background-color: #fff;
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.35);
+  position: relative;
+  /*.profit {
+                width: 75px;
+            }*/
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item:before {
-  display: table;
+  position: absolute;
+  display: block;
   content: '';
-  clear: both;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 80px;
+  background-color: #005178;
+  z-index: 0;
+  border-radius: 5px 0 0 5px;
 }
-#stare-modal.panel .finance-calendar.scrollable.list .item:after {
-  display: table;
-  content: '';
-  clear: both;
+#stare-modal.panel .finance-calendar.scrollable.list .item .time,
+#stare-modal.panel .finance-calendar.scrollable.list .item .important {
+  width: 65px;
+  margin-right: 20px;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item .time {
-  width: 75px;
   font-weight: bold;
-  line-height: 1.5em;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item .important {
-  width: 105px;
   height: 1.5em;
 }
+#stare-modal.panel .finance-calendar.scrollable.list .item .important .star {
+  margin-right: 6px;
+}
+#stare-modal.panel .finance-calendar.scrollable.list .item .important .star.active {
+  background-image: url(../img/icon/star_white.png);
+}
 #stare-modal.panel .finance-calendar.scrollable.list .item .title {
-  width: 210px;
-  font-weight: bold;
-  line-height: 1.5em;
+  width: 180px;
   margin-bottom: 5px;
 }
-#stare-modal.panel .finance-calendar.scrollable.list .item .profit {
-  width: 75px;
+#stare-modal.panel .finance-calendar.scrollable.list .item .country {
+  width: 90px;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item .price {
-  width: 105px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 90px;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .item .label {
   color: #666;

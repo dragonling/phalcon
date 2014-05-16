@@ -3,7 +3,6 @@
 namespace Eva\EvaEngine\Mvc\Controller;
 
 use Phalcon\Mvc\Controller;
-use Eva\EvaEngine\Exception;
 
 class JsonErrorController extends Controller
 {
@@ -14,14 +13,15 @@ class JsonErrorController extends Controller
         $this->response->setJsonContent(array(
             'errors' => array(
                 array(
-                    'code' => $error->getCode(),
-                    'message' => $error->getMessage()
+                    'code' => $error->type(),
+                    'message' => $error->message()
                 )
             ),
         ));
         $callback = $this->request->getQuery('callback');
-        if($callback) {
+        if ($callback) {
             $this->response->setContent($callback . '(' . $this->response->getContent() . ')');
         }
+        echo $this->response->getContent();
     }
 }

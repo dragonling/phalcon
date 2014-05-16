@@ -22,6 +22,12 @@
         <link rel="stylesheet" href="/css/datepicker.css">
         <link rel="stylesheet" href="/css/nanoscroller.css">
         <link rel="stylesheet" href="/css/style.css"/>
+		<!--[if !IE]> -->
+        <script type="text/javascript" src="/vendor/js/jquery-2.0.3.js"></script>
+		<!-- <![endif]-->
+		<!--[if IE]>
+		<script type="text/javascript" src="/vendor/js/jquery-1.10.2.min.js"></script>
+        <![endif]-->
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -31,11 +37,18 @@
         <!-- Add your site or application content here -->
         
         <div id="header">
-            <h1 class="title container">
-                华尔街见闻-黄金头条
-                <img class="logo " src="/img/logo.png" alt=""/>
-                <img class="ad " src="/img/ad/ad01.png" alt=""/>
-            </h1>
+            <div class="banner container">
+                <div class="row">
+                    <h1 class="span3 title">
+                        华尔街见闻-黄金头条
+                        <a href="/"><img class="logo " src="/img/logo.png" alt=""/></a>
+                    </h1>
+                    <div class="span9 ad">
+                        <script type="text/javascript" >BAIDU_CLB_SLOT_ID = "902869";</script>
+                        <script type="text/javascript" src="http://cbjs.baidu.com/js/o.js"></script>
+                    </div>
+                </div>
+            </div>
             <div class="toolbar">
                 <div class="container">
 
@@ -53,7 +66,9 @@
                     <div class="right">
                         <form class="search left" action="/news/search">
                             <input class="left" type="text" name="q" />
-                            <button class="right" type="submit">?</button>
+                            <button class="right" type="submit">
+                                <i class="icon-search"></i>
+                            </button>
                         </form>
                         <div class="user right" data-popup="user-menu">
                         </div>
@@ -70,7 +85,7 @@
             <div class="container">
                 <div class="row">
                     <div class="span3 ">
-                        <img class="logo" src="/img/logo.png" alt=""/>
+                        <a href="/"><img class="logo" src="/img/logo.png" alt=""/></a>
                         <img class="qrcode" src="/img/qrcode.png" alt=""/>
                         <p class="copyright">
                             2010-2014 华尔街见闻·黄金头条<br>
@@ -126,10 +141,10 @@
         </div>
 
         <!--<script src="/vendor/js/html5shiv.min.js"></script>-->
-        <script src="/vendor/js/jquery-1.10.2.min.js"></script>
         <script src="/vendor/js/underscore.min.js"></script>
         <script src="/vendor/js/moment.min.js"></script>
         <script src="/js/vendor/datepicker.js"></script>
+        <script src="/js/vendor/jquery.jplayer.min.js"></script>
         <script src="/js/vendor/jquery.nanoscroller.js"></script>
         <script src="/js/vendor/raphael.js"></script>
         <script src="/js/vendor/highcharts.js"></script>

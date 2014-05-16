@@ -21,4 +21,3 @@ return array(
         'action' => 1,
     ),
 );
-

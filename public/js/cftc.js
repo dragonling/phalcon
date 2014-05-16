@@ -35,6 +35,7 @@
                     var l = results.length;
                     for (i = 1; i < l; i ++) {
                         var item = {};
+                        item.utm = results[i].start;
                         item.date = moment.unix(results[i].start).format('YYYY.MM.DD');
                         //nc: non-commercial  非-商业
                         //lp: Long positions  多头持仓
@@ -51,6 +52,9 @@
                         data.push(item);
                         chartData.push([results[i].start*1000, item.nc_diff]);
                     }
+                    chartData.sort(function(arg1, arg2){
+                        return arg1[0] - arg2[0];
+                    });
                     if (root.config.chart) {
                         root.initChart(chartData);
                     }
@@ -179,7 +183,7 @@
                 }
             },
             series: [{
-                name: 'ETF',
+                name: 'CFTC',
                 data: data
             }]
         });

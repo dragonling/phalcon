@@ -12,10 +12,9 @@
 error_reporting(E_ALL);
 
 // Check php version
-if( version_compare(phpversion(), '5.3.0', '<') ) {
+if ( version_compare(phpversion(), '5.3.0', '<') ) {
     die(printf('PHP 5.3.0 is required, you have %s', phpversion()));
 }
-
 
 require __DIR__ . '/../../init_autoloader.php';
 
@@ -24,7 +23,7 @@ $engine->bootstrap();
 $localConfig = $engine->getDI()->get('config');
 
 $config = new EvaThumber\Config\Config(include __DIR__ . '/config.default.php');
-if(isset($localConfig->thumbnail->thumbers)){
+if (isset($localConfig->thumbnail->thumbers)) {
     $config = $config->merge(new EvaThumber\Config\Config(array(
         'thumbers' => $localConfig->thumbnail->thumbers->toArray())
     ));
@@ -33,11 +32,10 @@ if(isset($localConfig->thumbnail->thumbers)){
 try {
     $thumber = new EvaThumber\Thumber($config);
     $thumber->show();
-} catch(Exception $e){
-    if(isset($localConfig->thumbnail->default->errorUri) && $url = $localConfig->thumbnail->default->errorUri) {
+} catch (Exception $e) {
+    if (isset($localConfig->thumbnail->default->errorUri) && $url = $localConfig->thumbnail->default->errorUri) {
         header("location:$url?msg=" . urlencode($e->getMessage()));
     } else {
         throw $e;
     }
 }
-

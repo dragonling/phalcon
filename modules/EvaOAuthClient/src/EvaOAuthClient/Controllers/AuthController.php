@@ -2,7 +2,6 @@
 
 namespace Eva\EvaOAuthClient\Controllers;
 
-
 use Eva\EvaOAuthClient\Models;
 use Eva\EvaUser\Models as UserModels;
 use EvaOAuth\Service as OAuthService;
@@ -66,7 +65,7 @@ class AuthController extends ControllerBase
         $session = $this->getDI()->get('session');
         $requestToken = $session->get('request-token');
 
-        if(!$requestToken) {
+        if (!$requestToken) {
             return $this->response->redirect($this->getDI()->get('config')->oauth->authFailedRedirectUri);
         }
 
@@ -75,21 +74,23 @@ class AuthController extends ControllerBase
             $accessTokenArray = $oauth->getAdapter()->accessTokenToArray($accessToken);
             $session->set('access-token', $accessTokenArray);
             $session->remove('request-token');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->flashSession->error('ERR_OAUTH_AUTHORIZATION_FAILED');
             $this->ignoreException($e);
+
             return $this->response->redirect($this->getDI()->get('config')->oauth->authFailedRedirectUri);
         }
 
         $user = new Models\Login();
         try {
-            if($user->loginWithAccessToken($accessTokenArray)) {
+            if ($user->loginWithAccessToken($accessTokenArray)) {
                 return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
             } else {
                 return $this->response->redirect('/auth/register');
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
+
             return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
 
@@ -99,7 +100,7 @@ class AuthController extends ControllerBase
     {
         $session = $this->getDI()->get('session');
         $accessToken = $session->get('access-token');
-        if(!$accessToken) {
+        if (!$accessToken) {
             return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
         $this->view->token = $accessToken;
@@ -107,18 +108,19 @@ class AuthController extends ControllerBase
         $email = isset($accessToken['remoteEmail']) ? $accessToken['remoteEmail'] : '';
         $this->view->suggestEmail = $email;
 
-        if($email) {
+        if ($email) {
             $userManager = new UserModels\User();
             $userManager->assign(array(
                 'email' => $email,
             ));
-            if($userManager->isExist()){
+            if ($userManager->isExist()) {
                 $user = new Models\Login();
                 $user->assign(array(
                     'email' => $email,
                 ));
                 $user->connectWithExistEmail($accessToken);
                 $this->flashSession->success('SUCCESS_OAUTH_AUTO_CONNECT_EXIST_EMAIL');
+
                 return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
             }
         }
@@ -138,9 +140,11 @@ class AuthController extends ControllerBase
             $user->register();
             $session->remove('access-token');
             $this->flashSession->success('SUCCESS_OAUTH_USER_REGISTERED');
+
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
+
             return $this->response->redirect($this->getDI()->get('config')->oauth->registerFailedRedirectUri);
         }
     }
@@ -148,18 +152,18 @@ class AuthController extends ControllerBase
     public function getSuggestUsername($accessToken)
     {
         $suggestUsername = '';
-        if(isset($accessToken['remoteUserName']) && $accessToken['remoteUserName']) {
+        if (isset($accessToken['remoteUserName']) && $accessToken['remoteUserName']) {
             $suggestUsername = $accessToken['remoteUserName'];
         } elseif (isset($accessToken['remoteNickName']) && $accessToken['remoteNickName']) {
             $suggestUsername = $accessToken['remoteNickName'];
         }
         $suggestUsername = str_replace(' ', '', $suggestUsername);
-        if(!$suggestUsername || !preg_match('/^[0-9a-zA-Z]+$/', $suggestUsername)) {
+        if (!$suggestUsername || !preg_match('/^[0-9a-zA-Z]+$/', $suggestUsername)) {
             return '';
         }
+
         return $suggestUsername;
     }
-
 
     public function loginAction()
     {
@@ -168,7 +172,7 @@ class AuthController extends ControllerBase
 
         $session = $this->getDI()->get('session');
         $accessToken = $session->get('access-token');
-        if(!$accessToken) {
+        if (!$accessToken) {
             return $this->response->redirect($this->getDI()->get('config')->oauth->authFailedRedirectUri);
         }
         $this->view->token = $accessToken;
@@ -179,7 +183,7 @@ class AuthController extends ControllerBase
 
         $user = new Models\Login();
         $identify = $this->request->getPost('identify');
-        if(false === strpos($identify, '@')) {
+        if (false === strpos($identify, '@')) {
             $user->assign(array(
                 'username' => $identify,
                 'password' => $this->request->getPost('password'),
@@ -195,9 +199,11 @@ class AuthController extends ControllerBase
             $user->connectWithPassword($accessToken);
             $this->flashSession->success('SUCCESS_OAUTH_USER_CONNECTED');
             $session->remove('access-token');
+
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginSuccessRedirectUri);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
+
             return $this->response->redirect($this->getDI()->get('config')->oauth->loginFailedRedirectUri);
         }
     }

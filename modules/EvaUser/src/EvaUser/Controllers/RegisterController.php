@@ -16,6 +16,7 @@ class RegisterController extends ControllerBase
         $form = new Forms\RegisterForm();
         if ($form->isValid($this->request->getPost()) === false) {
             $this->displayInvalidMessages($form);
+
             return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
         $user = new Models\Register();
@@ -26,11 +27,13 @@ class RegisterController extends ControllerBase
         ));
         try {
             $user->register();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->displayException($e, $user->getMessages());
+
             return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
         }
         $this->flashSession->success('SUCCESS_USER_REGISTERED_ACTIVE_MAIL_SENT');
+
         return $this->response->redirect($this->getDI()->get('config')->user->registerFailedRedirectUri);
     }
 
@@ -38,8 +41,8 @@ class RegisterController extends ControllerBase
     {
         $username = $this->request->get('username');
         $email = $this->request->get('email');
-        
-        if($username) {
+
+        if ($username) {
             $userinfo = Models\Login::findFirst(array("username = '$username'"));
         } elseif ($email) {
             $userinfo = Models\Login::findFirst(array("email = '$email'"));
@@ -47,9 +50,10 @@ class RegisterController extends ControllerBase
             $userinfo = array();
         }
         $this->view->disable();
-        if($userinfo) {
+        if ($userinfo) {
             $this->response->setStatusCode('409', 'User Already Exists');
         }
+
         return $this->response->setJsonContent(array(
             'exist' => $userinfo ? true : false,
             'id' => $userinfo ? $userinfo->id : 0,

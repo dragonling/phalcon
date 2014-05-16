@@ -118,11 +118,12 @@ class PostController extends ControllerBase
         $pager = $paginator->getPaginate();
 
         $postArray = array();
-        if($pager->items) {
-            foreach($pager->items as $key => $post) {
+        if ($pager->items) {
+            foreach ($pager->items as $key => $post) {
                 $postArray[] = $post->dump(Models\Post::$defaultDump);
             }
         }
+
         return $this->response->setJsonContent(array(
             'paginator' => $this->getApiPaginator($paginator),
             'results' => $postArray,
@@ -168,13 +169,14 @@ class PostController extends ControllerBase
         $id = $this->dispatcher->getParam('id');
         $postModel = new Models\Post();
         $post = $postModel->findFirst($id);
-        if($post) {
-            $post = $post->dump(Models\Post::$defaultDump);
-        }
-        $this->response->setContentType('application/json', 'utf-8');
+
+         if (!$post) {
+             throw new Exception\ResourceNotFoundException('Request post not exist');
+         }
+
+         $post = $post->dump(Models\Post::$defaultDump);
         return $this->response->setJsonContent($post);
     }
-
 
     /**
      *
@@ -223,24 +225,34 @@ class PostController extends ControllerBase
      {
          $id = $this->dispatcher->getParam('id');
          $data = $this->request->getRawBody();
-         if(!$data) {
+         if (!$data) {
              throw new Exception\InvalidArgumentException('No data input');
          }
-         if(!$data = json_decode($data, true)) {
+         if (!$data = json_decode($data, true)) {
              throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
          }
 
          $post = Models\Post::findFirst($id);
-         if(!$post) {
+         if (!$post) {
              throw new Exception\ResourceNotFoundException('Request post not exist');
          }
-         try {
-             $post->updatePost($data);
-             $data = $post->dump(Models\Post::$defaultDump);
-             return $this->response->setJsonContent($data);
-         } catch(\Exception $e) {
-             return $this->errorHandler($e, $post->getMessages());
-         }
+
+        $form = new Forms\PostForm();
+        $form->setModel($post);
+        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+
+
+        if (!$form->isFullValid($data)) {
+            return $this->displayJsonInvalidMessages($form);
+        }
+
+        try {
+            $form->save('updatePost');
+            $data = $post->dump(Models\Post::$defaultDump);
+            return $this->response->setJsonContent($data);
+        } catch (\Exception $e) {
+            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
+        }
      }
 
      /**
@@ -279,32 +291,34 @@ class PostController extends ControllerBase
      */
     public function postAction()
     {
-        $post = new Models\Post();
-        $postForm = new \Eva\EvaBlog\Forms\PostForm();
-        $postForm->setModel($post);
-
-        $textForm = new \Eva\EvaBlog\Forms\TextForm();
-        $textForm->setModel(new Models\Text());
-        $textForm->setPrefix('Text');
-
         $data = $this->request->getRawBody();
-        if(!$data) {
+        if (!$data) {
             throw new Exception\InvalidArgumentException('No data input');
         }
-        if(!$data = json_decode($data, true)) {
+        if (!$data = json_decode($data, true)) {
             throw new Exception\InvalidArgumentException('Data not able to decode as JSON');
         }
+
+        $form = new Forms\PostForm();
+        $post = new Models\Post();
+        $form->setModel($post);
+        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+
+        if (!$form->isFullValid($data)) {
+            return $this->displayJsonInvalidMessages($form);
+        }
+
         try {
-            $post->createPost($data);
+            $form->save('createPost');
             $data = $post->dump(Models\Post::$defaultDump);
             return $this->response->setJsonContent($data);
-        } catch(\Exception $e) {
-            return $this->errorHandler($e, $post->getMessages());
+        } catch (\Exception $e) {
+            return $this->displayExceptionForJson($e, $form->getModel()->getMessages());
         }
     }
 
     /**
-     *
+    *
      * @SWG\Api(
      *   path="/post/{postId}",
      *   description="Post related api",
@@ -331,15 +345,15 @@ class PostController extends ControllerBase
     {
          $id = $this->dispatcher->getParam('id');
          $post = Models\Post::findFirst($id);
-         if(!$post) {
+         if (!$post) {
              throw new Exception\ResourceNotFoundException('Request post not exist');
          }
          $postinfo = $post->dump(Models\Post::$defaultDump);
          try {
              $post->removePost($id);
              return $this->response->setJsonContent($postinfo);
-         } catch(\Exception $e) {
-             return $this->errorHandler($e, $post->getMessages());
+         } catch (\Exception $e) {
+             return $this->displayExceptionForJson($e, $post->getMessages());
          }
     }
 }

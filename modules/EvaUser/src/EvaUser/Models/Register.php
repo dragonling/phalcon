@@ -2,7 +2,6 @@
 
 namespace Eva\EvaUser\Models;
 
-
 use Eva\EvaUser\Entities;
 use \Phalcon\Mvc\Model\Message as Message;
 use Eva\EvaEngine\Exception;
@@ -12,12 +11,12 @@ class Register extends Entities\Users
     public function register()
     {
         $userinfo = self::findFirst("username = '$this->username'");
-        if($userinfo) {
+        if ($userinfo) {
             throw new Exception\ResourceConflictException('ERR_USER_USERNAME_ALREADY_TAKEN');
         }
 
         $userinfo = self::findFirst("email = '$this->email'");
-        if($userinfo) {
+        if ($userinfo) {
             throw new Exception\ResourceConflictException('ERR_USER_EMAIL_ALREADY_TAKEN');
         }
 
@@ -38,32 +37,33 @@ class Register extends Entities\Users
         }
 
         $userinfo = self::findFirst("username = '$this->username'");
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\RuntimeException('ERR_USER_CREATE_FAILED');
         }
         $this->sendVerificationEmail($userinfo->username);
+
         return $userinfo;
     }
 
-
     public function sendVerificationEmail($username, $forceSend = false)
     {
-        if(false === $forceSend && $this->getDI()->get('config')->mailer->async) {
+        if (false === $forceSend && $this->getDI()->get('config')->mailer->async) {
             $queue = $this->getDI()->get('queue');
             $result = $queue->doBackground('sendmailAsync', json_encode(array(
                 'class' => __CLASS__,
                 'method' => __FUNCTION__,
                 'parameters' => array($username, true)
             )));
+
             return true;
         }
 
         $userinfo = self::findFirst("username = '$username'");
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if($userinfo->status == 'active') {
+        if ($userinfo->status == 'active') {
             throw new Exception\OperationNotPermitedException('ERR_USER_ALREADY_ACTIVED');
         }
 
@@ -79,9 +79,9 @@ class Register extends Entities\Users
         ));
 
         $mailer->send($message->getMessage());
+
         return true;
     }
-
 
     /**
     * checks the email/verification code combination and set the user's activation status to active in the database
@@ -92,20 +92,20 @@ class Register extends Entities\Users
     public function verifyNewUser($username, $activationCode)
     {
         $userinfo = self::findFirst("username = '$username'");
-        if(!$userinfo) {
+        if (!$userinfo) {
             throw new Exception\ResourceNotFoundException('ERR_USER_NOT_EXIST');
         }
 
-        if($userinfo->status == 'active') {
+        if ($userinfo->status == 'active') {
             throw new Exception\OperationNotPermitedException('ERR_USER_ALREADY_ACTIVED');
         }
 
         //status tranfer only allow inactive => active
-        if($userinfo->status != 'inactive') {
+        if ($userinfo->status != 'inactive') {
             throw new Exception\OperationNotPermitedException('ERR_USER_BE_BANNED');
         }
 
-        if($userinfo->activationHash != $activationCode) {
+        if ($userinfo->activationHash != $activationCode) {
             throw new Exception\VerifyFailedException('ERR_USER_ACTIVATE_CODE_NOT_MATCH');
         }
 
@@ -116,6 +116,7 @@ class Register extends Entities\Users
         if (!$userinfo->save()) {
             throw new Exception\RuntimeException('ERR_USER_ACTIVE_FAILED');
         }
+
         return true;
     }
 }
