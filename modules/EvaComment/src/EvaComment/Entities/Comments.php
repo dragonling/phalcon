@@ -29,7 +29,7 @@ class Comments extends BaseModel
      *
      * @var string
      */
-    public $sourceCode;
+    public $codeType;
 
     /**
      *
@@ -41,7 +41,7 @@ class Comments extends BaseModel
      *
      * @var integer
      */
-    public $ancestorId;
+    public $rootId;
 
     /**
      *
