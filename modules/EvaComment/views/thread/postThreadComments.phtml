@@ -1,0 +1,28 @@
+<li class="item">
+    <div class="row">
+        <div class="span">
+            <img class="avatar" src="" alt=""/>
+        </div>
+        <div class="span">
+            <h4 class="name"><?=$comment->username ?></h4>
+            <p class="comment"><?=$comment->content ?></p>
+            <div class="row">
+                <div class="time span">3分钟前</div>
+                <div class="toolbar right">
+<!--                                        <span class="button">-->
+<!--                                            <i class="icon-thumbs-up"></i>-->
+<!--                                            <span class="value">5</span>-->
+<!--                                        </span>-->
+<!--                                        <span class="button">-->
+<!--                                            <i class="icon-thumbs-down"></i>-->
+<!--                                            <span class="value">5</span>-->
+<!--                                        </span>-->
+                    <span class="button">
+                        回复（<span><?=$comment->numReply?></span>）
+                    </span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</li>

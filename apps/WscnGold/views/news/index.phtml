@@ -8,14 +8,14 @@
                     <li class="item">
                         <a class="link" href="/post/<?=$post->slug?>">
                             <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_356,w_400') : '/img/article.jpg'?>" alt=""/>
-                            <h3 class="title"><?=$post->title?></h3>
+                            <h3 class="title"><?=$this->escaper->escapeHtmlAttr($post->title)?></h3>
                         </a>
                     </li>
                 </ul>
                 <ul class="topnews list type1 right">
                     <li class="title"><h2>头条新闻</h2></li>
                     <?foreach($posts as $post):?>
-                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?> <span class="time"><?=$this->tag->datetime($post->createdAt, 'H:m')?></span></a></li>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?> <span class="time"><?=$this->tag->datetime($post->createdAt, 'H:m')?></span></a></li>
                     <?endforeach?>
                 </ul>
             </div>
@@ -39,7 +39,7 @@
                 <ul class="news list left">
                     <li class="title">黄金要闻</li>
                     <?foreach($posts as $post):?>
-                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?></a></li>
                     <?endforeach?>
                     <li class="more"><a class="link" href="/news/list?cid=3">MORE &gt;&gt;</a></li>
                 </ul>
@@ -47,7 +47,7 @@
                 <ul class="news list right">
                     <li class="title">白银要闻</li>
                     <?foreach($posts as $post):?>
-                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?></a></li>
                     <?endforeach?>
                     <li class="more"><a class="link" href="/news/list?cid=4">MORE &gt;&gt;</a></li>
                 </ul>
@@ -57,7 +57,7 @@
                 <ul class="news list left">
                     <li class="title">机构分析</li>
                     <?foreach($posts as $post):?>
-                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?></a></li>
                     <?endforeach?>
                     <li class="more"><a class="link" href="/news/list?cid=5">MORE &gt;&gt;</a></li>
                 </ul>
@@ -65,7 +65,7 @@
                 <ul class="news list right">
                     <li class="title">全球要闻</li>
                     <?foreach($posts as $post):?>
-                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?></a></li>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?></a></li>
                     <?endforeach?>
                     <li class="more"><a class="link" href="/news/list?cid=6">MORE &gt;&gt;</a></li>
                 </ul>

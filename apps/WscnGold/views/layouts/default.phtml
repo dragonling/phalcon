@@ -5,14 +5,15 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
+        <title><?=$this->placeholder->block('title', '黄金头条');?></title>
+        <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>黄金头条</title>
-        <meta name="description" content="">
+        <![endif]-->
+        <meta name="description" content="<?=$this->placeholder->block('description', '黄金头条');?>">
+        <meta name="keywords" content="<?=$this->placeholder->block('keywords', '黄金头条');?>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- modernizr -->
         <script type="text/javascript" src="/js/vendor/modernizr-2.6.2.min.js"></script>
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="stylesheet" href="/vendor/css/font-awesome.min.css">
         <link rel="stylesheet" href="/vendor/css/flags.css">
 
@@ -88,8 +89,8 @@
                         <a href="/"><img class="logo" src="/img/logo.png" alt=""/></a>
                         <img class="qrcode" src="/img/qrcode.png" alt=""/>
                         <p class="copyright">
-                            2010-2014 华尔街见闻·黄金头条<br>
-                            gold.wallstreetcn.com 沪ICP备13091121号
+                        ©2010-2014 黄金头条<br>
+                            www.goldtoutiao.com 沪ICP备XXXXXX号
                         </p>
                     </div>
                     <div class="span8 offset1">
@@ -97,42 +98,40 @@
                             <div class="span3">
                                 <h4 class="title">相关信息</h4>
                                 <ul>
-                                    <li><a class="link" href="">关于华尔街见闻</a></li>
-                                    <li><a class="link" href="">使用条款</a></li>
-                                    <li><a class="link" href="">版权声明</a></li>
+                                    <li><a class="link" href="/post/about">关于黄金头条</a></li>
+                                    <li><a class="link" href="/post/terms">使用条款</a></li>
+                                    <li><a class="link" href="/post/risk">风险披露</a></li>
+                                    <li><a class="link" href="/post/copyrightstatement">版权声明</a></li>
                                 </ul>
                             </div>
                             <div class="span3">
                                 <h4 class="title">联系我们</h4>
                                 <ul>
-                                    <li><a class="link" href="">广告投放</a></li>
-                                    <li><a class="link" href="">商业合作</a></li>
-                                    <li><a class="link" href="">意见反馈</a></li>
+                                    <li><a class="link" href="/post/ad">广告投放</a></li>
+                                    <li><a class="link" href="/post/business">商业合作</a></li>
+                                    <li><a class="link" href="/post/contact">意见反馈</a></li>
                                 </ul>
                             </div>
                             <div class="span3">
                                 <h4 class="title">关注我们</h4>
                                 <ul>
-                                    <li><a class="link" href="">微博@华尔街见闻</a></li>
-                                    <li><a class="link" href="">腾讯微博</a></li>
-                                    <li><a class="link" href="">RSS订阅</a></li>
-                                    <li><a class="link" href="">邮件订阅</a></li>
+                                    <li><a class="link" href="http://weibo.com/u/3879517794" target="_blank">微博@黄金头条</a></li>
                                 </ul>
                             </div>
                             <div class="span3">
-                                <h4 class="title">加入我们</h4>
+                                <h4 class="title">网站导航</h4>
                                 <ul>
-                                    <li><a class="link important" href="">全职岗位</a></li>
-                                    <li><a class="link" href="">实习岗位</a></li>
+                                    <li><a class="link" href="/news">市场新闻</a></li>
+                                    <li><a class="link" href="/livenews">实时新闻</a></li>
+                                    <li><a class="link" href="/market">行情中心</a></li>
+                                    <li><a class="link" href="/calendar">财经日历</a></li>
+                                    <li><a class="link" href="/techanalysis">技术分析</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="row">
-                            <p class="friend-links">
-                                <span class="title">友情链接：</span>
-                                <a class="link" href="">
-                                    hao123 | 新浪财经 | 腾讯财经 | 财经网 | 和讯网 | 一财网 | 华讯财经 | 东方财富网 | 金融界 | 证券之星 | 全景财经 | 看看新闻网 | 中国金融新闻网 | 中国金融信息网 | 中国金融网 | 中华网财经 | 环球外汇网 | 中金在线财经 | 外汇通 | 新财富 | 申银万国期货 | 中国国际期货有限公司 | 中证期货有限公司 | 卓创资讯 | 好买基金网 | 领峰贵金属 | 港股通 | 观察者网 | 丰华财经 | 中国金融理财网 | 隆众石化网 | 银行贷款 | 汇商网 | 瑞星安全网址导航 | 安全网址导航 | 360安全网址导航 | QQ导航 | 2345.com网址导航 | 114啦网址导航 | 抽屉新热榜 | 1616个人门户 | SVS金盛集团 | 头条新闻 | 第九课堂 | 高顿网校 | IBTIMES中文网 | 凤凰财经 | 网站排行榜 | 经济网 | TARGET致品网 | 商业见地网 | 大河网金融频道 | 汇金网 | 汇通网 | 她理财
-                                </a>
+                            <p>
+                                风险提示：黄金头条致力于提供可信赖的消息与数据，但不对任何由于使用本网站内的数据、报价和图表信息可能会造成的损害负责，也不承担其赔偿责任。请对相关投资形式和金融市场的风险和交易的相关成本进行充分了解。贵金属交易涉及风险高，您应该谨慎考虑您的投资目的。该投资并不适合于所有投资者，您应该了解市场分析方法和自己的经验等级。黄金头条特此提醒本网站内的数据不一定是实时数据。所有的股票价格、指数、期货和外汇价格都不是由交易所提供而是由市场专家提供的，因此价格可能为实际价格，也可能与实际市场价格有相差，这意味着价格的指示并不适合用于交易。因此，黄金头条不承担任何按照此价格进行交易所可能蒙受的损失。
                             </p>
                         </div>
                     </div>

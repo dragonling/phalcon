@@ -1,3 +1,5 @@
+<?$this->placeholder->block('title')->set('首页')?>
+
 <div class="row relative">
     <div class="span9">
         <div id="main">
@@ -9,19 +11,19 @@
                         <li class="item">
                         <a class="link" href="/post/<?=$post->slug?>">
                             <img class="img" src="<?=$post->image ? $this->tag->thumb($post->image, 'c_fill,h_250,w_340') : '/img/article.jpg'?>" alt=""/>
-                            <h3 class="title"><?=$post->title?></h3>
+                            <h3 class="title"><?=$this->escaper->escapeHtml($post->title)?></h3>
                         </a>
                         </li>
                     </ul>
                     <ul class="topnews list">
                         <?foreach($posts as $post):?>
-                        <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$post->title?> <span class="time"><?=$this->tag->datetime($post->createdAt, 'H:i')?></span></a></li>
+                        <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtml($post->title)?> <span class="time"><?=$this->tag->datetime($post->createdAt, 'H:i')?></span></a></li>
                         <?endforeach?>
                     </ul>
                 </div><!--span end -->
                 <div class="span">
                     <div id="chart" class="market chart">
-                        <ul class="titlebar">
+                        <div class="titlebar">
                             <a data-efc-target="#chart" data-efc-symbol="XAUUSD" class="link active" href="">黄金</a>
                             <a data-efc-target="#chart" data-efc-symbol="XAGUSD" class="link" href="">白银</a>
                             <a data-efc-target="#chart" data-efc-symbol="USDollarIndex" class="link" href="">美元指数</a>
@@ -29,7 +31,7 @@
                             <a data-efc-target="#chart" data-efc-symbol="UKOil" class="link" href="">石油</a>
 
                             <button class="button" data-toggle="stare-modal">盯盘模式</button>
-                        </ul>
+                        </div>
                         <div class="content">
                             <div class="toolbar">
                                 <div data-efc-target="#chart" data-efc-interval="1"  class="button">1</div>
@@ -43,7 +45,7 @@
                                 <div data-efc-target="#chart" data-efc-interval="MN" class="button">1M</div>
                             </div>
                             <div class="chart">
-                                <iframe width="440" height="206" scrolling="no" frameborder="0" src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=440&height=206&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
+                                <iframe width="440" height="206" src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=440&height=206&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
                             </div>
                         </div>
                     </div><!-- market chart end -->
@@ -287,7 +289,7 @@
                                     <?foreach($posts as $post):?>
                                     <li class="item">
                                     <a class="link row" href="/post/<?=$post->slug?>">
-                                        <span class="span title"><?=$post->title?></span>
+                                        <span class="span title"><?=$this->escaper->escapeHtml($post->title)?></span>
                                         <span class="span author"><?=$post->username ? $post->username : '黄金头条'?></span>
                                         <span class="span time"><?=$this->tag->datetime($post->createdAt, 'y/m/d H:i')?></span>
                                         </a>
@@ -301,7 +303,7 @@
                                     <?foreach($posts as $post):?>
                                     <li class="item">
                                     <a class="link row" href="/post/<?=$post->slug?>">
-                                        <span class="span title"><?=$post->title?></span>
+                                        <span class="span title"><?=$this->escaper->escapeHtml($post->title)?></span>
                                         <span class="span author"><?=$post->username ? $post->username : '黄金头条'?></span>
                                         <span class="span time"><?=$this->tag->datetime($post->createdAt, 'y/m/d H:i')?></span>
                                         </a>
@@ -315,7 +317,7 @@
                                     <?foreach($posts as $post):?>
                                     <li class="item">
                                     <a class="link row" href="/post/<?=$post->slug?>">
-                                        <span class="span title"><?=$post->title?></span>
+                                        <span class="span title"><?=$this->escaper->escapeHtml($post->title)?></span>
                                         <span class="span author"><?=$post->username ? $post->username : '黄金头条'?></span>
                                         <span class="span time"><?=$this->tag->datetime($post->createdAt, 'y/m/d H:i')?></span>
                                         </a>
@@ -329,7 +331,7 @@
                                     <?foreach($posts as $post):?>
                                     <li class="item">
                                     <a class="link row" href="/post/<?=$post->slug?>">
-                                        <span class="span title"><?=$post->title?></span>
+                                        <span class="span title"><?=$this->escaper->escapeHtml($post->title)?></span>
                                         <span class="span author"><?=$post->username ? $post->username : '黄金头条'?></span>
                                         <span class="span time"><?=$this->tag->datetime($post->createdAt, 'y/m/d H:i')?></span>
                                         </a>
@@ -588,7 +590,7 @@
                             <div class="line vertical"></div>
                         </div>
                         <div class="chart">
-                            <iframe width="672" height="195" scrolling="no" frameborder="0" src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=672&height=195&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
+                            <iframe width="672" height="195" src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=672&height=195&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
                         </div>
                     </div>
                 </div><!-- market chart end -->
