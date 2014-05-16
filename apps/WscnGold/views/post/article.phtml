@@ -52,108 +52,32 @@
                     </a>
                 </div>
             </div>
-            <div class="user-comments">
-                <div class="title">评论（<span class="amount">5</span>）</div>
-                <div class="content">
-                    <form action="">
-                        <textarea class="input" name="user-comment" rows="6"></textarea>
-                        <input class="submit" type="submit" value="评论"/>
-                    </form>
-                    <ul class="list">
-                        <li class="item">
-                            <div class="row">
-                                <div class="span">
-                                    <img class="avatar" src="" alt=""/>
-                                </div>
-                                <div class="span">
-                                    <h4 class="name">业界良心</h4>
-                                    <p class="comment">从这个角度讲，对于不专业的投资者，采取定投方式进行财富管理是个不错的策略。说实话广告不能少,而且在90%的人不懂手机的情况下，输给花哨、炫丽舍得花大价钱做广告的三星是再正常不过了。</p>
-                                    <div class="row">
-                                        <div class="time span">3分钟前</div>
-                                        <div class="toolbar right">
-                                        <span class="button">
-                                            <i class="icon-thumbs-up"></i>
-                                            <span class="value">5</span>
-                                        </span>
-                                        <span class="button">
-                                            <i class="icon-thumbs-down"></i>
-                                            <span class="value">5</span>
-                                        </span>
-                                        <span class="button">
-                                            回复（<span>3</span>）
-                                        </span>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="user-comments">
-                                <div class="content">
-                                    <form action="">
-                                        <textarea class="input" name="user-comment" rows="3"></textarea>
-                                        <input class="submit" type="submit" value="评论"/>
-                                    </form>
-                                    <ul class="list">
-                                        <li class="item ">
-                                            <div class="row">
-                                                <div class="span">
-                                                    <img class="avatar" src="" alt=""/>
-                                                </div>
-                                                <div class="span">
-                                                    <h4 class="name">业界良心</h4>
-                                                    <p class="comment">从这个角度讲，对于不专业的投资者，采取定投方式进行财富管理是个不错的策略。说实话广告不能少,而且在90%的人不懂手机的情况下，输给花哨、炫丽舍得花大价钱做广告的三星是再正常不过了。</p>
-                                                    <div class="time span">3分钟前</div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="item ">
-                                            <div class="row">
-                                                <div class="span">
-                                                    <img class="avatar" src="" alt=""/>
-                                                </div>
-                                                <div class="span">
-                                                    <h4 class="name">业界良心</h4>
-                                                    <p class="comment">从这个角度讲，对于不专业的投资者，采取定投方式进行财富管理是个不错的策略。说实话广告不能少,而且在90%的人不懂手机的情况下，输给花哨、炫丽舍得花大价钱做广告的三星是再正常不过了。</p>
-                                                    <div class="time span">3分钟前</div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="row">
-                                <div class="span">
-                                    <img class="avatar" src="" alt=""/>
-                                </div>
-                                <div class="span">
-                                    <h4 class="name">业界良心</h4>
-                                    <p class="comment">从这个角度讲，对于不专业的投资者，采取定投方式进行财富管理是个不错的策略。说实话广告不能少,而且在90%的人不懂手机的情况下，输给花哨、炫丽舍得花大价钱做广告的三星是再正常不过了。</p>
-                                    <div class="row">
-                                        <div class="time span">3分钟前</div>
-                                        <div class="toolbar right">
-                                        <span class="button">
-                                            <i class="icon-thumbs-up"></i>
-                                            <span class="value">5</span>
-                                        </span>
-                                        <span class="button">
-                                            <i class="icon-thumbs-down"></i>
-                                            <span class="value">5</span>
-                                        </span>
-                                        <span class="button">
-                                            回复（<span>3</span>）
-                                        </span>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="more">显示更多评论</div>
+            <!---- comment begin -->
+            <div class="user-comments" id="fos_comment_thread">
+
             </div>
+
+            <script type="text/javascript">
+                // thread id
+                var fos_comment_thread_id = 'post_<?=$item->id ?>';
+
+                // api base url to use for initial requests
+                var fos_comment_thread_api_base_url = '/thread/';
+
+                // Snippet for asynchronously loading the comments
+                (function() {
+                    var fos_comment_script = document.createElement('script');
+                    fos_comment_script.async = true;
+                    fos_comment_script.src = '/js/comments.js';
+                    fos_comment_script.type = 'text/javascript';
+
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
+                })();
+            </script>
+            <!---- comment end   -->
+
         </div>
     </div>
     <?$this->partial("partial/sidebar", array())?>

@@ -1,0 +1,44 @@
+<div class="user-comments">
+    <div class="title">评论（<span class="amount"><?=$thread->numComments ?></span>）</div>
+    <div class="content">
+        <?= $this->tag->form(array('/thread/'.$thread->uniqueKey.'/comments/new','class'=>'fos_comment_comment_new_form','method'=>'post','data-parent')) ?>
+            <textarea class="input" name="content" rows="6"></textarea>
+            <input class="submit" type="submit" value="评论"/>
+        </form>
+        <ul class="list" id="fos_comment_list">
+            <? foreach($comments as $comment): ?>
+
+            <li class="item">
+                <div class="row">
+                    <div class="span">
+                        <img class="avatar" src="" alt=""/>
+                    </div>
+                    <div class="span">
+                        <h4 class="name"><?=$comment->username ?></h4>
+                        <p class="comment"><?=$comment->content ?></p>
+                        <div class="row">
+                            <div class="time span">3分钟前</div>
+                            <div class="toolbar right">
+<!--                                        <span class="button">-->
+<!--                                            <i class="icon-thumbs-up"></i>-->
+<!--                                            <span class="value">5</span>-->
+<!--                                        </span>-->
+<!--                                        <span class="button">-->
+<!--                                            <i class="icon-thumbs-down"></i>-->
+<!--                                            <span class="value">5</span>-->
+<!--                                        </span>-->
+                                        <span class="button">
+                                            回复（<span><?=$comment->numReply?></span>）
+                                        </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <? endforeach ?>
+
+        </ul>
+    </div>
+    <div class="more">显示更多评论</div>
+</div>
