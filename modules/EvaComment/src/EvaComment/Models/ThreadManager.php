@@ -13,20 +13,21 @@ class ThreadManager extends BaseModel
 
         $manager = $this->getModelsManager();
         $data = $manager->executeQuery($phql);
-        foreach($data as $k=>$comment){
+        foreach ($data as $k => $comment) {
             echo $comment->id;
         }
 //        var_dump($data);
     }
 
-    public function findThreadByUniqueKey($uniqueKey){
+    public function findThreadByUniqueKey($uniqueKey)
+    {
 
         $phql = 'SELECT * FROM Eva\EvaComment\Entities\Threads AS t WHERE t.uniqueKey = :uniqueKey: LIMIT 1';
 
 
         $manager = $this->getModelsManager();
-        $data = $manager->executeQuery($phql,array('uniqueKey'=>$uniqueKey));
-        foreach($data as $k=>$thread){
+        $data = $manager->executeQuery($phql, array('uniqueKey' => $uniqueKey));
+        foreach ($data as $k => $thread) {
         }
         return $thread;
 

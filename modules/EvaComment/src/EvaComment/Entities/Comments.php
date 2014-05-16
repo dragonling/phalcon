@@ -117,10 +117,15 @@ class Comments extends BaseModel
 
     public function initialize()
     {
-        $this->belongsTo('threadId', '\Eva\EvaComment\Entities\Threads', 'id', array(
+        $this->belongsTo(
+            'threadId',
+            '\Eva\EvaComment\Entities\Threads',
+            'id',
+            array(
                 'alias' => 'Thread',
                 'foreignKey' => true
-            ));
+            )
+        );
 
     }
 

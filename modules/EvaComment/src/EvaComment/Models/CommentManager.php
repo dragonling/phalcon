@@ -16,7 +16,7 @@ class CommentManager extends BaseModel
 
         $manager = $this->getModelsManager();
         $data = $manager->executeQuery($phql);
-        foreach($data as $k=>$comment){
+        foreach ($data as $k => $comment) {
             echo $comment->id;
         }
 //        var_dump($data);
@@ -25,7 +25,7 @@ class CommentManager extends BaseModel
     /**
      * {@inheritdoc}
      */
-    public function createComment($thread,$parent = null)
+    public function createComment($thread, $parent = null)
     {
         $comment = new Comments;
 
@@ -33,8 +33,8 @@ class CommentManager extends BaseModel
 
         if (null !== $parent) {
             $comment->parentId = $parent->id;
-            $comment->ancestorId = $parent->ancestorId ?: 0;
-        }else{
+            $comment->ancestorId = $parent->ancestorId ? : 0;
+        } else {
             $comment->parentId = 0;
             $comment->ancestorId = 0;
         }
@@ -75,7 +75,7 @@ class CommentManager extends BaseModel
         $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c WHERE c.threadId = :threadId: ORDER BY c.createdAt DESC';
 
         $manager = $this->getModelsManager();
-        $comments = $manager->executeQuery($phql,array('threadId'=>$thread->id));
+        $comments = $manager->executeQuery($phql, array('threadId' => $thread->id));
 
         return $comments;
     }
@@ -85,7 +85,7 @@ class CommentManager extends BaseModel
         $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c WHERE c.threadId = :threadId: ORDER BY c.createdAt DESC';
 
         $manager = $this->getModelsManager();
-        $comments = $manager->executeQuery($phql,array('threadId'=>$thread->id));
+        $comments = $manager->executeQuery($phql, array('threadId' => $thread->id));
 
         return $comments;
     }
