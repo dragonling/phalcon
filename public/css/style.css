@@ -2333,6 +2333,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #main .topnews.list > .item {
   width: 100%;
+  font-size: 14px;
 }
 #main .topnews.list > .item > .link {
   overflow: hidden;
@@ -2497,6 +2498,9 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #main .economic-evaluation.tabpanel > .tabbar {
   margin-bottom: 5px;
+}
+#main .economic-evaluation.tabpanel .economic-evaluation.list > .item {
+  font-size: 14px;
 }
 #main .economic-evaluation.tabpanel .economic-evaluation.list > .item .link {
   line-height: 34px;
