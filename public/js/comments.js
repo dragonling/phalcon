@@ -159,16 +159,21 @@
                     var form_data = $(this).data();
                     var that = $(this);
 
-                    if(that.closest('.fos_comment_comment_reply').hasClass('fos_comment_replying')) {
+
+                    if(that.hasClass('fos_comment_replying')) {
+//                        $('.fos_comment_comment_reply_form').hide();
+                        $('#fos_comment_replies_'+form_data.id).toggle();
                         return that;
+                    }else{
+                        $('#fos_comment_replies_'+form_data.id).show();
                     }
 
                     FOS_COMMENT.get(
                         form_data.url,
-                        {parentId: form_data.parentId},
+                        {parentId: form_data.id},
                         function(data) {
-                            that.closest('.fos_comment_comment_reply').addClass('fos_comment_replying');
-                            that.after(data);
+                            that.addClass('fos_comment_replying');
+                            $('#fos_comment_replies_'+form_data.id+' .content').prepend(data);
                             that.trigger('fos_comment_show_form', data);
                         }
                     );
@@ -346,7 +351,9 @@
         appendComment: function(commentHtml, form) {
             var form_data = form.data();
 
-//            if('' != form_data.parent) {
+            var parent = form_data.parent;
+            if(form_data.parent) {
+                form.after(commentHtml);
 //                var form_parent = form.closest('.fos_comment_comment_form_holder');
 //
 //                // reply button holder
@@ -362,18 +369,18 @@
 //
 //                // Remove the form
 //                form_parent.remove();
-//            } else {
+            } else {
                 // Insert the comment
 //                form.after(commentHtml);
                 var comment_element = $('#fos_comment_list');
                 comment_element.prepend(commentHtml);
-                form.trigger('fos_comment_add_comment', commentHtml);
+            }
+            form.trigger('fos_comment_add_comment', commentHtml);
 
-                // "reset" the form
-                form = $(form[0]);
-                form[0].reset();
-                form.children('.fos_comment_form_errors').remove();
-//            }
+            // "reset" the form
+            form = $(form[0]);
+            form[0].reset();
+            form.children('.fos_comment_form_errors').remove();
         },
 
         editComment: function(commentHtml) {

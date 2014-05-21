@@ -7,7 +7,7 @@
             <h4 class="name"><?=$comment->username ?></h4>
             <p class="comment"><?=$comment->content ?></p>
             <div class="row">
-                <div class="time span">3分钟前</div>
+                <div class="time span"><?=$this->tag->passTime($comment->createdAt) ?></div>
                 <div class="toolbar right">
 <!--                                        <span class="button">-->
 <!--                                            <i class="icon-thumbs-up"></i>-->
@@ -17,12 +17,23 @@
 <!--                                            <i class="icon-thumbs-down"></i>-->
 <!--                                            <span class="value">5</span>-->
 <!--                                        </span>-->
-                    <span class="button">
+                    <? if(empty($comment->parentId)){ ?>
+                    <span class="button fos_comment_comment_reply_show_form" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
                         回复（<span><?=$comment->numReply?></span>）
                     </span>
+                    <? } ?>
 
                 </div>
             </div>
+        </div>
+    </div>
+
+
+    <div class="user-comments" id="fos_comment_replies_<?=$comment->id?>" style="display:none">
+        <div class="content">
+            <ul class="list">
+
+            </ul>
         </div>
     </div>
 </li>

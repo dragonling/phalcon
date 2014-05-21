@@ -33,7 +33,7 @@ class CommentManager extends BaseModel
 
         if (null !== $parent) {
             $comment->parentId = $parent->id;
-            $comment->ancestorId = $parent->ancestorId ? : 0;
+            $comment->rootId = $parent->rootId ? $parent->rootId : $parent->id;
         } else {
             $comment->parentId = 0;
             $comment->ancestorId = 0;
@@ -82,7 +82,8 @@ class CommentManager extends BaseModel
 
     function findCommentTreeByThread($thread, $sorter, $displayDepth)
     {
-        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c WHERE c.threadId = :threadId: ORDER BY c.createdAt DESC';
+        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c
+                WHERE c.threadId = :threadId: AND c.rootId = 0 ORDER BY c.createdAt DESC';
 
         $manager = $this->getModelsManager();
         $comments = $manager->executeQuery($phql, array('threadId' => $thread->id));

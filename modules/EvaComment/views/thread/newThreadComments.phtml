@@ -1,0 +1,10 @@
+<?
+$url = '/thread/'.$thread->uniqueKey.'/comments/save';
+$url .= $parent ? '?parentId='.$parent->id : '';
+$parentId = $parent ? $parent->id : '';
+?>
+
+<?= $this->tag->form(array($url,'method'=>'post','class'=>'fos_comment_comment_new_form fos_comment_comment_reply_form','data-parent'=>$parentId)) ?>
+    <textarea class="input" name="content" rows="3"></textarea>
+    <input class="submit" type="submit" value="评论"/>
+</form>
