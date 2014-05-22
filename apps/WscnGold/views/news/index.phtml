@@ -41,7 +41,7 @@
                     <?foreach($posts as $post):?>
                     <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?></a></li>
                     <?endforeach?>
-                    <li class="more"><a class="link" href="/news/list?cid=3">MORE &gt;&gt;</a></li>
+                    <li class="more"><a class="link" href="/news/list?cid=3">更多 &gt;&gt;</a></li>
                 </ul>
                 <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 4 ,'limit' => 7));$posts = $pager->items?>
                 <ul class="news list right">
@@ -49,17 +49,17 @@
                     <?foreach($posts as $post):?>
                     <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?></a></li>
                     <?endforeach?>
-                    <li class="more"><a class="link" href="/news/list?cid=4">MORE &gt;&gt;</a></li>
+                    <li class="more"><a class="link" href="/news/list?cid=4">更多 &gt;&gt;</a></li>
                 </ul>
             </div>
             <div class="row">
                 <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 5 ,'limit' => 7));$posts = $pager->items?>
                 <ul class="news list left">
-                    <li class="title">机构分析</li>
+                    <li class="title">投行观点</li>
                     <?foreach($posts as $post):?>
                     <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?></a></li>
                     <?endforeach?>
-                    <li class="more"><a class="link" href="/news/list?cid=5">MORE &gt;&gt;</a></li>
+                    <li class="more"><a class="link" href="/news/list?cid=5">更多 &gt;&gt;</a></li>
                 </ul>
                 <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 6 ,'limit' => 7));$posts = $pager->items?>
                 <ul class="news list right">
@@ -67,7 +67,26 @@
                     <?foreach($posts as $post):?>
                     <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?></a></li>
                     <?endforeach?>
-                    <li class="more"><a class="link" href="/news/list?cid=6">MORE &gt;&gt;</a></li>
+                    <li class="more"><a class="link" href="/news/list?cid=6">更多 &gt;&gt;</a></li>
+                </ul>
+            </div>
+            <!-- todo 新增栏目  修改cid -->
+            <div class="row">
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 8 ,'limit' => 7));$posts = $pager->items?>
+                <ul class="news list left">
+                    <li class="title">机构金评</li>
+                    <?foreach($posts as $post):?>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?></a></li>
+                    <?endforeach?>
+                    <li class="more"><a class="link" href="/news/list?cid=5">更多 &gt;&gt;</a></li>
+                </ul>
+                <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 7 ,'limit' => 7));$posts = $pager->items?>
+                <ul class="news list right">
+                    <li class="title">投资心得</li>
+                    <?foreach($posts as $post):?>
+                    <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtmlAttr($post->title)?></a></li>
+                    <?endforeach?>
+                    <li class="more"><a class="link" href="/news/list?cid=6">更多 &gt;&gt;</a></li>
                 </ul>
             </div>
         </div>

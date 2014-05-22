@@ -47,6 +47,13 @@
         if (this.config.symbolEvent) {
             $target.on('click', '[data-rtq-symbol]', function(e){
                 var $this = $(this);
+                if ($this.hasClass('active')) {
+                    if (this.href) {
+                        return true;
+                    } else {
+                        e.preventDefault();
+                    }
+                }
                 var symbol = $this.attr('data-rtq-symbol');
                 root.showData(symbol);
                 $target.find('[data-rtq-symbol].active').removeClass('active');
@@ -74,6 +81,7 @@
                 var html = '';
                 if (response.data) {
                     html = _.template(root.$overviewScript.html(), {
+                        symbol: response.symbol,
                         data: response.data
                     });
                     //console.log('');

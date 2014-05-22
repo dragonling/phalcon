@@ -88,10 +88,23 @@ $(function(){
 
     });
 
-    /**
-     * 汇率计算器
-     */
+
+
+});
+/**
+ * 汇率计算器
+ */
+$(function()
+{
     var CER = {};
+    var map = {
+        CNY: 'USD',
+        USD: 'CNY'
+    };
+    var $input = $('#gold-price-converter input[name=input]');
+    var $result = $('#gold-price-converter input[name=result]');
+    var $inputTypeDom = $('#gold-price-converter select[name=input-type]');
+    var $resultTypeDom = $('#gold-price-converter select[name=result-type]');
     initCurrencyRate('USDCNY');
     function initCurrencyRate(exchange) {
         $.ajax({
@@ -110,7 +123,7 @@ $(function(){
         });
     }
     function convertPrice(price, type, convertType) {
-        var ounce = 28.3495231;
+        var ounce = 31.1034768;
         if (type === 'CNY' && convertType ==='USD') {
             return price * ounce / CER['USDCNY'] ;
         } else if (type === 'USD' && convertType === 'CNY') {
@@ -119,15 +132,29 @@ $(function(){
             return price;
         }
     }
-    $('#gold-price-converter .button.submit').on('click', function(){
-        var input = parseFloat($('#gold-price-converter input[name=input]').val());
-        var inputType = $('#gold-price-converter select[name=input-type]').val().toUpperCase();
-        var resultType = $('#gold-price-converter select[name=result-type]').val().toUpperCase();
-        var result = convertPrice(input, inputType, resultType).toFixed(2);
-        $('#gold-price-converter input[name=result]').val(result);
+    $input.on('focusin', function(e){
+        $result.val('');
     });
-
+    $inputTypeDom.on('change', function(e){
+        var $this = $(this);
+        var inputType = $this.val();
+        var resultType = map[inputType];
+        $resultTypeDom.val(resultType);
+        var input = $input.val();
+        if (input) {
+            var result = convertPrice(parseFloat(input), inputType, resultType).toFixed(2);
+            $result.val(result);
+        }
+    });
+    $('#gold-price-converter .button.submit').on('click', function(){
+        var input = parseFloat($input.val());
+        var inputType = $inputTypeDom.val();
+        var resultType = $resultTypeDom.val();
+        var result = convertPrice(input, inputType, resultType).toFixed(2);
+        $result.val(result);
+    });
 });
+
 /**
  * gold-research
  */
@@ -217,17 +244,17 @@ $(function(){
         if (arg1.silver) {
             item.gold_am = null;
             item.gold_pm = null;
-            item.silver = arg1.open;
+            item.silver = arg1.open.toFixed(2);
             if (arg2) {
-                item.gold_am = arg2.open;
-                item.gold_pm = arg2.close;
+                item.gold_am = arg2.open.toFixed(2);
+                item.gold_pm = arg2.close.toFixed(2);
             }
         } else {
-            item.gold_am = arg1.open;
-            item.gold_pm = arg1.close;
+            item.gold_am = arg1.open.toFixed(2);
+            item.gold_pm = arg1.close.toFixed(2);
             item.silver = null;
             if (arg2) {
-                item.silver = arg1.open;
+                item.silver = arg2.open.toFixed(2);
             }
         }
         return item;
@@ -272,6 +299,7 @@ $(function(){
                                     results.push(item);
                                 }
                             }
+                            console.log('fix_price: the item is : ' +  item);
                         }
                         //转化为html
                         var html = _.template(template, {
@@ -300,8 +328,8 @@ $(function(){
                 for (i = 0; i < l; i++) {
                     var item = {};
                     item.date = moment.unix(data[i].start).format('YYYY-MM-DD');
-                    item.gold_am = data[i].open;
-                    item.gold_pm = data[i].close;
+                    item.gold_am = data[i].open.toFixed(2);
+                    item.gold_pm = data[i].close.toFixed(2);
                     results.push(item);
                 }
                 var html = _.template(template, {
@@ -369,7 +397,7 @@ $(function(){
         scrollable: false,
         datepicker: true,
         dateChangeEvent: true,
-        countryChangeEvent: true,
+        currencyEvent: true,
         loadMoreEvent: false,
         sort: true
     });
