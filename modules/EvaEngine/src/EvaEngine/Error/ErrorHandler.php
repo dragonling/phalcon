@@ -175,6 +175,8 @@ class ErrorHandler implements ErrorHandlerInterface
         $dispatcher->setActionName(static::getErrorControllerAction());
         $dispatcher->setParams(array('error' => $error));
 
+        //Here need to clear last view output in pre controller
+        $view->finish();
         $view->start();
         $dispatcher->dispatch();
         $view->render();
