@@ -14,10 +14,17 @@ return array(
         'uniqueKey' => 1,
     ),
 
-    '/thread/(\w+)/comments/new' => array(
+    '/thread/(\w+)/comments/save' => array(
         'module' => 'EvaComment',
         'controller' => 'thread',
         'action' => 'postThreadComments',
+        'threadKey' => 1,
+    ),
+
+    '/thread/(\w+)/comments/new' => array(
+        'module' => 'EvaComment',
+        'controller' => 'thread',
+        'action' => 'newThreadComments',
         'threadKey' => 1,
     ),
 

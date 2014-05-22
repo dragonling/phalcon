@@ -96,6 +96,10 @@ class ThreadController extends ControllerBase
                 break;
         }
 
+        foreach($comments as $comment){
+
+        }
+
         $this->view->setVars(
             array(
                 'comments' => $comments,
@@ -128,9 +132,8 @@ class ThreadController extends ControllerBase
 //        }
 
 
-        $parentId = $this->request->getPost('parentId');
+        $parentId = $this->request->getQuery('parentId');
         $parent = $this->getValidCommentParent($thread, $parentId);
-
 
         $content = $this->request->getPost("content");
         $commentManager = new CommentManager();
@@ -149,9 +152,38 @@ class ThreadController extends ControllerBase
         $this->view->setVars(
             array(
                 'comment' => $comment,
+                'thread' => $thread,
             )
         );
-//        return $this->getViewHandler()->handle($this->onCreateCommentError($form, $id, $parent));
+    }
+
+    /**
+     * Presents the form to use to create a new Comment for a Thread.
+     *
+     * @param string $id
+     *
+     * @return View
+     */
+    public function newThreadCommentsAction($threadKey)
+    {
+        $threadManager = new ThreadManager();
+        $thread = $threadManager->findThreadByUniqueKey($threadKey);
+        if (!$thread) {
+            throw new \Exception(sprintf('Thread with identifier of "%s" does not exist', $threadKey));
+        }
+
+        $commentManager = new CommentManager();
+        $comment = $commentManager->createComment($thread);
+
+        $parent = $this->getValidCommentParent($thread,$parentId = $this->request->getQuery('parentId'));
+
+        $this->view->setVars(
+            array(
+                'comment' => $comment,
+                'parent' => $parent,
+                'thread' => $thread,
+            )
+        );
     }
 
     /**
@@ -172,10 +204,10 @@ class ThreadController extends ControllerBase
 //                throw new NotFoundHttpException(sprintf('Parent comment with identifier "%s" does not exist', $commentId));
             }
 
-            if ($comment->getThread() !== $thread) {
-                exit('Parent comment is not a comment of the given thread.');
-//                throw new NotFoundHttpException('Parent comment is not a comment of the given thread.');
-            }
+//            if ($comment->getThread() !== $thread) {
+//                exit('Parent comment is not a comment of the given thread.');
+////                throw new NotFoundHttpException('Parent comment is not a comment of the given thread.');
+//            }
 
             return $comment;
         }

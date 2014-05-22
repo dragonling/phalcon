@@ -143,10 +143,10 @@ class Tag extends \Phalcon\Tag
     }
 
     /**
-     * Tranform input time to time string which can be parsed by javascript
+     * Transform input time to time string which can be parsed by javascript
      *
      * @param int $time
-     *                  @access public
+     * @access public
      *
      * @return string javascript parse-able string
      */
@@ -163,7 +163,7 @@ class Tag extends \Phalcon\Tag
     }
 
     /**
-     * Tranform input time to iso time
+     * Transform input time to iso time
      *
      * @param string $time
      * @param int    $timezone
@@ -189,6 +189,48 @@ class Tag extends \Phalcon\Tag
         $time = $time + $timezone * 3600;
 
         return gmdate($format, $time);
+    }
+
+    /**
+     * @param $timestamp
+     * @return string
+     */
+    public static function passTime($timestamp)
+    {
+        $now = time();
+        $passTime = $now-$timestamp;
+        $oneMinute = 60;
+        $oneHour = $oneMinute*60;
+        $oneDay = $oneHour*24;
+        $oneMonth = $oneDay*30;
+        $oneYear = $oneMonth*12;
+        $str = '';
+        if($passTime>$oneYear){
+            $n = $passTime/$oneYear;
+            $n = intval($n);
+            $str = $n.'年前';
+        }elseif($passTime>$oneMonth){
+            $n = $passTime/$oneMonth;
+            $n = intval($n);
+            $str = $n.'月前';
+        }elseif($passTime>$oneDay){
+            $n = $passTime/$oneDay;
+            $n = intval($n);
+            $str = $n.'天前';
+        }elseif($passTime>$oneHour){
+            $n = $passTime/$oneHour;
+            $n = intval($n);
+            $str = $n.'小时前';
+        }elseif($passTime>$oneMinute){
+            $n = $passTime/$oneMinute;
+            $n = intval($n);
+            $str = $n.'分钟前';
+        }else{
+//            $str = $passTime.'秒前';
+            $str = '刚刚...';
+        }
+
+        return $str;
     }
 
 }

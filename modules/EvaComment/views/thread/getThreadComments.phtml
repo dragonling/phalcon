@@ -1,7 +1,7 @@
 <div class="user-comments">
     <div class="title">评论（<span class="amount"><?=$thread->numComments ?></span>）</div>
     <div class="content">
-        <?= $this->tag->form(array('/thread/'.$thread->uniqueKey.'/comments/new','class'=>'fos_comment_comment_new_form','method'=>'post','data-parent')) ?>
+        <?= $this->tag->form(array('/thread/'.$thread->uniqueKey.'/comments/save','class'=>'fos_comment_comment_new_form','method'=>'post','data-parent')) ?>
             <textarea class="input" name="content" rows="6"></textarea>
             <input class="submit" type="submit" value="评论"/>
         </form>
@@ -9,6 +9,8 @@
             <? foreach($comments as $comment): ?>
 
             <li class="item">
+                <? $childrenComments = $comment->getChildrenComments(); ?>
+
                 <div class="row">
                     <div class="span">
                         <img class="avatar" src="" alt=""/>
@@ -17,7 +19,7 @@
                         <h4 class="name"><?=$comment->username ?></h4>
                         <p class="comment"><?=$comment->content ?></p>
                         <div class="row">
-                            <div class="time span">3分钟前</div>
+                            <div class="time span"><?=$this->tag->passTime($comment->createdAt) ?></div>
                             <div class="toolbar right">
 <!--                                        <span class="button">-->
 <!--                                            <i class="icon-thumbs-up"></i>-->
@@ -27,14 +29,36 @@
 <!--                                            <i class="icon-thumbs-down"></i>-->
 <!--                                            <span class="value">5</span>-->
 <!--                                        </span>-->
-                                        <span class="button">
-                                            回复（<span><?=$comment->numReply?></span>）
+                                        <span class="button fos_comment_comment_reply_show_form" data-id="<?=$comment->id?>" data-url="/thread/<?= $thread->uniqueKey?>/comments/new">
+                                            回复（<span><?=count($childrenComments)?></span>）
                                         </span>
 
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="user-comments" id="fos_comment_replies_<?=$comment->id?>" <?if(!count($childrenComments)){ echo 'style="display:none"'; }?>>
+                    <div class="content">
+                        <ul class="list">
+                            <? foreach($childrenComments as $childrenComment): ?>
+                            <li class="item ">
+                                <div class="row">
+                                    <div class="span">
+                                        <img class="avatar" src="" alt=""/>
+                                    </div>
+                                    <div class="span">
+                                        <h4 class="name"><?=$childrenComment->username ?></h4>
+                                        <p class="comment"><?=$childrenComment->content ?></p>
+                                        <div class="time span"><?=$this->tag->passTime($childrenComment->createdAt) ?></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <? endforeach ?>
+                        </ul>
+                    </div>
+                </div>
+
             </li>
             <? endforeach ?>
 

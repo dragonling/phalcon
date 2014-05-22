@@ -115,6 +115,17 @@ class Comments extends BaseModel
      */
     public $createdAt;
 
+    public $childrenComments;
+
+    public function getChildrenComments()
+    {
+        $phql = 'SELECT * FROM Eva\EvaComment\Entities\Comments AS c WHERE c.rootId = :rootId:';
+
+        $manager = $this->getModelsManager();
+        $comments = $manager->executeQuery($phql,array('rootId'=>$this->id));
+        return $this->childrenComments = $comments;
+    }
+
     public function initialize()
     {
         $this->belongsTo(
