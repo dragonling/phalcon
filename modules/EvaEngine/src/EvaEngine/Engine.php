@@ -165,20 +165,37 @@ class Engine
             return $cookies;
         });
 
+
+        $di->set('viewCache', function() use ($di) {
+            $config = $di->get('config');
+            if(!$config->cache->enable || !$config->cache->viewCache) {
+                return false;
+            }
+
+            $frontCacheClass = $config->cache->viewCache->frontend->adapter;
+            $frontCacheClass = 'Phalcon\Cache\Frontend\\' . ucfirst($frontCacheClass);
+            $frontCache = new $frontCacheClass($config->cache->viewCache->frontend->options->toArray());
+
+            $backendCacheClass = $config->cache->viewCache->backend->adapter;
+            $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
+            $cache = new $backendCacheClass($frontCache, $config->cache->viewCache->backend->options->toArray());
+            return $cache;
+        });
+
+
         $di->set('view', function () use ($di) {
             $view = new View();
             $view->setViewsDir(__DIR__ . '/views/');
             $view->setEventsManager($di->get('eventsManager'));
-
             return $view;
         });
 
         $di->set('mailer', function () use ($di) {
             $config = $di->get('config');
             $transport = \Swift_SmtpTransport::newInstance()
-                ->setHost($config->mailer->host)
-                ->setPort($config->mailer->port)
-                ->setEncryption($config->mailer->encryption)
+            ->setHost($config->mailer->host)
+            ->setPort($config->mailer->port)
+            ->setEncryption($config->mailer->encryption)
                 ->setUsername($config->mailer->username)
                 ->setPassword($config->mailer->password)
             ;
