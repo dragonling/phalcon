@@ -174,11 +174,18 @@ class Engine
 
             $frontCacheClass = $config->cache->viewCache->frontend->adapter;
             $frontCacheClass = 'Phalcon\Cache\Frontend\\' . ucfirst($frontCacheClass);
-            $frontCache = new $frontCacheClass($config->cache->viewCache->frontend->options->toArray());
+            $frontCache = new $frontCacheClass(
+                $config->cache->viewCache->frontend->options->toArray()
+            );
 
             $backendCacheClass = $config->cache->viewCache->backend->adapter;
             $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
-            $cache = new $backendCacheClass($frontCache, $config->cache->viewCache->backend->options->toArray());
+            $cache = new $backendCacheClass($frontCache, array_merge(
+                array(
+                    'prefix' => 'eva_view_',
+                ),
+                $config->cache->viewCache->backend->options->toArray()
+            ));
             return $cache;
         });
 
