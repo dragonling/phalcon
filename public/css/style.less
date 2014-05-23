@@ -32,10 +32,7 @@ body {
     font-family: Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
     font-size: 12px;
 }
-a {
-    text-decoration: none;
-    color: #333;
-}
+
 button:focus,
 textarea:focus,
 input:focus,
@@ -43,6 +40,11 @@ select:focus,
 a:active {
     outline: none;
 }
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 button,select,input {
     font-family: Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
     border: 0;
@@ -347,6 +349,7 @@ iframe {
     white-space: nowrap;
 }
 
+a:hover,
 .tab:hover,
 .link:hover {
     color: @skyblue;
@@ -2502,7 +2505,7 @@ td.datepickerSpecial.datepickerSelected a {
         }
         &>.item {
             .ellipsis;
-            font-size: 12px;
+            font-size: 14px;
             line-height: 30px;
             color: #464646;
             border-bottom: 1px solid #d9d9d9;
@@ -2655,12 +2658,13 @@ td.datepickerSpecial.datepickerSelected a {
             line-height: 22px;
         }
         .title {
-            font-size: 18px;
-            line-height: 40px;
-            font-weight: normal;
             height: auto;
-            border-bottom: none;
             margin: 0;
+            border-bottom: none;
+            font-size: 18px;
+            line-height: 20px;
+            margin-bottom: 10px;
+            font-weight: normal;
             &>.price {
 
             }
@@ -3225,6 +3229,12 @@ td.datepickerSpecial.datepickerSelected a {
         text-align: center;
         width: 100%;
         background-color: @black;
+        a {
+            color: #fff;
+        }
+        a:hover {
+            color: @skyblue;
+        }
     }
     .bank-rate {
         color: #fff;
@@ -3361,6 +3371,10 @@ td.datepickerSpecial.datepickerSelected a {
             width: 110px;
             height: 20px;
         }
+        select[disabled] {
+            background: #727272;
+            color: #fff;
+        }
         label {
             width: 110px;
             line-height: 20px;
@@ -3442,13 +3456,17 @@ td.datepickerSpecial.datepickerSelected a {
     }
 
     ul {
-
-        &>li {
-            a {
-                color: #cbcbcb;
-            }
+        li {
+            color: #cbcbcb;
             margin-bottom: 10px;
         }
+    }
+
+    p {
+        margin-top: 10px;
+        line-height: 1.75em;
+        text-align: justify;
+        word-break: break-all;
     }
 
     .friend-links {

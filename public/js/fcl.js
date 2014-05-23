@@ -25,7 +25,10 @@
             this.$datepicker = this.$target.find('[data-picker]');
         }
         this.config.dateChangeEvent = options.dateChangeEvent;
-        this.config.dateChangeEvent = options.countryChangeEvent;
+        this.config.currencyEvent = options.currencyEvent;
+        if (this.config.currencyEvent) {
+            this.$currencyBar = this.$target.find('.toolbar[data-action=currency]');
+        }
         this.config.loadMoreEvent = options.loadMoreEvent === false ? false : true;
         if (this.config.loadMoreEvent) {
             this.$more = this.$target.find('.more');
@@ -112,8 +115,24 @@
                 root.changeDate(date);
             });
         }
-        if (this.config.dateChangeEvent) {
-            this.$target.on('click', '[data-toggle=currency]', function(e){
+        if (this.config.currencyEvent) {
+            this.$currencyBar.on('click.currency', function(e){
+                var $this = $(this);
+                var $content = root.$target.children('.content');
+                var $checkedItems = $this.find('[data-toggle=currency]:checked');
+                if ($checkedItems.length) {
+                    $content.find('.item').hide();
+                    var i, l = $checkedItems.length;
+                    for (i = 0; i < l; i ++) {
+                        var currency = $($checkedItems[i]).attr('data-currency');
+                        $content.find('.item[data-currency=' + currency + ']').show();
+                    }
+                } else {
+                    $content.find('.item').show();
+                }
+            });
+            /*
+            this.$target.on('click.country', '[data-toggle=currency]', function(e){
                 var $content = root.$target.children('.content');
                 var checkedItems = root.$target.find('[data-toggle=currency]:checked');
                 if (checkedItems.length == 0) {
@@ -134,6 +153,16 @@
                         $content.find('.item[data-currency=' + $this.attr('data-currency') + ']').hide();
                     }
                 }
+            });
+            */
+        }
+        if (this.config.autoScroll) {
+            this.$target.find('[data-action=scroll-fixed]').on('click', function(e){
+                e.preventDefault();
+                var $timerTarget = $('#' + root.timerTargetId);
+                root.$target.nanoScroller({
+                    scrollTo: $timerTarget
+                });
             });
         }
         if (this.config.loadMoreEvent) {
@@ -185,17 +214,22 @@
                 var hh = Math.floor(minutes / 60);
                 hh = hh > 0 ? hh + '小时' : '';
                 $clock.text(hh + mm + ss);
-            } else {
-                var $timerTarget = $('#' + this.timerTargetId);
-                if (this.config.scrollable) {
-                    this.$target.nanoScroller({
-                        scrollTo: $timerTarget
-                    });
+                //
+                if (fromNow < 10000) {
+                    var $timerTarget = $('#' + this.timerTargetId);
+                    if (this.config.scrollable) {
+                        this.$target.nanoScroller({
+                            scrollTo: $timerTarget
+                        });
+                    }
                 }
-                var next = $timerTarget.next('.item');
-                if (next && next.length) {
-                    this.timerTargetId  = next.attr('id');
-                    this.timerTargetUtm = next.attr('data-utm');
+            } else {
+                var $current = this.$target.find('.item[data-utm=' + this.timerTargetUtm + ']:last');
+                var $next = $current.next('.item');
+                //var next = this.$target.find('.item[data-utm=' + this.timerTargetUtm + ']').next('.item');
+                if ($next && $next.length) {
+                    this.timerTargetId  = $next.attr('id');
+                    this.timerTargetUtm = $next.attr('data-utm');
                 }
             }
         }
@@ -355,10 +389,14 @@
                     }
                 }
                 //6
+                if (root.config.currencyEvent) {
+                    root.$currencyBar.trigger('click.currency');
+                }
+                //7
                 $target.removeClass('loading');
             },
             error: function() {
-                console.log('do it again!')
+                console.log('do it again!');
                 root.getData(start, end, arg);
             }
         });
@@ -388,6 +426,27 @@
             result.date = mt.format(root.config.dateFormat);
             result.utm  = mt.unix();
             result.trend = '';
+            if (result['actual']) {
+                if (result['forecast']) {
+                    if (parseFloat(result['actual']) > parseFloat(result['forecast'])) {
+                        result.trend = 'up';
+                    } else if (parseFloat(result['actual']) < parseFloat(result['forecast'])) {
+                        result.trend = 'down';
+                    }
+                } else {
+                    result['forecast'] = '- -';
+                    if (result['previous']) {
+                        if (parseFloat(result['actual']) > parseFloat(result['previous'])) {
+                            result.trend = 'up';
+                        } else if (parseFloat(result['actual']) < parseFloat(result['previous'])) {
+                            result.trend = 'down';
+                        }
+                    }
+                }
+            } else {
+                result['actual'] = '- -';
+            }
+            /*
             if (result['actual'] && result['forecast']) {
                 if (parseFloat(result['actual']) > parseFloat(result['forecast'])) {
                     result.trend = 'up';
@@ -399,6 +458,7 @@
             if (!result['forecast']) {
                 result['forecast'] = '- -';
             }
+            */
             //importance
             //.icon.star
             switch (parseInt(result['importance'])) {

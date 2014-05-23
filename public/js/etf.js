@@ -41,7 +41,7 @@
                         item.etf_oz = results[i].open;
                         item.etf_ton = results[i].close;
                         item.price = results[i].high;
-                        item.change = results[i].low;
+                        item.change = (results[i].low * 31.1034768 / 1000000).toFixed(2) ;
                         data.push(item);
                     }
                     var html = _.template(root.dataTemp, {
@@ -169,10 +169,11 @@
         if (! this.length) {
             return;
         }
+        var results = [];
         for (var l = this.length - 1; l > -1; l --) {
             var $this = $(this[l]);
             if ($this.attr('data-etf') === 'initialized') {
-                return;
+                continue;
             }
             $this.attr('data-etf', 'initialized');
             var options = {
@@ -184,8 +185,15 @@
                 domOptions = tool.parseDomData(str);
             }
             $.extend(options, domOptions, inputOptions);
-            new Etf(options);
+            var result = new Etf(options);
+            results.push(result);
         }
+        if (results.length == 1) {
+            return results[0];
+        } else {
+            return results;
+        }
+
     };
 
 })();

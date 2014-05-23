@@ -30,7 +30,7 @@
                             <a data-efc-target="#chart" data-efc-symbol="SPX500INDEX" class="link" href="">标普500</a>
                             <a data-efc-target="#chart" data-efc-symbol="UKOil" class="link" href="">石油</a>
 
-                            <button class="button" data-toggle="stare-modal">盯盘模式</button>
+                            <button class="button" data-toggle="stare-modal" onClick="ga('send', 'event', 'open', 'click', 'index_popup');">盯盘模式</button>
                         </div>
                         <div class="content">
                             <div class="toolbar">
@@ -49,7 +49,9 @@
                             </div>
                         </div>
                     </div><!-- market chart end -->
-                    <h2 class="main-title">实时新闻</h2>
+                    <h2 class="main-title">
+                        <a href="/livenews">实时新闻</a>
+                    </h2>
                     <div id="main-livenews" class="nano livenews scrollable list" data-scroll-config="scroll:y;pane:left;">
                         <ul class="nano-content content"></ul>
                         <script type="text/template" data-template>
@@ -81,32 +83,37 @@
             </div><!-- row end -->
 
             <div class="row">
-                <h2 class="main-title">技术分析</h2>
+                <h2 class="main-title">
+                    <a href="/techanalysis">技术分析</a>
+                </h2>
                 <div id="main-analysis" class="market-analysis" data-rtq data-rtq-option="overview: true;">
                     <div class="titlebar">
-                        <a  data-rtq-symbol="XAUUSD" class="link active" href="">黄金</a>
-                        <a  data-rtq-symbol="XAGUSD" class="link" href="">白银</a>
-                        <a  data-rtq-symbol="USDollarIndex" class="link" href="">美元指数</a>
-                        <a  data-rtq-symbol="US10Year" class="link" href="">美债</a>
-                        <a  data-rtq-symbol="USOil" class="link" href="">原油</a>
-                        <a  data-rtq-symbol="SPX500INDEX" class="link" href="">美国标股500</a>
-                        <a  data-rtq-symbol="JPN225INDEX" class="link" href="">日经</a>
+                        <a  data-rtq-symbol="XAUUSD" class="link active" href="/techanalysis/XAUUSD">黄金</a>
+                        <a  data-rtq-symbol="XAGUSD" class="link" href="/techanalysis/XAGUSD">白银</a>
+                        <a  data-rtq-symbol="USDollarIndex" class="link" href="/techanalysis/USDollarIndex">美元指数</a>
+                        <a  data-rtq-symbol="US10Year" class="link" href="/techanalysis/US10Year">美债</a>
+                        <a  data-rtq-symbol="USOil" class="link" href="/techanalysis/USOil">原油</a>
+                        <a  data-rtq-symbol="SPX500INDEX" class="link" href="/techanalysis/SPX500INDEX">美国标股500</a>
+                        <a  data-rtq-symbol="JPN225INDEX" class="link" href="/techanalysis/JPN225INDEX">日经</a>
                     </div>
                     <div class="content">
                         <script type="text/template" data-rtq-template>
                             <div data-trend="<%= trend %>">
                                 <span class="update-time"><%= updateTime %></span>
+                                <h3 class="title">
+                                    <a href="/techanalysis/<%= symbol %>"><%= title %></a>：
+                                    <span class="price"><%= price %></span>
+                                </h3>
                                 <span class="close-price">昨收：<%= prevClose %></span>
                                 <span class="open-price">今开：<%= open %></span>
-                                <h3 class="title"><%= title %>：<span class="price"><%= price %></span></h3>
                             </div>
                         </script>
                         <div class="datum" data-rtq-dom>
                             <div data-trend="">
                                 <span class="update-time">N/A</span>
+                                <h3 class="title">N/A：<span class="price">N/A</span></h3>
                                 <span class="close-price">昨收：N/A</span>
                                 <span class="open-price">今开：N/A</span>
-                                <h3 class="title">N/A：<span class="price">N/A</span></h3>
                             </div>
                         </div>
                         <div class="overview">
@@ -116,6 +123,7 @@
                                 <a class="nav" data-rtq-interval="15m" href="">15分钟</a>
                                 <a class="nav active" data-rtq-interval="1h" href="">每小时</a>
                                 <a class="nav" data-rtq-interval="1d" href="">每日</a>
+                                <a class="nav" data-rtq-interval="mn" href="">每月</a>
                             </div>
                             <script type="text/template" data-overview-template>
                                 <% var buy = parseInt(data.movingAverages.conclusion.buy) + parseInt(data.summary.datas.TechnicalIndicators.buy); %>
@@ -154,21 +162,25 @@
                                 <table class="table">
                                     <tbody>
                                     <tr>
-                                        <td class="label">移动平均指数：</td>
-                                        <td class="cell2">
-                                            <a class="link buy"  href="#">买入<span class="value">(<%= data.summary.datas.MovingAverages.buy %>)</span></a>
+                                        <td class="label">
+                                            <a href="/techanalysis/<%= symbol %>">移动平均指数：</a>
                                         </td>
                                         <td class="cell2">
-                                            <a class="link sell" href="#">卖出<span class="value">(<%= data.summary.datas.MovingAverages.sell %>)</span></a>
+                                            <span class="text-green">买入</span><span class="value">(<%= data.summary.datas.MovingAverages.buy %>)</span>
+                                        </td>
+                                        <td class="cell2">
+                                            <span class="text-red">卖出</span><span class="value">(<%= data.summary.datas.MovingAverages.sell %>)</span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="label">指标：</td>
-                                        <td class="cell2">
-                                            <a class="link buy"  href="#">买入<span class="value">(<%= data.summary.datas.TechnicalIndicators.buy %>)</span></a>
+                                        <td class="label">
+                                            <a href="/techanalysis/<%= symbol %>">指标：</a>
                                         </td>
                                         <td class="cell2">
-                                            <a class="link sell" href="#">卖出<span class="value">(<%= data.summary.datas.TechnicalIndicators.sell %>)</span></a>
+                                            <span class="text-green">买入</span><span class="value">(<%= data.summary.datas.TechnicalIndicators.buy %>)</span>
+                                        </td>
+                                        <td class="cell2">
+                                            <span class="text-red">卖出</span><span class="value">(<%= data.summary.datas.TechnicalIndicators.sell %>)</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -274,7 +286,9 @@
 
             <div class="row">
                 <div class="span left">
-                    <h2 class="main-title">机构金评</h2>
+                    <h2 class="main-title">
+                        <a href="/news/list?cid=8">机构金评</a>
+                    </h2>
                     <div class="economic-evaluation tabpanel type2">
                         <nav class="tabbar">
                             <a class="tab active" href="">黄金</a>
@@ -343,7 +357,9 @@
                     </div>
                 </div>
                 <div class="span right">
-                    <h2 class="main-title">投资教程</h2>
+                    <h2 class="main-title">
+                        <a href="/tutorial">投资教室</a>
+                    </h2>
                     <ul class="investment-tutorial list">
                         <li class="item">
                             <a class="link row" href="/tutorial">
@@ -395,7 +411,9 @@
         </div><!--main end -->
     </div><!--span9 end -->
     <div id="sidebar" class="span3" >
-        <h2 class="title">财经日历</h2>
+        <h2 class="title">
+            <a href="/calendar">财经日历</a>
+        </h2>
         <div id="side-fcl" class="nano finance-calendar scrollable list">
             <ul class="nano-content content">
                 <li class="more"></li>
@@ -412,7 +430,7 @@
                                 <span class="time"><%= record.time %></span>
                             </div>
                             <div class="span width-180">
-                                <a class="link" href=""><%= record.country %>&nbsp;&nbsp;<%= record.title %></a>
+                                <a class="link" href="/calendar"><%= record.country %>&nbsp;&nbsp;<%= record.title %></a>
                             </div>
                         </div>
                         <div class="row">
@@ -436,12 +454,13 @@
                 <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
             </div>
         </div><!-- finance-calendar list end -->
+
+        <!--
         <div class="line type1"></div>
         <h2 class="title">黄金多空调查</h2>
         <div class="line type1"></div>
         <div id="gold-research">
             <div id="gold-research-chart">
-                <!--<img width="220" height="150" style="margin-left: 10px;" src="/img/grid03.png" />-->
             </div>
             <div class="row">
                 <div class="span4"><button data-action="rise" class="button type1 pink" >上涨</button></div>
@@ -449,6 +468,8 @@
                 <div class="span4"><button data-action="dull" class="button type1 gray" >盘整</button></div>
             </div>
         </div>
+        -->
+
         <div class="line type1"></div>
         <h2 class="title">黄金兑换器</h2>
         <div class="line type1"></div>
@@ -469,7 +490,7 @@
                     <input type="text" name="result" readonly/>
                 </div>
                 <div class="span6">
-                    <select name="result-type">
+                    <select name="result-type" disabled>
                         <option value ="USD">美元/盎司</option>
                         <option value ="CNY">人民币/克</option>
                     </select>
@@ -505,7 +526,7 @@
                     </script>
                     <div class="line type1"></div>
                     <table class="table type2">
-                        <thead> <tr> <th>时间</th> <th>增仓量(吨)</th> <th>增减(吨)</th> </tr> </thead>
+                        <thead> <tr> <th>时间</th> <th>净持仓量(吨)</th> <th>增减(吨)</th> </tr> </thead>
                         <tbody data-etf-dom="data"></tbody>
                     </table>
                 </li>
@@ -516,14 +537,14 @@
                         <% for (var i = 0, l = data.length; i < l; i++) { %>
                         <tr>
                             <td><%= data[i].date %></td>
-                            <td><%= data[i].nc_high %></td>
-                            <td><%= data[i].nc_low %></td>
+                            <td><%= data[i].nc_diff %></td>
+                            <td><%= data[i].nc_change %></td>
                         </tr>
                         <% } %>
                     </script>
                     <div class="line type1"></div>
                     <table class="table type2">
-                        <thead> <tr> <th>时间</th> <th>非商业性多头持仓</th> <th>非商业性空头持仓</th> </tr> </thead>
+                        <thead> <tr> <th>时间</th> <th>非商业性多空净持仓</th> <th>净持仓较上周变化</th> </tr> </thead>
                         <tbody data-cftc-dom="data"></tbody>
                     </table>
                 </li>

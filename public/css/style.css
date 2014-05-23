@@ -74,16 +74,16 @@ body {
   font-family: Tahoma, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-size: 12px;
 }
-a {
-  text-decoration: none;
-  color: #333;
-}
 button:focus,
 textarea:focus,
 input:focus,
 select:focus,
 a:active {
   outline: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
 }
 button,
 select,
@@ -366,6 +366,7 @@ iframe {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+a:hover,
 .tab:hover,
 .link:hover {
   color: #068cb5;
@@ -2466,7 +2467,7 @@ td.datepickerSpecial.datepickerSelected a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 30px;
   color: #464646;
   border-bottom: 1px solid #d9d9d9;
@@ -2603,12 +2604,13 @@ td.datepickerSpecial.datepickerSelected a {
   line-height: 22px;
 }
 #main-analysis .datum .title {
-  font-size: 18px;
-  line-height: 40px;
-  font-weight: normal;
   height: auto;
-  border-bottom: none;
   margin: 0;
+  border-bottom: none;
+  font-size: 18px;
+  line-height: 20px;
+  margin-bottom: 10px;
+  font-weight: normal;
 }
 #main-analysis .overview {
   float: left;
@@ -3117,6 +3119,12 @@ td.datepickerSpecial.datepickerSelected a {
   width: 100%;
   background-color: #1e1e1e;
 }
+#sidebar > .title a {
+  color: #fff;
+}
+#sidebar > .title a:hover {
+  color: #068cb5;
+}
 #sidebar .bank-rate {
   color: #fff;
   line-height: 32px;
@@ -3250,6 +3258,10 @@ td.datepickerSpecial.datepickerSelected a {
   width: 110px;
   height: 20px;
 }
+#sidebar .form.type1 select[disabled] {
+  background: #727272;
+  color: #fff;
+}
 #sidebar .form.type1 label {
   width: 110px;
   line-height: 20px;
@@ -3321,11 +3333,15 @@ td.datepickerSpecial.datepickerSelected a {
 #footer .important {
   color: #ff0000;
 }
-#footer ul > li {
+#footer ul li {
+  color: #cbcbcb;
   margin-bottom: 10px;
 }
-#footer ul > li a {
-  color: #cbcbcb;
+#footer p {
+  margin-top: 10px;
+  line-height: 1.75em;
+  text-align: justify;
+  word-break: break-all;
 }
 #footer .friend-links {
   width: 100%;
