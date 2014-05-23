@@ -17,7 +17,7 @@
                     </div>
                     <div class="span">
                         <h4 class="name"><?=$comment->username ?></h4>
-                        <p class="comment"><?=$comment->content ?></p>
+                        <p class="comment"><?=htmlspecialchars($comment->content) ?></p>
                         <div class="row">
                             <div class="time span"><?=$this->tag->passTime($comment->createdAt) ?></div>
                             <div class="toolbar right">
@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="span">
                                         <h4 class="name"><?=$childrenComment->username ?></h4>
-                                        <p class="comment"><?=$childrenComment->content ?></p>
+                                        <p class="comment"><?=htmlspecialchars($childrenComment->content) ?></p>
                                         <div class="time span"><?=$this->tag->passTime($childrenComment->createdAt) ?></div>
                                     </div>
                                 </div>
