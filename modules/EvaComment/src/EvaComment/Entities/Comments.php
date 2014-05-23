@@ -142,10 +142,13 @@ class Comments extends BaseModel
 
     public function onConstruct()
     {
+        $this->codeType = 'TEXT';
         $this->username = 'anonymous';
         $this->numReply = 0;
         $this->parentId = 0;
-        $this->ancestorId = 0;
+        $this->rootId = 0;
+        $this->parentPath = '';
+        $this->depth = 0;
         $this->status = 0;
         $this->createdAt = time();
     }

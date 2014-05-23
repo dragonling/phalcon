@@ -5,7 +5,7 @@
         </div>
         <div class="span">
             <h4 class="name"><?=$comment->username ?></h4>
-            <p class="comment"><?=$comment->content ?></p>
+            <p class="comment"><?=htmlspecialchars($comment->content) ?></p>
             <div class="row">
                 <div class="time span"><?=$this->tag->passTime($comment->createdAt) ?></div>
                 <div class="toolbar right">
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-
+    <? if(empty($comment->parentId)){ ?>
     <div class="user-comments" id="fos_comment_replies_<?=$comment->id?>" style="display:none">
         <div class="content">
             <ul class="list">
@@ -36,4 +36,5 @@
             </ul>
         </div>
     </div>
+    <? } ?>
 </li>

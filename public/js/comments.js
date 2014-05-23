@@ -353,7 +353,7 @@
 
             var parent = form_data.parent;
             if(form_data.parent) {
-                form.after(commentHtml);
+                form.next().prepend(commentHtml);
 //                var form_parent = form.closest('.fos_comment_comment_form_holder');
 //
 //                // reply button holder
