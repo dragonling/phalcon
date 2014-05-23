@@ -168,9 +168,6 @@ class Engine
 
         $di->set('viewCache', function() use ($di) {
             $config = $di->get('config');
-            if(!$config->cache->enable || !$config->cache->viewCache) {
-                return false;
-            }
 
             $frontCacheClass = $config->cache->viewCache->frontend->adapter;
             $frontCacheClass = 'Phalcon\Cache\Frontend\\' . ucfirst($frontCacheClass);
@@ -178,6 +175,9 @@ class Engine
                 $config->cache->viewCache->frontend->options->toArray()
             );
 
+            if(!$config->cache->enable || !$config->cache->viewCache) {
+                $cache = new \Eva\EvaEngine\Cache\Backend\Disable($frontCache);
+            } else {
             $backendCacheClass = $config->cache->viewCache->backend->adapter;
             $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
             $cache = new $backendCacheClass($frontCache, array_merge(
@@ -186,6 +186,9 @@ class Engine
                 ),
                 $config->cache->viewCache->backend->options->toArray()
             ));
+            }
+
+
             return $cache;
         });
 
