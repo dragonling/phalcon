@@ -155,11 +155,11 @@ class Post extends Entities\Posts
     public function createPost(array $data)
     {
         $data['Categories'] = isset($data['Categories']) ? $data['Categories'] : array();
-        $textData = $data['Text'];
-        $tagData = $data['Tags'];
+        $textData = isset($data['Text']) ? $data['Text'] : array();
+        $tagData = isset($data['Tags']) ? $data['Tags'] : array();
         $categoryData = $data['Categories'];
-        unset($data['Text']);
         unset($data['Tags']);
+        unset($data['Text']);
         unset($data['Categories']);
 
         $text = new Text();

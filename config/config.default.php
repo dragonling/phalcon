@@ -12,6 +12,23 @@ return array(
 
     ),
 
+    'cache' => array(
+        'enable' => false,
+        'viewCache' => array(
+            'enable' => true,
+            'frontend' => array(
+                'adapter' => 'Output',
+                'options' => array(),
+            ),
+            'backend' => array(
+                'adapter' => 'File',
+                'options' => array(
+                    'cacheDir' => __DIR__ . '/../cache/view/',
+                ),
+            ),
+        ),
+    ),
+
     'baseUri' => '/',
 
     'thumbnail' => array(

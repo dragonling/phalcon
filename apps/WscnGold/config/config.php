@@ -2,6 +2,6 @@
 
 return array(
     'wscngold' => array(
-        'chartNewsCategoryId' => 1
+        'chartNewsCategoryId' => 14
     ),
 );

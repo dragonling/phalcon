@@ -34,9 +34,10 @@ class CommentManager extends BaseModel
         if (null !== $parent) {
             $comment->parentId = $parent->id;
             $comment->rootId = $parent->rootId ? $parent->rootId : $parent->id;
-        } else {
-            $comment->parentId = 0;
-            $comment->ancestorId = 0;
+
+            $comment->parentPath = $parent->parentPath ? $parent->parentPath.'/'.$parent->id : $parent->id;
+
+            $comment->depth = $comment->depth+1;
         }
 
 //        $event = new CommentEvent($comment);
@@ -56,6 +57,8 @@ class CommentManager extends BaseModel
         }
 
         $comment->save();
+
+        //todo
         $thread->numComments += 1;
         $thread->save();
 
