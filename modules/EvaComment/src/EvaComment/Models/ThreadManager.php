@@ -32,4 +32,14 @@ class ThreadManager extends BaseModel
         return $thread;
 
     }
+
+    public function addCommentNumber($thread,$num = 1)
+    {
+        $num = intval($num);
+        $phql = "UPDATE Eva\EvaComment\Entities\Threads SET numComments=numComments+$num, lastCommentAt=:now: WHERE id = :id:";
+
+        $manager = $this->getModelsManager();
+        $data = $manager->executeQuery($phql, array('id'=>$thread->id,'now'=>time()));
+        return $data;
+    }
 }

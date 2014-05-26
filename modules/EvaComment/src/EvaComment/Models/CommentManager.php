@@ -58,10 +58,8 @@ class CommentManager extends BaseModel
 
         $comment->save();
 
-        //todo
-        $thread->numComments += 1;
-        $thread->save();
-
+        $threadManager = new ThreadManager();
+        $threadManager->addCommentNumber($thread);
 
         return true;
     }
