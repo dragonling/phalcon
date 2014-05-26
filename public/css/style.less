@@ -2290,6 +2290,9 @@ td.datepickerSpecial.datepickerSelected a {
             &.text-green {
                 background: @green;
             }
+            &.text-gray {
+                background-color: @gray;
+            }
         }
 
         .text-left {
@@ -3296,6 +3299,9 @@ td.datepickerSpecial.datepickerSelected a {
             line-height: 30px;
             border-bottom: 1px solid #222;
             border-top: 1px solid #727272;
+            a {
+                color: @skyblue;
+            }
         }
         .date {
             color: #fff;
@@ -3748,10 +3754,13 @@ td.datepickerSpecial.datepickerSelected a {
         }
         .titlebar {
             color: #000;
-            line-height: 28px;
+            line-height: 27px;
             padding: 0 15px;
-            border-top: 1px solid #fff;
+            //border-top: 1px solid #fff;
             border-bottom: 1px solid #bebebe;
+            a {
+                color: @skyblue;
+            }
         }
         .nano-content {
             top: 30px;
@@ -3764,7 +3773,7 @@ td.datepickerSpecial.datepickerSelected a {
         }
         .date {
             border-bottom: 1px solid #222;
-            border-top: 1px solid #fff;
+            border-top: 1px solid #bebebe;
             border-bottom: 1px solid #bebebe;
             padding: 8px 15px;
         }

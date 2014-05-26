@@ -24,13 +24,13 @@
     Carousel.prototype.initDom = function(options)
     {
         this.$target  = options.$target;
-        this.$content = this.$target.children('[data-ss-carousel-content]');
-        this.$toolbar = this.$target.children('[data-ss-carousel-toolbar]');
-        var $items = this.$target.find('[data-ss-carousel-item]');
+        this.$content = this.$target.find('.ss-content');
+        this.$toolbar = this.$target.find('.ss-toolbar');
+        this.innerWidth = this.$target.find('.ss-wrap').innerWidth();
+        var $items = this.$content.children('.ss-item');
         this.itemWidth = $items.outerWidth();
         this.itemNum = $items.length;
         this.$content.width($items.length * this.itemWidth);
-        this.innerWidth = this.$target.innerWidth();
         this.minMarginLeft = this.innerWidth - this.itemNum * this.itemWidth;
         //$items.width(itemWidth);
     };

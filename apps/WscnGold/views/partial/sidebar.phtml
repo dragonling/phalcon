@@ -1,16 +1,20 @@
 <div id="sidebar" class="span4">
-    <h2 class="title">行情中心</h2>
+    <h2 class="title">
+        <a href="/market">行情中心</a>
+    </h2>
     <div class="line type1"></div>
     <iframe width="400" height="380"
         src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/sidebar?theme=dark&width=360')?>" ></iframe>
     <div class="line type1"></div>
-    <h2 class="title">财经日历</h2>
+    <h2 class="title">
+        <a href="/calendar">财经日历</a>
+    </h2>
     <div id="side-fcl" class="nano finance-calendar scrollable list type1" data-fcl-option="auto-scroll:true;">
         <div class="loader">
             <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
         </div>
         <div class="titlebar">
-            据<a href="" data-action="scroll-fixed">下次数据</a>公布时间还有：<span class="clock"></span>
+            据 ~ <a href="" data-action="scroll-fixed">下次数据</a> ~ 公布时间还有：<span class="clock"></span>
         </div>
         <ul class="nano-content content">
             <li class="more"></li>
