@@ -666,7 +666,7 @@
                 </div> <!--head end-->
                 <div id="stare-fcl" class="nano finance-calendar scrollable list" data-fcl-option="time-format: HH:mm a">
                     <div class="titlebar">
-                        据下次数据公布时间还有：<span class="clock"></span>
+                        据 <a href="" data-action="scroll-fixed">下次数据</a> 公布时间还有：<span class="clock"></span>
                     </div>
                     <ul class="nano-content content">
                         <li class="more"></li>
@@ -726,7 +726,10 @@
                                 <span class="update-time">更新时间：<%= updateTime %></span>
                                 <div class="row">
                                     <div class="span width-250">
-                                        <h3 class="title"><%= title %>：<span class="price"><%= price %></span></h3>
+                                        <h3 class="title">
+                                            <a href="/techanalysis/<%= symbol %>"><%= title %></a>
+                                            ：<span class="price"><%= price %></span>
+                                        </h3>
                                     </div>
                                     <div class="span width-120">
                                         <span class="close-price">昨收：<%= prevClose %></span>

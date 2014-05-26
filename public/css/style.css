@@ -2260,6 +2260,9 @@ td.datepickerSpecial.datepickerSelected a {
 #tech-analysis .table .with-bg.text-green {
   background: #00cb32;
 }
+#tech-analysis .table .with-bg.text-gray {
+  background-color: #323232;
+}
 #tech-analysis .table .text-left {
   text-align: left;
 }
@@ -3182,6 +3185,9 @@ td.datepickerSpecial.datepickerSelected a {
   border-bottom: 1px solid #222;
   border-top: 1px solid #727272;
 }
+#sidebar .finance-calendar.list .titlebar a {
+  color: #068cb5;
+}
 #sidebar .finance-calendar.list .date {
   color: #fff;
   padding: 8px 15px;
@@ -3599,10 +3605,12 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #stare-modal.panel .finance-calendar.scrollable.list .titlebar {
   color: #000;
-  line-height: 28px;
+  line-height: 27px;
   padding: 0 15px;
-  border-top: 1px solid #fff;
   border-bottom: 1px solid #bebebe;
+}
+#stare-modal.panel .finance-calendar.scrollable.list .titlebar a {
+  color: #068cb5;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .nano-content {
   top: 30px;
@@ -3615,7 +3623,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #stare-modal.panel .finance-calendar.scrollable.list .date {
   border-bottom: 1px solid #222;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
   padding: 8px 15px;
 }

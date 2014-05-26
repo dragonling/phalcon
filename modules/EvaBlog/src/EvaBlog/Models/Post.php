@@ -158,6 +158,9 @@ class Post extends Entities\Posts
         $textData = isset($data['Text']) ? $data['Text'] : array();
         $tagData = isset($data['Tags']) ? $data['Tags'] : array();
         $categoryData = $data['Categories'];
+        unset($data['Tags']);
+        unset($data['Text']);
+        unset($data['Categories']);
 
         $text = new Text();
         $text->assign($textData);
