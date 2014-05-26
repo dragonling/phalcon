@@ -487,6 +487,21 @@ $(function(){
         $modal.hide();
     }
 
+    /**
+     * 初始化定盘模式
+     */
+    function initStareModal() {
+        $('#stare-livenews').lnl({
+            heightChange: true
+        });
+        $('#stare-fcl').fcl({
+            autoScroll: true,
+            heightChange: true
+        });
+        document.getElementById('stare-iframe').src = $('#stare-iframe').attr('data-src');
+        $stare.attr('data-init', 'true');
+    }
+
     function showStareModal() {
         $stare.addClass('active');
         //$stare.css('transform', 'scale(0%, 0%)');
@@ -500,17 +515,15 @@ $(function(){
                 $stare.css({
                     transform: 'scale(' + now/100 + ',' + now/100 +')'
                 });
+            },
+            done: function() {
+                if ($stare.attr('data-init') != 'true') {
+                    initStareModal();
+                }
             }
         });
         //todo
-        //mam.initData(true);
-        $('#stare-livenews').lnl({
-            heightChange: true
-        });
-        $('#stare-fcl').fcl({
-            autoScroll: true,
-            heightChange: true
-        });
+
     }
 
     $modal.on('click', function(e){

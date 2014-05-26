@@ -30,7 +30,7 @@
                             <a data-efc-target="#chart" data-efc-symbol="SPX500INDEX" class="link" href="">标普500</a>
                             <a data-efc-target="#chart" data-efc-symbol="UKOil" class="link" href="">石油</a>
 
-                            <button class="button" data-toggle="stare-modal" onClick="ga('send', 'event', 'open', 'click', 'index_popup');">盯盘模式</button>
+                            <button class="button" data-toggle="stare-modal" onClick="ga('send', 'event', 'open', 'click', 'index_popup');">进入盯盘模式</button>
                         </div>
                         <div class="content">
                             <div class="toolbar">
@@ -611,7 +611,7 @@
                             <div class="line vertical"></div>
                         </div>
                         <div class="chart">
-                            <iframe width="672" height="195" src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=672&height=195&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
+                            <iframe id="stare-iframe" width="672" height="195" data-src="<?=$this->escaper->escapeHtmlAttr('http://markets.wallstreetcn.com/embed/hs?symbol=XAUUSD&chartTheme=dark&type=area&bgTheme=dark&width=672&height=195&rows=50&interval=5&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d' . $this->tag->config('wscngold', 'chartNewsCategoryId'))?>"></iframe>
                         </div>
                     </div>
                 </div><!-- market chart end -->
