@@ -47,11 +47,14 @@ class Engine
 
     public function initErrorHandler(Error\ErrorHandlerInterface $errorHandler)
     {
+        if($this->getDI()->get('config')->debug) {
+            return $this;
+        }
+
         $errorClass = get_class($errorHandler);
         set_error_handler("$errorClass::errorHandler");
         set_exception_handler("$errorClass::exceptionHandler");
         register_shutdown_function("$errorClass::shutdownHandler");
-
         return $this;
     }
 

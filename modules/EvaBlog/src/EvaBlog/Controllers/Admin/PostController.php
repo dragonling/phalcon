@@ -57,7 +57,7 @@ class PostController extends ControllerBase
     {
         $form = new Forms\PostForm();
         $form->setModel(new Models\Post());
-        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+        $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $post);
 
@@ -90,7 +90,7 @@ class PostController extends ControllerBase
 
         $form = new Forms\PostForm();
         $form->setModel($post);
-        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+        $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $post);
 

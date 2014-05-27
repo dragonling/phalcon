@@ -49,7 +49,7 @@ class UserController extends AdminControllerBase
         $user = new Models\User();
         $form = new \Eva\EvaUser\Forms\UserForm();
         $form->setModel($user);
-        $form->addForm('Profile', 'Eva\EvaUser\Forms\ProfileForm');
+        $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
         $this->view->setVar('item', $user);
         $this->view->setVar('form', $form);
 
@@ -82,7 +82,7 @@ class UserController extends AdminControllerBase
 
         $form = new \Eva\EvaUser\Forms\UserForm();
         $form->setModel($user);
-        $form->addForm('Profile', 'Eva\EvaUser\Forms\ProfileForm');
+        $form->addForm('profile', 'Eva\EvaUser\Forms\ProfileForm');
         $this->view->setVar('item', $user);
         $this->view->setVar('form', $form);
 

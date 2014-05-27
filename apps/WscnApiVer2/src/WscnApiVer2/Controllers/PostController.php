@@ -16,7 +16,7 @@ use Eva\EvaEngine\Exception;
  *  apiVersion="0.2",
  *  swaggerVersion="1.2",
  *  resourcePath="/post",
- *  basePath="http://l.api.goldtoutiao.com/v2"
+ *  basePath="/v2"
  * )
  */
 class PostController extends ControllerBase
