@@ -12,6 +12,19 @@ return array(
 
     ),
 
+    'assets' => array(
+        'cdn' => '',
+        'compress' => false,
+        'combine' => false,
+        'sourceDir' => __DIR__ . '/../public',   //MUST no slash end!
+        'targetDir' => __DIR__ . '/../public/cache', //MUST no slash end!
+        'gitDir' => __DIR__ . '/../.git/',
+        'combinePath' => '/cache/',  //no domain
+        'combineDomainPath' => '/',
+        'combineCache' => true,
+        'version' => null, //if use empty version will read system git last commit hash
+    ),
+
     'cache' => array(
         'enable' => false,
         'viewCache' => array(
