@@ -181,17 +181,39 @@ class Engine
             if(!$config->cache->enable || !$config->cache->viewCache) {
                 $cache = new \Eva\EvaEngine\Cache\Backend\Disable($frontCache);
             } else {
-            $backendCacheClass = $config->cache->viewCache->backend->adapter;
-            $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
-            $cache = new $backendCacheClass($frontCache, array_merge(
-                array(
-                    'prefix' => 'eva_view_',
-                ),
-                $config->cache->viewCache->backend->options->toArray()
-            ));
+                $backendCacheClass = $config->cache->viewCache->backend->adapter;
+                $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
+                $cache = new $backendCacheClass($frontCache, array_merge(
+                    array(
+                        'prefix' => 'eva_view_',
+                    ),
+                    $config->cache->viewCache->backend->options->toArray()
+                ));
             }
+            return $cache;
+        });
 
+        $di->set('modelCache', function() use ($di) {
+            $config = $di->get('config');
 
+            $frontCacheClass = $config->cache->modelCache->frontend->adapter;
+            $frontCacheClass = 'Phalcon\Cache\Frontend\\' . ucfirst($frontCacheClass);
+            $frontCache = new $frontCacheClass(
+                $config->cache->modelCache->frontend->options->toArray()
+            );
+
+            if(!$config->cache->enable || !$config->cache->modelCache) {
+                $cache = new \Eva\EvaEngine\Cache\Backend\Disable($frontCache);
+            } else {
+                $backendCacheClass = $config->cache->modelCache->backend->adapter;
+                $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
+                $cache = new $backendCacheClass($frontCache, array_merge(
+                    array(
+                        'prefix' => 'eva_model_',
+                    ),
+                    $config->cache->modelCache->backend->options->toArray()
+                ));
+            }
             return $cache;
         });
 

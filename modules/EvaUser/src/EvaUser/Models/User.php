@@ -57,7 +57,9 @@ class User extends Entities\Users
 
     public function findUsers(array $query = array())
     {
-        $itemQuery = $this->query();
+        $itemQuery = $this->getDI()->get('modelsManager')->createBuilder();
+
+        $itemQuery->from(get_class($this));
 
         $orderMapping = array(
             'id' => 'id ASC',
@@ -86,9 +88,7 @@ class User extends Entities\Users
         }
         $itemQuery->orderBy($order);
 
-        $items = $itemQuery->execute();
-
-        return $items;
+        return $itemQuery;
     }
 
     public function createUser($data)

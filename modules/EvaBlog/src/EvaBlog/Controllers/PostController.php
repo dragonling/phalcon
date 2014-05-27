@@ -25,13 +25,12 @@ class PostController extends \Phalcon\Mvc\Controller
         $post = new Models\Post();
         $posts = $post->findPosts($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "data" => $posts,
+            "builder" => $posts,
             "limit"=> $query['limit'],
             "page" => $query['page']
         ));
         $paginator->setQuery($query);
         $pager = $paginator->getPaginate();
-
         return $pager;
     }
 }

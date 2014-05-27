@@ -111,7 +111,9 @@ class Post extends Entities\Posts
 
     public function findPosts(array $query = array())
     {
-        $itemQuery = $this->query();
+        $itemQuery = $this->getDI()->get('modelsManager')->createBuilder();
+
+        $itemQuery->from(get_class($this));
 
         $orderMapping = array(
             'id' => 'id ASC',
@@ -147,9 +149,7 @@ class Post extends Entities\Posts
         }
         $itemQuery->orderBy($order);
 
-        $posts = $itemQuery->execute();
-
-        return $posts;
+        return $itemQuery;
     }
 
     public function createPost(array $data)

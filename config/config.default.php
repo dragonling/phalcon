@@ -40,6 +40,19 @@ return array(
                 ),
             ),
         ),
+        'modelCache' => array(
+            'enable' => true,
+            'frontend' => array(
+                'adapter' => 'Output',
+                'options' => array(),
+            ),
+            'backend' => array(
+                'adapter' => 'File',
+                'options' => array(
+                    'cacheDir' => __DIR__ . '/../cache/view/',
+                ),
+            ),
+        ),
     ),
 
     'baseUri' => '/',

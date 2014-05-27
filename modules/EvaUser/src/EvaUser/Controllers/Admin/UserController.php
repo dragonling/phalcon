@@ -34,7 +34,7 @@ class UserController extends AdminControllerBase
         $user = new Models\User();
         $users = $user->findUsers($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "data" => $users,
+            "builder" => $users,
             "limit"=> $limit,
             "page" => $query['page']
         ));

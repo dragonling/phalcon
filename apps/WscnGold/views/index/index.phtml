@@ -3,10 +3,10 @@
 <div class="row relative">
     <div class="span9">
         <div id="main">
-            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 11));$posts = $pager->items?>
+            <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 11));$posts = $pager->items;?>
             <div class="row">
                 <div class="span">
-                    <?$post = $posts[0]; unset($posts[0]);?>
+                    <?$post = $posts->getFirst();?>
                     <ul class="topnews carousel">
                         <li class="item">
                         <a class="link" href="/post/<?=$post->slug?>">
@@ -16,8 +16,10 @@
                         </li>
                     </ul>
                     <ul class="topnews list">
-                        <?foreach($posts as $post):?>
+                        <?foreach($posts as $key => $post):?>
+                        <?if($key > 0):?>
                         <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtml($post->title)?> <span class="time"><?=$this->tag->datetime($post->createdAt, 'H:i')?></span></a></li>
+                        <?endif?>
                         <?endforeach?>
                     </ul>
                 </div><!--span end -->
