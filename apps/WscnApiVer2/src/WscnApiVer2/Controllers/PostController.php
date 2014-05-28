@@ -21,6 +21,15 @@ use Eva\EvaEngine\Exception;
  */
 class PostController extends ControllerBase
 {
+    public function initialize()
+    {
+        $cacheKey = md5($this->request->getURI());
+    }
+
+    public function afterExecuteRoute($dispatcher)
+    {
+        parent::afterExecuteRoute($dispatcher);
+    }
 
     /**
      *
@@ -110,7 +119,7 @@ class PostController extends ControllerBase
         $post = new Models\Post();
         $posts = $post->findPosts($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "data" => $posts,
+            "builder" => $posts,
             "limit"=> $limit,
             "page" => $query['page']
         ));
@@ -120,7 +129,27 @@ class PostController extends ControllerBase
         $postArray = array();
         if ($pager->items) {
             foreach ($pager->items as $key => $post) {
-                $postArray[] = $post->dump(Models\Post::$defaultDump);
+                $postArray[] = $post->dump(array(
+                    'id',
+                    'title',
+                    'codeType',
+                    'createdAt',
+                    'summary',
+                    'summaryHtml' => 'getSummaryHtml',
+                    'commentStatus',
+                    'sourceName',
+                    'sourceUrl',
+                    'url' => 'getUrl',
+                    'imageUrl' => 'getImageUrl',
+                    'tags' => array(
+                        'id',
+                        'tagName',
+                    ),
+                    'user' => array(
+                        'id',
+                        'username',
+                    ),
+                ));
             }
         }
 
@@ -128,18 +157,19 @@ class PostController extends ControllerBase
             'paginator' => $this->getApiPaginator($paginator),
             'results' => $postArray,
         ));
+
     }
 
     /**
-     *
-     * @SWG\Api(
-     *   path="/post/{postId}",
-     *   description="Post related api",
-     *   produces="['application/json']",
-     *   @SWG\Operations(
-     *     @SWG\Operation(
-     *       method="GET",
-     *       summary="Find post by ID",
+    *
+    * @SWG\Api(
+        *   path="/post/{postId}",
+        *   description="Post related api",
+        *   produces="['application/json']",
+        *   @SWG\Operations(
+            *     @SWG\Operation(
+                *       method="GET",
+                *       summary="Find post by ID",
      *       notes="Returns a post based on ID",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
@@ -170,11 +200,11 @@ class PostController extends ControllerBase
         $postModel = new Models\Post();
         $post = $postModel->findFirst($id);
 
-         if (!$post) {
-             throw new Exception\ResourceNotFoundException('Request post not exist');
-         }
+        if (!$post) {
+            throw new Exception\ResourceNotFoundException('Request post not exist');
+        }
 
-         $post = $post->dump(Models\Post::$defaultDump);
+        $post = $post->dump(Models\Post::$defaultDump);
         return $this->response->setJsonContent($post);
     }
 
@@ -239,7 +269,7 @@ class PostController extends ControllerBase
 
         $form = new Forms\PostForm();
         $form->setModel($post);
-        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+        $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
 
 
         if (!$form->isFullValid($data)) {
@@ -302,7 +332,7 @@ class PostController extends ControllerBase
         $form = new Forms\PostForm();
         $post = new Models\Post();
         $form->setModel($post);
-        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+        $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
 
         if (!$form->isFullValid($data)) {
             return $this->displayJsonInvalidMessages($form);
