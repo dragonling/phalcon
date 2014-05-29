@@ -253,7 +253,7 @@
                     <div class="widget-body">
                         <div class="widget-main">
                             <div class="form-group">
-                                <input type="text" placeholder="Enter Tags ..." value="<?=$item ? $item->getTagString() : ''?>" name="Tags" class="tag-input form-control">
+                                <input type="text" placeholder="Enter Tags ..." value="<?=$item ? $item->getTagString() : ''?>" name="tags" class="tag-input form-control">
                             </div>
                         </div>
                     </div>
@@ -307,7 +307,7 @@
                                 <label class="block clearfix">
                                     <?=$form->render('username', array(
                                         'class' => 'form-control autocomplete',
-                                        'data-autocomplete-source' => '/admin/user/suggestions?query=%QUERY',
+                                        'data-autocomplete-source' => '/admin/user/process/suggestions?query=%QUERY',
                                         'data-autocomplete-target' => 'input[name=userId]',
                                         'data-autocomplete-fill-name' => 'id',
                                         'data-autocomplete-display-key' => 'username',
