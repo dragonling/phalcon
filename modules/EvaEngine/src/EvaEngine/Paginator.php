@@ -2,7 +2,7 @@
 
 namespace Eva\EvaEngine;
 
-class Paginator extends \Phalcon\Paginator\Adapter\Model
+class Paginator extends \Phalcon\Paginator\Adapter\QueryBuilder
 {
     protected $query;
 

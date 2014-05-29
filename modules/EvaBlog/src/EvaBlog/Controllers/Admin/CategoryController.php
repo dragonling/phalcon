@@ -18,11 +18,12 @@ class CategoryController extends ControllerBase
         $limit = $limit > 50 ? 50 : $limit;
         $limit = $limit < 10 ? 10 : $limit;
 
-        $items = Models\Category::find(array(
-            'order' => 'id DESC',
-        ));
+        $items = $this->modelsManager->createBuilder()
+            ->from('Eva\EvaBlog\Models\Category')
+            ->orderBy('id DESC');
+
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "data" => $items,
+            "builder" => $items,
             "limit"=> 500,
             "page" => $currentPage
         ));

@@ -36,7 +36,7 @@ class NewsController extends ControllerBase
         $post = new Post();
         $posts = $post->findPosts($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "data" => $posts,
+            "builder" => $posts,
             "limit"=> $limit,
             "page" => $query['page']
         ));

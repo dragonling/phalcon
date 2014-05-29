@@ -171,13 +171,13 @@ class PostForm extends Form
 
         $post = $this->getModel();
         $values = array();
-        if ($post && $post->Categories) {
-            foreach ($post->Categories as $categoryitem) {
+        if ($post && $post->categories) {
+            foreach ($post->categories as $categoryitem) {
                 $values[] = $categoryitem->id;
             }
         }
         foreach ($categories as $key => $item) {
-            $check = new Check('Categories[]', array(
+            $check = new Check('categories[]', array(
                 'value' => $item->id
             ));
             if (in_array($item->id, $values)) {

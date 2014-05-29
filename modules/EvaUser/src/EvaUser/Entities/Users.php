@@ -228,7 +228,7 @@ class Users extends \Eva\EvaEngine\Mvc\Model
     public function initialize()
     {
         $this->hasOne('id', 'Eva\EvaUser\Entities\Profiles', 'userId', array(
-            'alias' => 'Profile'
+            'alias' => 'profile'
         ));
 
         parent::initialize();

@@ -20,7 +20,7 @@ class ControllerBase extends \Eva\EvaEngine\Mvc\Controller\ControllerBase implem
     {
         $pager = $paginator->getPaginate();
         if ($pager->total_pages <= 1) {
-            return array();
+            return null;
         }
         $query = $pager->query;
 

@@ -16,11 +16,24 @@ use Eva\EvaEngine\Exception;
  *  apiVersion="0.2",
  *  swaggerVersion="1.2",
  *  resourcePath="/post",
- *  basePath="http://l.api.goldtoutiao.com/v2"
+ *  basePath="/v2"
  * )
  */
 class PostController extends ControllerBase
 {
+    public function initialize()
+    {
+
+        return $this->response->setJsonContent(array(
+            'paginator' => 1,
+            'results' => 2,
+        ));
+    }
+
+    public function afterExecuteRoute($dispatcher)
+    {
+        parent::afterExecuteRoute($dispatcher);
+    }
 
     /**
      *
@@ -53,14 +66,14 @@ class PostController extends ControllerBase
      *           description="User ID",
      *           paramType="query",
      *           required=false,
-     *           type="int"
+     *           type="integer"
      *         ),
      *         @SWG\Parameter(
      *           name="cid",
      *           description="Category ID",
      *           paramType="query",
      *           required=false,
-     *           type="int"
+     *           type="integer"
      *         ),
      *         @SWG\Parameter(
      *           name="order",
@@ -74,7 +87,7 @@ class PostController extends ControllerBase
      *           description="Limit max:100 | min:3; default is 25",
      *           paramType="query",
      *           required=false,
-     *           type="int"
+     *           type="integer"
      *         )
      *       )
      *     )
@@ -104,13 +117,19 @@ class PostController extends ControllerBase
             'page' => $this->request->getQuery('page', 'int', 1),
         );
 
+        $cacheKey = md5($this->request->getURI());
+        $cache = $this->getDI()->get('apiCache');
+        if($data = $cache->get($cacheKey)) {
+            return $this->response->setJsonContent($data);
+        }
+
         $form = new Forms\FilterForm();
         $form->setValues($this->request->getQuery());
 
         $post = new Models\Post();
         $posts = $post->findPosts($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "data" => $posts,
+            "builder" => $posts,
             "limit"=> $limit,
             "page" => $query['page']
         ));
@@ -120,26 +139,48 @@ class PostController extends ControllerBase
         $postArray = array();
         if ($pager->items) {
             foreach ($pager->items as $key => $post) {
-                $postArray[] = $post->dump(Models\Post::$defaultDump);
+                $postArray[] = $post->dump(array(
+                    'id',
+                    'title',
+                    'codeType',
+                    'createdAt',
+                    'summary',
+                    'summaryHtml' => 'getSummaryHtml',
+                    'commentStatus',
+                    'sourceName',
+                    'sourceUrl',
+                    'url' => 'getUrl',
+                    'imageUrl' => 'getImageUrl',
+                    'tags' => array(
+                        'id',
+                        'tagName',
+                    ),
+                    'user' => array(
+                        'id',
+                        'username',
+                    ),
+                ));
             }
         }
 
-        return $this->response->setJsonContent(array(
+        $data = array(
             'paginator' => $this->getApiPaginator($paginator),
             'results' => $postArray,
-        ));
+        );
+        $cache->save($cacheKey, $data, 60);
+        return $this->response->setJsonContent($data);
     }
 
     /**
-     *
-     * @SWG\Api(
-     *   path="/post/{postId}",
-     *   description="Post related api",
-     *   produces="['application/json']",
-     *   @SWG\Operations(
-     *     @SWG\Operation(
-     *       method="GET",
-     *       summary="Find post by ID",
+    *
+    * @SWG\Api(
+        *   path="/post/{postId}",
+        *   description="Post related api",
+        *   produces="['application/json']",
+        *   @SWG\Operations(
+            *     @SWG\Operation(
+                *       method="GET",
+                *       summary="Find post by ID",
      *       notes="Returns a post based on ID",
      *       @SWG\Parameters(
      *         @SWG\Parameter(
@@ -147,7 +188,7 @@ class PostController extends ControllerBase
      *           description="ID of post",
      *           paramType="path",
      *           required=true,
-     *           type="int"
+     *           type="integer"
      *         )
      *       ),
      *       @SWG\ResponseMessages(
@@ -166,15 +207,20 @@ class PostController extends ControllerBase
      */
     public function getAction()
     {
+        $cacheKey = md5($this->request->getURI());
+        $cache = $this->getDI()->get('apiCache');
+        if($data = $cache->get($cacheKey)) {
+            return $this->response->setJsonContent($data);
+        }
+
         $id = $this->dispatcher->getParam('id');
         $postModel = new Models\Post();
         $post = $postModel->findFirst($id);
-
-         if (!$post) {
-             throw new Exception\ResourceNotFoundException('Request post not exist');
-         }
-
-         $post = $post->dump(Models\Post::$defaultDump);
+        if (!$post) {
+            throw new Exception\ResourceNotFoundException('Request post not exist');
+        }
+        $post = $post->dump(Models\Post::$defaultDump);
+        $cache->save($cacheKey, $post, 60);
         return $this->response->setJsonContent($post);
     }
 
@@ -195,7 +241,7 @@ class PostController extends ControllerBase
      *           description="ID of post",
      *           paramType="path",
      *           required=true,
-     *           type="int"
+     *           type="integer"
      *         )
      *       ),
      *       @SWG\Parameters(
@@ -239,7 +285,7 @@ class PostController extends ControllerBase
 
         $form = new Forms\PostForm();
         $form->setModel($post);
-        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+        $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
 
 
         if (!$form->isFullValid($data)) {
@@ -302,7 +348,7 @@ class PostController extends ControllerBase
         $form = new Forms\PostForm();
         $post = new Models\Post();
         $form->setModel($post);
-        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+        $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
 
         if (!$form->isFullValid($data)) {
             return $this->displayJsonInvalidMessages($form);
@@ -334,7 +380,7 @@ class PostController extends ControllerBase
      *           description="ID of post",
      *           paramType="path",
      *           required=true,
-     *           type="int"
+     *           type="integer"
      *         )
      *       )
      *     )

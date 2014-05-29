@@ -24,18 +24,18 @@ class Post extends Entities\Posts
         'url' => 'getUrl',
         'imageUrl' => 'getImageUrl',
         'content' => 'getContentHtml',
-        'Text' => array(
+        'text' => array(
             'content',
         ),
-        'Tags' => array(
+        'tags' => array(
             'id',
             'tagName',
         ),
-        'Categories' => array(
+        'categories' => array(
             'id',
             'categoryName',
         ),
-        'User' => array(
+        'user' => array(
             'id',
             'username',
         ),
@@ -111,7 +111,9 @@ class Post extends Entities\Posts
 
     public function findPosts(array $query = array())
     {
-        $itemQuery = $this->query();
+        $itemQuery = $this->getDI()->get('modelsManager')->createBuilder();
+
+        $itemQuery->from(get_class($this));
 
         $orderMapping = array(
             'id' => 'id ASC',
@@ -147,24 +149,22 @@ class Post extends Entities\Posts
         }
         $itemQuery->orderBy($order);
 
-        $posts = $itemQuery->execute();
-
-        return $posts;
+        return $itemQuery;
     }
 
     public function createPost(array $data)
     {
-        $data['Categories'] = isset($data['Categories']) ? $data['Categories'] : array();
-        $textData = isset($data['Text']) ? $data['Text'] : array();
-        $tagData = isset($data['Tags']) ? $data['Tags'] : array();
-        $categoryData = $data['Categories'];
-        unset($data['Tags']);
-        unset($data['Text']);
-        unset($data['Categories']);
+        $data['categories'] = isset($data['categories']) ? $data['categories'] : array();
+        $textData = isset($data['text']) ? $data['text'] : array();
+        $tagData = isset($data['tags']) ? $data['tags'] : array();
+        $categoryData = $data['categories'];
+        unset($data['tags']);
+        unset($data['text']);
+        unset($data['categories']);
 
         $text = new Text();
         $text->assign($textData);
-        $this->Text = $text;
+        $this->text = $text;
 
         $tags = array();
         if ($tagData) {
@@ -175,7 +175,7 @@ class Post extends Entities\Posts
                 $tags[] = $tag;
             }
             if ($tags) {
-                $this->Tags = $tags;
+                $this->tags = $tags;
             }
         }
 
@@ -187,7 +187,7 @@ class Post extends Entities\Posts
                     $categories[] = $category;
                 }
             }
-            $this->Categories = $categories;
+            $this->categories = $categories;
         }
 
         $this->assign($data);
@@ -200,22 +200,22 @@ class Post extends Entities\Posts
 
     public function updatePost($data)
     {
-        $data['Categories'] = isset($data['Categories']) ? $data['Categories'] : array();
-        $textData = $data['Text'];
-        $tagData = $data['Tags'];
-        $categoryData = $data['Categories'];
-        unset($data['Text']);
-        unset($data['Tags']);
-        unset($data['Categories']);
+        $data['categories'] = isset($data['categories']) ? $data['categories'] : array();
+        $textData = $data['text'];
+        $tagData = $data['tags'];
+        $categoryData = $data['categories'];
+        unset($data['text']);
+        unset($data['tags']);
+        unset($data['categories']);
 
         $text = new Text();
         $text->assign($textData);
-        $this->Text = $text;
+        $this->text = $text;
 
         $tags = array();
         //remove old relations
-        if ($this->TagsPosts) {
-            $this->TagsPosts->delete();
+        if ($this->tagsPosts) {
+            $this->tagsPosts->delete();
         }
         if ($tagData) {
             $tagArray = explode(',', $tagData);
@@ -225,13 +225,13 @@ class Post extends Entities\Posts
                 $tags[] = $tag;
             }
             if ($tags) {
-                $this->Tags = $tags;
+                $this->tags = $tags;
             }
         }
 
         //remove old relations
-        if ($this->CategoriesPosts) {
-            $this->CategoriesPosts->delete();
+        if ($this->categoriesPosts) {
+            $this->categoriesPosts->delete();
         }
         $categories = array();
         if ($categoryData) {
@@ -241,7 +241,7 @@ class Post extends Entities\Posts
                     $categories[] = $category;
                 }
             }
-            $this->Categories = $categories;
+            $this->categories = $categories;
         }
 
         $this->assign($data);
@@ -256,24 +256,24 @@ class Post extends Entities\Posts
     {
         $this->id = $id;
         //remove old relations
-        if ($this->TagsPosts) {
-            $this->TagsPosts->delete();
+        if ($this->tagsPosts) {
+            $this->tagsPosts->delete();
         }
         //remove old relations
-        if ($this->CategoriesPosts) {
-            $this->CategoriesPosts->delete();
+        if ($this->categoriesPosts) {
+            $this->categoriesPosts->delete();
         }
-        $this->Text->delete();
+        $this->text->delete();
         $this->delete();
     }
 
     public function getTagString()
     {
-        if (!$this->Tags) {
+        if (!$this->tags) {
             return '';
         }
 
-        $tags = $this->Tags;
+        $tags = $this->tags;
         $tagArray = array();
         foreach ($tags as $tag) {
             $tagArray[] = $tag->tagName;
@@ -299,16 +299,16 @@ class Post extends Entities\Posts
 
     public function getContentHtml()
     {
-        if (!$this->Text) {
+        if (!$this->text) {
             return '';
         }
         if ($this->codeType == 'markdown') {
             $parsedown = new \Parsedown();
 
-            return $parsedown->text($this->Text->content);
+            return $parsedown->text($this->text->content);
         }
 
-        return $this->Text->content;
+        return $this->text->content;
     }
 
     public function getUrl()

@@ -47,11 +47,14 @@ class Engine
 
     public function initErrorHandler(Error\ErrorHandlerInterface $errorHandler)
     {
+        if($this->getDI()->get('config')->debug) {
+            return $this;
+        }
+
         $errorClass = get_class($errorHandler);
         set_error_handler("$errorClass::errorHandler");
         set_exception_handler("$errorClass::exceptionHandler");
         register_shutdown_function("$errorClass::shutdownHandler");
-
         return $this;
     }
 
@@ -178,17 +181,63 @@ class Engine
             if(!$config->cache->enable || !$config->cache->viewCache) {
                 $cache = new \Eva\EvaEngine\Cache\Backend\Disable($frontCache);
             } else {
-            $backendCacheClass = $config->cache->viewCache->backend->adapter;
-            $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
-            $cache = new $backendCacheClass($frontCache, array_merge(
-                array(
-                    'prefix' => 'eva_view_',
-                ),
-                $config->cache->viewCache->backend->options->toArray()
-            ));
+                $backendCacheClass = $config->cache->viewCache->backend->adapter;
+                $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
+                $cache = new $backendCacheClass($frontCache, array_merge(
+                    array(
+                        'prefix' => 'eva_view_',
+                    ),
+                    $config->cache->viewCache->backend->options->toArray()
+                ));
             }
+            return $cache;
+        });
 
+        $di->set('modelCache', function() use ($di) {
+            $config = $di->get('config');
 
+            $frontCacheClass = $config->cache->modelCache->frontend->adapter;
+            $frontCacheClass = 'Phalcon\Cache\Frontend\\' . ucfirst($frontCacheClass);
+            $frontCache = new $frontCacheClass(
+                $config->cache->modelCache->frontend->options->toArray()
+            );
+
+            if(!$config->cache->enable || !$config->cache->modelCache) {
+                $cache = new \Eva\EvaEngine\Cache\Backend\Disable($frontCache);
+            } else {
+                $backendCacheClass = $config->cache->modelCache->backend->adapter;
+                $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
+                $cache = new $backendCacheClass($frontCache, array_merge(
+                    array(
+                        'prefix' => 'eva_model_',
+                    ),
+                    $config->cache->modelCache->backend->options->toArray()
+                ));
+            }
+            return $cache;
+        });
+
+        $di->set('apiCache', function() use ($di) {
+            $config = $di->get('config');
+
+            $frontCacheClass = $config->cache->apiCache->frontend->adapter;
+            $frontCacheClass = 'Phalcon\Cache\Frontend\\' . ucfirst($frontCacheClass);
+            $frontCache = new $frontCacheClass(
+                $config->cache->apiCache->frontend->options->toArray()
+            );
+
+            if(!$config->cache->enable || !$config->cache->apiCache) {
+                $cache = new \Eva\EvaEngine\Cache\Backend\Disable($frontCache);
+            } else {
+                $backendCacheClass = $config->cache->apiCache->backend->adapter;
+                $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
+                $cache = new $backendCacheClass($frontCache, array_merge(
+                    array(
+                        'prefix' => 'eva_api_',
+                    ),
+                    $config->cache->apiCache->backend->options->toArray()
+                ));
+            }
             return $cache;
         });
 

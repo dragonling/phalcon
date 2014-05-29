@@ -8,8 +8,8 @@
                 <div class="info">
                     <span class="item author"><?=$item->username ? $item->username : '黄金头条'?></span>
                     <span class="item time"><?=$this->tag->datetime($item->createdAt)?></span>
-                    <span class="item tag"><?if($item->Tags):?>
-                        <?foreach($item->Tags as $tag):?>    
+                    <span class="item tag"><?if($item->tags):?>
+                        <?foreach($item->tags as $tag):?>    
                         <?=$tag->tagName?> /
                         <?endforeach?>    
                     <?endif?></span>

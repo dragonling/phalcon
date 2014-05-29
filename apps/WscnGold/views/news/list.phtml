@@ -15,9 +15,9 @@
                         <div class="info">
                             <span class="tag"><?=$item->username ? $item->username : '黄金头条'?></span>
                             <span class="time"><?=$this->tag->datetime($item->createdAt)?></span>
-                            <?if($item->Tags):?>
+                            <?if($item->tags):?>
                             <span class="tag">
-                                <?foreach($item->Tags as $tag):?>
+                                <?foreach($item->tags as $tag):?>
                                 <?=$tag->tagName?>
                                 <?endforeach?>
                             </span>

@@ -42,22 +42,20 @@ class PostController extends ControllerBase
         $post = new Models\Post();
         $posts = $post->findPosts($query);
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "data" => $posts,
+            "builder" => $posts,
             "limit"=> $limit,
             "page" => $query['page']
         ));
         $paginator->setQuery($query);
         $pager = $paginator->getPaginate();
         $this->view->setVar('pager', $pager);
-
-        return $paginator;
     }
 
     public function createAction()
     {
         $form = new Forms\PostForm();
         $form->setModel(new Models\Post());
-        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+        $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $post);
 
@@ -90,7 +88,7 @@ class PostController extends ControllerBase
 
         $form = new Forms\PostForm();
         $form->setModel($post);
-        $form->addForm('Text', 'Eva\EvaBlog\Forms\TextForm');
+        $form->addForm('text', 'Eva\EvaBlog\Forms\TextForm');
         $this->view->setVar('form', $form);
         $this->view->setVar('item', $post);
 

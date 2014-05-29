@@ -20,11 +20,11 @@ class MediaController extends ControllerBase
         $limit = $limit > 50 ? 50 : $limit;
         $limit = $limit < 10 ? 10 : $limit;
 
-        $posts = Models\FileManager::find(array(
-            'order' => 'id DESC',
-        ));
+        $posts = $this->modelsManager->createBuilder()
+            ->from('Eva\EvaFileSystem\Models\FileManager')
+            ->orderBy('id DESC');
         $paginator = new \Eva\EvaEngine\Paginator(array(
-            "data" => $posts,
+            "builder" => $posts,
             "limit"=> $limit,
             "page" => $currentPage
         ));

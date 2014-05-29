@@ -40,6 +40,32 @@ return array(
                 ),
             ),
         ),
+        'modelCache' => array(
+            'enable' => true,
+            'frontend' => array(
+                'adapter' => 'Data',
+                'options' => array(),
+            ),
+            'backend' => array(
+                'adapter' => 'File',
+                'options' => array(
+                    'cacheDir' => __DIR__ . '/../cache/model/',
+                ),
+            ),
+        ),
+        'apiCache' => array(
+            'enable' => true,
+            'frontend' => array(
+                'adapter' => 'Json',
+                'options' => array(),
+            ),
+            'backend' => array(
+                'adapter' => 'File',
+                'options' => array(
+                    'cacheDir' => __DIR__ . '/../cache/api/',
+                ),
+            ),
+        ),
     ),
 
     'baseUri' => '/',

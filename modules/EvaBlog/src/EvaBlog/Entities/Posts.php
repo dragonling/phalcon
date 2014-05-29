@@ -195,18 +195,18 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
     public function initialize()
     {
         $this->hasOne('id', 'Eva\EvaBlog\Entities\Texts', 'postId', array(
-            'alias' => 'Text'
+            'alias' => 'text'
         ));
 
         $this->belongsTo('userId', 'Eva\EvaUser\Entities\Users', 'id', array(
-            'alias' => 'User'
+            'alias' => 'user'
         ));
 
         $this->hasMany(
             'id',
             'Eva\EvaBlog\Entities\CategoriesPosts',
             'postId',
-            array('alias' => 'CategoriesPosts')
+            array('alias' => 'categoriesPosts')
         );
 
         $this->hasManyToMany(
@@ -216,14 +216,14 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'categoryId',
             'Eva\EvaBlog\Entities\Categories',
             'id',
-            array('alias' => 'Categories')
+            array('alias' => 'categories')
         );
 
         $this->hasMany(
             'id',
             'Eva\EvaBlog\Entities\TagsPosts',
             'postId',
-            array('alias' => 'TagsPosts')
+            array('alias' => 'tagsPosts')
         );
 
         $this->hasManyToMany(
@@ -233,7 +233,7 @@ class Posts extends \Eva\EvaEngine\Mvc\Model
             'tagId',
             'Eva\EvaBlog\Entities\Tags',
             'id',
-            array('alias' => 'Tags')
+            array('alias' => 'tags')
         );
 
         parent::initialize();
