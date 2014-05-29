@@ -62,14 +62,14 @@ class PostController extends ControllerBase
      *           description="User ID",
      *           paramType="query",
      *           required=false,
-     *           type="int"
+     *           type="integer"
      *         ),
      *         @SWG\Parameter(
      *           name="cid",
      *           description="Category ID",
      *           paramType="query",
      *           required=false,
-     *           type="int"
+     *           type="integer"
      *         ),
      *         @SWG\Parameter(
      *           name="order",
@@ -83,7 +83,7 @@ class PostController extends ControllerBase
      *           description="Limit max:100 | min:3; default is 25",
      *           paramType="query",
      *           required=false,
-     *           type="int"
+     *           type="integer"
      *         )
      *       )
      *     )
@@ -177,7 +177,7 @@ class PostController extends ControllerBase
      *           description="ID of post",
      *           paramType="path",
      *           required=true,
-     *           type="int"
+     *           type="integer"
      *         )
      *       ),
      *       @SWG\ResponseMessages(
@@ -225,7 +225,7 @@ class PostController extends ControllerBase
      *           description="ID of post",
      *           paramType="path",
      *           required=true,
-     *           type="int"
+     *           type="integer"
      *         )
      *       ),
      *       @SWG\Parameters(
@@ -364,7 +364,7 @@ class PostController extends ControllerBase
      *           description="ID of post",
      *           paramType="path",
      *           required=true,
-     *           type="int"
+     *           type="integer"
      *         )
      *       )
      *     )
