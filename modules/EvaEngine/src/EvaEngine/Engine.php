@@ -217,6 +217,30 @@ class Engine
             return $cache;
         });
 
+        $di->set('apiCache', function() use ($di) {
+            $config = $di->get('config');
+
+            $frontCacheClass = $config->cache->apiCache->frontend->adapter;
+            $frontCacheClass = 'Phalcon\Cache\Frontend\\' . ucfirst($frontCacheClass);
+            $frontCache = new $frontCacheClass(
+                $config->cache->apiCache->frontend->options->toArray()
+            );
+
+            if(!$config->cache->enable || !$config->cache->apiCache) {
+                $cache = new \Eva\EvaEngine\Cache\Backend\Disable($frontCache);
+            } else {
+                $backendCacheClass = $config->cache->apiCache->backend->adapter;
+                $backendCacheClass = 'Phalcon\Cache\Backend\\' . ucfirst($backendCacheClass);
+                $cache = new $backendCacheClass($frontCache, array_merge(
+                    array(
+                        'prefix' => 'eva_api_',
+                    ),
+                    $config->cache->apiCache->backend->options->toArray()
+                ));
+            }
+            return $cache;
+        });
+
 
         $di->set('view', function () use ($di) {
             $view = new View();
