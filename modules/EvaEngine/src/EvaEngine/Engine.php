@@ -155,7 +155,8 @@ class Engine
         $di->set('session', function () {
             $session = new SessionAdapter();
             if (!$session->isStarted()) {
-                $session->start();
+                //NOTICE: Get php warning here
+                @$session->start();
             }
 
             return $session;

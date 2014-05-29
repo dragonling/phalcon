@@ -4,6 +4,7 @@
             <?$pager = $this->tag->component('post', array('status' => 'published', 'cid' => 1 ,'limit' => 11));$posts = $pager->items?>
             <?$post = $posts->getFirst();?>
             <div class="row">
+                <?if($post):?>
                 <ul class="topnews carousel type1 left">
                     <li class="item">
                         <a class="link" href="/post/<?=$post->slug?>">
@@ -12,6 +13,7 @@
                         </a>
                     </li>
                 </ul>
+                <?endif?>
                 <ul class="topnews list type1 right">
                     <li class="title"><h2>头条新闻</h2></li>
                     <?foreach($posts as $key => $post):?>

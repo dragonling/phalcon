@@ -7,6 +7,7 @@
             <div class="row">
                 <div class="span">
                     <?$post = $posts->getFirst();?>
+                    <?if($post):?>
                     <ul class="topnews carousel">
                         <li class="item">
                         <a class="link" href="/post/<?=$post->slug?>">
@@ -15,6 +16,7 @@
                         </a>
                         </li>
                     </ul>
+                    <?endif?>
                     <ul class="topnews list">
                         <?foreach($posts as $key => $post):?>
                         <?if($key > 0):?>
