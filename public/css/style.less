@@ -6,7 +6,8 @@
 @borderColor: #ccc;
 @color1: #343434;
 @red: #ff3232;
-@green: #00cb32;
+//@green: #00cb32;
+@green: #00a032;
 @color-red: #ff3232;
 @upColor: @red;
 @downColor: @green;
@@ -732,12 +733,15 @@ label.checkbox {
                 //border-right-color: #1e1e1e;
                 background-color: @gray;
             }
+            &.more {
+                color: @lightBlue;
+            }
         }
 
         &>.button[data-toggle=stare-modal] {
             display: block;
             float: right;
-            width: 100px;
+            width: 90px;
             height: 25px;
             line-height: 25px;
             text-align: center;
@@ -815,6 +819,10 @@ label.checkbox {
             float: left;
             height: 100%;
             border-right: 1px solid @color1;
+
+            &:first-child {
+                border-left: 1px solid @color1;
+            }
 
             &>.link {
                 display: block;
@@ -1853,12 +1861,14 @@ td.datepickerSpecial.datepickerSelected a {
     }
     .menu {
         padding-top: 0;
+        font-size: 12px;
         &.first-item {
             padding-top: 20px;
         }
         .text {
             display: block;
             text-indent: 20px;
+            line-height: 13px;
         }
     }
     [data-quote] {
@@ -1896,8 +1906,15 @@ td.datepickerSpecial.datepickerSelected a {
                     font-weight: normal;
                     color: #c8c8c8;
                 }
+                .cell1 {
+                    width: 4em;
+                }
+                .cell2 {
+                    width: 5em;
+                }
                 td {
                     color: #e6e6e6;
+                    padding: 0 3px;
                 }
             }
         }
@@ -2035,13 +2052,13 @@ td.datepickerSpecial.datepickerSelected a {
             }
         }
 
-        &[data-trend=up] {
+        [data-trend=up] {
             .diff,
             .diff-pct {
                 color: @upColor;
             }
         }
-        &[data-trend=down] {
+        [data-trend=down] {
             .diff,
             .diff-pct {
                 color: @downColor;
@@ -2050,7 +2067,7 @@ td.datepickerSpecial.datepickerSelected a {
     }
     [data-chart] {
         background-color: #ecf2f6;
-        padding: 15px 30px 30px;
+        padding: 15px 30px 45px;
         border-bottom: 1px solid #b4b4b4;
         .toolbar {
             height: 30px;
@@ -2349,7 +2366,10 @@ td.datepickerSpecial.datepickerSelected a {
             border-bottom-color: #1e1e1e;
         }
     }
-
+    .main-more {
+        float: right;
+        line-height: 30px;
+    }
 
     .topnews.carousel {
         width: 340px;
@@ -3048,9 +3068,9 @@ td.datepickerSpecial.datepickerSelected a {
     }
     .item {
         &.red {
-            color: @lightBlue;
+            color: @blue;
             .link {
-                color: @lightBlue;
+                color: @blue;
             }
         }
         &.bold {
@@ -3290,7 +3310,7 @@ td.datepickerSpecial.datepickerSelected a {
             background-color: rgba(136,136,136,.6);
         }
         .clock {
-            color: @upColor;
+            color: @red;
             font-weight: bold;
         }
         .titlebar {
@@ -3616,8 +3636,8 @@ td.datepickerSpecial.datepickerSelected a {
                 &:first-of-type {
                     border-left-color: transparent;
                 }
-                &:last-of-type {
-                    border-right: none;
+                &.last-of-type {
+                    border-right-color: transparent;
                 }
                 &:hover,
                 &.active {
@@ -3643,6 +3663,18 @@ td.datepickerSpecial.datepickerSelected a {
                         background-color: @lightBlue;
                     }
                 }
+            }
+            &>.more {
+                display: block;
+                margin: 5px 20px;
+                float: left;
+                width: 40px;
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                color: #fff;
+                background-color: @lightBlue;
+                border-radius: 5px;
             }
         }
         &>.content{
@@ -3749,7 +3781,7 @@ td.datepickerSpecial.datepickerSelected a {
         background-color: #e6e6e6;
 
         .clock {
-            color: @blue;
+            color: @red;
             font-weight: bold;
         }
         .titlebar {

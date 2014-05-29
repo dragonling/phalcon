@@ -10,7 +10,7 @@
         this.$target = options.$target;
         this.$content = this.$target.children('.content');
         this.$script = this.$target.find('script[data-template]');
-        this.config.alert = options.alert === false ? false : true;
+        this.config.alert = options.alert;
         //todo
         this.autoRefresh = options.autoRefresh === false ? false : true;
         this.scrollable = options.scrollable === false ? false : true;

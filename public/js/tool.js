@@ -91,8 +91,21 @@ moment.lang('zh-cn', {
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
-
+//
 moment.lang('zh-cn');
+//
+Highcharts.setOptions({
+    global: {
+        useUTC: false
+    }
+});
+
+//添加 trim 方法
+if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+        return this.replace(/^\s+|\s+$/g, '');
+    };
+}
 
 var tool = {
     /**

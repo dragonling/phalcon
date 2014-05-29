@@ -38,6 +38,26 @@
                     data-efc-target="#market [data-chart]">
                     <span class="text">铜</span>
                 </li>
+                <li class="item" data-rtq-symbol="AUTD" data-efc-symbol="Copper"
+                    data-efc-target="#market [data-chart]">
+                    <span class="text">黄金t+d</span>
+                </li>
+                <li class="item" data-rtq-symbol="AGTD" data-efc-symbol="Copper"
+                    data-efc-target="#market [data-chart]">
+                    <span class="text">白银t+d</span>
+                </li>
+                <li class="item" data-rtq-symbol="TTYXAGUSD" data-efc-symbol="Copper"
+                    data-efc-target="#market [data-chart]">
+                    <span class="text">天通银</span>
+                </li>
+                <li class="item" data-rtq-symbol="AU9999" data-efc-symbol="Copper"
+                    data-efc-target="#market [data-chart]">
+                    <span class="text">黄金9999</span>
+                </li>
+                <li class="item" data-rtq-symbol="AU9995" data-efc-symbol="Copper"
+                    data-efc-target="#market [data-chart]">
+                    <span class="text">黄金9995</span>
+                </li>
             </ul>
             <script type="text/template" data-rtq-template>
                 <div data-trend="<%= trend %>">
@@ -47,7 +67,7 @@
                         <span class="diff"><%= diff %></span>
                         <span class="diff-pct">(<%= diffPercent %>)</span>
                     </h3>
-                    <div class="meta"><%= updateTime %> - 实时数据 CFD. USD 货币 ( 免责声明 )</div>
+                    <div class="meta"><%= updateTime %> - 实时数据 CFD. USD 货币 ( <a href="/post/risk">免责声明</a> )</div>
                     <div data-price>
                         <span class="label">昨收：</span><span class="value"><%= prevClose %></span>
                         <span class="label">开盘：</span><span class="value"><%= open %></span>
@@ -62,7 +82,7 @@
                     <span class="diff">N/A</span>
                     <span class="diff-pct">(N/A)</span>
                 </h3>
-                <div class="meta">N/A ( 免责声明 )</div>
+                <div class="meta">N/A ( <a href="/post/risk">免责声明</a> )</div>
                 <div data-price>
                     <span class="label">昨收：</span><span class="value">N/A</span>
                     <span class="label">开盘：</span><span class="value">N/A</span>
@@ -145,12 +165,12 @@
                             <th rowspan="2">日期</th>
                             <th colspan="4">非商业性</th>
                             <th colspan="2">商业性</th>
-                            <th rowspan="2">未平仓合约</th>
+                            <th rowspan="2" class="cell2">未平仓合约</th>
                             <th rowspan="2">未平仓净变化（与上周比）</th>
                         </tr>
                         <tr>
-                            <th>多头持仓</th><th>空头持仓</th><th>多空净持仓</th><th>净持仓变化（与上周比）</th>
-                            <th>多头持仓</th><th>空头持仓</th>
+                            <th class="cell1">多头持仓</th><th class="cell1">空头持仓</th><th class="cell2">多空净持仓</th><th>净持仓变化（与上周比）</th>
+                            <th class="cell1">多头持仓</th><th class="cell1">空头持仓</th>
                         </tr>
 
                         </thead>

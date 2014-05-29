@@ -24,7 +24,7 @@ function getSuggestClass($input) {
             <script type="text/template" data-rtq-template>
                 <div data-trend="<%= trend %>">
                     <h3 class="title"><%= title %></h3>
-                    <p class="meta"><%= updateTime %> - 实时数据 CFD. USD 货币 ( 免责声明 )</p>
+                    <p class="meta">数据来源：investing.com ( <a href="/post/risk">免责声明</a> )</p>
                     <div class="row relative price">
                         <h4 class="left">
                             <span class="current"><%= price %></span>
@@ -45,7 +45,7 @@ function getSuggestClass($input) {
             <div class="datum" data-rtq-dom>
                 <div data-trend="">
                     <h3 class="title"><?=$quote->title?></h3>
-                    <p class="meta">N/A ( <a href="#">免责声明</a> )</p>
+                    <p class="meta">N/A ( <a href="/post/risk">免责声明</a> )</p>
                     <div class="row relative price">
                         <h4 class="left">
                             <span class="current">N/A</span>

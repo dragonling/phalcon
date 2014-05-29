@@ -303,7 +303,7 @@ iframe {
   color: #ff3232;
 }
 .text-green {
-  color: #00cb32;
+  color: #00a032;
 }
 .text-gray {
   color: #505050;
@@ -318,7 +318,7 @@ iframe {
   border-color: #ff3232;
 }
 .border-green {
-  border-color: #00cb32;
+  border-color: #00a032;
 }
 .border-gray {
   border-color: #505050;
@@ -330,7 +330,7 @@ iframe {
   background-color: #005178;
 }
 .bg-green {
-  background-color: #00cb32;
+  background-color: #00a032;
 }
 .bg-gray {
   background-color: #505050;
@@ -675,7 +675,7 @@ label.checkbox.right {
   color: #ff3232;
 }
 .market-analysis .datum [data-trend=down] .price {
-  color: #00cb32;
+  color: #00a032;
 }
 .market.chart > .titlebar {
   background-color: #1e1e1e;
@@ -708,10 +708,13 @@ label.checkbox.right {
   border-left: none;
   background-color: #323232;
 }
+.market.chart > .titlebar > .link.more {
+  color: #07bae8;
+}
 .market.chart > .titlebar > .button[data-toggle=stare-modal] {
   display: block;
   float: right;
-  width: 100px;
+  width: 90px;
   height: 25px;
   line-height: 25px;
   text-align: center;
@@ -779,6 +782,9 @@ label.checkbox.right {
   float: left;
   height: 100%;
   border-right: 1px solid #343434;
+}
+#header .navbar .nav:first-child {
+  border-left: 1px solid #343434;
 }
 #header .navbar .nav > .link {
   display: block;
@@ -1481,7 +1487,7 @@ label.checkbox.right {
   color: #ff3232;
 }
 .finance-calendar.list [data-trend=down] .actual {
-  color: #00cb32;
+  color: #00a032;
 }
 .finance-calendar.list .date {
   color: #8C8C8C;
@@ -1837,6 +1843,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #market .menu {
   padding-top: 0;
+  font-size: 12px;
 }
 #market .menu.first-item {
   padding-top: 20px;
@@ -1844,6 +1851,7 @@ td.datepickerSpecial.datepickerSelected a {
 #market .menu .text {
   display: block;
   text-indent: 20px;
+  line-height: 13px;
 }
 #market [data-quote] > [data-type] {
   display: none;
@@ -1887,9 +1895,18 @@ td.datepickerSpecial.datepickerSelected a {
   font-weight: normal;
   color: #c8c8c8;
 }
+#market [data-quote] > [data-type="etf"] .table .cell1,
+#market [data-quote] > [data-type="cftc"] .table .cell1 {
+  width: 4em;
+}
+#market [data-quote] > [data-type="etf"] .table .cell2,
+#market [data-quote] > [data-type="cftc"] .table .cell2 {
+  width: 5em;
+}
 #market [data-quote] > [data-type="etf"] .table td,
 #market [data-quote] > [data-type="cftc"] .table td {
   color: #e6e6e6;
+  padding: 0 3px;
 }
 #market [data-quote] > [data-type="fixing"] .line {
   border-left-color: #c8c8c8;
@@ -2018,17 +2035,17 @@ td.datepickerSpecial.datepickerSelected a {
   color: #005178;
   margin-right: 15px;
 }
-#market [data-info][data-trend=up] .diff,
-#market [data-info][data-trend=up] .diff-pct {
+#market [data-info] [data-trend=up] .diff,
+#market [data-info] [data-trend=up] .diff-pct {
   color: #ff3232;
 }
-#market [data-info][data-trend=down] .diff,
-#market [data-info][data-trend=down] .diff-pct {
-  color: #00cb32;
+#market [data-info] [data-trend=down] .diff,
+#market [data-info] [data-trend=down] .diff-pct {
+  color: #00a032;
 }
 #market [data-chart] {
   background-color: #ecf2f6;
-  padding: 15px 30px 30px;
+  padding: 15px 30px 45px;
   border-bottom: 1px solid #b4b4b4;
 }
 #market [data-chart] .toolbar {
@@ -2197,7 +2214,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #tech-analysis .datum [data-trend="down"] .diff,
 #tech-analysis .datum [data-trend="down"] .diff-pct {
-  color: #00cb32;
+  color: #00a032;
 }
 #tech-analysis .tabbar {
   padding: 15px;
@@ -2240,7 +2257,7 @@ td.datepickerSpecial.datepickerSelected a {
   color: #fff;
   border-radius: 5px;
   padding: 0 5px;
-  background: #00cb32;
+  background: #00a032;
 }
 #tech-analysis .table .sell {
   color: #fff;
@@ -2258,7 +2275,7 @@ td.datepickerSpecial.datepickerSelected a {
   background: #ff3232;
 }
 #tech-analysis .table .with-bg.text-green {
-  background: #00cb32;
+  background: #00a032;
 }
 #tech-analysis .table .with-bg.text-gray {
   background-color: #323232;
@@ -2301,6 +2318,10 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #main .main-title.type1 {
   border-bottom-color: #1e1e1e;
+}
+#main .main-more {
+  float: right;
+  line-height: 30px;
 }
 #main .topnews.carousel {
   width: 340px;
@@ -2742,7 +2763,7 @@ td.datepickerSpecial.datepickerSelected a {
 }
 #main-analysis .table th .buy,
 #main-analysis .table td .buy {
-  color: #00cb32;
+  color: #00a032;
 }
 #main-analysis .table th .buy .value,
 #main-analysis .table td .buy .value {
@@ -2965,10 +2986,10 @@ td.datepickerSpecial.datepickerSelected a {
   background-position: -120px 0;
 }
 .livenews .item.red {
-  color: #07bae8;
+  color: #005178;
 }
 .livenews .item.red .link {
-  color: #07bae8;
+  color: #005178;
 }
 .livenews .item.bold {
   font-weight: bold;
@@ -3476,8 +3497,8 @@ td.datepickerSpecial.datepickerSelected a {
 #stare-modal.panel .market.chart > .titlebar > .link:first-of-type {
   border-left-color: transparent;
 }
-#stare-modal.panel .market.chart > .titlebar > .link:last-of-type {
-  border-right: none;
+#stare-modal.panel .market.chart > .titlebar > .link.last-of-type {
+  border-right-color: transparent;
 }
 #stare-modal.panel .market.chart > .titlebar > .link:hover,
 #stare-modal.panel .market.chart > .titlebar > .link.active {
@@ -3501,6 +3522,18 @@ td.datepickerSpecial.datepickerSelected a {
   top: 0;
   height: 4px;
   background-color: #07bae8;
+}
+#stare-modal.panel .market.chart > .titlebar > .more {
+  display: block;
+  margin: 5px 20px;
+  float: left;
+  width: 40px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  background-color: #07bae8;
+  border-radius: 5px;
 }
 #stare-modal.panel .market.chart > .content {
   height: 225px;
@@ -3600,7 +3633,7 @@ td.datepickerSpecial.datepickerSelected a {
   background-color: #e6e6e6;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .clock {
-  color: #005178;
+  color: #ff3232;
   font-weight: bold;
 }
 #stare-modal.panel .finance-calendar.scrollable.list .titlebar {
