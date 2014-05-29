@@ -113,7 +113,8 @@
                             title: false,
                             min: min,
                             max: max,
-                            maxPadding: 0.02,
+                            maxPadding: 0.01,
+                            endOnTick: false,
                             labels: {
                                 formatter: function() {
                                     return this.value;

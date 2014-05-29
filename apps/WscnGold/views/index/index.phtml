@@ -21,6 +21,7 @@
                         <li class="item"><a class="link" href="/post/<?=$post->slug?>"><?=$this->escaper->escapeHtml($post->title)?> <span class="time"><?=$this->tag->datetime($post->createdAt, 'H:i')?></span></a></li>
                         <?endif?>
                         <?endforeach?>
+                        <a class="main-more" href="/news">更多 &gt;&gt;</a>
                     </ul>
                 </div><!--span end -->
                 <div class="span">
@@ -31,7 +32,7 @@
                             <a data-efc-target="#chart" data-efc-symbol="USDollarIndex" class="link" href="">美元指数</a>
                             <a data-efc-target="#chart" data-efc-symbol="SPX500INDEX" class="link" href="">标普500</a>
                             <a data-efc-target="#chart" data-efc-symbol="UKOil" class="link" href="">石油</a>
-
+                            <a class="link more" href="/market">更多</a>
                             <button class="button" data-toggle="stare-modal" onClick="ga('send', 'event', 'open', 'click', 'index_popup');">进入盯盘模式</button>
                         </div>
                         <div class="content">
@@ -81,6 +82,7 @@
                             <img class="indicator" src="/img/loader.gif" width="100" height="100" alt=""/>
                         </div>
                     </div> <!--livenews list end-->
+                    <a class="main-more" href="/livenews">更多 &gt;&gt;</a>
                 </div><!--span end -->
             </div><!-- row end -->
 
@@ -95,7 +97,7 @@
                         <a  data-rtq-symbol="USDollarIndex" class="link" href="/techanalysis/USDollarIndex">美元指数</a>
                         <a  data-rtq-symbol="US10Year" class="link" href="/techanalysis/US10Year">美债</a>
                         <a  data-rtq-symbol="USOil" class="link" href="/techanalysis/USOil">原油</a>
-                        <a  data-rtq-symbol="SPX500INDEX" class="link" href="/techanalysis/SPX500INDEX">美国标股500</a>
+                        <a  data-rtq-symbol="SPX500INDEX" class="link" href="/techanalysis/SPX500INDEX">美国标普500</a>
                         <a  data-rtq-symbol="JPN225INDEX" class="link" href="/techanalysis/JPN225INDEX">日经</a>
                     </div>
                     <div class="content">
@@ -594,6 +596,10 @@
                         <a data-efc-target="#modal-chart" data-efc-symbol="SPX500INDEX" class="link" href="">标普500</a>
                         <a data-efc-target="#modal-chart" data-efc-symbol="UKOil" class="link" href="">石油</a>
                         <a data-efc-target="#modal-chart" data-efc-symbol="US10Year" class="link" href="">美债</a>
+                        <a data-efc-target="#modal-chart" data-efc-symbol="AUTD" class="link" href="">黄金t+d</a>
+                        <a data-efc-target="#modal-chart" data-efc-symbol="AGTD" class="link" href="">白银t+d</a>
+                        <!--<a class="more" href="/market">更多</a>-->
+                        <a data-efc-target="#modal-chart" data-efc-symbol="TTYXAGUSD" class="link last-of-type" href="">天通银</a>
                         <div class="button" data-toggle="hide" data-hide-target="#modal-chart>.content" data-expand-target="#stare-livenews"><i class="icon-custom"></i></div>
                     </div>
                     <div class="content">

@@ -425,7 +425,12 @@ $(function(){
             $this.addClass('active');
         } else if (interval) {
             //frame.src = frame.src.replace(/interval=\w+(&)?/, 'interval=' + interval + '$1');
-            frame.src = frame.src.replace(/interval=\w+/, 'interval=' + interval);
+            var src = frame.src.replace(/interval=\w+/, 'interval=' + interval);
+            src = src.replace(/&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d14/, '');
+            if (! /4H|[DWN]/.test(interval)) {
+                src += '&newsUrl=http%3a%2f%2fapi.goldtoutiao.com%2fv2%2fpost%3fcid%3d14';
+            }
+            frame.src = src;
             $this.parent().find('[data-efc-interval].active').removeClass('active');
             $this.addClass('active');
         } else if (type) {

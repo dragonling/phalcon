@@ -32,8 +32,8 @@
                     var data = [];
                     var chartData = [];
                     var i = 0;
-                    var l = results.length;
-                    for (i = 1; i < l; i ++) {
+                    var l = results.length - 1;
+                    for (i = 0; i < l; i ++) {
                         var item = {};
                         item.utm = results[i].start;
                         item.date = moment.unix(results[i].start).format('YYYY.MM.DD');
@@ -48,7 +48,7 @@
                         item.c_high = results[i].price;
                         item.c_low = results[i].low;
                         item.op = results[i].volume;
-                        item.op_change = results[i].volume - results[i-1].volume;
+                        item.op_change = results[i].volume - results[i+1].volume;
                         data.push(item);
                         chartData.push([results[i].start*1000, item.nc_diff]);
                     }
@@ -136,7 +136,8 @@
                 title: false,
                 min: min,
                 max: max,
-                maxPadding: 0.02,
+                endOnTick: false,
+                maxPadding: 0.01,
                 labels: {
                     /*formatter: function() {
                         if (unit) {

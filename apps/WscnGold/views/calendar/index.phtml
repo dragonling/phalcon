@@ -76,6 +76,7 @@
                     <tbody>
                         <% var even = true; %>
                         <% function getIndex() { even = !even; if (even) return "even-of-child"; } %>
+                        <% even = true; %>
                         <% for(var i=0; i<records[0].length; i++) { %>
                             <% var record = records[0][i]; %>
                             <% if (i == 0 || record.date.charAt(9) != records[0][i-1].date.charAt(9)) { %>
@@ -86,7 +87,7 @@
                                 <td class="important" data-value="<%= record.importance %>"><%= record.stars %></td>
                                 <td class="country"><%= record.country %></td>
                                 <td class="title"><a class="link" href=""><%= record.title %></a></td>
-                                <td class="price actual"> <%= record.actual %></td>
+                                <td class="price actual"><b><%= record.actual %></b></td>
                                 <td class="price forecast"> <%= record.forecast %></td>
                                 <td class="price previous"> <%= record.previous %></td>
                             </tr>
@@ -105,6 +106,7 @@
                             <th class="title">事件</th>
                         </tr> </thead>
                         <tbody>
+                        <% even = true; %>
                         <% for(var i=0; i<records[j].length; i++) { %>
                             <% var record = records[j][i]; %>
                             <% if (i == 0 || record.date.charAt(9) != records[j][i-1].date.charAt(9)) { %>
