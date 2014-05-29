@@ -20,7 +20,7 @@ class NewsController extends ControllerBase
         $order = $this->request->getQuery('order', 'string', '-created_at');
         $query = array(
             'q' => $this->request->getQuery('q', 'string'),
-            'status' => $this->request->getQuery('status', 'string'),
+            'status' => $this->request->getQuery('status', 'string', 'published'),
             'uid' => $this->request->getQuery('uid', 'int'),
             'cid' => $this->request->getQuery('cid', 'int'),
             'username' => $this->request->getQuery('username', 'string'),
